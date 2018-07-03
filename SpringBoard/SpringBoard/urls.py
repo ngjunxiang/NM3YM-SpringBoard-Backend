@@ -5,6 +5,7 @@ Definition of urls for SpringBoard.
 from datetime import datetime
 from django.conf.urls import url
 import django.contrib.auth.views
+from django.urls import include, path
 
 import app.forms
 import app.views
@@ -43,4 +44,9 @@ urlpatterns = [
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
+    url(r'^app/', include('app.urls')),
 ]
+
+#urlpatterns += [
+#    path('app/', include('app.urls')),
+#]

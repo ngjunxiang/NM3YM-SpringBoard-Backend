@@ -6,6 +6,16 @@ from django.shortcuts import render
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
+from app.serializers import LoginSerializer
+from app.models import Login
+from rest_framework import generics
+
+class LoginView(generics.ListCreateAPIView):
+    queryset = Login.objects.all()
+    serializer_class = LoginSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
 
 def home(request):
     """Renders the home page."""
