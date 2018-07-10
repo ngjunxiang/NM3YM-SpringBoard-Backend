@@ -6,3 +6,4 @@ class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = Login
         fields = ('username', 'password')
+

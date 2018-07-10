@@ -8,14 +8,56 @@ from django.template import RequestContext
 from datetime import datetime
 from app.serializers import LoginSerializer
 from app.models import Login
-from rest_framework import generics
+from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+import rest_framework_jwt
+import json
+import forms
 
-class LoginView(generics.ListCreateAPIView):
+
+class LoginView(viewsets.ModelViewSet):
     queryset = Login.objects.all()
     serializer_class = LoginSerializer
+    print("wtf")
+    def post(request):
+        print("ran herejfsndjkfndskjnfkdsnfkds")
+        if not request.data:
+            return Response({'Error': "Please provide username/password"}, status="400")
+        
+        username = request.data['username']
+        password = request.data['password']
 
-    def perform_create(self, serializer):
-        serializer.save()
+        try:
+            user = Login.objects.get(username=username, password=password)
+        except Login.DoesNotExist:
+            return Response({'Error': "Invalid username/password"}, status="400")
+        if user:
+            try:
+                payload = jwt_payload_handler(user)
+                token = rest_framework_jwt.encode(payload, "NMMMYMS3Cr3tK3y5")
+                user_details = {}
+                user_details['name'] = "%s %s" % (username)
+                user_details['token'] = token
+                print(user_details)
+                user_logged_in.send(sender=user.__class__,
+                                    request=request, user=user)
+                print(user_details)
+                return Response(
+                    user_details
+                )
+            except Exception as e:
+                raise e
+        else:
+            res = {
+                'error': 'can not authenticate with the given credentials or the account has been deactivated'}
+            return Response(res)
+
+class adminView(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    quertset = Login.objects.all()
+    serializer_class = LoginSerializer
+
 
 def home(request):
     """Renders the home page."""
