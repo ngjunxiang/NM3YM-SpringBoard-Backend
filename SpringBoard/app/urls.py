@@ -9,7 +9,7 @@ from django.http import HttpRequest
 
 urlpatterns = [
     url('admin/', admin.site.urls),
-    url('loginList', views.LoginView),
+    url('loginList', LoginView.post, name="LoginView"),
     url('adminView', adminView, name="adminView"),
     url('auth/obtain_token', obtain_jwt_token, name="obtain_token"),
     url('auth/refresh_token', refresh_jwt_token, name="refresh_token"),

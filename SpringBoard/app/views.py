@@ -3,58 +3,46 @@ Definition of views.
 """
 
 from django.shortcuts import render
-from django.http import HttpRequest
+from django.http import *   
 from django.template import RequestContext
 from datetime import datetime
 from app.serializers import LoginSerializer
 from app.models import Login
 from rest_framework import viewsets
 from rest_framework.response import Response
+from django.contrib.auth import authenticate
 from rest_framework.permissions import IsAuthenticated
 import rest_framework_jwt
 import json
-import forms
+import app.forms
+import jwt
 
 
 class LoginView(viewsets.ModelViewSet):
-    queryset = Login.objects.all()
-    serializer_class = LoginSerializer
-    print("wtf")
+    #serializer_class = LoginSerializer
+    
     def post(request):
-        print("ran herejfsndjkfndskjnfkdsnfkds")
-        if not request.data:
-            return Response({'Error': "Please provide username/password"}, status="400")
-        
-        username = request.data['username']
-        password = request.data['password']
-
-        try:
-            user = Login.objects.get(username=username, password=password)
-        except Login.DoesNotExist:
-            return Response({'Error': "Invalid username/password"}, status="400")
-        if user:
-            try:
-                payload = jwt_payload_handler(user)
-                token = rest_framework_jwt.encode(payload, "NMMMYMS3Cr3tK3y5")
-                user_details = {}
-                user_details['name'] = "%s %s" % (username)
-                user_details['token'] = token
-                print(user_details)
-                user_logged_in.send(sender=user.__class__,
-                                    request=request, user=user)
-                print(user_details)
-                return Response(
-                    user_details
-                )
-            except Exception as e:
-                raise e
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        #user = authenticate(username="RandyLai", password="qwer1234")
+        if (username=="RandyLai" and password=="qwer1234"):
+            payload = {
+                'username' : username    
+            }
+            token = jwt.encode(payload, "NMMMYMS3Cr3tK3y5",algorithm='HS256').decode('utf-8')
+            return HttpResponse(
+                json.dumps(token),
+                content_type="application/json"
+            )
         else:
-            res = {
-                'error': 'can not authenticate with the given credentials or the account has been deactivated'}
-            return Response(res)
+            return HttpResponse(
+                json.dumps({'Error': "Invalid credentials"}),
+                status=400,
+                content_type="application/json"
+            )
 
 class adminView(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
     quertset = Login.objects.all()
     serializer_class = LoginSerializer
 
