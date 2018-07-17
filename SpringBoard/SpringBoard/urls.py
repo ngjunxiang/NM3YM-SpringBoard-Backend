@@ -3,8 +3,7 @@ Definition of urls for SpringBoard.
 """
 
 from datetime import datetime
-from django.conf.urls import url
-import django.contrib.auth.views
+from django.conf.urls import url, include
 
 import app.forms
 import app.views

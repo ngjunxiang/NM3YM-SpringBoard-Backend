@@ -1,8 +1,9 @@
 from collections import OrderedDict
 
-from django.core.urlresolvers import NoReverseMatch
+from django.urls import NoReverseMatch
 
-from rest_framework import routers, views, response
+from rest_framework_mongoengine import routers
+from rest_framework import views, response
 from rest_framework.reverse import reverse
 
 

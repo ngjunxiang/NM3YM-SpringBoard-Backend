@@ -14,7 +14,7 @@ import os
 import posixpath
 import sys
 
-import monogoengine
+import mongoengine
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_mongoengine',
-    'mongoengine.django.mongo_auth',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -107,8 +106,8 @@ MONGODB_DATABASES = {
 }
 
 mongoengine.connect(
-    db=MONGODB_DATABASES[db]['name'],
-    host=MONGODB_DATABASES[db]['host']
+    db="user",
+    host="localhost"
 )
 
 # Password validation
@@ -129,13 +128,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'mongo_auth.MongoUser'
-
-MONGOENGINE_USER_DOCUMENT = 'app.models.User'
-
 AUTHENTICATION_BACKENDS = (
-    'mongoengine.django.auth.MongoEngineBackend',
-    #'django.contrib.auth.backends.ModelBackend'
+    #'django_mongoengine.mongo_auth.backends.MongoEngineBackend',
+    'django.contrib.auth.backends.ModelBackend'
 )
 
 DEFAULT_AUTHENTICATION_CLASSES = (
