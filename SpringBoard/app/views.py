@@ -15,30 +15,60 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import *
 from pymongo import MongoClient
+import jwt
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
-collection = db.Users
 
 class UserLogin(APIView):
-    
-    serializer_class = UserSerializer
 
     def post(self, request):
 
+        collection = db.Users
         username = request.data['username']
         password = request.data['password']
 
+        query = collection.find_one({'username':username},{'password':1, '_id':0})
+
+        results = {'error' : 'invalid username/password' }
+
+        if query == None:
+            return Response(results)
+        
         pw = collection.find_one({'username':username},{'password':1, '_id':0})['password']
-        results = {}
 
         if password == pw:
+            results = {}
             results['userType'] = collection.find_one({'username':username},{'userType':1, '_id':0})['userType']
-            results['token'] = 'sonofabitch'
+
+            encoded_token = jwt.encode({'username': username}, 'NM3YM', algorithm='HS256')
+            results['token'] = encoded_token
             return Response(results)
 
-        return Response('{error:\'invalid username/password\'}')
+        return Response(results)
+
+class CreateUser(APIView):
+
+    def post(self,request):
+
+        collection = db.Users
+
+        username = request.data['username']
+        password = request.data['password']
+        userType = request.data['userType']
+
+        newUser = {'username':username,'password':password,'userType':userType}
         
+        results = {'Results':'False'}
+
+        try:
+            collection.insert_one(newUser)
+            results['Results'] = 'True' 
+        except Exception as e:
+            results['Error'] = str(e)
+
+        return Response(results)
+
 
 #class ObtainAuthToken(views.APIView):
 #    authentication_classes = (TokenAuthentication, )
