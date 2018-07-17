@@ -14,16 +14,30 @@ from rest_framework_mongoengine import viewsets as mviewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import *
+from pymongo import MongoClient
 
-class UserViewSet(APIView):
-    lookup_field = 'id'
-    queryset = Login.objects.all()
+client = MongoClient('mongodb://localhost:27017/')
+db = client.SpringBoard
+collection = db.Users
+
+class UserLogin(APIView):
+    
     serializer_class = UserSerializer
 
     def post(self, request):
 
         username = request.data['username']
-        return Response(username)
+        password = request.data['password']
+
+        pw = collection.find_one({'username':username},{'password':1, '_id':0})['password']
+        results = {}
+
+        if password == pw:
+            results['userType'] = collection.find_one({'username':username},{'userType':1, '_id':0})['userType']
+            results['token'] = 'sonofabitch'
+            return Response(results)
+
+        return Response('{error:\'invalid username/password\'}')
         
 
 #class ObtainAuthToken(views.APIView):

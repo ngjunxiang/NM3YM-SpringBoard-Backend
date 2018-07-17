@@ -16,7 +16,7 @@ from mongoengine import fields, Document
 
 # Create your models here.
 
-class Login(Document):
+class Users(Document):
     username = fields.StringField(primary_key=True,required=True,max_length=25)
     password = fields.StringField(required=True,max_length=25)
     userType = fields.StringField(required=True,max_length=5)

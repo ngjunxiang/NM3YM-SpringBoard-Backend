@@ -3,11 +3,11 @@ from django.utils.translation import ugettext_lazy as _
 
 #from rest_framework_mongoengine.serializers import DocumentSerializer
 from rest_framework import serializers
-from .models import Login
+from .models import Users
 
 class UserSerializer(serializers.Serializer):
     class meta:
-        model = Login
+        model = Users
         fields = '__all__'
 
 #class AuthTokenSerializer(serializers.Serializer):
