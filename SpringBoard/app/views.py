@@ -7,20 +7,38 @@ from django.shortcuts import render
 #from django.template import RequestContext
 from datetime import datetime
 from .serializers import UserSerializer
+from rest_framework.generics import *
 #from rest_framework import *
 from .views import *
 import json
-from rest_framework_mongoengine import viewsets as mviewsets
+#from rest_framework_mongoengine import viewsets as mviewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import *
 from pymongo import MongoClient
 import jwt
+from .userCRUD import *
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
+SECRET_KEY = 'NM^3YM'
 
-class UserLogin(APIView):
+def checkLogonStatus(username,token):
+    return ({'username': username} == jwt.decode(token, SECRET_KEY, algorithms=['HS256']))
+
+def isAdmin(userType):
+    return userType == "ADMIN"
+
+def isCM(userType):
+    return userType == "CM"
+
+def isRM(userType):
+    return userType == "RM"
+
+
+class UserLogin(CreateAPIView):
+    serializer_class = UserSerializer
+    queryset  = ""
 
     def post(self, request):
 
@@ -29,6 +47,7 @@ class UserLogin(APIView):
         password = request.data['password']
 
         query = collection.find_one({'username':username},{'password':1, '_id':0})
+        queryset = query
 
         results = {'error' : 'invalid username/password' }
 
@@ -41,33 +60,65 @@ class UserLogin(APIView):
             results = {}
             results['userType'] = collection.find_one({'username':username},{'userType':1, '_id':0})['userType']
 
-            encoded_token = jwt.encode({'username': username}, 'NM3YM', algorithm='HS256')
+            encoded_token = jwt.encode({'username': username}, SECRET_KEY, algorithm='HS256')
             results['token'] = encoded_token
             return Response(results)
 
         return Response(results)
 
-class CreateUser(APIView):
+class RetrieveUsers(CreateAPIView):
+    serializer_class = UserSerializer
+    queryset  = ""
 
-    def post(self,request):
-
-        collection = db.Users
-
+    def post(self, request):
         username = request.data['username']
-        password = request.data['password']
+        token = request.data['token']
         userType = request.data['userType']
 
-        newUser = {'username':username,'password':password,'userType':userType}
-        
-        results = {'Results':'False'}
+        if(not checkLogonStatus(username,token)):
+            return Response({'error' : 'Invalid token' })
+        if(not isAdmin(userType)):
+            return Response({'error' : 'invalid userType' })
 
-        try:
-            collection.insert_one(newUser)
-            results['Results'] = 'True' 
-        except Exception as e:
-            results['Error'] = str(e)
+        results = retrieveAllUser
+        return Response(json.dumps(results))
+
+class CreateUser(CreateAPIView):
+    def post(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        if(not checkLogonStatus(username,token)):
+            return Response({'error' : 'Invalid token' })
+        if(not isAdmin(userType)):
+            return Response({'error' : 'invalid userType' })
+        
+        newUsername = request.data['newUsername']
+        newPassword = request.data['newPassword']
+        newUserType = request.data['newUserType']
+        newEmail = request.data['newEmail']
+        
+        results = createUser(newUsername,newPassword,newUserType,newEmail) 
 
         return Response(results)
+
+class DeleteUser(CreateAPIView):
+    def post(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        if(not checkLogonStatus(username,token)):
+            return Response({'error' : 'Invalid token' })
+        if(not isAdmin(userType)):
+            return Response({'error' : 'invalid userType' })
+
+        deleteUsername = request.data['deleteUsername']
+        results = deleteUser(deleteUsername)
+
+        return Response(results)
+
 
 
 #class ObtainAuthToken(views.APIView):

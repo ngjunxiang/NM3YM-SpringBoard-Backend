@@ -14,7 +14,7 @@ import os
 import posixpath
 import sys
 
-import mongoengine
+#import mongoengine
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -105,10 +105,10 @@ MONGODB_DATABASES = {
     }
 }
 
-mongoengine.connect(
-    db="user",
-    host="localhost"
-)
+#mongoengine.connect(
+#    db="user",
+#    host="localhost"
+#)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

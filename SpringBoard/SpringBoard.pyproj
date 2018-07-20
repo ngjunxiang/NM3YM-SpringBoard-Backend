@@ -32,14 +32,14 @@
     </Compile>
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
-    <Compile Include="app\routers.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="app\serializers.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\tests.py" />
     <Compile Include="app\urls.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\userCRUD.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\views.py" />

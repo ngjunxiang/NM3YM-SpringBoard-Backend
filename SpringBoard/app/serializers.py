@@ -6,9 +6,14 @@ from rest_framework import serializers
 from .models import Users
 
 class UserSerializer(serializers.Serializer):
-    class meta:
+    username = serializers.CharField(required=True, max_length=25)
+    password = serializers.CharField(required=True, max_length=25)
+    userType = serializers.CharField(required=True, max_length=5)
+    email = serializers.CharField(required=True, max_length=50)
+
+    class Meta:
         model = Users
-        fields = '__all__'
+        fields = ('username', 'password', 'userType', 'email')
 
 #class AuthTokenSerializer(serializers.Serializer):
 #    username = serializers.CharField(label=_("Username"))
