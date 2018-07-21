@@ -3,16 +3,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include, url
 
-from rest_framework_mongoengine import routers as mrouter
+#from rest_framework_mongoengine import routers as mrouter
 from app import views
 
 
-router = mrouter.DefaultRouter()
+#router = mrouter.DefaultRouter()
 #router.register(r'login', views.UserLogin, base_name = 'login')
 #router.add_api_view(r'auth', url(r'^auth/$', ObtainAuthToken.as_view(), name=r"auth"))
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    #url(r'^', include(router.urls)),
     url(r'^login', views.UserLogin.as_view()),
     url(r'^retrieve-users', views.RetrieveUsers.as_view()),
     url(r'^manage-users', views.ManageUsers.as_view()),

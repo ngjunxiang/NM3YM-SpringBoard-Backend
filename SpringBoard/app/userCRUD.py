@@ -10,7 +10,7 @@ def retrieveAllUser():
     table = collection.find({},{"username":1,"password":1,"userType":1,"email":1,"_id":0})
     results = {}
     rList = [item for item in table]
-    results["Users"] =  rList
+    results["users"] =  rList
     return results
 
 def createUser(username,password,userType,email):

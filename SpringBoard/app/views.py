@@ -37,6 +37,7 @@ def isRM(userType):
 
 
 class UserLogin(CreateAPIView):
+    serializer_class = UserSerializer
 
     def post(self, request):
 
@@ -45,7 +46,7 @@ class UserLogin(CreateAPIView):
         password = request.data['password']
 
         query = collection.find_one({'username':username},{'password':1, '_id':0})
-        queryset = query
+
 
         results = {'error' : 'invalid username/password' }
 
@@ -65,6 +66,7 @@ class UserLogin(CreateAPIView):
         return Response(results)
 
 class RetrieveUsers(CreateAPIView):
+    serializer_class = UserSerializer
 
     def post(self, request):
         username = request.data['username']
@@ -80,6 +82,8 @@ class RetrieveUsers(CreateAPIView):
         return Response(results)
 
 class ManageUsers(CreateAPIView,DestroyAPIView):
+    serializer_class = UserSerializer
+
     #create user
     def post(self,request):
         username = request.data['username']
