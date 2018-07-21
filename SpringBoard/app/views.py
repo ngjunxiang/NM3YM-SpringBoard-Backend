@@ -37,8 +37,6 @@ def isRM(userType):
 
 
 class UserLogin(CreateAPIView):
-    serializer_class = UserSerializer
-    queryset  = ""
 
     def post(self, request):
 
@@ -67,8 +65,6 @@ class UserLogin(CreateAPIView):
         return Response(results)
 
 class RetrieveUsers(CreateAPIView):
-    serializer_class = UserSerializer
-    queryset  = ""
 
     def post(self, request):
         username = request.data['username']
@@ -80,10 +76,11 @@ class RetrieveUsers(CreateAPIView):
         if(not isAdmin(userType)):
             return Response({'error' : 'invalid userType' })
 
-        results = retrieveAllUser
-        return Response(json.dumps(results))
+        results = retrieveAllUser()
+        return Response(results)
 
-class CreateUser(CreateAPIView):
+class ManageUsers(CreateAPIView):
+    #create user
     def post(self,request):
         username = request.data['username']
         token = request.data['token']
@@ -103,8 +100,8 @@ class CreateUser(CreateAPIView):
 
         return Response(results)
 
-class DeleteUser(CreateAPIView):
-    def post(self,request):
+    #delete user
+    def delete(self,request):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
