@@ -79,7 +79,7 @@ class RetrieveUsers(CreateAPIView):
         results = retrieveAllUser()
         return Response(results)
 
-class ManageUsers(CreateAPIView):
+class ManageUsers(CreateAPIView,DestroyAPIView):
     #create user
     def post(self,request):
         username = request.data['username']
