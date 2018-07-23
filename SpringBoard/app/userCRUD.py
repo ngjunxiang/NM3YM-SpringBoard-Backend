@@ -17,13 +17,13 @@ def createUser(username,password,userType,email):
 
     collection = db.Users
     newUser = {'username':username,'password':password,'userType':userType,'email':email}
-    results = {'Results':'false'}
+    results = {'results':'false'}
 
     try:
         collection.insert_one(newUser)
-        results['Results'] = 'true' 
+        results['results'] = 'true' 
     except Exception as e:
-        results['Error'] = str(e)
+        results['error'] = str(e)
 
     return results
 
@@ -31,6 +31,6 @@ def deleteUser(username):
     collection = db.Users
     results = {}
     deleted = collection.delete_one({'username':username})
-    results["Results"] = deleted.acknowledged
-    results["Items deleted"] = deleted.deleted_count
+    results["results"] = deleted.acknowledged
+    results["items deleted"] = deleted.deleted_count
     return results

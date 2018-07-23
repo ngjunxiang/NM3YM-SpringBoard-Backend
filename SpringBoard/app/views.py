@@ -57,6 +57,8 @@ class UserLogin(CreateAPIView):
 
     def post(self, request):
 
+        client = MongoClient('mongodb://localhost:27017/')
+        db = client.SpringBoard
         collection = db.Users
         username = request.data['username']
         password = request.data['password']
@@ -67,6 +69,7 @@ class UserLogin(CreateAPIView):
         results = {'error' : 'invalid username/password' }
 
         if query == None:
+            client.close()
             return Response(results)
         
         pw = collection.find_one({'username':username},{'password':1, '_id':0})['password']
@@ -77,30 +80,38 @@ class UserLogin(CreateAPIView):
 
             encoded_token = jwt.encode({
                 'username': username,
-                'iat': datetime.datetime.utcnow(),
-                'nbf': datetime.datetime.utcnow() + datetime.timedelta(minutes=-5),
+                # 'iat': datetime.datetime.utcnow(),
+                # 'nbf': datetime.datetime.utcnow() + datetime.timedelta(minutes=-5),
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)
                 }, SECRET_KEY, algorithm='HS256')
             results['token'] = encoded_token
+            client.close()
             return Response(results)
 
+        client.close()
         return Response(results)
 
 class RetrieveUsers(CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self, request):
+        client = MongoClient('mongodb://localhost:27017/')
+        db = client.SpringBoard
+        collection = db.Users
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
 
         results = tokenAuthenticate(username,token)
-        if(results[0] == "error"):
+        if(len(results) != 0):
+            client.close()
             return Response(results)
         if(not isAdmin(userType)):
+            client.close()
             return Response({'error' : 'invalid userType' })
 
         results = retrieveAllUser()
+        client.close()
         return Response(results)
 
 class ManageUsers(CreateAPIView,DestroyAPIView):
@@ -108,13 +119,19 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
 
     #create user
     def post(self,request):
+        client = MongoClient('mongodb://localhost:27017/')
+        db = client.SpringBoard
+        collection = db.Users
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
 
-        if(not checkLogonStatus(username,token)):
-            return Response({'error' : 'Invalid token' })
+        results = tokenAuthenticate(username,token)
+        if(len(results) != 0):
+            client.close()
+            return Response(results)
         if(not isAdmin(userType)):
+            client.close()
             return Response({'error' : 'invalid userType' })
         
         newUsername = request.data['newUsername']
@@ -124,23 +141,31 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
         
         results = createUser(newUsername,newPassword,newUserType,newEmail) 
 
+        client.close()
         return Response(results)
 
     #delete user
     def delete(self,request):
+        client = MongoClient('mongodb://localhost:27017/')
+        db = client.SpringBoard
+        collection = db.Users
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
 
-        if(not checkLogonStatus(username,token)):
-            return Response({'error' : 'Invalid token' })
+        results = tokenAuthenticate(username,token)
+        if(len(results) != 0):
+            client.close()
+            return Response(results)
         if(not isAdmin(userType)):
+            client.close()
             return Response({'error' : 'invalid userType' })
 
         deleteUsername = request.data['deleteUsername']
         results = deleteUser(deleteUsername)
-
+        client.close()
         return Response(results)
+
 
 
 
