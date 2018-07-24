@@ -21,5 +21,7 @@ class Users(object):
         self.password = password
         self.userType = userType
         self.email = email
+    
+    
 
 

@@ -56,9 +56,6 @@ class UserLogin(CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self, request):
-
-        client = MongoClient('mongodb://localhost:27017/')
-        db = client.SpringBoard
         collection = db.Users
         username = request.data['username']
         password = request.data['password']
@@ -95,9 +92,6 @@ class RetrieveUsers(CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self, request):
-        client = MongoClient('mongodb://localhost:27017/')
-        db = client.SpringBoard
-        collection = db.Users
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
@@ -119,9 +113,6 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
 
     #create user
     def post(self,request):
-        client = MongoClient('mongodb://localhost:27017/')
-        db = client.SpringBoard
-        collection = db.Users
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
@@ -146,9 +137,6 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
 
     #delete user
     def delete(self,request):
-        client = MongoClient('mongodb://localhost:27017/')
-        db = client.SpringBoard
-        collection = db.Users
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
@@ -166,7 +154,29 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
         client.close()
         return Response(results)
 
+class UpdateUsers(CreateAPIView):
+    serializer_class = UserSerializer
+    queryset = db.Users.find()
 
+    #update user
+    def post(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        results = tokenAuthenticate(username,token)
+        if(len(results) != 0):
+            client.close()
+            return Response(results)
+        if(not isAdmin(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType' })
+
+        updateUsername = request.data['updateUsername']
+        updatePassword = request.data['updatePassword']
+        results = updateUser(updateUsername,updatePassword)
+        client.close()
+        return Response(results)
 
 
 #class ObtainAuthToken(views.APIView):

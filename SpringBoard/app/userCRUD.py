@@ -11,6 +11,7 @@ def retrieveAllUser():
     results = {}
     rList = [item for item in table]
     results["users"] =  rList
+    client.close()
     return results
 
 def createUser(username,password,userType,email):
@@ -25,6 +26,7 @@ def createUser(username,password,userType,email):
     except Exception as e:
         results['error'] = str(e)
 
+    client.close()
     return results
 
 def deleteUser(username):
@@ -32,5 +34,14 @@ def deleteUser(username):
     results = {}
     deleted = collection.delete_one({'username':username})
     results["results"] = deleted.acknowledged
-    results["items deleted"] = deleted.deleted_count
+    results["items_deleted"] = deleted.deleted_count
+    client.close()
+    return results
+
+def updateUser(username,newPassword):
+    collection = db.Users
+    results = {}
+    updated = collection.update_one({'username':username},{"$set" : {'password':newPassword}})
+    results["results"] = "true" if updated.modified_count == 1 else "false"
+    client.close()
     return results
