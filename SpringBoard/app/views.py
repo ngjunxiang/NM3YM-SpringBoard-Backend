@@ -6,7 +6,7 @@ from django.shortcuts import render
 #from django.http import HttpRequest
 #from django.template import RequestContext
 from datetime import datetime
-from .serializers import UserSerializer
+from .serializers import *
 from rest_framework.generics import *
 #from rest_framework import *
 from .views import *
@@ -19,6 +19,8 @@ from pymongo import MongoClient
 import jwt
 from .userCRUD import *
 import datetime
+from .checkList import *
+
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
@@ -178,6 +180,16 @@ class UpdateUsers(CreateAPIView):
         client.close()
         return Response(results)
 
+class CreateCL(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.CheckLists.find()
+
+    def post(self,request):
+        document = request.data['checkList']
+
+        createCheckList(document)
+
+        return Response({'success' : 'Checklist Created!'})
 
 #class ObtainAuthToken(views.APIView):
 #    authentication_classes = (TokenAuthentication, )

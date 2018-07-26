@@ -15,6 +15,9 @@ class UserSerializer(serializers.Serializer):
         model = Users
         fields = ('username', 'password', 'userType', 'email')
 
+class CLSerializer(serializers.Serializer):
+    document = serializers.CharField(required=True, max_length=25)
+
 #class AuthTokenSerializer(serializers.Serializer):
 #    username = serializers.CharField(label=_("Username"))
 #    password = serializers.CharField(label=_("Password"), style={'input_type': 'password'})
