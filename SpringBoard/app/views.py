@@ -185,11 +185,12 @@ class CreateCL(CreateAPIView):
     queryset = db.CheckLists.find()
 
     def post(self,request):
-        document = request.data['checkList']
+        document = request.data['checklist']
+ 
+        results = createCheckList(document)
 
-        createCheckList(document)
-
-        return Response({'success' : 'Checklist Created!'})
+        client.close()
+        return Response(results)
 
 #class ObtainAuthToken(views.APIView):
 #    authentication_classes = (TokenAuthentication, )
