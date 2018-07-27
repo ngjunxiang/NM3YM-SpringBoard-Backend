@@ -186,9 +186,19 @@ class CreateCL(CreateAPIView):
 
     def post(self,request):
         document = request.data['checklist']
- 
-        results = createCheckList(document)
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
 
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = createCheckList(document)
         client.close()
         return Response(results)
 
