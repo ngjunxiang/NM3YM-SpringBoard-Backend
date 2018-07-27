@@ -21,3 +21,23 @@ def createCheckList(input):
 
     client.close()
     return results
+
+def retrieveCheckList(clName):
+
+    collection = db.Checklists
+    
+    results = collection.find_one({'name':clName},{'_id':0})
+    if results == None:
+        return {'error' : 'Invalid Checklist Name' }
+
+    return results
+
+def deleteCheckList(clName):
+
+    collection = db.Checklists
+    results = {}
+    deleted = collection.delete_one({'name':clName})
+    results["results"] = deleted.acknowledged
+    results["items_deleted"] = deleted.deleted_count
+    client.close()
+    return results
