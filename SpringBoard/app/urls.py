@@ -18,7 +18,7 @@ urlpatterns = [
     url(r'^manage-users', views.ManageUsers.as_view()),
     url(r'^update-users', views.UpdateUsers.as_view()),
     url(r'^create-checklist', views.CreateCL.as_view()),
-    url(r'^cm-retrieve-checklist', views.CMRetrieveCL.as_view()),
+    url(r'^cm-manage-checklist', views.ManageCL.as_view()),
     url(r'^update-checklist', views.UpdateCL.as_view()),
     url(r'^rm-retrieve-checklist', views.RMRetrieveCL.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))

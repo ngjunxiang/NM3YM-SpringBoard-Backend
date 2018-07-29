@@ -202,7 +202,7 @@ class CreateCL(CreateAPIView):
         client.close()
         return Response(results)
 
-class CMRetrieveCL(CreateAPIView):
+class ManageCL(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Checklists.find()
 
@@ -223,6 +223,25 @@ class CMRetrieveCL(CreateAPIView):
         results = retrieveCheckList(clName)
         client.close()
         return Response(json.dumps(results))
+
+    def delete(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+        
+
+        results = tokenAuthenticate(username,token)
+        if(len(results) != 0):
+            client.close()
+            return Response(results)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType' })
+
+        clName = request.data['clname']
+        results = deleteCheckList(clName)
+        client.close()
+        return Response(results)
 
 class UpdateCL(CreateAPIView):
     serializer_class = CLSerializer
