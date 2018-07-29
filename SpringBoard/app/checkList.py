@@ -22,6 +22,17 @@ def createCheckList(input):
     client.close()
     return results
 
+def retrieveCheckListByName():
+
+    collection = db.Checklists
+
+    table = collection.find({},{"name":1,"_id":0})
+    results = {}
+    clList = [item for item in table]
+    results["clnames"] =  clList
+    client.close()
+    return results
+
 def retrieveCheckList(clName):
 
     collection = db.Checklists

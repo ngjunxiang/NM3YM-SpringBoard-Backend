@@ -180,6 +180,7 @@ class UpdateUsers(CreateAPIView):
         client.close()
         return Response(results)
 
+#Allows CM to create new checklists
 class CreateCL(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Checklists.find()
@@ -202,10 +203,12 @@ class CreateCL(CreateAPIView):
         client.close()
         return Response(results)
 
+# For CM to manage CL details. post is for retrieving of checklists, delete is for deleting of checklists
 class ManageCL(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Checklists.find()
 
+    #retrieve a single checklist
     def post(self,request):
         clName = request.data['clName']
         username = request.data['username']
@@ -224,6 +227,7 @@ class ManageCL(CreateAPIView):
         client.close()
         return Response(json.dumps(results))
 
+    #delete checklist
     def delete(self,request):
         username = request.data['username']
         token = request.data['token']
@@ -238,11 +242,12 @@ class ManageCL(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType' })
 
-        clName = request.data['clname']
+        clName = request.data['clName']
         results = deleteCheckList(clName)
         client.close()
         return Response(results)
 
+# Allows CM to update selected CL details
 class UpdateCL(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Checklists.find()
@@ -252,7 +257,7 @@ class UpdateCL(CreateAPIView):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
-        clName = request.data['clname']
+        clName = request.data['clName']
 
         tokenResults = tokenAuthenticate(username,token)
         if(len(tokenResults) != 0):
@@ -269,6 +274,29 @@ class UpdateCL(CreateAPIView):
 
         return Response(results)
 
+# Returns all checklist names for CMs
+class CMRetrieveCLNames(CreateAPIView):
+     serializer_class = CLSerializer
+     queryset = db.Checklists.find()
+
+     def post(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = retrieveCheckListByName()
+        client.close()
+        return Response(results)
+
+#Retrieve a single checklist for RMs
 class RMRetrieveCL(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Checklists.find()
@@ -288,6 +316,28 @@ class RMRetrieveCL(CreateAPIView):
             return Response({'error' : 'invalid userType'})
 
         results = retrieveCheckList(clName)
+        client.close()
+        return Response(results)
+
+# Returns all checklist names for RMs
+class RMRetrieveCLNames(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Checklists.find()
+
+    def post(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isRM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = retrieveCheckListByName()
         client.close()
         return Response(results)
 
