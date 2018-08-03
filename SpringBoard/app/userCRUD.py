@@ -14,8 +14,18 @@ def retrieveAllUser():
     client.close()
     return results
 
-def createUser(username,password,userType,email):
+def checkIfUserExists(username):
+    collection = db.Users
+    query = collection.find_one({'username':username},{'_id':0})
+    return query == None
 
+def checkIfEmailExists(email):
+    collection = db.Users
+    query = collection.find_one({'email':email},{'_id':0})
+    return query == None
+
+
+def createUser(username,password,userType,email):
     collection = db.Users
     newUser = {'username':username,'password':password,'userType':userType,'email':email}
     results = {'results':'false'}

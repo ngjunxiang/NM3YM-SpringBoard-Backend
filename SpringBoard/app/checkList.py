@@ -52,3 +52,10 @@ def deleteCheckList(clName):
     results["items_deleted"] = deleted.deleted_count
     client.close()
     return results
+
+def filterSort(query):
+
+    collection = db.Checklists
+    
+    table = collection.find({},{"_id":0})
+    rList = [item for item in table]

@@ -20,11 +20,14 @@ import jwt
 from .userCRUD import *
 import datetime
 from .checkList import *
+from argon2 import PasswordHasher
+from argon2 import exceptions
 
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 SECRET_KEY = 'NM^3YM'
+ph = PasswordHasher()
 
 def checkLogonStatus(username,token):
     return ({'username': username} == jwt.decode(token, SECRET_KEY, algorithms=['HS256']))
@@ -73,7 +76,8 @@ class UserLogin(CreateAPIView):
         
         pw = collection.find_one({'username':username},{'password':1, '_id':0})['password']
 
-        if password == pw:
+        try:
+            ph.verify(pw,password)
             results = {}
             results['userType'] = collection.find_one({'username':username},{'userType':1, '_id':0})['userType']
 
@@ -86,9 +90,9 @@ class UserLogin(CreateAPIView):
             results['token'] = encoded_token
             client.close()
             return Response(results)
-
-        client.close()
-        return Response(results)
+        except exceptions.VerifyMismatchError as e:
+            client.close()
+            return Response(results)
 
 class RetrieveUsers(CreateAPIView):
     serializer_class = UserSerializer
@@ -126,13 +130,21 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
         if(not isAdmin(userType)):
             client.close()
             return Response({'error' : 'invalid userType' })
-        
+
         newUsername = request.data['newUsername']
         newPassword = request.data['newPassword']
         newUserType = request.data['newUserType']
         newEmail = request.data['newEmail']
         
-        results = createUser(newUsername,newPassword,newUserType,newEmail) 
+        if(not checkIfUserExists(newUsername)):
+            return Response({'error' : 'Username already used in database' })
+        if(not checkIfEmailExists(newEmail)):
+            return Response({'error' : 'Email already used in database' })
+
+
+        hashedPw = ph.hash(newPassword);
+
+        results = createUser(newUsername,hashedPw,newUserType,newEmail) 
 
         client.close()
         return Response(results)
