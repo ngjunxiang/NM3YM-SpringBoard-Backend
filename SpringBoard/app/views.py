@@ -237,7 +237,7 @@ class ManageCL(CreateAPIView):
 
         results = retrieveCheckList(clName)
         client.close()
-        return Response(json.dumps(results))
+        return Response(results)
 
     #delete checklist
     def delete(self,request):
