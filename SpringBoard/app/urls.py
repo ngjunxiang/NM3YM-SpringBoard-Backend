@@ -14,6 +14,9 @@ from app import views
 urlpatterns = [
     #url(r'^', include(router.urls)),
     url(r'^login', views.UserLogin.as_view()),
+    url(r'^authenticateAdmin',views.authenticateAdmin.as_view()),
+    url(r'^authenticateCM',views.authenticateCM.as_view()),
+    url(r'^authenticateRM',views.authenticateRM.as_view()),
     url(r'^retrieve-users', views.RetrieveUsers.as_view()),
     url(r'^manage-users', views.ManageUsers.as_view()),
     url(r'^update-users', views.UpdateUsers.as_view()),

@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from pymongo import cursor
 import json
+import datetime
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
@@ -9,7 +10,12 @@ def createCheckList(input):
 
     collection = db.Checklists
 
-    checklist = json.loads(input)
+    date = datetime.datetime.today()
+    newInput = input[0:len(input)-1]
+    
+    newInput = newInput + ',"dateCreated":"' + str(date) + '"}'
+
+    checklist = json.loads(newInput)
 
     results = {'results':'false'}
     
@@ -26,7 +32,7 @@ def retrieveCheckListByName():
 
     collection = db.Checklists
 
-    table = collection.find({},{"name":1,"_id":0})
+    table = collection.find({},{"name":1,"dateCreated":1,"_id":0})
     results = {}
     clList = [item for item in table]
     results["clNames"] =  clList

@@ -11,4 +11,4 @@ db.Users.insertMany([
 	])
 
 // set up checklists table
-db.Checklists.createIndex({"name": 1 }, { unique: true } )
+db.Checklists.createIndex({"name": 1, "dateCreated": 1 }, { unique: true } )
