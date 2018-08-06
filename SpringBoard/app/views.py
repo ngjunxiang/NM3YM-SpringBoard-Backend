@@ -96,7 +96,7 @@ class UserLogin(CreateAPIView):
 class authenticateAdmin(CreateAPIView):
     serializer_class = UserSerializer
 
-    def get(self,request):
+    def post(self,request):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
@@ -114,7 +114,7 @@ class authenticateAdmin(CreateAPIView):
 class authenticateCM(CreateAPIView):
     serializer_class = UserSerializer
 
-    def get(self,request):
+    def post(self,request):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
@@ -132,7 +132,7 @@ class authenticateCM(CreateAPIView):
 class authenticateRM(CreateAPIView):
     serializer_class = UserSerializer
 
-    def get(self,request):
+    def post(self,request):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
