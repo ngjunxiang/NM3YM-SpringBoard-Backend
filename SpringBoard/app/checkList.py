@@ -11,9 +11,12 @@ def createCheckList(input):
     collection = db.Checklists
 
     date = datetime.datetime.today()
+    date = str(date)
+    date = date[:date.index(".")]
+
     newInput = input[0:len(input)-1]
     
-    newInput = newInput + ',"dateCreated":"' + str(date) + '"}'
+    newInput = newInput + ',"dateCreated":"' + date + '"}'
 
     checklist = json.loads(newInput)
 
