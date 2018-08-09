@@ -30,7 +30,7 @@
     <Compile Include="app\apps.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\checkList.py">
+    <Compile Include="app\utils\checkListCRUD.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\forms.py" />
@@ -42,7 +42,10 @@
     <Compile Include="app\urls.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\userCRUD.py">
+    <Compile Include="app\utils\userCRUD.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\utils\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\views.py" />
@@ -57,6 +60,7 @@
   <ItemGroup>
     <Folder Include="app\" />
     <Folder Include="app\migrations\" />
+    <Folder Include="app\utils\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
     <Folder Include="app\static\app\content\" />

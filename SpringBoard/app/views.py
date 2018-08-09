@@ -8,18 +8,16 @@ from django.shortcuts import render
 from datetime import datetime
 from .serializers import *
 from rest_framework.generics import *
-#from rest_framework import *
 from .views import *
 import json
-#from rest_framework_mongoengine import viewsets as mviewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import *
 from pymongo import MongoClient
 import jwt
-from .userCRUD import *
+from app.utils.userCRUD import *
 import datetime
-from .checkList import *
+from app.utils.checkListCRUD import *
 from argon2 import PasswordHasher
 from argon2 import exceptions
 
