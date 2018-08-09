@@ -24,9 +24,9 @@ def checkIfEmailExists(email):
     return query == None
 
 
-def createUser(username,password,userType,email):
+def createUser(username,password,userType,name,email):
     collection = db.Users
-    newUser = {'username':username,'password':password,'userType':userType,'email':email}
+    newUser = {'username':username,'password':password,'userType':userType,'name':name,'email':email}
     results = {'results':'false'}
 
     try:
@@ -54,3 +54,8 @@ def updateUser(username,newPassword):
     results["results"] = "true" if updated.modified_count == 1 else "false"
     client.close()
     return results
+
+def getName(username):
+    collection = db.Users
+    name = collection.find_one({'username':username},{'name':1, '_id':0})['name']
+    return name

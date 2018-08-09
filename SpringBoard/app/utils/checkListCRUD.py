@@ -6,7 +6,7 @@ import datetime
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
-def createCheckList(input):
+def createCheckList(input,name):
 
     collection = db.Checklists
 
@@ -16,7 +16,9 @@ def createCheckList(input):
 
     newInput = input[0:len(input)-1]
     
-    newInput = newInput + ',"dateCreated":"' + date + '"}'
+    newInput = newInput + ',"dateCreated":"' + date
+
+    newInput = newInput + ',"updatedBy":"' + name + '"}'
 
     checklist = json.loads(newInput)
 
@@ -35,7 +37,7 @@ def retrieveCheckListByName():
 
     collection = db.Checklists
 
-    table = collection.find({},{"name":1,"dateCreated":1,"_id":0})
+    table = collection.find({},{"name":1,"dateCreated":1,"updatedBy":1, "_id":0})
     results = {}
     clList = [item for item in table]
     results["clNames"] =  clList
@@ -61,6 +63,9 @@ def deleteCheckList(clName):
     results["items_deleted"] = deleted.deleted_count
     client.close()
     return results
+
+def copyCheckList():
+    collections = db.Checklists
 
 def filterSort(query):
 

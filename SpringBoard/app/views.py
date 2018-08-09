@@ -85,6 +85,7 @@ class UserLogin(CreateAPIView):
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)
                 }, SECRET_KEY, algorithm='HS256')
             results['token'] = encoded_token
+            results['name'] = getName(username)
             client.close()
             return Response(results)
         except exceptions.VerifyMismatchError as e:
@@ -186,6 +187,7 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
         newPassword = request.data['newPassword']
         newUserType = request.data['newUserType']
         newEmail = request.data['newEmail']
+        name = request.data['name']
         
         if(not checkIfUserExists(newUsername)):
             return Response({'error' : 'Username already used in database' })
@@ -195,7 +197,7 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
 
         hashedPw = ph.hash(newPassword);
 
-        results = createUser(newUsername,hashedPw,newUserType,newEmail) 
+        results = createUser(newUsername,hashedPw,newUserType,newEmail,name) 
 
         client.close()
         return Response(results)
@@ -253,6 +255,7 @@ class CreateCL(CreateAPIView):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
+        name = request.data['name']
 
         tokenResults = tokenAuthenticate(username,token)
         if(len(tokenResults) != 0):
@@ -262,7 +265,7 @@ class CreateCL(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = createCheckList(document)
+        results = createCheckList(document,name)
         client.close()
         return Response(results)
 
@@ -321,6 +324,7 @@ class UpdateCL(CreateAPIView):
         token = request.data['token']
         userType = request.data['userType']
         clName = request.data['clName']
+        name = request.data['name']
 
         tokenResults = tokenAuthenticate(username,token)
         if(len(tokenResults) != 0):
@@ -332,7 +336,7 @@ class UpdateCL(CreateAPIView):
 
         results = deleteCheckList(clName)
         if(results["items_deleted"] != 0):
-            results = createCheckList(document)
+            results = createCheckList(document,name)
             client.close()
 
         return Response(results)
