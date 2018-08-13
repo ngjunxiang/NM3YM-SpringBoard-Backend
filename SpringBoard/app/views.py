@@ -106,9 +106,9 @@ class authenticateAdmin(CreateAPIView):
             return Response(results)
         if(not isAdmin(userType)):
             client.close()
-            return Response({'error' : 'invalid userType' })
+            return Response({'error' : 'Invalid userType' })
 
-        return Response(results)
+        return Response({'results' : 'success'})
 
 class authenticateCM(CreateAPIView):
     serializer_class = UserSerializer
@@ -124,9 +124,9 @@ class authenticateCM(CreateAPIView):
             return Response(results)
         if(not isCM(userType)):
             client.close()
-            return Response({'error' : 'invalid userType' })
+            return Response({'error' : 'Invalid userType' })
 
-        return Response(results)
+        return Response({'results' : 'success'})
 
 class authenticateRM(CreateAPIView):
     serializer_class = UserSerializer
@@ -142,9 +142,9 @@ class authenticateRM(CreateAPIView):
             return Response(results)
         if(not isRM(userType)):
             client.close()
-            return Response({'error' : 'invalid userType' })
+            return Response({'error' : 'Invalid userType' })
 
-        return Response(results)
+        return Response({'results' : 'success'})
 
 class RetrieveUsers(CreateAPIView):
     serializer_class = UserSerializer
