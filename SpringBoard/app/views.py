@@ -333,6 +333,9 @@ class UpdateCL(CreateAPIView):
         if(not isCM(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
+        results = logCheckList(clName)
+        if('error' in results):
+            return Response(results)
 
         results = deleteCheckList(clName)
         if(results["items_deleted"] != 0):

@@ -64,8 +64,25 @@ def deleteCheckList(clName):
     client.close()
     return results
 
-def copyCheckList():
-    collections = db.Checklists
+def logCheckList(clName):
+    collection = db.Checklists
+    prevChecklist = retrieveCheckList(clName)
+    if('error' in prevChecklist):
+        client.close()
+        return prevChecklist
+
+    newCollection = db.ChecklistLogs
+
+    try:
+        newCollection.insert_one(prevChecklist)
+        results['results'] = 'true' 
+    except Exception as e:
+        results['error'] = str(e)
+
+    client.close()
+
+    return results
+
 
 def filterSort(query):
 
