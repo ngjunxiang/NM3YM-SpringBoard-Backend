@@ -20,7 +20,7 @@ db.Checklists.insertOne(
             "RM Name"
         ],
         "conditions": {
-            "Booking Center": [
+            "Booking Centre": [
                 "Singapore",
                 "Hong Kong"
             ],
