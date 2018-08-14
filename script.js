@@ -334,3 +334,6 @@ db.Checklists.insertOne(
         "dateCreated": "2018-08-07 08:06:56",
         "updatedBy": "Randy Lai YongHao"
     })
+    
+// set up checklists table
+db.ChecklistLogs.createIndex({ "name": 1, "dateCreated": 1 }, { unique: true })
