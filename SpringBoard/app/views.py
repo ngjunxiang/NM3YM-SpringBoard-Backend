@@ -132,7 +132,7 @@ class authenticateAdmin(CreateAPIView):
         #resuts = {}
         #results['success'] = newToken
 
-        return Response({'success' : newToken})
+        return Response({'newToken' : newToken})
 
 class authenticateCM(CreateAPIView):
     serializer_class = UserSerializer
@@ -160,7 +160,7 @@ class authenticateCM(CreateAPIView):
         #resuts = {}
         #results['success'] = newToken
 
-        return Response({'success' : newToken})
+        return Response({'newToken' : newToken})
 
 class authenticateRM(CreateAPIView):
     serializer_class = UserSerializer
@@ -188,7 +188,7 @@ class authenticateRM(CreateAPIView):
         #resuts = {}
         #results['success'] = newToken
 
-        return Response({'success' : newToken})
+        return Response({'newToken' : newToken})
 
 class InvalidateUser(CreateAPIView):
     serializer_class = UserSerializer

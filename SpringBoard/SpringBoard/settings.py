@@ -19,6 +19,7 @@ import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+DEBUG = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -27,8 +28,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8d9ec4c3-77eb-4185-91a1-c1219ada801e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -44,10 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     #'rest_framework_mongoengine',
 ]
 
 MIDDLEWARE_CLASSES = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,7 +56,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'SpringBoard.urls'
@@ -156,3 +157,28 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
+
+#CORS_ORIGIN_WHITELIST = 'localhost:4200',
+
+#CORS_URLS_REGEX = r'^/*$'
+
+#CORS_ALLOW_METHODS = (
+#    'DELETE',
+#    'GET',
+#    'OPTIONS',
+#    'PATCH',
+#    'POST',
+#    'PUT',
+#)
+
+#CORS_ALLOW_HEADERS = (
+#    'accept',
+#    'accept-encoding',
+#    'authorization',
+#    'content-type',
+#    'dnt',
+#    'origin',
+#    'user-agent',
+#    'x-csrftoken',
+#    'x-requested-with',
+#)
