@@ -42,6 +42,9 @@
     <Compile Include="app\urls.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\utils\tokenCRUD.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\utils\userCRUD.py">
       <SubType>Code</SubType>
     </Compile>

@@ -335,5 +335,7 @@ db.Checklists.insertOne(
         "updatedBy": "Randy Lai YongHao"
     })
     
-// set up checklists table
+// set up checklistLigs table
 db.ChecklistLogs.createIndex({ "name": 1, "dateCreated": 1 }, { unique: true })
+// set up tokens table
+db.Tokens.createIndex({ "username": 1, "token": 1 }, { unique: true })

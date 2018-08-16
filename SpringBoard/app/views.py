@@ -18,6 +18,7 @@ import jwt
 from app.utils.userCRUD import *
 import datetime
 from app.utils.checkListCRUD import *
+from app.utils.tokenCRUD import *
 from argon2 import PasswordHasher
 from argon2 import exceptions
 
@@ -41,6 +42,9 @@ def isRM(userType):
 
 def tokenAuthenticate(username,token):
     results = {}
+    if('error' in checkToken(token)):
+        results = {'error' : 'Invalid Token'}
+        return (results) 
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
         if(not username == payload['username']):
@@ -53,6 +57,15 @@ def tokenAuthenticate(username,token):
         results = {'error' : 'Token has expired'}
         return (results)
     return results
+
+def createToken(username):
+    encoded_token = jwt.encode({
+                'username': username,
+                # 'iat': datetime.datetime.utcnow(),
+                # 'nbf': datetime.datetime.utcnow() + datetime.timedelta(minutes=-5),
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+                }, SECRET_KEY, algorithm='HS256')
+    return encoded_token
 
 class UserLogin(CreateAPIView):
     serializer_class = UserSerializer
@@ -82,8 +95,9 @@ class UserLogin(CreateAPIView):
                 'username': username,
                 # 'iat': datetime.datetime.utcnow(),
                 # 'nbf': datetime.datetime.utcnow() + datetime.timedelta(minutes=-5),
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
                 }, SECRET_KEY, algorithm='HS256')
+            storeToken(username,encoded_token)
             results['token'] = encoded_token
             results['name'] = getName(username)
             client.close()
@@ -108,7 +122,17 @@ class authenticateAdmin(CreateAPIView):
             client.close()
             return Response({'error' : 'Invalid userType' })
 
-        return Response({'results' : 'success'})
+        newToken = createToken(username)
+        checkResults = removeToken(username,token)
+        if (checkResults['items_deleted']!=1):
+            return Response({'error' : 'Failed to delete token'})
+        checkStore = storeToken(username,newToken)
+        if('error' in checkStore):
+            return Response({'error':'Failed to store token'})
+        #resuts = {}
+        #results['success'] = newToken
+
+        return Response({'success' : newToken})
 
 class authenticateCM(CreateAPIView):
     serializer_class = UserSerializer
@@ -126,7 +150,17 @@ class authenticateCM(CreateAPIView):
             client.close()
             return Response({'error' : 'Invalid userType' })
 
-        return Response({'results' : 'success'})
+        newToken = createToken(username)
+        checkResults = removeToken(username,token)
+        if (checkResults['items_deleted'] != 1):
+            return Response({'error' : 'Failed to delete token'})
+        checkStore = storeToken(username,newToken)
+        if('error' in checkStore):
+            return Response({'error':'Failed to store token'})
+        #resuts = {}
+        #results['success'] = newToken
+
+        return Response({'success' : newToken})
 
 class authenticateRM(CreateAPIView):
     serializer_class = UserSerializer
@@ -144,7 +178,28 @@ class authenticateRM(CreateAPIView):
             client.close()
             return Response({'error' : 'Invalid userType' })
 
-        return Response({'results' : 'success'})
+        newToken = createToken(username)
+        checkResults = removeToken(username,token)
+        if (checkResults['items_deleted']!=1):
+            return Response({'error' : 'Failed to delete token'})
+        checkStore = storeToken(username,newToken)
+        if('error' in checkStore):
+            return Response({'error':'Failed to store token'})
+        #resuts = {}
+        #results['success'] = newToken
+
+        return Response({'success' : newToken})
+
+class InvalidateUser(CreateAPIView):
+    serializer_class = UserSerializer
+
+    def post(self, request):
+        username = request.data['username']
+        token = request.data['token']
+
+        results = removeToken(username,token)
+        client.close()
+        return Response(results)
 
 class RetrieveUsers(CreateAPIView):
     serializer_class = UserSerializer
@@ -187,7 +242,7 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
         newPassword = request.data['newPassword']
         newUserType = request.data['newUserType']
         newEmail = request.data['newEmail']
-        name = request.data['name']
+        name = request.data['newName']
         
         if(not checkIfUserExists(newUsername)):
             return Response({'error' : 'Username already used in database' })
@@ -222,7 +277,7 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
         return Response(results)
 
 class UpdateUsers(CreateAPIView):
-    serializer_class = UserSerializer
+    serializer_class = UserSerializer 
     queryset = db.Users.find()
 
     #update user
@@ -411,15 +466,24 @@ class RMRetrieveCLNames(CreateAPIView):
         client.close()
         return Response(results)
 
-#class ObtainAuthToken(views.APIView):
-#    authentication_classes = (TokenAuthentication, )
-#    serializer_class = AuthTokenSerializer
+class RetrieveLoggedLists(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.ChecklistLogs
 
-#    def post(self,request, *args, **kwargs):
-#        serailizer = self.serializer_class(data=request.data)
-#        serializer.is_valid(raise_exception=True)
-#        user = serializer.validated_data['user']
-#        token, created = Token.objects.get_or_create(user=user)
-#        return Response({'token': token.key})
+    def post(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+        clName = request.data['clName']
 
-#obtain_auth_token = ObtainAuthToken.as_view()
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = retrieveLoggedCheckLists(clName)
+        client.close()
+        return Response(results)

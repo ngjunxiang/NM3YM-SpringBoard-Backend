@@ -23,7 +23,6 @@ def checkIfEmailExists(email):
     query = collection.find_one({'email':email},{'_id':0})
     return query == None
 
-
 def createUser(username,password,userType,name,email):
     collection = db.Users
     newUser = {'username':username,'password':password,'userType':userType,'name':name,'email':email}
