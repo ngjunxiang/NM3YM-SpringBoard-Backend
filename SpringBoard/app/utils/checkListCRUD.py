@@ -83,6 +83,15 @@ def logCheckList(clName):
 
     return results
 
+def retrieveLoggedCheckLists(clName):
+    collection = db.ChecklistLogs
+
+    table = collection.find({},{"name":1,"_id":0})
+    results = {}
+    llList = [item for item in table]
+    results["llNames"] =  llList
+    client.close()
+    return results
 
 def filterSort(query):
 
