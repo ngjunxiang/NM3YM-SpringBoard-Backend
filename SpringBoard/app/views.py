@@ -331,7 +331,7 @@ class ManageCL(CreateAPIView):
 
     #retrieve a single checklist
     def post(self,request):
-        clName = request.data['clName']
+        clID = request.data['clID']
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
@@ -344,7 +344,7 @@ class ManageCL(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = retrieveCheckList(clName)
+        results = retrieveCheckList(clID)
         client.close()
         return Response(results)
 
@@ -354,7 +354,6 @@ class ManageCL(CreateAPIView):
         token = request.data['token']
         userType = request.data['userType']
         
-
         results = tokenAuthenticate(username,token)
         if(len(results) != 0):
             client.close()
@@ -363,8 +362,8 @@ class ManageCL(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType' })
 
-        clName = request.data['clName']
-        results = deleteCheckList(clName)
+        clID = request.data['clID']
+        results = deleteCheckList(clID)
         client.close()
         return Response(results)
 
@@ -378,7 +377,7 @@ class UpdateCL(CreateAPIView):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
-        clName = request.data['clName']
+        clID = request.data['clID']
         name = request.data['name']
 
         tokenResults = tokenAuthenticate(username,token)
@@ -388,13 +387,14 @@ class UpdateCL(CreateAPIView):
         if(not isCM(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
-        results = logCheckList(clName)
+        results = logCheckList(clID)
         if('error' in results):
             return Response(results)
 
-        results = deleteCheckList(clName)
+        version = int(getCLversion(clID)) + 1
+        results = deleteCheckList(clID)
         if(results["items_deleted"] != 0):
-            results = createCheckList(document,name)
+            results = updateCheckList(document,name,version)
             client.close()
 
         return Response(results)
@@ -427,7 +427,7 @@ class RMRetrieveCL(CreateAPIView):
     queryset = db.Checklists.find()
 
     def post(self,request):
-        clName = request.data['clName']
+        clName = request.data['clID']
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
@@ -440,7 +440,7 @@ class RMRetrieveCL(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = retrieveCheckList(clName)
+        results = retrieveCheckList(clID)
         client.close()
         return Response(results)
 
@@ -474,7 +474,7 @@ class RetrieveLoggedLists(CreateAPIView):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
-        clName = request.data['clName']
+        clName = request.data['clID']
 
         tokenResults = tokenAuthenticate(username,token)
         if(len(tokenResults) != 0):
@@ -484,6 +484,6 @@ class RetrieveLoggedLists(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = retrieveLoggedCheckLists(clName)
+        results = retrieveLoggedCheckLists(clID)
         client.close()
         return Response(results)

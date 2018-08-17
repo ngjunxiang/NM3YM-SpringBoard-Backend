@@ -11,10 +11,12 @@ db.Users.insertMany([
 ])
 
 // set up checklists table
-db.Checklists.createIndex({ "name": 1, "dateCreated": 1 }, { unique: true })
+db.Checklists.createIndex({ "clID": 1}, { unique: true })
 db.Checklists.insertOne(
     {
         "name": "Account Opening (Individual)",
+        "clID": "0",
+        "version" : "1",
         "requiredFields": [
             "Client Name",
             "RM Name"
@@ -336,6 +338,10 @@ db.Checklists.insertOne(
     })
     
 // set up checklistLigs table
-db.ChecklistLogs.createIndex({ "name": 1, "dateCreated": 1 }, { unique: true })
+db.ChecklistLogs.createIndex({ "formID": 1, "version": 1 }, { unique: true })
+
 // set up tokens table
 db.Tokens.createIndex({ "username": 1, "token": 1 }, { unique: true })
+
+// set up checklist IDs
+db.ChecklistCounter.insertOne ( {"_id": "clID" , "sequence_value" : 1 } )
