@@ -67,6 +67,25 @@ def createToken(username):
                 }, SECRET_KEY, algorithm='HS256')
     return encoded_token
 
+class RetrieveName(CreateAPIView):
+    serializer_class = UserSerializer
+
+    def post(self, request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        results = tokenAuthenticate(username,token)
+        if(len(results) != 0):
+            client.close()
+            return Response(results)
+
+        name = getName(username)
+        if name == None:
+            return Response({'error' : 'no such user'})
+        else:
+            return Response({'name' : name})
+
 class UserLogin(CreateAPIView):
     serializer_class = UserSerializer
 
