@@ -59,7 +59,7 @@ def getName(username):
     name = collection.find_one({'username':username},{'name':1, '_id':0})['name']
     return name
 
-def getEmail(email):
+def getEmail(username):
     collection = db.Users
     email = collection.find_one({'username':username},{'email':1, '_id':0})['email']
     return email
