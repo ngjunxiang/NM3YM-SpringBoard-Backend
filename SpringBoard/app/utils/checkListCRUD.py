@@ -47,17 +47,18 @@ def getCLversion(clID):
     return collection.find_one({"clID": clID })["version"]
     
 
-def updateCheckList(input,name,version):
-
+def updateCheckList(input,name,clID,version):
+    
+    print("test")
     collection = db.Checklists
 
     date = datetime.datetime.today()
     date = str(date)
     date = date[:date.index(".")]
 
-    input = json.loads(input)    
+    input = json.loads(input)   
 
-    input["clID"] =  str(clID)
+    input["clID"] =  str(clID) 
 
     input["version"] =  version
 

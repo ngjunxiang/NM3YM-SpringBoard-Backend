@@ -412,7 +412,7 @@ class UpdateCL(CreateAPIView):
         version = int(getCLversion(clID)) + 1
         results = deleteCheckList(clID)
         if(results["items_deleted"] != 0):
-            results = updateCheckList(document,name,version)
+            results = updateCheckList(document,name,clID,version)
             client.close()
 
         return Response(results)
