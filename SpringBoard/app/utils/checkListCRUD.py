@@ -19,6 +19,8 @@ def createCheckList(input,name):
     date = str(date)
     date = date[:date.index(".")]
 
+    input = json.loads(input)   
+
     input["clID"] =  str(clID)
 
     input["version"] =  "1"
@@ -27,7 +29,7 @@ def createCheckList(input,name):
 
     input["updatedBy"] =  name
 
-    checklist = json.loads(input)
+    checklist = input
 
     results = {'results':'false'}
     
@@ -53,6 +55,8 @@ def updateCheckList(input,name,version):
     date = str(date)
     date = date[:date.index(".")]
 
+    input = json.loads(input)    
+
     input["clID"] =  str(clID)
 
     input["version"] =  version
@@ -61,7 +65,7 @@ def updateCheckList(input,name,version):
 
     input["updatedBy"] =  name
 
-    checklist = json.loads(input)
+    checklist = input
 
     results = {'results':'false'}
     
