@@ -340,8 +340,14 @@ db.Checklists.insertOne(
 // set up checklistLigs table
 db.ChecklistLogs.createIndex({ "formID": 1, "version": 1 }, { unique: true })
 
+// set up checklist IDs
+db.ChecklistCounter.insertOne ( {"_id": "clID" , "sequence_value" : 1 } )
+
 // set up tokens table
 db.Tokens.createIndex({ "username": 1, "token": 1 }, { unique: true })
 
-// set up checklist IDs
-db.ChecklistCounter.insertOne ( {"_id": "clID" , "sequence_value" : 1 } )
+// set up onboard IDs
+db.OnboardCounter.insertOne({"_id":"obID", "sequence_value" : 1 })
+
+// set up onboard table
+db.Onboards.createIndex({"clientName":1,"RMName":1,"dateCreated":1},{unique: true})

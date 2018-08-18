@@ -19,6 +19,7 @@ from app.utils.userCRUD import *
 import datetime
 from app.utils.checkListCRUD import *
 from app.utils.tokenCRUD import *
+from app.utils.onboardCRUD import *
 from argon2 import PasswordHasher
 from argon2 import exceptions
 
@@ -445,7 +446,7 @@ class RMRetrieveCL(CreateAPIView):
     queryset = db.Checklists.find()
 
     def post(self,request):
-        clName = request.data['clID']
+        clID = request.data['clID']
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
@@ -486,7 +487,7 @@ class RMRetrieveCLNames(CreateAPIView):
 
 class RetrieveLoggedLists(CreateAPIView):
     serializer_class = CLSerializer
-    queryset = db.ChecklistLogs
+    queryset = db.ChecklistLogs.find()
 
     def post(self,request):
         username = request.data['username']
@@ -505,3 +506,27 @@ class RetrieveLoggedLists(CreateAPIView):
         results = retrieveLoggedCheckLists(clID)
         client.close()
         return Response(results)
+
+#Create new onboard
+class CreateOnboard(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Onboards.find()
+
+    def post(self,request):
+        onboard = request.data['checklist']
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isRM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = CreateNewOnBoard(onboard)
+        client.close()
+        return Response(results)
+

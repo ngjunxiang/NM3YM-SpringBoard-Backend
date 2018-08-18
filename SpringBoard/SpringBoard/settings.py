@@ -158,27 +158,29 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 #CORS_ORIGIN_WHITELIST = 'localhost:4200',
 
 #CORS_URLS_REGEX = r'^/*$'
 
-#CORS_ALLOW_METHODS = (
-#    'DELETE',
-#    'GET',
-#    'OPTIONS',
-#    'PATCH',
-#    'POST',
-#    'PUT',
-#)
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
 
-#CORS_ALLOW_HEADERS = (
-#    'accept',
-#    'accept-encoding',
-#    'authorization',
-#    'content-type',
-#    'dnt',
-#    'origin',
-#    'user-agent',
-#    'x-csrftoken',
-#    'x-requested-with',
-#)
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+)

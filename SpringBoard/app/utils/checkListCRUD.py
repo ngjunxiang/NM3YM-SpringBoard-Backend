@@ -151,7 +151,6 @@ def retrieveAllLoggedCheckLists():
     client.close()
     return results
 
-
 def filterSort(query):
 
     collection = db.Checklists
