@@ -530,3 +530,50 @@ class CreateOnboard(CreateAPIView):
         client.close()
         return Response(results)
 
+#Retrieve all onboard handled by logged on RM
+class RetrieveAllOnboards(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Onboards.find()
+
+    def post(self,request):
+        rmName = request.data['name']
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isRM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = GetAllCurrentOnboards(rmName)
+        client.close()
+
+        return Response(results)
+
+#Retrieve selected onboard
+class RetrieveSelectedOnboard(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Onboards.find()
+
+    def post(self,request):
+        obID = request.data['obID']
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isRM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = GetSelectedOnboard(obID)
+        client.close()
+
+        return Response(results)

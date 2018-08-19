@@ -97,7 +97,7 @@ def retrieveCheckList(clID):
     
     results = collection.find_one({'clID':clID},{"_id":0})
     if results == None:
-        return {'error' : 'Invalid Checklist Name' }
+        return {'error' : 'Invalid Checklist ID' }
 
     return results
 
