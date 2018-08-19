@@ -577,3 +577,46 @@ class RetrieveSelectedOnboard(CreateAPIView):
         client.close()
 
         return Response(results)
+
+class ManageOnboard(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Onboards.find()
+
+    #update onboard
+    def post(self,request):
+        obID = request.data['obID']
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+        onboard = request.data['checklist']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isRM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = UpdateSelectedOnboard(obID,onboard)
+        client.close()
+        return Response(results)
+
+    #delete onboard
+    def delete(self,request):
+        obID = request.data['obID']
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+        
+        results = tokenAuthenticate(username,token)
+        if(len(results) != 0):
+            client.close()
+            return Response(results)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType' })
+
+        results = deleteSelectedOnboard(obID)
+        client.close()
+        return Response(results)

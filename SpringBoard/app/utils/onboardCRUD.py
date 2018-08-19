@@ -101,7 +101,6 @@ def GetSelectedOnboard(obID):
 
     collection = db.Onboards
 
-    print(obID)
     results = collection.find_one({"obID":obID},{"_id":0})
 
     if results == None:
@@ -109,4 +108,44 @@ def GetSelectedOnboard(obID):
 
     return results
 
+def deleteSelectedOnboard(obID):
 
+    collection = db.Onboards
+    results = {}
+    deleted = collection.delete_one({'obID':obID})
+    results["results"] = deleted.acknowledged
+    results["items_deleted"] = deleted.deleted_count
+    client.close()
+    return results
+
+def UpdateSelectedOnboard(obID,input):
+
+    collection = db.Onboards
+
+    deletedResults = deleteSelectedOnboard(obID)
+
+    results = {'results':'false'}
+
+    if(deletedResults["items_deleted"]==0):
+        return results
+
+    date = datetime.datetime.today()
+    date = str(date)
+    date = date[:date.index(".")]
+
+    input = json.loads(input)
+
+    progress = checkProgress(input)
+    
+    input["obID"] =  str(obID)
+    input["dateCreated"] =  date
+    input["progress"] = progress
+    
+    try:
+        collection.insert_one(input)
+        results['results'] = 'true' 
+    except Exception as e:
+        results['error'] = str(e)
+
+    client.close()
+    return results
