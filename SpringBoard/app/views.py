@@ -526,7 +526,7 @@ class CreateOnboard(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = CreateNewOnBoard(onboard)
+        results = createNewOnBoard(onboard)
         client.close()
         return Response(results)
 
@@ -536,7 +536,6 @@ class RetrieveAllOnboards(CreateAPIView):
     queryset = db.Onboards.find()
 
     def post(self,request):
-        rmName = request.data['name']
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
@@ -549,7 +548,7 @@ class RetrieveAllOnboards(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = GetAllCurrentOnboards(rmName)
+        results = getAllCurrentOnboards(username)
         client.close()
 
         return Response(results)
@@ -573,7 +572,7 @@ class RetrieveSelectedOnboard(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = GetSelectedOnboard(obID)
+        results = getSelectedOnboard(obID)
         client.close()
 
         return Response(results)
@@ -598,7 +597,7 @@ class ManageOnboard(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = UpdateSelectedOnboard(obID,onboard)
+        results = updateSelectedOnboard(obID,onboard)
         client.close()
         return Response(results)
 

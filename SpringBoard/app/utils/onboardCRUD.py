@@ -1,5 +1,8 @@
 from pymongo import MongoClient
 from pymongo import cursor
+
+from app.utils.userCRUD import *
+
 import json
 import datetime
 
@@ -85,26 +88,25 @@ def CreateNewOnBoard(input):
     client.close()
     return results
 
-def GetAllCurrentOnboards(rmName):
+def getAllCurrentOnboards(username):
 
+    rmName = getName(username)
     collection = db.Onboards
-
-    print(rmName)
     table = collection.find({"requiredFields.RM Name": rmName},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
     results = {}
     obList = [item for item in table]
-    results["oblist"] =  obList
+    results["obLists"] =  obList
     client.close()
     return results
 
-def GetSelectedOnboard(obID):
+def getSelectedOnboard(obID):
 
     collection = db.Onboards
 
     results = collection.find_one({"obID":obID},{"_id":0})
 
     if results == None:
-        return {'error' : 'Invalid Onboard ID' }
+        return {'error' : 'Invalid Onboard ID'}
 
     return results
 
@@ -118,7 +120,7 @@ def deleteSelectedOnboard(obID):
     client.close()
     return results
 
-def UpdateSelectedOnboard(obID,input):
+def updateSelectedOnboard(obID,input):
 
     collection = db.Onboards
 
