@@ -83,14 +83,14 @@ def createNewOnBoard(input):
     progress = checkProgress(input)
     
     input["obID"] =  str(obID)
-    input["dateCreated"] =  date
-    input["progress"] = progress
+    input["dateCreated"] =  str(date)
+    input["progress"] = str(progress)
 
     results = {'results':'false'}
     
     try:
         collection.insert_one(input)
-        urgentCollection.insert_one(loadUrgentJson(obID))
+        # urgentCollection.insert_one(loadUrgentJson(obID))
         results['results'] = 'true' 
 
     except Exception as e:
@@ -152,7 +152,7 @@ def updateSelectedOnboard(obID,input):
     
     input["obID"] =  str(obID)
     input["dateCreated"] =  date
-    input["progress"] = progress
+    input["progress"] = str(progress)
     input["urgent"] = getUrgency(obID)
     
     try:
