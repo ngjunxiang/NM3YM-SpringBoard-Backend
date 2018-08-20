@@ -493,7 +493,7 @@ class RetrieveLoggedLists(CreateAPIView):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
-        clName = request.data['clID']
+        clID = request.data['clID']
 
         tokenResults = tokenAuthenticate(username,token)
         if(len(tokenResults) != 0):

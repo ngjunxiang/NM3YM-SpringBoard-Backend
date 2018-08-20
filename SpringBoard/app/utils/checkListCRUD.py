@@ -83,17 +83,21 @@ def updateCheckList(input,name,clID,version):
     #  2 = new
     #  3 = deleted
     for section,value in input["complianceDocuments"].items():
+        index = 0
         for document in value:
             # if added document
             if document.get("docID") == "":
-                document["docID"] = str(latestDocID)
+                input["complianceDocuments"][section][index]["docID"] = str(latestDocID)
                 latestDocID += 1
+            index += 0
 
     for section,value in input["legalDocuments"].items():
+        index = 0
         for document in value:
             if document.get("docID") == "":
-                document["docID"] = str(latestDocID)
+                input["legalDocuments"][section][index]["docID"] = str(latestDocID)
                 latestDocID += 1
+            index += 0
 
     input["latestDocID"] =  str(latestDocID) 
 
@@ -137,6 +141,22 @@ def retrieveCheckList(clID):
     results = collection.find_one({'clID':clID},{"_id":0})
     if results == None:
         return {'error' : 'Invalid Checklist ID' }
+    
+    # remove deleted values
+    
+    for section,value in results["complianceDocuments"].items():
+        docArray = []
+        for document in value:
+            if document.get("changed") != "3":
+                docArray.append(document)
+        results["complianceDocuments"][section] = docArray
+
+    for section,value in results["legalDocuments"].items():
+        docArray = []
+        for document in value:
+            if document.get("changed") != "3":
+                docArray.append(document)
+        results["legalDocuments"][section] = docArray
 
     return results
 

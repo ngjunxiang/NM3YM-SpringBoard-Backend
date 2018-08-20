@@ -67,7 +67,7 @@ def createNewOnBoard(input):
 
     collection = db.Onboards
 
-    urgentCollection = db.OnboardUrgentChecker
+    # urgentCollection = db.OnboardUrgentChecker
 
     counter = db.OnboardCounter
 
@@ -112,14 +112,96 @@ def getAllCurrentOnboards(username):
 
 def getSelectedOnboard(obID):
 
-    collection = db.Onboards
+    obCollection = db.Onboards
+    clCollection = db.Checklists
+    logCollection = db.ChecklistLogs
+    
+    onboard = obCollection.find_one({"obID":obID},{"_id":0})
+    clID = onboard["clID"]
+    version = int(onboard["version"])
 
-    results = collection.find_one({"obID":obID},{"_id":0})
+    current = clCollection.find_one({"clID":clID},{"_id":0})
+    clVersion = int(current["version"])
 
-    if results == None:
+    onboard["version"] = str(clVersion)
+
+    if onboard == None:
+        client.close()
         return {'error' : 'Invalid Onboard ID'}
 
-    return results
+    # if not same version
+    if version != clVersion:
+
+        # stacked comparison
+        while version < clVersion-1:
+            version += 1
+            log = logCollection.find_one({"clID":clID, "version":version},{"_id":0})
+            # compare each version from oldest
+            for section,value in log["complianceDocuments"].items():
+                for document in value:
+                    if document.get("changed") != "0":
+                        added = False
+                        # edit/delete
+                        index = 0
+                        for item in onboard["complianceDocuments"][section]:
+                            if item["docID"] == document["docID"]:
+                                onboard["complianceDocuments"][section][index] = document
+                                added = True
+                            index += 1
+                        
+                        if not added:
+                            onboard["complianceDocuments"][section].append(document)
+
+            for section,value in log["legalDocuments"].items():
+                for document in value:
+                    if document.get("changed") != "0":
+                        added = False
+                        # edit/delete
+                        index = 0
+                        for item in onboard["legalDocuments"][section]:
+                            if item["docID"] == document["docID"]:
+                                onboard["legalDocuments"][section][index] = document
+                                added = True
+                            index += 1
+                        
+                        if not added:
+                            onboard["legalDocuments"][section].append(document)
+
+        # if diff == 1
+        # direct comparison
+        for section,value in current["complianceDocuments"].items():
+            for document in value:
+                if document.get("changed") != "0":
+                    added = False
+                    # edit/delete
+                    index = 0
+                    for item in onboard["complianceDocuments"][section]:
+                        if item["docID"] == document["docID"]:
+                            onboard["complianceDocuments"][section][index] = document
+                            added = True
+                        index += 1
+                    
+                    if not added:
+                        onboard["complianceDocuments"][section].append(document)
+
+                    
+
+        for section,value in current["legalDocuments"].items():
+            for document in value:
+                if document.get("changed") != "0":
+                    added = False
+                    # edit/delete
+                    index = 0
+                    for item in onboard["legalDocuments"][section]:
+                        if item["docID"] == document["docID"]:
+                            onboard["legalDocuments"][section][index] = document
+                            added = True
+                        index += 1
+                    
+                    if not added:
+                        onboard["legalDocuments"][section].append(document)
+    client.close()
+    return onboard
 
 def deleteSelectedOnboard(obID):
 
@@ -140,6 +222,7 @@ def updateSelectedOnboard(obID,input):
     results = {'results':'false'}
 
     if(deletedResults["items_deleted"]==0):
+        client.close()
         return results
 
     date = datetime.datetime.today()
@@ -147,6 +230,22 @@ def updateSelectedOnboard(obID,input):
     date = date[:date.index(".")]
 
     input = json.loads(input)
+
+    for section,value in input["complianceDocuments"].items():
+        docArray = []
+        for document in value:
+            if document.get("changed") != "3":
+                document["changed"] = "0"
+                docArray.append(document)
+        input["complianceDocuments"][section] = docArray
+
+    for section,value in input["legalDocuments"].items():
+        docArray = []
+        for document in value:
+            if document.get("changed") != "3":
+                document["changed"] = "0"
+                docArray.append(document)
+        input["legalDocuments"][section] = docArray
 
     progress = checkProgress(input)
     
