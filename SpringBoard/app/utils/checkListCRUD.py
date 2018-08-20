@@ -75,7 +75,7 @@ def updateCheckList(input,name,clID,version):
 
     prevCL = logsCollection.find_one({"clID": str(clID),"version": str(version-1)})
 
-    latestDocID = prevCL["latestDocID"]  
+    latestDocID = int(prevCL["latestDocID"])
 
     # "changed" 
     #  0 = same
@@ -99,7 +99,7 @@ def updateCheckList(input,name,clID,version):
 
     input["clID"] =  str(clID) 
 
-    input["version"] =  version
+    input["version"] =  str(version)
 
     input["dateCreated"] =  date
 
