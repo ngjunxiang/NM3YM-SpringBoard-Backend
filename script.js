@@ -351,3 +351,6 @@ db.OnboardCounter.insertOne({"_id":"obID", "sequence_value" : 1 })
 
 // set up onboard table
 db.Onboards.createIndex({"clientName":1,"RMName":1,"dateCreated":1},{unique: true})
+
+// set up onboard checker urgent checker
+db.OnboardUrgentChecker.createIndex({"obID":1,"Urgent":1},{unique: true})

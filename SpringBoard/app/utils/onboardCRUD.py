@@ -56,9 +56,18 @@ def checkProgress(input):
 
     return totalCheckedBoxes/totalCheckBoxes*100
 
-def CreateNewOnBoard(input):
+def loadUrgentJson(obID):
+    results = {}
+    results["obID"] = obID
+    results["Urgent"] = False
+
+    return json.loads(results)
+
+def createNewOnBoard(input):
 
     collection = db.Onboards
+
+    urgentCollection = db.OnboardUrgentChecker
 
     counter = db.OnboardCounter
 
@@ -81,7 +90,9 @@ def CreateNewOnBoard(input):
     
     try:
         collection.insert_one(input)
+        urgentCollection.insert_one(loadUrgentJson(obID))
         results['results'] = 'true' 
+
     except Exception as e:
         results['error'] = str(e)
 
@@ -151,3 +162,26 @@ def updateSelectedOnboard(obID,input):
 
     client.close()
     return results
+
+def getUrgency(obID):
+
+    collection = db.OnboardUrgentChecker
+
+    results = collection.find_one({"obID":obID},{"_id":0})
+
+    if results == None:
+        return {'error' : 'Invalid Onboard ID'}
+
+    return results
+
+def updateUrgency(obID,urgency):
+
+    collection = db.OnboardUrgentChecker
+    results = {}
+    updated = collection.update({'obID':obID},{"$set":{'Urgent':urgency}})
+    results["items_updated"] = updated.ok
+    client.close()
+
+    return results
+
+
