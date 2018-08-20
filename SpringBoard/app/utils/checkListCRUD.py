@@ -19,7 +19,22 @@ def createCheckList(input,name):
     date = str(date)
     date = date[:date.index(".")]
 
+    latestDocID = 0
     input = json.loads(input)   
+
+    for section,value in input["complianceDocuments"].items():
+        for document in value:
+            document["docID"] = str(latestDocID)
+            document["changed"] = "0"
+            latestDocID += 1
+
+    for section,value in input["legalDocuments"].items():
+        for document in value:
+            document["docID"] = str(latestDocID)
+            document["changed"] = "0"
+            latestDocID += 1
+
+    input["latestDocID"] =  str(latestDocID)
 
     input["clID"] =  str(clID)
 
@@ -49,14 +64,37 @@ def getCLversion(clID):
 
 def updateCheckList(input,name,clID,version):
     
-    print("test")
     collection = db.Checklists
 
     date = datetime.datetime.today()
     date = str(date)
     date = date[:date.index(".")]
 
-    input = json.loads(input)   
+    input = json.loads(input)  
+
+    prevCL = collection.find_one({"clID": clID})
+
+    latestDocID = input["latestDocID"]  
+
+    # "changed" 
+    #  0 = same
+    #  1 = edited
+    #  2 = new
+    #  3 = deleted
+    for section,value in input["complianceDocuments"].items():
+        for document in value:
+            # if added document
+            if document.get("docID") == "":
+                document["docID"] = str(latestDocID)
+                latestDocID += 1
+
+    for section,value in input["legalDocuments"].items():
+        for document in value:
+            if document.get("docID") == "":
+                document["docID"] = str(latestDocID)
+                latestDocID += 1
+
+    input["latestDocID"] =  str(latestDocID) 
 
     input["clID"] =  str(clID) 
 

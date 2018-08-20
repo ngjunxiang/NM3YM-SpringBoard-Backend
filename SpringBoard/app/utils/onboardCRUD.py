@@ -153,6 +153,7 @@ def updateSelectedOnboard(obID,input):
     input["obID"] =  str(obID)
     input["dateCreated"] =  date
     input["progress"] = progress
+    input["urgent"] = getUrgency(obID)
     
     try:
         collection.insert_one(input)
