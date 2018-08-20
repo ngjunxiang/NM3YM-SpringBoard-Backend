@@ -613,7 +613,7 @@ class ManageOnboard(CreateAPIView):
         if(len(results) != 0):
             client.close()
             return Response(results)
-        if(not isCM(userType)):
+        if(not isRM(userType)):
             client.close()
             return Response({'error' : 'invalid userType' })
 
