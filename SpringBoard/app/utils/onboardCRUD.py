@@ -54,7 +54,7 @@ def checkProgress(input):
         if(index["checked"]):
             totalCheckedBoxes = totalCheckedBoxes + 1
 
-    return totalCheckedBoxes/totalCheckBoxes*100
+    return round(totalCheckedBoxes/totalCheckBoxes*100,1)
 
 def loadUrgentJson(obID):
     results = {}
