@@ -64,6 +64,7 @@ def getCLversion(clID):
 
 def updateCheckList(input,name,clID,version):
     
+    logsCollection = db.ChecklistLogs
     collection = db.Checklists
 
     date = datetime.datetime.today()
@@ -72,9 +73,9 @@ def updateCheckList(input,name,clID,version):
 
     input = json.loads(input)  
 
-    prevCL = collection.find_one({"clID": clID})
+    prevCL = logsCollection.find_one({"clID": str(clID),"version": str(version-1)})
 
-    latestDocID = input["latestDocID"]  
+    latestDocID = prevCL["latestDocID"]  
 
     # "changed" 
     #  0 = same
