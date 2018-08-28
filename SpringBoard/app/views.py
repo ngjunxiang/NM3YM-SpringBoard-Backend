@@ -4,6 +4,7 @@ Definition of views.
 
 from django.shortcuts import render
 #from django.http import HttpRequest
+#from django.http import HttpResponse
 #from django.template import RequestContext
 from datetime import datetime
 from .serializers import *
@@ -22,7 +23,6 @@ from app.utils.tokenCRUD import *
 from app.utils.onboardCRUD import *
 from argon2 import PasswordHasher
 from argon2 import exceptions
-
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard

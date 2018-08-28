@@ -47,8 +47,11 @@ INSTALLED_APPS = [
     #'rest_framework_mongoengine',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+]
+
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -158,9 +161,9 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
-CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ORIGIN_ALLOW_ALL = True
 
-#CORS_ORIGIN_WHITELIST = 'localhost:4200',
+CORS_ORIGIN_WHITELIST = ('localhost:4200','http://13.250.105.1',)
 
 #CORS_URLS_REGEX = r'^/*$'
 
