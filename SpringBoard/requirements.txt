@@ -1,1 +1,14 @@
-django >=1.9, <2
+argon2-cffi==18.3.0
+asn1crypto==0.24.0
+cffi==1.11.5
+cryptography==2.3.1
+Django==2.1
+django-cors-headers==2.4.0
+django-rest-framework==0.1.0
+djangorestframework==3.8.2
+idna==2.7
+pycparser==2.18
+PyJWT==1.6.4
+pymongo==3.7.1
+pytz==2018.5
+six==1.11.0
