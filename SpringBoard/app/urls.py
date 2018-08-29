@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^cm-create-checklist', views.CreateCL.as_view()),
     url(r'^cm-manage-checklist', views.ManageCL.as_view()),
     url(r'^cm-update-checklist', views.UpdateCL.as_view()),
+    url(r'^cm-get-rmnames', views.GetRMNames.as_view()),
     url(r'^rm-retrieve-checklistNames', views.RMRetrieveCLNames.as_view()),
     url(r'^rm-retrieve-checklist', views.RMRetrieveCL.as_view()),
     url(r'^cm-retrieve-checklistNames', views.CMRetrieveCLNames.as_view()),

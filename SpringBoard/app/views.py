@@ -319,6 +319,27 @@ class UpdateUsers(CreateAPIView):
         client.close()
         return Response(results)
 
+class GetRMNames(CreateAPIView):
+    serializer_class = UserSerializer 
+    queryset = db.Users.find()
+
+    def post(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        results = tokenAuthenticate(username,token)
+        if(len(results) != 0):
+            client.close()
+            return Response(results)
+        if(not isRM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType' })
+
+        results = GetRMNames()
+        client.close()
+        return Response(results)
+
 #Allows CM to create new checklists
 class CreateCL(CreateAPIView):
     serializer_class = CLSerializer

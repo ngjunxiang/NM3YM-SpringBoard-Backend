@@ -63,3 +63,8 @@ def getEmail(username):
     collection = db.Users
     email = collection.find_one({'username':username},{'email':1, '_id':0})['email']
     return email
+
+def getAllRMNames():
+    collection = db.Users
+    names = collection.find({'userType':'RM'},{'name':1,'_id':0})
+    return names
