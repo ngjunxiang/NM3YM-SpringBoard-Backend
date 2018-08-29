@@ -190,25 +190,27 @@ def logCheckList(clID):
 
     return results
 
-def retrieveLoggedCheckLists(clID):
-    collection = db.ChecklistLogs
+def retrieveChecklistIDs():
+    newCollection = db.ChecklistLogs
+    return newCollection.distinct("clID")
 
-    table = collection.find({"clID":clID},{"_id":0})
+def retrieveNamesWithVersions(clIDList):
+    newCollection = db.CheckListLogs
     results = {}
-    llList = [item for item in table]
-    results["llNames"] =  llList
+
+    for clID in clIDList:
+        namesAndVersions = newCollection.find({"clID":clID},{"name":1,"version":1,"_id":0})
+        results[clID] = namesAndVersions
+
+    return results
+
+def retrieveLoggedCheckLists(clID,version):
+    newCollection = db.ChecklistLogs
+
+    results = collection.find({"clID":clID,"version":version},{"_id":0})
     client.close()
     return results
 
-def retrieveAllLoggedCheckLists():
-    collection = db.ChecklistLogs
-
-    table = collection.find({},{"_id":0})
-    results = {}
-    llList = [item for item in table]
-    results["llNames"] =  llList
-    client.close()
-    return results
 
 def filterSort(query):
 

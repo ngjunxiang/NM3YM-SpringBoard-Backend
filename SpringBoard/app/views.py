@@ -485,7 +485,8 @@ class RMRetrieveCLNames(CreateAPIView):
         client.close()
         return Response(results)
 
-class RetrieveLoggedLists(CreateAPIView):
+
+class CMRetrieveNamesAndVersions(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.ChecklistLogs.find()
 
@@ -493,7 +494,6 @@ class RetrieveLoggedLists(CreateAPIView):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
-        clID = request.data['clID']
 
         tokenResults = tokenAuthenticate(username,token)
         if(len(tokenResults) != 0):
@@ -503,7 +503,32 @@ class RetrieveLoggedLists(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = retrieveLoggedCheckLists(clID)
+        clIDList = retrieveChecklistIDs()
+        results = retrieveNamesWithVersions(clIDList)
+        client.close()
+        return Response(results)
+
+#Retrieve previous version list by passing in the clID and version number
+class CMRetrieveLoggedLists(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.ChecklistLogs.find()
+
+    def post(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+        clID = request.data['clID']
+        version = request.data['version']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = retrieveLoggedCheckLists(clID,version)
         client.close()
         return Response(results)
 
@@ -665,3 +690,4 @@ class UpdateUrgency(CreateAPIView):
         results = updateUrgency(obID,urgency)
         client.close()
         return Response(results)
+
