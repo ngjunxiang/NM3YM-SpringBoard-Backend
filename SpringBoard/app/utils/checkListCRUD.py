@@ -40,6 +40,8 @@ def createCheckList(input,name):
 
     input["version"] =  "1"
 
+    input["status"] =  "valid"
+
     input["dateCreated"] =  date
 
     input["updatedBy"] =  name
@@ -56,11 +58,6 @@ def createCheckList(input,name):
 
     client.close()
     return results
-
-def getCLversion(clID):
-    collection = db.Checklists
-    return collection.find_one({"clID": clID })["version"]
-    
 
 def updateCheckList(input,name,clID,version):
     
@@ -122,6 +119,19 @@ def updateCheckList(input,name,clID,version):
     client.close()
     return results
 
+def deleteCheckList(clID):
+
+    collection = db.Checklists
+    results = {}
+    deleted = collection.delete_one({'clID':clID})
+    results["results"] = deleted.acknowledged
+    results["items_deleted"] = deleted.deleted_count
+    client.close()
+    return results
+
+def getCLversion(clID):
+    collection = db.Checklists
+    return collection.find_one({"clID": clID })["version"]
 
 def retrieveCheckListByName():
 
@@ -160,22 +170,16 @@ def retrieveCheckList(clID):
 
     return results
 
-def deleteCheckList(clID):
-
-    collection = db.Checklists
-    results = {}
-    deleted = collection.delete_one({'clID':clID})
-    results["results"] = deleted.acknowledged
-    results["items_deleted"] = deleted.deleted_count
-    client.close()
-    return results
-
-def logCheckList(clID):
+def logCheckList(clID,toDelete = False):
     prevChecklist = retrieveCheckList(clID)
+    
     if('error' in prevChecklist):
         client.close()
         return prevChecklist
 
+    if toDelete:
+        prevChecklist["status"] = "deleted"
+    
     newCollection = db.ChecklistLogs
 
     results = {}
@@ -190,22 +194,58 @@ def logCheckList(clID):
 
     return results
 
-def retrieveChecklistIDs():
-    newCollection = db.ChecklistLogs
-    return newCollection.distinct("clID")
+def retrieveNamesWithVersions():
+    collection = db.Checklists
+    delCollection = db.ChecklistLogs
 
-def retrieveNamesWithVersions(clIDList):
-    newCollection = db.CheckListLogs
     results = {}
 
-    for clID in clIDList:
-        namesAndVersions = newCollection.find({"clID":clID},{"name":1,"version":1,"_id":0})
-        results[clID] = namesAndVersions
+    currentCLs = collection.find({},{"clID":1,"name":1,"version":1,"_id":0})
 
+    currCLVer = []
+    
+    for checklist in currentCLs:
+        cl = {}
+        cl["clID"] = checklist["clID"]
+        cl["name"] = checklist["name"]
+
+        version = int(checklist["version"])
+        versions = []
+
+        while version > 0:
+            versions.append(version)
+            version -= 1
+        
+        cl["versions"] = versions
+        currCLVer.append(cl)
+    
+    results["current"] = currCLVer
+
+    delCLs = delCollection.find({"status":"deleted"},{"clID":1,"name":1,"version":1,"_id":0})
+
+    delCLVer = []
+    
+    for checklist in delCLs:
+        cl = {}
+        cl["clID"] = checklist["clID"]
+        cl["name"] = checklist["name"]
+
+        version = int(checklist["version"])
+        versions = []
+
+        while version > 0:
+            versions.append(version)
+            version -= 1
+        
+        cl["versions"] = versions
+        delCLVer.append(cl)
+    
+    results["deleted"] = delCLVer
+    
     return results
 
 def retrieveLoggedCheckLists(clID,version):
-    newCollection = db.ChecklistLogs
+    collection = db.ChecklistLogs
 
     results = collection.find({"clID":clID,"version":version},{"_id":0})
     client.close()

@@ -402,7 +402,12 @@ class ManageCL(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType' })
 
-        clID = request.data['clID']
+        clID = request.data['clID'] 
+
+        results = logCheckList(clID,True)
+        if('error' in results):
+            return Response(results)
+
         results = deleteCheckList(clID)
         client.close()
         return Response(results)
@@ -524,8 +529,7 @@ class CMRetrieveNamesAndVersions(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        clIDList = retrieveChecklistIDs()
-        results = retrieveNamesWithVersions(clIDList)
+        results = retrieveNamesWithVersions()
         client.close()
         return Response(results)
 

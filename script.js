@@ -18,6 +18,7 @@ db.Checklists.insertOne(
         "clID": "0",
         "version" : "1",
         "latestDocID" : "62",
+        "status" : "valid",
         "requiredFields": [
             "Client Name",
             "RM Name",
