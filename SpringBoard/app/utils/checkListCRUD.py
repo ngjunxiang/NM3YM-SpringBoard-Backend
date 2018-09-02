@@ -12,7 +12,7 @@ def createCheckList(input,name):
 
     counter = db.ChecklistCounter
 
-    clID = counter.find_one({"_id":"clID"})["sequence_value"]
+    clID = int(counter.find_one({"_id":"clID"})["sequence_value"])
     db.ChecklistCounter.update({"_id":"clID"}, {'$inc': {'sequence_value': 1}})
 
     date = datetime.datetime.today()
@@ -245,9 +245,14 @@ def retrieveNamesWithVersions():
     return results
 
 def retrieveLoggedCheckLists(clID,version):
-    collection = db.ChecklistLogs
+    collection = db.Checklists
+    logCollection = db.ChecklistLogs
 
-    results = collection.find({"clID":clID,"version":version},{"_id":0})
+    results = collection.find_one({"clID":clID,"version":version},{"_id":0})
+
+    if results == None:
+        results = logCollection.find_one({"clID":clID,"version":version},{"_id":0})
+
     client.close()
     return results
 
