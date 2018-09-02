@@ -554,7 +554,8 @@ class CMRetrieveLoggedLists(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = retrieveLoggedCheckLists(clID,version)
+        results = {}
+        results["results"] = retrieveLoggedCheckLists(clID,version)
         client.close()
         return Response(results)
 
