@@ -22,7 +22,8 @@ db.Checklists.insertOne(
         "requiredFields": [
             "Client Name",
             "RM Name",
-            "Account Number"
+            "Account Number",
+            "Date of Submission"
         ],
         "conditions": {
             "Booking Centre": [

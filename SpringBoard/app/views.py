@@ -529,7 +529,8 @@ class CMRetrieveNamesAndVersions(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = retrieveNamesWithVersions()
+        results = {}
+        results["results"] = retrieveNamesWithVersions()
         client.close()
         return Response(results)
 
