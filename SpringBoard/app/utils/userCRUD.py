@@ -6,7 +6,7 @@ db = client.SpringBoard
 
 def retrieveAllUser():
     collection = db.Users
-    table = collection.find({},{"username":1,"password":1,"userType":1,"email":1,"_id":0})
+    table = collection.find({},{"name":1,"username":1,"password":1,"userType":1,"email":1,"_id":0})
     results = {}
     rList = [item for item in table]
     results["users"] =  rList
