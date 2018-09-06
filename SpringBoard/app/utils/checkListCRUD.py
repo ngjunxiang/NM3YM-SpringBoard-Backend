@@ -2,9 +2,11 @@ from pymongo import MongoClient
 from pymongo import cursor
 import json
 import datetime
+import pytz
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
+tz = pytz.timezone('Asia/Singapore')
 
 def createCheckList(input,name):
 
@@ -15,7 +17,7 @@ def createCheckList(input,name):
     clID = int(counter.find_one({"_id":"clID"})["sequence_value"])
     db.ChecklistCounter.update({"_id":"clID"}, {'$inc': {'sequence_value': 1}})
 
-    date = datetime.datetime.today()
+    date = datetime.datetime.now(pytz.utc).astimezone(tz)
     date = str(date)
     date = date[:date.index(".")]
 
@@ -64,7 +66,7 @@ def updateCheckList(input,name,clID,version):
     logsCollection = db.ChecklistLogs
     collection = db.Checklists
 
-    date = datetime.datetime.today()
+    date = datetime.datetime.now(pytz.utc).astimezone(tz)
     date = str(date)
     date = date[:date.index(".")]
 
@@ -86,7 +88,7 @@ def updateCheckList(input,name,clID,version):
             if document.get("docID") == "":
                 input["complianceDocuments"][section][index]["docID"] = str(latestDocID)
                 latestDocID += 1
-            index += 0
+            index += 1
 
     for section,value in input["legalDocuments"].items():
         index = 0
@@ -94,7 +96,7 @@ def updateCheckList(input,name,clID,version):
             if document.get("docID") == "":
                 input["legalDocuments"][section][index]["docID"] = str(latestDocID)
                 latestDocID += 1
-            index += 0
+            index += 1
 
     input["latestDocID"] =  str(latestDocID) 
 
