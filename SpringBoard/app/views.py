@@ -21,6 +21,7 @@ import datetime
 from app.utils.checkListCRUD import *
 from app.utils.tokenCRUD import *
 from app.utils.onboardCRUD import *
+from app.utils.dashboardCRUD import *
 from argon2 import PasswordHasher
 from argon2 import exceptions
 
@@ -718,3 +719,17 @@ class UpdateUrgency(CreateAPIView):
         client.close()
         return Response(results)
 
+class RMDashboard(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Checklists.find()
+
+    def post(self,request):
+        username = request.data['username']
+
+        results = {}
+        results["completedCount"] = getCompletedClients(username)
+        results["pendingCount"] = getPendingClients(username)
+        results["OnBoardedClients"] = getOnboardedClients(username)
+
+        client.close()
+        return Response(results)

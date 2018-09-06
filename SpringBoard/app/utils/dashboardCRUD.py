@@ -15,8 +15,7 @@ def getCompletedClients(username):
     results = {}
     rmName = getName(username)
     completedCount = collection.find({"requiredFields.RM Name": rmName,"progress":"100"}).count()
-    results["completedCount"] = completedCount
-    return results
+    return completedCount
 
 def getPendingClients(username):
     collection = db.Onboards
@@ -25,8 +24,7 @@ def getPendingClients(username):
     rmName = getName(username)
     totalCount = collection.find({"requiredFields.RM Name": rmName}).count()
     completedCount = getCompletedClients(username)
-    results["pendingCount"] = totalCount - completedCount
-    return results
+    return totalCount - completedCount
     
 def getOnboardedClients(username):
     collection = db.Onboards
