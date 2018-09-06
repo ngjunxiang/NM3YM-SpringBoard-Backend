@@ -86,7 +86,7 @@ def updateCheckList(input,name,clID,version):
             if document.get("docID") == "":
                 input["complianceDocuments"][section][index]["docID"] = str(latestDocID)
                 latestDocID += 1
-            index += 0
+            index += 1
 
     for section,value in input["legalDocuments"].items():
         index = 0
@@ -94,7 +94,7 @@ def updateCheckList(input,name,clID,version):
             if document.get("docID") == "":
                 input["legalDocuments"][section][index]["docID"] = str(latestDocID)
                 latestDocID += 1
-            index += 0
+            index += 1
 
     input["latestDocID"] =  str(latestDocID) 
 

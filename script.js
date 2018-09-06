@@ -698,7 +698,7 @@ db.Checklists.insertOne(
     })
     
 // set up checklistLigs table
-db.ChecklistLogs.createIndex({ "formID": 1, "version": 1 }, { unique: true })
+db.ChecklistLogs.createIndex({ "clID": 1, "version": 1 }, { unique: true })
 
 // set up checklist IDs
 db.ChecklistCounter.insertOne ( {"_id": "clID" , "sequence_value" : 1 } )
