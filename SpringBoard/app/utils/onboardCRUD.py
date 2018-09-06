@@ -86,6 +86,9 @@ def createNewOnBoard(input):
     input["dateCreated"] =  str(date)
     input["progress"] = str(progress)
 
+    if progress == 100:
+        input['dataCompleted'] = str(date)
+
     results = {'results':'false'}
     
     try:
@@ -253,6 +256,9 @@ def updateSelectedOnboard(obID,input):
     input["dateCreated"] =  date
     input["progress"] = str(progress)
     input["urgent"] = getUrgency(obID)
+
+    if progress == 100:
+        input['dataCompleted'] = str(date)
     
     try:
         collection.insert_one(input)
