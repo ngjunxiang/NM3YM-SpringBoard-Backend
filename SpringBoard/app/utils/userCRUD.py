@@ -61,7 +61,7 @@ def getName(username):
 
 def getEmail(username):
     collection = db.Users
-    email = collection.find_one({'username':username},{'email':1, '_id':0})['email']
+    email = collection.find_one({'username':username},{'email':1, '_id':0})['email']    
     return email
 
 def getAllRMNames():
@@ -71,3 +71,10 @@ def getAllRMNames():
     names = [item.get("name") for item in table]
     results["results"] = names
     return results
+
+def getAllRMUsernames():
+    collection = db.Users
+    results = {}
+    table = collection.find({'userType':'RM'},{'username':1,'_id':0})
+    usernames = [item.get("username") for item in table]
+    return usernames

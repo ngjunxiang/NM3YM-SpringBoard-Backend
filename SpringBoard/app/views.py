@@ -22,6 +22,7 @@ from app.utils.checkListCRUD import *
 from app.utils.tokenCRUD import *
 from app.utils.onboardCRUD import *
 from app.utils.dashboardCRUD import *
+from app.utils.notificationCRUD import *
 from argon2 import PasswordHasher
 from argon2 import exceptions
 
@@ -732,5 +733,16 @@ class RMDashboard(CreateAPIView):
         results["pendingCount"] = getPendingClients(username)
         results["OnBoardedClients"] = getOnboardedClients(username)
 
+        client.close()
+        return Response(results)
+
+class RMRetrieveNotification(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Notifications.find()
+
+    def post(self,request):
+        username = request.data['username']
+
+        results = getNotifications(username)
         client.close()
         return Response(results)

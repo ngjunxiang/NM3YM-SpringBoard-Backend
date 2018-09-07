@@ -3,6 +3,7 @@ from pymongo import cursor
 import json
 import datetime
 import pytz
+from app.utils.notificationCRUD import *
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
@@ -84,10 +85,17 @@ def updateCheckList(input,name,clID,version):
     for section,value in input["complianceDocuments"].items():
         index = 0
         for document in value:
-            # if added document
+            # if new document
             if document.get("docID") == "":
                 input["complianceDocuments"][section][index]["docID"] = str(latestDocID)
+                checkBool = createNotification(clID,version,str(latestDocID),2)
+                print(str(checkBool))
                 latestDocID += 1
+            changedVal = int(document.get("changed"))
+            if changedVal != 0:
+                checkBool = createNotification(clID,version,str(latestDocID),changedVal)
+                print(str(checkBool))
+                
             index += 1
 
     for section,value in input["legalDocuments"].items():
@@ -95,8 +103,15 @@ def updateCheckList(input,name,clID,version):
         for document in value:
             if document.get("docID") == "":
                 input["legalDocuments"][section][index]["docID"] = str(latestDocID)
+                checkBool = createNotification(clID,version,str(latestDocID),2)
+                print(str(checkBool))
                 latestDocID += 1
+            changedVal = int(document.get("changed"))
+            if changedVal != 0:
+                checkBool = createNotification(clID,version,str(latestDocID),changedVal)
+                print(str(checkBool))
             index += 1
+
 
     input["latestDocID"] =  str(latestDocID) 
 
@@ -114,7 +129,8 @@ def updateCheckList(input,name,clID,version):
     
     try:
         collection.insert_one(checklist)
-        results['results'] = 'true' 
+        results['results'] = 'true'
+         
     except Exception as e:
         results['error'] = str(e)
 
@@ -258,6 +274,29 @@ def retrieveLoggedCheckLists(clID,version):
     client.close()
     return results
 
+def getChecklistForNotification(clID,version,docID):
+    collection = db.Checklists
+    results = {}
+
+    docs = collection.find_one({"clID":clID,"version":version},{"complianceDocuments":1,"legalDocuments":1,"name":1,"_id":0})
+    results["name"] = docs.get("name")
+    for section, value in docs["complianceDocuments"].items():
+        for document in value:
+            if document.get("docID") == docID:
+                results["DocChanged"] = "Compliance Documents"
+                results["type"] = document
+                return
+
+    if "type" not in results:
+        for section, value in docs["legalDocuments"].items():
+            for document in value:
+                if document.get("docID") == docID:
+                    results["DocChanged"] = "Legal Documents"
+                    results["type"] = document
+                    return
+
+    client.close()
+    return results
 
 def filterSort(query):
 

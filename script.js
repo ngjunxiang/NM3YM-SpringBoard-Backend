@@ -714,3 +714,9 @@ db.Onboards.createIndex({"clientName":1,"RMName":1,"dateCreated":1},{unique: tru
 
 // set up onboard checker urgent checker
 db.OnboardUrgentChecker.createIndex({"obID":1,"Urgent":1},{unique: true})
+
+//set up notification IDs
+db.NotificationCounter.insertOne({"_id":"noID", "sequence_value" : 1 })
+
+//set up notification table
+db.Notifications.createIndex({"noID":1, "clID":1, "version":1,"docID":1})
