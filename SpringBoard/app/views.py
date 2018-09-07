@@ -272,7 +272,7 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
 
         hashedPw = ph.hash(newPassword);
 
-        results = createUser(newUsername,hashedPw,newUserType,newEmail,name) 
+        results = createUser(newUsername,hashedPw,newUserType,name,newEmail) 
 
         client.close()
         return Response(results)
@@ -320,7 +320,8 @@ class UpdateUsers(CreateAPIView):
         client.close()
         return Response(results)
 
-class GetRMNames(CreateAPIView):
+# Retrieve all RM names
+class RMRetrieveRMNames(CreateAPIView):
     serializer_class = UserSerializer 
     queryset = db.Users.find()
 
@@ -335,9 +336,9 @@ class GetRMNames(CreateAPIView):
             return Response(results)
         if(not isRM(userType)):
             client.close()
-            return Response({'error' : 'invalid userType' })
+            return Response({'error' : 'invalid userType'})
 
-        results = GetRMNames()
+        results = getAllRMNames()
         client.close()
         return Response(results)
 

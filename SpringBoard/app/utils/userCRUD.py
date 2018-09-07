@@ -66,5 +66,8 @@ def getEmail(username):
 
 def getAllRMNames():
     collection = db.Users
-    names = collection.find({'userType':'RM'},{'name':1,'_id':0})
-    return names
+    results = {}
+    table = collection.find({'userType':'RM'},{'name':1,'_id':0})
+    names = [item.get("name") for item in table]
+    results["results"] = names
+    return results

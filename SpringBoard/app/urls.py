@@ -29,7 +29,6 @@ urlpatterns = [
     url(r'^cm/create-checklist', views.CreateCL.as_view()),
     url(r'^cm/manage-checklist', views.ManageCL.as_view()),
     url(r'^cm/update-checklist', views.UpdateCL.as_view()),
-    url(r'^cm/get-rmnames', views.GetRMNames.as_view()),
     url(r'^cm/retrieve-checklistNames', views.CMRetrieveCLNames.as_view()),
     url(r'^cm/retrieve-loggedLists', views.CMRetrieveLoggedLists.as_view()),
     url(r'^cm/retrieve-clIDWithVersion', views.CMRetrieveNamesAndVersions.as_view()),
@@ -43,6 +42,7 @@ urlpatterns = [
     url(r'^rm/retrieve-all-onboard', views.RetrieveAllOnboards.as_view()),
     url(r'^rm/retrieve-selected-onboard', views.RetrieveSelectedOnboard.as_view()),
     url(r'^rm/retrieve-urgency', views.RetrieveUrgency.as_view()),
+    url(r'^rm/retrieve-rm-names', views.RMRetrieveRMNames.as_view()),
 
     # others
     url(r'^invalidateUser', views.InvalidateUser.as_view()),
