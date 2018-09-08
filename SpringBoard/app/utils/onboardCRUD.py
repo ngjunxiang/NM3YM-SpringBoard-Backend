@@ -5,6 +5,7 @@ from app.utils.userCRUD import *
 
 import json
 import datetime
+import pytz
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
@@ -74,7 +75,7 @@ def createNewOnBoard(input):
     obID = counter.find_one({"_id":"obID"})["sequence_value"]
     db.OnboardCounter.update({"_id":"obID"}, {'$inc': {'sequence_value': 1}})
 
-    date = datetime.datetime.today()
+    date = datetime.datetime.now(pytz.utc).astimezone(tz)
     date = str(date)
     date = date[:date.index(".")]
 
@@ -228,7 +229,7 @@ def updateSelectedOnboard(obID,input):
         client.close()
         return results
 
-    date = datetime.datetime.today()
+    date = datetime.datetime.now(pytz.utc).astimezone(tz)
     date = str(date)
     date = date[:date.index(".")]
 
