@@ -43,7 +43,9 @@ urlpatterns = [
     url(r'^rm/retrieve-selected-onboard', views.RetrieveSelectedOnboard.as_view()),
     url(r'^rm/retrieve-urgency', views.RetrieveUrgency.as_view()),
     url(r'^rm/retrieve-rm-names', views.RMRetrieveRMNames.as_view()),
-     url(r'^rm/retrieve-notifications', views.RMRetrieveNotification.as_view()),
+    url(r'^rm/retrieve-latest-notifications', views.RMRetrieveLatestNotification.as_view()),
+    url(r'^rm/retrieve-all-notifications', views.RMRetrieveAllNotification.as_view()),
+    url(r'^rm/update-notifications', views.RMUpdateNotification.as_view()),
 
     # others
     url(r'^invalidateUser', views.InvalidateUser.as_view()),

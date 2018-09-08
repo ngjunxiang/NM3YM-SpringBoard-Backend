@@ -736,13 +736,36 @@ class RMDashboard(CreateAPIView):
         client.close()
         return Response(results)
 
-class RMRetrieveNotification(CreateAPIView):
+class RMRetrieveLatestNotification(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Notifications.find()
 
     def post(self,request):
         username = request.data['username']
 
-        results = getNotifications(username)
+        results = getNewNotifications(username)
+        client.close()
+        return Response(results)
+
+class RMRetrieveAllNotification(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Notifications.find()
+
+    def post(self,request):
+        username = request.data['username']
+
+        results = getAllNotifications(username)
+        client.close()
+        return Response(results)
+
+class RMUpdateNotification(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Notifications.find()
+
+    def post(self,request):
+        username = request.data['username']
+
+        results = {}
+        results["Updated"] = updateNotification(username)
         client.close()
         return Response(results)

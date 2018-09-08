@@ -27,7 +27,6 @@ def createNotification(clID,version,docID,changed):
         rms.append({"username":username,"changed":changed,"checked":False})
 
     notification["RMs"] = rms
-    notification = json.loads(notification)
 
     try:
         collection.insert_one(notification)
@@ -37,7 +36,28 @@ def createNotification(clID,version,docID,changed):
     client.close()
     return True
 
-def getNotifications(username):
+def getAllNotifications(username):
+    collection = db.Notifications
+
+    table = collection.find({"RMs.username":username},{"_id":0,"clID":1,"version":1,"docID":1})
+
+    results = {}
+    notificationList = []
+    counter = 0
+    for item in table:
+        clID = item["clID"]
+        version = item["version"]
+        docID = item["docID"]
+        notification = getChecklistForNotification(clID,version,docID)
+        notificationList.append(notification)
+        counter += 1
+
+    results["totalCount"] = counter
+    results["notifications"] = notificationList
+
+    return results
+
+def getNewNotifications(username):
     collection = db.Notifications
 
     table = collection.find({"RMs.username":username,"RMs.checked":False},{"_id":0,"clID":1,"version":1,"docID":1})
@@ -57,3 +77,32 @@ def getNotifications(username):
 
     return results
 
+def updateNotification(username):
+    collection = db.Notifications
+
+    results = collection.update({"RMs.username":username},{'$set':{"RMs.checked":True}},multi=True)
+    return results["ok"] > 0
+
+def getChecklistForNotification(clID,version,docID):
+    collection = db.Checklists
+    results = {}
+
+    docs = collection.find_one({"clID":clID,"version":version},{"complianceDocuments":1,"legalDocuments":1,"name":1,"_id":0})
+    results["name"] = docs.get("name")
+    for section, value in docs["complianceDocuments"].items():
+        for document in value:
+            if document.get("docID") == docID:
+                results["DocChanged"] = "Compliance Documents"
+                results["type"] = document
+                break
+
+    if "type" not in results:
+        for section, value in docs["legalDocuments"].items():
+            for document in value:
+                if document.get("docID") == docID:
+                    results["DocChanged"] = "Legal Documents"
+                    results["type"] = document
+                    break
+
+    client.close()
+    return results

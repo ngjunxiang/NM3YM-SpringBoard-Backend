@@ -89,12 +89,10 @@ def updateCheckList(input,name,clID,version):
             if document.get("docID") == "":
                 input["complianceDocuments"][section][index]["docID"] = str(latestDocID)
                 checkBool = createNotification(clID,version,str(latestDocID),2)
-                print(str(checkBool))
                 latestDocID += 1
             changedVal = int(document.get("changed"))
             if changedVal != 0:
                 checkBool = createNotification(clID,version,str(latestDocID),changedVal)
-                print(str(checkBool))
                 
             index += 1
 
@@ -104,12 +102,10 @@ def updateCheckList(input,name,clID,version):
             if document.get("docID") == "":
                 input["legalDocuments"][section][index]["docID"] = str(latestDocID)
                 checkBool = createNotification(clID,version,str(latestDocID),2)
-                print(str(checkBool))
                 latestDocID += 1
             changedVal = int(document.get("changed"))
             if changedVal != 0:
                 checkBool = createNotification(clID,version,str(latestDocID),changedVal)
-                print(str(checkBool))
             index += 1
 
 
@@ -270,30 +266,6 @@ def retrieveLoggedCheckLists(clID,version):
 
     if results == None:
         results = logCollection.find_one({"clID":clID,"version":version},{"_id":0})
-
-    client.close()
-    return results
-
-def getChecklistForNotification(clID,version,docID):
-    collection = db.Checklists
-    results = {}
-
-    docs = collection.find_one({"clID":clID,"version":version},{"complianceDocuments":1,"legalDocuments":1,"name":1,"_id":0})
-    results["name"] = docs.get("name")
-    for section, value in docs["complianceDocuments"].items():
-        for document in value:
-            if document.get("docID") == docID:
-                results["DocChanged"] = "Compliance Documents"
-                results["type"] = document
-                return
-
-    if "type" not in results:
-        for section, value in docs["legalDocuments"].items():
-            for document in value:
-                if document.get("docID") == docID:
-                    results["DocChanged"] = "Legal Documents"
-                    results["type"] = document
-                    return
 
     client.close()
     return results
