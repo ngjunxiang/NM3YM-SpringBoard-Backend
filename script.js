@@ -7,7 +7,8 @@ db.Users.createIndex({ "username": 1 }, { unique: true })
 db.Users.insertMany([
     { "username": "admin", "password": "$argon2i$v=19$m=512,t=2,p=2$0OvvCnGQIgmrBhzF1DzRJg$AndnHTRF7unXj/g4NYFhzA", "userType": "ADMIN", "name": "Admin Tan WeiMing", "email": "admin@email.com" },
     { "username": "RandyLai", "password": "$argon2i$v=19$m=512,t=2,p=2$xaPF+Umz4EJsi8KcfYcpFg$EYR0xPAIbJTLhmLU2IQC9A", "userType": "CM", "name": "Randy Lai YongHao", "email": "randy@email.com" },
-    { "username": "LimPeiXuan", "password": "$argon2i$v=19$m=512,t=2,p=2$dIR+gSEKdzNyfc4O6ywpSw$oeuv/geCe3jGIQ7A7U/dsA", "userType": "RM", "name" : "Lim Pei Xuan", "email": "peixuan@email.com" }
+    { "username": "LimPeiXuan", "password": "$argon2i$v=19$m=512,t=2,p=2$dIR+gSEKdzNyfc4O6ywpSw$oeuv/geCe3jGIQ7A7U/dsA", "userType": "RM", "name" : "Lim Pei Xuan", "email": "peixuan@email.com" },
+    { "username": "NgJunXiang", "password": "$argon2i$v=19$m=512,t=2,p=2$87q0Y1vKSUwPooMa2QbnCQ$NuP4filc1JOiXrSAuSS+lg", "userType": "COM", "name" : "Ng Jun Xiang", "email": "junxiang@email.com" }
 ])
 
 // set up checklists table

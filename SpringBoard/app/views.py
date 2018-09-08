@@ -271,7 +271,7 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
             return Response({'error' : 'Email already used in database' })
 
 
-        hashedPw = ph.hash(newPassword);
+        hashedPw = ph.hash(newPassword)
 
         results = createUser(newUsername,hashedPw,newUserType,name,newEmail) 
 
