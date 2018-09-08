@@ -43,6 +43,9 @@ def isCM(userType):
 def isRM(userType):
     return userType == "RM"
 
+def isCompliance(userType):
+    return userType == "COMPLIANCE"
+
 def tokenAuthenticate(username,token):
     results = {}
     if('error' in checkToken(token)):
@@ -196,6 +199,34 @@ class authenticateRM(CreateAPIView):
             client.close()
             return Response(results)
         if(not isRM(userType)):
+            client.close()
+            return Response({'error' : 'Invalid userType' })
+
+        newToken = createToken(username)
+        checkResults = removeToken(username,token)
+        if (checkResults['items_deleted']!=1):
+            return Response({'error' : 'Failed to delete token'})
+        checkStore = storeToken(username,newToken)
+        if('error' in checkStore):
+            return Response({'error':'Failed to store token'})
+        #resuts = {}
+        #results['success'] = newToken
+
+        return Response({'newToken' : newToken})
+
+class authenticateCompliance(CreateAPIView):
+    serializer_class = UserSerializer
+
+    def post(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        results = tokenAuthenticate(username,token)
+        if(len(results) != 0):
+            client.close()
+            return Response(results)
+        if(not isCompliance(userType)):
             client.close()
             return Response({'error' : 'Invalid userType' })
 

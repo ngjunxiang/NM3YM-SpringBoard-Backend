@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^authenticateAdmin',views.authenticateAdmin.as_view()),
     url(r'^authenticateCM',views.authenticateCM.as_view()),
     url(r'^authenticateRM',views.authenticateRM.as_view()),
+    url(r'^authenticateCompliance',views.authenticateCompliance.as_view()),
 
     # admin endpoints
     url(r'^admin/retrieve-users', views.RetrieveUsers.as_view()),
