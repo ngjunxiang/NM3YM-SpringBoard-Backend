@@ -9,6 +9,7 @@ import pytz
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
+tz = pytz.timezone('Asia/Singapore')
 
 def checkProgress(input):
     compDocs = input["complianceDocuments"]
