@@ -870,3 +870,9 @@ class ComplianceRetrieveNamesAndVersions(CreateAPIView):
         results["results"] = retrieveNamesWithVersions()
         client.close()
         return Response(results)
+
+class Upload(CreateAPIView):
+
+    def post(self,request):
+        
+        return Response('File received')

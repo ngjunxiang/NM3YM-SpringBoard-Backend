@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^admin/retrieve-users', views.RetrieveUsers.as_view()),
     url(r'^admin/manage-users', views.ManageUsers.as_view()),
     url(r'^admin/update-users', views.UpdateUsers.as_view()),
+    url(r'^admin/upload', views.Upload.as_view()),
 
     # CM endpoints
     url(r'^cm/manage-checklist', views.ManageCL.as_view()),
