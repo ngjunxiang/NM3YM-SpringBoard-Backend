@@ -872,7 +872,7 @@ class ComplianceRetrieveNamesAndVersions(CreateAPIView):
         client.close()
         return Response(results)
 
-class Upload(CreateAPIView):
+class UploadAgmtCodes(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.AgmtCodes.find()
 
@@ -891,7 +891,28 @@ class Upload(CreateAPIView):
         if not csv_file.name.endswith('.csv'):
             return Response({'error':'file is not csv'})
 
-        results = bootstrap(csv_file)
+        results = {}
+        results["results"] = bootstrapAgmt(csv_file)
+        
+        client.close()
+        return Response(results)
+
+class RetrieveAgmtCodes(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.AgmtCodes.find()
+
+    def post(self,request):
+
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+
+        results = retrieveAgmt()
         
         client.close()
         return Response(results)

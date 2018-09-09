@@ -5,10 +5,10 @@ import json
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
-def bootstrap(file):
+def bootstrapAgmt(file):
 
     db.AgmtCodes.drop()
-    
+
     collection = db.AgmtCodes
 
     results = {'results':'false'}
@@ -21,8 +21,6 @@ def bootstrap(file):
     errors = 0
 
     for line in file:
-
-        print(line)
 
         # Skip header
         if row == 0:
@@ -48,4 +46,19 @@ def bootstrap(file):
     }
 
     client.close()
+    return results
+
+def retrieveAgmt():
+
+    collection = db.AgmtCodes
+
+    table = collection.find({},{"_id":0})
+
+    results = {}
+
+    for item in table:
+        results[item["code"]] = item["document"]
+
+    client.close()
+
     return results
