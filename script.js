@@ -721,3 +721,6 @@ db.NotificationCounter.insertOne({"_id":"noID", "sequence_value" : 1 })
 
 //set up notification table
 db.Notifications.createIndex({"noID":1, "clID":1, "version":1,"docID":1})
+
+// set up agmt code table
+db.AgmtCodes.createIndex({ "code": 1 }, { unique: true })

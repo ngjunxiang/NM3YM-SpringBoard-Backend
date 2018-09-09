@@ -23,6 +23,7 @@ from app.utils.tokenCRUD import *
 from app.utils.onboardCRUD import *
 from app.utils.dashboardCRUD import *
 from app.utils.notificationCRUD import *
+from app.utils.agmtCodes import *
 from argon2 import PasswordHasher
 from argon2 import exceptions
 
@@ -872,7 +873,25 @@ class ComplianceRetrieveNamesAndVersions(CreateAPIView):
         return Response(results)
 
 class Upload(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.AgmtCodes.find()
 
     def post(self,request):
+
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+
+        csv_file = request.FILES["uploadedFile"]
+        if not csv_file.name.endswith('.csv'):
+            return Response({'error':'file is not csv'})
+
+        results = bootstrap(csv_file)
         
-        return Response('File received')
+        client.close()
+        return Response(results)
