@@ -390,7 +390,7 @@ class CreateCL(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isCM(userType)):
+        if(not isCompliance(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -414,7 +414,7 @@ class ManageCL(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isCM(userType)):
+        if(not (isCM(userType) or isCompliance(userType))):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -432,7 +432,7 @@ class ManageCL(CreateAPIView):
         if(len(results) != 0):
             client.close()
             return Response(results)
-        if(not isCM(userType)):
+        if(not isCompliance(userType)):
             client.close()
             return Response({'error' : 'invalid userType' })
 
@@ -463,7 +463,7 @@ class UpdateCL(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isCM(userType)):
+        if(not (isCM(userType) or isCompliance(userType))):
             client.close()
             return Response({'error' : 'invalid userType'})
         results = logCheckList(clID)
@@ -568,7 +568,7 @@ class CMRetrieveNamesAndVersions(CreateAPIView):
         client.close()
         return Response(results)
 
-#Retrieve previous version list by passing in the clID and version number
+# Retrieve previous version list by passing in the clID and version number
 class CMRetrieveLoggedLists(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.ChecklistLogs.find()
@@ -798,5 +798,75 @@ class RMUpdateNotification(CreateAPIView):
 
         results = {}
         results["Updated"] = updateNotification(username)
+        client.close()
+        return Response(results)
+
+
+# Returns all checklist names for Compliance
+class ComplianceRetrieveCLNames(CreateAPIView):
+     serializer_class = CLSerializer
+     queryset = db.Checklists.find()
+
+     def post(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCompliance(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = retrieveCheckListByName()
+        client.close()
+        return Response(results)
+
+# Retrieve previous version list by passing in the clID and version number
+class ComplianceRetrieveLoggedLists(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.ChecklistLogs.find()
+
+    def post(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+        clID = request.data['clID']
+        version = request.data['version']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCompliance(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = {}
+        results["results"] = retrieveLoggedCheckLists(clID,version)
+        client.close()
+        return Response(results)
+
+class ComplianceRetrieveNamesAndVersions(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.ChecklistLogs.find()
+
+    def post(self,request):
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCompliance(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = {}
+        results["results"] = retrieveNamesWithVersions()
         client.close()
         return Response(results)

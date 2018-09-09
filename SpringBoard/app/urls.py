@@ -27,7 +27,6 @@ urlpatterns = [
     url(r'^admin/update-users', views.UpdateUsers.as_view()),
 
     # CM endpoints
-    url(r'^cm/create-checklist', views.CreateCL.as_view()),
     url(r'^cm/manage-checklist', views.ManageCL.as_view()),
     url(r'^cm/update-checklist', views.UpdateCL.as_view()),
     url(r'^cm/retrieve-checklistNames', views.CMRetrieveCLNames.as_view()),
@@ -47,6 +46,14 @@ urlpatterns = [
     url(r'^rm/retrieve-latest-notifications', views.RMRetrieveLatestNotification.as_view()),
     url(r'^rm/retrieve-all-notifications', views.RMRetrieveAllNotification.as_view()),
     url(r'^rm/update-notifications', views.RMUpdateNotification.as_view()),
+
+    # Compliance endpoints
+    url(r'^compliance/create-checklist', views.CreateCL.as_view()),
+    url(r'^compliance/manage-checklist', views.ManageCL.as_view()),
+    url(r'^compliance/update-checklist', views.UpdateCL.as_view()),
+    url(r'^compliance/retrieve-checklistNames', views.ComplianceRetrieveCLNames.as_view()),
+    url(r'^compliance/retrieve-loggedLists', views.ComplianceRetrieveLoggedLists.as_view()),
+    url(r'^compliance/retrieve-clIDWithVersion', views.ComplianceRetrieveNamesAndVersions.as_view()),
 
     # others
     url(r'^invalidateUser', views.InvalidateUser.as_view()),
