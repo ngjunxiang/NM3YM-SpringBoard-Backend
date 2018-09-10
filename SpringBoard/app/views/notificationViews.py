@@ -1,0 +1,59 @@
+from pymongo import MongoClient
+import json
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.response import Response
+from rest_framework.generics import *
+from app.serializers import *
+from app.models import *
+
+from app.utils.tokenCRUD import *
+from app.utils.notificationCRUD import *
+
+client = MongoClient('mongodb://localhost:27017/')
+db = client.SpringBoard
+
+class RMRetrieveLatestNotification(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Notifications.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+
+        results = {}
+        results["results"] = getNewNotifications(username)
+
+        client.close()
+        return Response(results)
+
+class RMRetrieveAllNotification(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Notifications.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+
+        results = {}
+        results["results"] = getAllNotifications(username)
+
+        client.close()
+        return Response(results)
+
+class RMUpdateNotification(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Notifications.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+
+        results = {}
+        results["results"]= updateNotification(username)
+
+        client.close()
+        return Response(results)
