@@ -11,79 +11,32 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 tz = pytz.timezone('Asia/Singapore')
 
-def checkProgress(input):
-    compDocs = input["complianceDocuments"]
-    legalDocs = input["legalDocuments"]
-
-    compConditional = compDocs["conditional"]
-    compMandatory = compDocs["mandatory"]
-    compOptional = compDocs["optional"]
-    
-    legalConditional = legalDocs["conditional"]
-    legalMandatory = legalDocs["mandatory"]
-    legalOptional = legalDocs["optional"]
-
-    totalCheckBoxes = 0
-    totalCheckedBoxes = 0
-
-    for index in compConditional:
-        totalCheckBoxes = totalCheckBoxes + 1
-        if(index["checked"]):
-            totalCheckedBoxes = totalCheckedBoxes + 1
-
-    for index in compMandatory:
-        totalCheckBoxes = totalCheckBoxes + 1
-        if(index["checked"]):
-            totalCheckedBoxes = totalCheckedBoxes + 1
-
-    for index in compOptional:
-        totalCheckBoxes = totalCheckBoxes + 1
-        if(index["checked"]):
-            totalCheckedBoxes = totalCheckedBoxes + 1
-
-    for index in legalConditional:
-        totalCheckBoxes = totalCheckBoxes + 1
-        if(index["checked"]):
-            totalCheckedBoxes = totalCheckedBoxes + 1
-
-    for index in legalMandatory:
-        totalCheckBoxes = totalCheckBoxes + 1
-        if(index["checked"]):
-            totalCheckedBoxes = totalCheckedBoxes + 1
-
-    for index in legalOptional:
-        totalCheckBoxes = totalCheckBoxes + 1
-        if(index["checked"]):
-            totalCheckedBoxes = totalCheckedBoxes + 1
-
-    return round(totalCheckedBoxes/totalCheckBoxes*100,1)
-
-def loadUrgentJson(obID):
-    results = {}
-    results["obID"] = obID
-    results["Urgent"] = False
-
-    return json.loads(results)
+# ------------------------------------------------------------------- #
+#                            Onboard CRUD                             #
+# ------------------------------------------------------------------- #
 
 def createNewOnBoard(input):
 
     collection = db.Onboards
-
     # urgentCollection = db.OnboardUrgentChecker
-
     counter = db.OnboardCounter
 
+    # get latest obID from Onboard Counter
     obID = counter.find_one({"_id":"obID"})["sequence_value"]
     db.OnboardCounter.update({"_id":"obID"}, {'$inc': {'sequence_value': 1}})
 
+    # get timezone corrected date
     date = datetime.datetime.now(pytz.utc).astimezone(tz)
     date = str(date)
     date = date[:date.index(".")]
 
+    # parse input from frontend
     input = json.loads(input)
 
+    # get onboard progress
     progress = checkProgress(input)
     
+    # update additional info
     input["obID"] =  str(obID)
     input["dateCreated"] =  str(date)
     input["progress"] = str(progress)
@@ -104,14 +57,75 @@ def createNewOnBoard(input):
     client.close()
     return results
 
-def getAllCurrentOnboards(username):
 
-    rmName = getName(username)
+def updateSelectedOnboard(obID,input):
+
     collection = db.Onboards
-    table = collection.find({"requiredFields.RM Name": rmName},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
+
+    results = {'results':'false'}
+
+    # delete current record
+    deletedResults = deleteSelectedOnboard(obID)
+    if(deletedResults["items_deleted"]==0):
+        client.close()
+        return results
+
+    # get timezone corrected date
+    date = datetime.datetime.now(pytz.utc).astimezone(tz)
+    date = str(date)
+    date = date[:date.index(".")]
+
+    # parse input from frontend
+    input = json.loads(input)
+
+    # unless row has been deleted, reset "changed" to 0
+    for section,value in input["complianceDocuments"].items():
+        docArray = []
+        for document in value:
+            if document.get("changed") != "3":
+                document["changed"] = "0"
+                docArray.append(document)
+        input["complianceDocuments"][section] = docArray
+
+    for section,value in input["legalDocuments"].items():
+        docArray = []
+        for document in value:
+            if document.get("changed") != "3":
+                document["changed"] = "0"
+                docArray.append(document)
+        input["legalDocuments"][section] = docArray
+
+    # get onboard progress
+    progress = checkProgress(input)
+    
+    # update additional info
+    input["obID"] =  str(obID)
+    input["dateCreated"] =  date
+    input["progress"] = str(progress)
+    input["urgent"] = getUrgency(obID)
+
+    if progress == 100:
+        input['dataCompleted'] = str(date)
+    
+    try:
+        collection.insert_one(input)
+        results['results'] = 'true' 
+    except Exception as e:
+        results['error'] = str(e)
+
+    client.close()
+    return results
+
+def deleteSelectedOnboard(obID):
+
+    collection = db.Onboards
+
     results = {}
-    obList = [item for item in table]
-    results["obLists"] =  obList
+
+    deleted = collection.delete_one({'obID':obID})
+    results["results"] = deleted.acknowledged
+    results["items_deleted"] = deleted.deleted_count
+
     client.close()
     return results
 
@@ -121,6 +135,7 @@ def getSelectedOnboard(obID):
     clCollection = db.Checklists
     logCollection = db.ChecklistLogs
     
+    # get clID and version of the onboard
     onboard = obCollection.find_one({"obID":obID},{"_id":0})
     clID = onboard["clID"]
     version = int(onboard["version"])
@@ -208,68 +223,80 @@ def getSelectedOnboard(obID):
     client.close()
     return onboard
 
-def deleteSelectedOnboard(obID):
 
+# ------------------------------------------------------------------- #
+#                           Other Methods                             #
+# ------------------------------------------------------------------- #
+
+def getAllCurrentOnboards(username):
+
+    rmName = getName(username)
     collection = db.Onboards
+
+    table = collection.find({"requiredFields.RM Name": rmName},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
+    obList = [item for item in table]
+    
     results = {}
-    deleted = collection.delete_one({'obID':obID})
-    results["results"] = deleted.acknowledged
-    results["items_deleted"] = deleted.deleted_count
+    results["obLists"] =  obList
+    
     client.close()
     return results
 
-def updateSelectedOnboard(obID,input):
 
-    collection = db.Onboards
+# returns onboarding progress for given onboard
+def checkProgress(input):
 
-    deletedResults = deleteSelectedOnboard(obID)
+    compDocs = input["complianceDocuments"]
+    legalDocs = input["legalDocuments"]
 
-    results = {'results':'false'}
-
-    if(deletedResults["items_deleted"]==0):
-        client.close()
-        return results
-
-    date = datetime.datetime.now(pytz.utc).astimezone(tz)
-    date = str(date)
-    date = date[:date.index(".")]
-
-    input = json.loads(input)
-
-    for section,value in input["complianceDocuments"].items():
-        docArray = []
-        for document in value:
-            if document.get("changed") != "3":
-                document["changed"] = "0"
-                docArray.append(document)
-        input["complianceDocuments"][section] = docArray
-
-    for section,value in input["legalDocuments"].items():
-        docArray = []
-        for document in value:
-            if document.get("changed") != "3":
-                document["changed"] = "0"
-                docArray.append(document)
-        input["legalDocuments"][section] = docArray
-
-    progress = checkProgress(input)
+    compConditional = compDocs["conditional"]
+    compMandatory = compDocs["mandatory"]
+    compOptional = compDocs["optional"]
     
-    input["obID"] =  str(obID)
-    input["dateCreated"] =  date
-    input["progress"] = str(progress)
-    input["urgent"] = getUrgency(obID)
+    legalConditional = legalDocs["conditional"]
+    legalMandatory = legalDocs["mandatory"]
+    legalOptional = legalDocs["optional"]
 
-    if progress == 100:
-        input['dataCompleted'] = str(date)
-    
-    try:
-        collection.insert_one(input)
-        results['results'] = 'true' 
-    except Exception as e:
-        results['error'] = str(e)
+    totalCheckBoxes = 0
+    totalCheckedBoxes = 0
 
-    client.close()
-    return results
+    # iterate through all documents
+    for index in compConditional:
+        totalCheckBoxes = totalCheckBoxes + 1
+        if(index["checked"]):
+            totalCheckedBoxes = totalCheckedBoxes + 1
+
+    for index in compMandatory:
+        totalCheckBoxes = totalCheckBoxes + 1
+        if(index["checked"]):
+            totalCheckedBoxes = totalCheckedBoxes + 1
+
+    for index in compOptional:
+        totalCheckBoxes = totalCheckBoxes + 1
+        if(index["checked"]):
+            totalCheckedBoxes = totalCheckedBoxes + 1
+
+    for index in legalConditional:
+        totalCheckBoxes = totalCheckBoxes + 1
+        if(index["checked"]):
+            totalCheckedBoxes = totalCheckedBoxes + 1
+
+    for index in legalMandatory:
+        totalCheckBoxes = totalCheckBoxes + 1
+        if(index["checked"]):
+            totalCheckedBoxes = totalCheckedBoxes + 1
+
+    for index in legalOptional:
+        totalCheckBoxes = totalCheckBoxes + 1
+        if(index["checked"]):
+            totalCheckedBoxes = totalCheckedBoxes + 1
+
+    return round(totalCheckedBoxes/totalCheckBoxes*100,1)
+
+
+# ------------------------------------------------------------------- #
+#                          Urgency Methods                            #
+# ------------------------------------------------------------------- #
 
 def getUrgency(obID):
 
@@ -292,4 +319,9 @@ def updateUrgency(obID,urgency):
 
     return results
 
+def loadUrgentJson(obID):
+    results = {}
+    results["obID"] = obID
+    results["Urgent"] = False
 
+    return json.loads(results)

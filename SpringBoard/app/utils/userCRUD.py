@@ -4,6 +4,18 @@ from pymongo import cursor
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
+def isAdmin(userType):
+    return userType == "ADMIN"
+
+def isCM(userType):
+    return userType == "CM"
+
+def isRM(userType):
+    return userType == "RM"
+
+def isCompliance(userType):
+    return userType == "COMPLIANCE"
+    
 def retrieveAllUser():
     collection = db.Users
     table = collection.find({},{"name":1,"username":1,"password":1,"userType":1,"email":1,"_id":0})

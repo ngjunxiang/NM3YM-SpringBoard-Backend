@@ -10,23 +10,27 @@ import datetime
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
+# retrieve number of completed onboards for given RM
 def getCompletedClients(username):
+
     collection = db.Onboards
 
-    results = {}
     rmName = getName(username)
     completedCount = collection.find({"requiredFields.RM Name": rmName,"progress":"100"}).count()
+
     return completedCount
 
+# retrieve number of pending onboards for given RM
 def getPendingClients(username):
     collection = db.Onboards
 
-    results= {}
     rmName = getName(username)
     totalCount = collection.find({"requiredFields.RM Name": rmName}).count()
     completedCount = getCompletedClients(username)
+
     return totalCount - completedCount
     
+# retrieve all completed onboards for given RM
 def getOnboardedClients(username):
     collection = db.Onboards
 
@@ -56,7 +60,7 @@ def getOnboardedClients(username):
                 10 : 0,
                 11 : 0,
                 12 : 0
-                }
+            }
             months[month] = months[month] + 1
             results[year] = months
 

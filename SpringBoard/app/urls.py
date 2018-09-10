@@ -4,8 +4,14 @@ from django.conf.urls.static import static
 from django.conf.urls import include, url
 
 #from rest_framework_mongoengine import routers as mrouter
-from app import views
-
+from app.views import agmtCodeViews
+from app.views import checklistViews
+from app.views import dashboardViews
+from app.views import loginViews
+from app.views import notificationViews
+from app.views import onboardViews
+from app.views import tokenViews
+from app.views import userViews
 
 #router = mrouter.DefaultRouter()
 #router.register(r'login', views.UserLogin, base_name = 'login')
@@ -15,52 +21,52 @@ urlpatterns = [
     #url(r'^', include(router.urls)),
 
     # authentication endpoints
-    url(r'^login', views.UserLogin.as_view()),
-    url(r'^authenticateAdmin',views.authenticateAdmin.as_view()),
-    url(r'^authenticateCM',views.authenticateCM.as_view()),
-    url(r'^authenticateRM',views.authenticateRM.as_view()),
-    url(r'^authenticateCompliance',views.authenticateCompliance.as_view()),
+    url(r'^login', loginViews.UserLogin.as_view()),
+    url(r'^authenticateAdmin',tokenViews.authenticateAdmin.as_view()),
+    url(r'^authenticateCM',tokenViews.authenticateCM.as_view()),
+    url(r'^authenticateRM',tokenViews.authenticateRM.as_view()),
+    url(r'^authenticateCompliance',tokenViews.authenticateCompliance.as_view()),
 
     # admin endpoints
-    url(r'^admin/retrieve-users', views.RetrieveUsers.as_view()),
-    url(r'^admin/manage-users', views.ManageUsers.as_view()),
-    url(r'^admin/update-users', views.UpdateUsers.as_view()),
-    url(r'^admin/upload-AgmtCodes', views.UploadAgmtCodes.as_view()),
-    url(r'^admin/retrieve-AgmtCodes', views.RetrieveAgmtCodes.as_view()),
+    url(r'^admin/retrieve-users', userViews.RetrieveUsers.as_view()),
+    url(r'^admin/manage-users', userViews.ManageUsers.as_view()),
+    url(r'^admin/update-users', userViews.UpdateUsers.as_view()),
+    url(r'^admin/upload-AgmtCodes', agmtCodeViews.UploadAgmtCodes.as_view()),
+    url(r'^admin/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
 
     # CM endpoints
-    url(r'^cm/manage-checklist', views.ManageCL.as_view()),
-    url(r'^cm/update-checklist', views.UpdateCL.as_view()),
-    url(r'^cm/retrieve-checklistNames', views.CMRetrieveCLNames.as_view()),
-    url(r'^cm/retrieve-loggedLists', views.CMRetrieveLoggedLists.as_view()),
-    url(r'^cm/retrieve-clIDWithVersion', views.CMRetrieveNamesAndVersions.as_view()),
+    url(r'^cm/manage-checklist', checklistViews.ManageCL.as_view()),
+    url(r'^cm/update-checklist', checklistViews.UpdateCL.as_view()),
+    url(r'^cm/retrieve-checklistNames', checklistViews.CMRetrieveCLNames.as_view()),
+    url(r'^cm/retrieve-loggedLists', checklistViews.CMRetrieveLoggedLists.as_view()),
+    url(r'^cm/retrieve-clIDWithVersion', checklistViews.CMRetrieveNamesAndVersions.as_view()),
 
     # RM endpoints
-    url(r'^rm/create-onboard', views.CreateOnboard.as_view()),
-    url(r'^rm/manage-onboard', views.ManageOnboard.as_view()),
-    url(r'^rm/update-urgency', views.UpdateUrgency.as_view()),
-    url(r'^rm/retrieve-checklistNames', views.RMRetrieveCLNames.as_view()),
-    url(r'^rm/retrieve-checklist', views.RMRetrieveCL.as_view()),
-    url(r'^rm/retrieve-all-onboard', views.RetrieveAllOnboards.as_view()),
-    url(r'^rm/retrieve-selected-onboard', views.RetrieveSelectedOnboard.as_view()),
-    url(r'^rm/retrieve-urgency', views.RetrieveUrgency.as_view()),
-    url(r'^rm/retrieve-rm-names', views.RMRetrieveRMNames.as_view()),
-    url(r'^rm/retrieve-latest-notifications', views.RMRetrieveLatestNotification.as_view()),
-    url(r'^rm/retrieve-all-notifications', views.RMRetrieveAllNotification.as_view()),
-    url(r'^rm/update-notifications', views.RMUpdateNotification.as_view()),
+    url(r'^rm/create-onboard', onboardViews.CreateOnboard.as_view()),
+    url(r'^rm/manage-onboard', onboardViews.ManageOnboard.as_view()),
+    url(r'^rm/retrieve-checklistNames', checklistViews.RMRetrieveCLNames.as_view()),
+    url(r'^rm/retrieve-checklist', checklistViews.RMRetrieveCL.as_view()),
+    url(r'^rm/retrieve-all-onboard', onboardViews.RetrieveAllOnboards.as_view()),
+    url(r'^rm/retrieve-selected-onboard', onboardViews.RetrieveSelectedOnboard.as_view()),
+    url(r'^rm/retrieve-rm-names', userViews.RMRetrieveRMNames.as_view()),
+    url(r'^rm/retrieve-latest-notifications', notificationViews.RMRetrieveLatestNotification.as_view()),
+    url(r'^rm/retrieve-all-notifications', notificationViews.RMRetrieveAllNotification.as_view()),
+    url(r'^rm/update-notifications', notificationViews.RMUpdateNotification.as_view()),
+    url(r'^rm/update-urgency', onboardViews.UpdateUrgency.as_view()),
+    url(r'^rm/retrieve-urgency', onboardViews.RetrieveUrgency.as_view()),
 
     # Compliance endpoints
-    url(r'^compliance/create-checklist', views.CreateCL.as_view()),
-    url(r'^compliance/manage-checklist', views.ManageCL.as_view()),
-    url(r'^compliance/update-checklist', views.UpdateCL.as_view()),
-    url(r'^compliance/retrieve-checklistNames', views.ComplianceRetrieveCLNames.as_view()),
-    url(r'^compliance/retrieve-loggedLists', views.ComplianceRetrieveLoggedLists.as_view()),
-    url(r'^compliance/retrieve-clIDWithVersion', views.ComplianceRetrieveNamesAndVersions.as_view()),
+    url(r'^compliance/create-checklist', checklistViews.CreateCL.as_view()),
+    url(r'^compliance/manage-checklist', checklistViews.ManageCL.as_view()),
+    url(r'^compliance/update-checklist', checklistViews.UpdateCL.as_view()),
+    url(r'^compliance/retrieve-checklistNames', checklistViews.ComplianceRetrieveCLNames.as_view()),
+    url(r'^compliance/retrieve-loggedLists', checklistViews.ComplianceRetrieveLoggedLists.as_view()),
+    url(r'^compliance/retrieve-clIDWithVersion', checklistViews.ComplianceRetrieveNamesAndVersions.as_view()),
 
     # others
-    url(r'^invalidateUser', views.InvalidateUser.as_view()),
-    url(r'^retrieve-user-details', views.RetrieveDetails.as_view()),
-    url(r'^retrieve-dashboard', views.RMDashboard.as_view()),
+    url(r'^invalidateUser', tokenViews.InvalidateUser.as_view()),
+    url(r'^retrieve-user-details', userViews.RetrieveDetails.as_view()),
+    url(r'^retrieve-dashboard', dashboardViews.RMDashboard.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
     # root view of our REST api, generated by Django REST Framework's router
     #url(r'^api/', include(router.urls, namespace='api')),
