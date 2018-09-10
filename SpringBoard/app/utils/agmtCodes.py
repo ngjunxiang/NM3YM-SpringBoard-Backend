@@ -7,18 +7,19 @@ db = client.SpringBoard
 
 def bootstrapAgmt(file):
 
-    db.AgmtCodes.drop()
-
+    # clear prev bootstrap
     collection = db.AgmtCodes
+    collection.drop()
 
     results = {'results':'false'}
 
+    # tracking variables
     row = 0
-
-    file = file.read().decode("utf-8").split("\r\n")
-
     inserted = 0
     errors = 0
+
+    # decode file
+    file = file.read().decode("utf-8").split("\r\n")
 
     for line in file:
 
@@ -37,6 +38,7 @@ def bootstrapAgmt(file):
         try:
             collection.insert_one(record)
             inserted += 1
+            
         except Exception as e:
             errors += 1
 
