@@ -87,8 +87,12 @@ def getChecklistForNotification(clID,version,docID):
     collection = db.Checklists
     results = {}
 
-    docs = collection.find_one({"clID":clID,"version":version},{"complianceDocuments":1,"legalDocuments":1,"name":1,"_id":0})
-    results["name"] = docs.get("name")
+    docs = collection.find_one({"clID":clID,"version":version},{"complianceDocuments":1,"legalDocuments":1,"username":1,"dateCreated":1,"_id":0})
+    if docs == None:
+        return results
+
+    results["username"] = docs.get("username")
+    result["dateCreated"] = docs.get("dateCreated")
     for section, value in docs["complianceDocuments"].items():
         for document in value:
             if document.get("docID") == docID:
@@ -106,3 +110,9 @@ def getChecklistForNotification(clID,version,docID):
 
     client.close()
     return results
+
+def getLoggedChecklistForNotification(clID,version,docID):
+    collection = db.Checklists
+    results = {}
+
+    docs = collection

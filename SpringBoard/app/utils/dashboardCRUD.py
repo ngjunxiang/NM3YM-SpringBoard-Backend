@@ -2,6 +2,7 @@ from pymongo import MongoClient
 from pymongo import cursor
 
 from app.utils.userCRUD import *
+from app.utils.notificationCRUD import *
 
 import json
 import datetime
@@ -62,6 +63,6 @@ def getOnboardedClients(username):
         return results
 
 def changesInChecklists():
-    collection = db.ChecklistLogs
+    
 
 
