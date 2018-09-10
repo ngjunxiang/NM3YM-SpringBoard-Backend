@@ -49,8 +49,14 @@ def getAllNotifications(username):
         version = item["version"]
         docID = item["docID"]
         notification = getChecklistForNotification(clID,version,docID)
-        notificationList.append(notification)
-        counter += 1
+        if notification:
+            notificationList.append(notification)
+            counter += 1
+        else:
+            notification = getLoggedChecklistForNotification(clID,version,docID)
+            if notification:
+                notificationList.append(notification)
+                counter += 1
 
     results["totalCount"] = counter
     results["notifications"] = notificationList
@@ -69,8 +75,9 @@ def getNewNotifications(username):
         version = item["version"]
         docID = item["docID"]
         notification = getChecklistForNotification(clID,version,docID)
-        notificationList.append(notification)
-        counter += 1
+        if notification:
+            notificationList.append(notification)
+            counter += 1
 
     results["count"] = counter
     results["notifications"] = notificationList
@@ -112,7 +119,29 @@ def getChecklistForNotification(clID,version,docID):
     return results
 
 def getLoggedChecklistForNotification(clID,version,docID):
-    collection = db.Checklists
+    collection = db.ChecklistLogs
     results = {}
 
-    docs = collection
+    docs = collection.find_one({"clID":clID,"version":version},{"complianceDocuments":1,"legalDocuments":1,"username":1,"dateCreated":1,"_id":0})
+    if docs == None:
+        return results
+
+    results["username"] = docs.get("username")
+    result["dateCreated"] = docs.get("dateCreated")
+    for section, value in docs["complianceDocuments"].items():
+        for document in value:
+            if document.get("docID") == docID:
+                results["DocChanged"] = "Compliance Documents"
+                results["type"] = document
+                break
+
+    if "type" not in results:
+        for section, value in docs["legalDocuments"].items():
+            for document in value:
+                if document.get("docID") == docID:
+                    results["DocChanged"] = "Legal Documents"
+                    results["type"] = document
+                    break
+
+    client.close()
+    return results
