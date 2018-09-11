@@ -103,7 +103,10 @@ class UpdateUsers(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType' })
         
-        results = updateUser(updateUsername,updatePassword)
+        # hash password
+        hashedPw = ph.hash(updatePassword)
+
+        results = updateUser(updateUsername,hashedPw)
 
         client.close()
         return Response(results)
