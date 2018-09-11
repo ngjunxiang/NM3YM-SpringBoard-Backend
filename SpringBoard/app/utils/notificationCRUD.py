@@ -45,19 +45,23 @@ def getAllNotifications(username):
     notificationList = []
     counter = 0
     for item in table:
+        print(item)
         clID = item["clID"]
         version = item["version"]
         docID = item["docID"]
+        print(str(clID) + " " + str(version) + " " + str(docID))
         notification = getChecklistForNotification(clID,version,docID)
+        print(notification)
         if notification:
             notificationList.append(notification)
             counter += 1
         else:
             notification = getLoggedChecklistForNotification(clID,version,docID)
+            print(notification)
             if notification:
                 notificationList.append(notification)
                 counter += 1
-
+    
     results["totalCount"] = counter
     results["notifications"] = notificationList
 
@@ -94,12 +98,12 @@ def getChecklistForNotification(clID,version,docID):
     collection = db.Checklists
     results = {}
 
-    docs = collection.find_one({"clID":clID,"version":version},{"complianceDocuments":1,"legalDocuments":1,"username":1,"dateCreated":1,"_id":0})
+    docs = collection.find_one({"clID":clID,"version":version},{"complianceDocuments":1,"legalDocuments":1,"name":1,"dateCreated":1,"_id":0})
     if docs == None:
         return results
 
-    results["username"] = docs.get("username")
-    result["dateCreated"] = docs.get("dateCreated")
+    results["name"] = docs.get("name")
+    results["dateCreated"] = docs.get("dateCreated")
     for section, value in docs["complianceDocuments"].items():
         for document in value:
             if document.get("docID") == docID:
@@ -122,12 +126,12 @@ def getLoggedChecklistForNotification(clID,version,docID):
     collection = db.ChecklistLogs
     results = {}
 
-    docs = collection.find_one({"clID":clID,"version":version},{"complianceDocuments":1,"legalDocuments":1,"username":1,"dateCreated":1,"_id":0})
+    docs = collection.find_one({"clID":clID,"version":version},{"complianceDocuments":1,"legalDocuments":1,"name":1,"dateCreated":1,"_id":0})
     if docs == None:
         return results
 
-    results["username"] = docs.get("username")
-    result["dateCreated"] = docs.get("dateCreated")
+    results["name"] = docs.get("name")
+    results["dateCreated"] = docs.get("dateCreated")
     for section, value in docs["complianceDocuments"].items():
         for document in value:
             if document.get("docID") == docID:
