@@ -35,6 +35,12 @@ class UploadAgmtCodes(CreateAPIView):
         csv_file = request.FILES["uploadedFile"]
         if not csv_file.name.endswith('.csv'):
             return Response({'error':'file is not csv'})
+        
+        # decode file
+        try:
+            csv_file = csv_file.read().decode("utf-8").split("\r\n")
+        except:
+            return Response({'error':'file may be corrupted, check file format and try again.'})
 
         results = {}
         results["results"] = bootstrapAgmt(csv_file)
