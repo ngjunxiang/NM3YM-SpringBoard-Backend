@@ -18,9 +18,6 @@ def bootstrapAgmt(file):
     inserted = 0
     errors = 0
 
-    # decode file
-    file = file.read().decode("utf-8").split("\r\n")
-
     for line in file:
 
         # Skip header

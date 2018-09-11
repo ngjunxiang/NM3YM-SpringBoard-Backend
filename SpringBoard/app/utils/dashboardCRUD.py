@@ -61,12 +61,13 @@ def getOnboardedClients(username):
                 11 : 0,
                 12 : 0
             }
-            months[month] = months[month] + 1
+            months[month] = months[month] + 1   
             results[year] = months
 
         return results
 
 def changesInChecklists():
-    
+    collection = db.ChecklistLogs
+
 
 
