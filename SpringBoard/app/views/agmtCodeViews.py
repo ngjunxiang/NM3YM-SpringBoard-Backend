@@ -65,6 +65,10 @@ class RetrieveAgmtCodes(CreateAPIView):
             client.close()
             return Response(tokenResults)
 
+        if(not (isCM(userType) or isCompliance(userType))):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
         results = {}
         results["results"] = retrieveAgmt()
         

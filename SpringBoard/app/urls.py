@@ -32,7 +32,6 @@ urlpatterns = [
     url(r'^admin/manage-users', userViews.ManageUsers.as_view()),
     url(r'^admin/update-users', userViews.UpdateUsers.as_view()),
     url(r'^admin/upload-AgmtCodes', agmtCodeViews.UploadAgmtCodes.as_view()),
-    url(r'^admin/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
 
     # CM endpoints
     url(r'^cm/manage-checklist', checklistViews.ManageCL.as_view()),
@@ -40,6 +39,7 @@ urlpatterns = [
     url(r'^cm/retrieve-checklistNames', checklistViews.CMRetrieveCLNames.as_view()),
     url(r'^cm/retrieve-loggedLists', checklistViews.CMRetrieveLoggedLists.as_view()),
     url(r'^cm/retrieve-clIDWithVersion', checklistViews.CMRetrieveNamesAndVersions.as_view()),
+    url(r'^cm/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
 
     # RM endpoints
     url(r'^rm/create-onboard', onboardViews.CreateOnboard.as_view()),
@@ -62,6 +62,7 @@ urlpatterns = [
     url(r'^compliance/retrieve-checklistNames', checklistViews.ComplianceRetrieveCLNames.as_view()),
     url(r'^compliance/retrieve-loggedLists', checklistViews.ComplianceRetrieveLoggedLists.as_view()),
     url(r'^compliance/retrieve-clIDWithVersion', checklistViews.ComplianceRetrieveNamesAndVersions.as_view()),
+    url(r'^compliance/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
 
     # others
     url(r'^invalidateUser', tokenViews.InvalidateUser.as_view()),
