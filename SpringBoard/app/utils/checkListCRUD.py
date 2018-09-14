@@ -91,12 +91,12 @@ def updateCheckList(input,name,clID,version):
             # if new document, assign docID
             if document.get("docID") == "":
                 input["complianceDocuments"][section][index]["docID"] = str(latestDocID)
-                checkBool = createNotification(clID,str(version),str(latestDocID),2)
+                checkBool = createNotification(clID,str(version),str(latestDocID),2,input)
                 latestDocID += 1
             changedVal = int(document.get("changed"))
             if changedVal != 0:
                 docID = document.get("docID")
-                checkBool = createNotification(clID,str(version),docID,changedVal)
+                checkBool = createNotification(clID,str(version),docID,changedVal,input)
                 
             index += 1
 
@@ -106,12 +106,12 @@ def updateCheckList(input,name,clID,version):
             # if new document, assign docID
             if document.get("docID") == "":
                 input["legalDocuments"][section][index]["docID"] = str(latestDocID)
-                checkBool = createNotification(clID,str(version),str(latestDocID),2)
+                checkBool = createNotification(clID,str(version),str(latestDocID),2,input)
                 latestDocID += 1
             changedVal = int(document.get("changed"))
             if changedVal != 0:
                 docID = document.get("docID")
-                checkBool = createNotification(clID,str(version),docID,changedVal)
+                checkBool = createNotification(clID,str(version),docID,changedVal,input)
             index += 1
 
     # additional info 

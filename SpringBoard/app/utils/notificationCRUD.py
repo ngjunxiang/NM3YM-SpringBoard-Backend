@@ -7,12 +7,15 @@ import json
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
-def createNotification(clID,version,docID,changed):
+def createNotification(clID,version,docID,changed,input):
+    if not getSelectedNotification(clID,docID,input):
+        return False
+
     collection = db.Notifications
 
     counter = db.NotificationCounter
     noID = int(counter.find_one({"_id":"noID"})["sequence_value"])
-    db.NotificationCounter.update({"_id":"clID"}, {'$inc': {'sequence_value': 1}})
+    db.NotificationCounter.update({"_id":"noID"}, {'$inc': {'sequence_value': 1}})
 
     rmUsernames = getAllRMUsernames()
 
@@ -45,7 +48,6 @@ def getAllNotifications(username):
     notificationList = []
     counter = 0
     for item in table:
-        print(item)
         clID = item["clID"]
         version = item["version"]
         docID = item["docID"]
@@ -56,8 +58,7 @@ def getAllNotifications(username):
             notificationList.append(notification)
             counter += 1
         else:
-            notification = getLoggedChecklistForNotification(clID,version,docID)
-            print(notification)
+            notification = getLoggedChecklistForNotification(clID,version,docID)    
             if notification:
                 notificationList.append(notification)
                 counter += 1
@@ -82,6 +83,11 @@ def getNewNotifications(username):
         if notification:
             notificationList.append(notification)
             counter += 1
+        else:
+            notification = getLoggedChecklistForNotification(clID,version,docID)    
+            if notification:
+                notificationList.append(notification)
+                counter += 1
 
     results["count"] = counter
     results["notifications"] = notificationList
@@ -149,3 +155,54 @@ def getLoggedChecklistForNotification(clID,version,docID):
 
     client.close()
     return results
+
+def getSelectedNotification(clID,docID,input):
+    logCollection = db.ChecklistLogs
+    clCollection = db.Checklists
+
+    preCL = logCollection.find({"clID":clID},{"_id":0})
+
+    if preCL == None:
+        return True
+
+    for item in preCL:
+        for section,value in item["complianceDocuments"].items():
+            for doc1 in value:
+                if doc1.get("docID") == docID:
+                    for sect,val in input["complianceDocuments"].items():
+                        for doc2 in val:
+                            docNameCheck = doc1.get("documentName") == doc2.get("documentName")
+                            agmtCheck = doc1.get("agmtCode") == doc2.get("agmtCode")
+                            signCheck = doc1.get("signature") == doc2.get("signature")
+                            remarksCheck = doc1.get("remarks") == doc2.get("remarks")
+                            waiverCheck = doc1.get("canWaiver") == doc2.get("canWaiver")
+                            if (docNameCheck and agmtCheck and signCheck and remarksCheck and waiverCheck):
+                                print(docNameCheck)
+                                print(agmtCheck)
+                                print(signCheck)
+                                print(remarksCheck)
+                                print(waiverCheck)
+                                return False
+
+        for section,value in item["legalDocuments"].items():
+            for doc1 in value:
+                if doc1.get("docID") == docID:
+                    for sect,val in input["legalDocuments"].items():
+                        for doc2 in val:
+                            docNameCheck = doc1.get("documentName") == doc2.get("documentName")
+                            agmtCheck = doc1.get("agmtCode") == doc2.get("agmtCode")
+                            signCheck = doc1.get("signature") == doc2.get("signature")
+                            remarksCheck = doc1.get("remarks") == doc2.get("remarks")
+                            waiverCheck = doc1.get("canWaiver") == doc2.get("canWaiver")
+                            if (docNameCheck and agmtCheck and signCheck and remarksCheck and waiverCheck):
+                                print(docNameCheck)
+                                print(agmtCheck)
+                                print(signCheck)
+                                print(remarksCheck)
+                                print(waiverCheck)
+                                return False
+
+    return True
+
+
+    
