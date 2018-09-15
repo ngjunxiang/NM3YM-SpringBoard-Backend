@@ -99,7 +99,7 @@ def getNewNotifications(username):
 def updateNotification(username):
     collection = db.Notifications
 
-    results = collection.update({"RMs.username":username},{'$set':{"RMs.checked":True}},multi=True)
+    results = collection.update({"RMs.username":username},{'$set':{"RMs.$.checked":True}},multi=True)
     return results["ok"] > 0
 
 def getChecklistForNotification(clID,version,docID):
