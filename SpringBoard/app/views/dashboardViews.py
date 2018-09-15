@@ -9,6 +9,7 @@ from app.models import *
 
 from app.utils.tokenCRUD import *
 from app.utils.dashboardCRUD import *
+from app.utils.userCRUD import *
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
@@ -32,14 +33,11 @@ class RMDashboard(CreateAPIView):
         if(not isRM(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
-
-        content = {}
-        content["completedCount"] = getCompletedClients(username)
-        content["pendingCount"] = getPendingClients(username)
-        content["onBoardedClients"] = getOnboardedClients(username)
         
         results = {}
-        results["results"] = content
+        results["OnBoardedClients"] = getOnboardedClients(username)
+        results["docChanges"] = changesInChecklists(username)
+        results["clientsAffected"] = clientsAffectedByChanges(username)
 
         client.close()
         return Response(results)

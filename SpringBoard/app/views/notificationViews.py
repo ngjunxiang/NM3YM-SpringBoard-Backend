@@ -9,6 +9,7 @@ from app.models import *
 
 from app.utils.tokenCRUD import *
 from app.utils.notificationCRUD import *
+from app.utils.userCRUD import *
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard

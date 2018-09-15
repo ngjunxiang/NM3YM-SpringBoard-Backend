@@ -22,7 +22,7 @@ def createNewOnBoard(input):
     counter = db.OnboardCounter
 
     # get latest obID from Onboard Counter
-    obID = counter.find_one({"_id":"obID"})["sequence_value"]
+    obID = int(counter.find_one({"_id":"obID"})["sequence_value"])
     db.OnboardCounter.update({"_id":"obID"}, {'$inc': {'sequence_value': 1}})
 
     # get timezone corrected date

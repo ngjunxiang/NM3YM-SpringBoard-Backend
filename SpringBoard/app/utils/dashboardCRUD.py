@@ -1,11 +1,14 @@
 from pymongo import MongoClient
 from pymongo import cursor
+import pymongo
 
 from app.utils.userCRUD import *
 from app.utils.notificationCRUD import *
 
 import json
 import datetime
+import itertools
+import collections
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
@@ -64,10 +67,43 @@ def getOnboardedClients(username):
             months[month] = months[month] + 1   
             results[year] = months
 
-        return results
+    return results
 
-def changesInChecklists():
-    collection = db.ChecklistLogs
+def changesInChecklists(username):
+    checkLists = getAllNotifications(username)
+
+    cl = collections.OrderedDict(checkLists)
+
+    if len(cl) < 10:
+        return cl
+
+    return itertools.islice(cl.items(),0,10)
+
+def clientsAffectedByChanges(username):
+    notiCollection = db.Notifications
+    onboardCollection = db.Onboards
+
+    noti = notiCollection.find({},{"_id":0,"clID":1,"version":1}).sort([["noID",pymongo.DESCENDING]]).limit(10)
+    onboardsList = []
+    rmName = getName(username)
+
+    for item in noti:
+        clID = item["clID"]
+        version = item["version"]
+
+        onboards = onboardCollection.find({"clID":clID,"version":version,"requiredFields.RM Name": rmName},{"_id":0,"requiredFields.Client Name": 1,"progress":1,"name":1})
+        
+        for ob in onboards:
+            if int(ob.get("progress")) != 100:
+                data = {}
+                data["Client"] = ob.get("requiredFields.Client Name")
+                data["DocName"] = ob.get("name")
+                onboardsList.append(data)
+
+    return onboardsList
+    
+
+
 
 
 
