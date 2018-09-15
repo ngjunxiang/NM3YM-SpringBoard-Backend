@@ -21,11 +21,25 @@ class RMDashboard(CreateAPIView):
 
         # request parameters
         username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
 
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isRM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        content = {}
+        content["completedCount"] = getCompletedClients(username)
+        content["pendingCount"] = getPendingClients(username)
+        content["onBoardedClients"] = getOnboardedClients(username)
+        
         results = {}
-        results["completedCount"] = getCompletedClients(username)
-        results["pendingCount"] = getPendingClients(username)
-        results["OnBoardedClients"] = getOnboardedClients(username)
+        results["results"] = content
 
         client.close()
         return Response(results)
