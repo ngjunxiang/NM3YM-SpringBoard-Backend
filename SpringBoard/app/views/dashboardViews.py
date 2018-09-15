@@ -33,9 +33,14 @@ class RMDashboard(CreateAPIView):
         if(not isRM(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
+
+        content = {}
+        content["completedCount"] = getCompletedClients(username)
+        content["pendingCount"] = getPendingClients(username)
+        content["onBoardedClients"] = getOnboardedClients(username)
         
         results = {}
-        results["OnBoardedClients"] = getOnboardedClients(username)
+        results["results"] = content
         results["docChanges"] = changesInChecklists(username)
         results["clientsAffected"] = clientsAffectedByChanges(username)
 
