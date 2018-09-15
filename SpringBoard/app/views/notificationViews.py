@@ -21,6 +21,16 @@ class RMRetrieveLatestNotification(CreateAPIView):
 
         # request parameters
         username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isRM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
 
         results = {}
         results["results"] = getNewNotifications(username)
@@ -36,6 +46,16 @@ class RMRetrieveAllNotification(CreateAPIView):
 
         # request parameters
         username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isRM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
 
         results = {}
         results["results"] = getAllNotifications(username)
@@ -51,6 +71,16 @@ class RMUpdateNotification(CreateAPIView):
 
         # request parameters
         username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isRM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
 
         results = {}
         results["results"]= updateNotification(username)

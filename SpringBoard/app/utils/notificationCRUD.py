@@ -64,6 +64,7 @@ def getAllNotifications(username):
                 counter += 1
     
     results["totalCount"] = counter
+    notificationList = sortNotifications(notificationList)
     results["notifications"] = notificationList
 
     return results
@@ -90,6 +91,7 @@ def getNewNotifications(username):
                 counter += 1
 
     results["count"] = counter
+    notificationList = sortNotifications(notificationList)
     results["notifications"] = notificationList
 
     return results
@@ -177,11 +179,6 @@ def getSelectedNotification(clID,docID,input):
                             remarksCheck = doc1.get("remarks") == doc2.get("remarks")
                             waiverCheck = doc1.get("canWaiver") == doc2.get("canWaiver")
                             if (docNameCheck and agmtCheck and signCheck and remarksCheck and waiverCheck):
-                                print(docNameCheck)
-                                print(agmtCheck)
-                                print(signCheck)
-                                print(remarksCheck)
-                                print(waiverCheck)
                                 return False
 
         for section,value in item["legalDocuments"].items():
@@ -195,14 +192,28 @@ def getSelectedNotification(clID,docID,input):
                             remarksCheck = doc1.get("remarks") == doc2.get("remarks")
                             waiverCheck = doc1.get("canWaiver") == doc2.get("canWaiver")
                             if (docNameCheck and agmtCheck and signCheck and remarksCheck and waiverCheck):
-                                print(docNameCheck)
-                                print(agmtCheck)
-                                print(signCheck)
-                                print(remarksCheck)
-                                print(waiverCheck)
                                 return False
 
     return True
 
+def sortNotifications(notificationList):
+    sortedList = []
+    for item in notificationList:
+        if sortedList:
+            itemDate = item.get("dateCreated")
+            for index,noti in enumerate(notificationList):
+                notiDate = noti.get("dateCreated")
+                if notiDate < itemDate:
+                    sortedList.insert(index,item)
+                elif notiDate == itemDate:
+                    itemType = item.get("type")
+                    itemDocID = int(itemType.get("docID"))
+                    notiType = noti.get("type")
+                    notiDocID = int(notiType.get("docID"))
+                    if itemDocID < notiDocID:
+                        sortiedList.insert(index,item)
+        else:
+            sortedList.append(item)
 
-    
+    return sortedList
+        
