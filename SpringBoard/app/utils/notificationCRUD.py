@@ -51,14 +51,12 @@ def getAllNotifications(username):
         clID = item["clID"]
         version = item["version"]
         docID = item["docID"]
-        print(str(clID) + " " + str(version) + " " + str(docID))
         notification = getChecklistForNotification(clID,version,docID)
-        print(notification)
         if notification:
             notificationList.append(notification)
             counter += 1
         else:
-            notification = getLoggedChecklistForNotification(clID,version,docID)    
+            notification = getLoggedChecklistForNotification(clID,version,docID)
             if notification:
                 notificationList.append(notification)
                 counter += 1
@@ -197,23 +195,29 @@ def getSelectedNotification(clID,docID,input):
     return True
 
 def sortNotifications(notificationList):
+    if not notificationList:
+        return notificationList
     sortedList = []
-    for item in notificationList:
-        if sortedList:
-            itemDate = item.get("dateCreated")
-            for index,noti in enumerate(notificationList):
-                notiDate = noti.get("dateCreated")
-                if notiDate < itemDate:
-                    sortedList.insert(index,item)
-                elif notiDate == itemDate:
-                    itemType = item.get("type")
-                    itemDocID = int(itemType.get("docID"))
-                    notiType = noti.get("type")
-                    notiDocID = int(notiType.get("docID"))
-                    if itemDocID < notiDocID:
-                        sortiedList.insert(index,item)
-        else:
-            sortedList.append(item)
+    if not sortedList:
+        sortedList.append(notificationList[0])
+
+    for i in range(1,len(notificationList)):
+        itemDate = notificationList[i].get("dateCreated")
+        itemType = notificationList[i].get("type")
+        itemDocID = int(itemType.get("docID"))
+        for j,noti in enumerate(sortedList):
+            date = noti.get("dateCreated")
+            type = noti.get("type")
+            docID = int(type.get("docID"))
+            if itemDate > date:
+                sortedList.insert(j,notificationList[i])
+                break
+            elif date == itemDate:
+                if itemDocID < docID:
+                    sortedList.insert(j,notificationList[i])
+                    break
+            else:
+                sortedList.append(notificationList[i])
 
     return sortedList
         
