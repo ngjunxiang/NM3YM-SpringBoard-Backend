@@ -67,6 +67,42 @@ def getAllNotifications(username):
 
     return results
 
+def getNotifications(username):
+    collection = db.Notifications
+
+    allNoti = collection.find({"RMs.username":username},{"_id":0,"clID":1,"version":1,"docID":1,"RMs.checked":1})
+
+    results = {}
+    allNotiCounter = 0
+    allNotificationList = []
+    newNotiCounter = 0
+    for item in allNoti:
+        rms = item["RMs"]
+        checked = rms[0]["checked"]
+        if not checked:
+            newNotiCounter += 1
+        clID = item["clID"]
+        version = item["version"]
+        docID = item["docID"]
+        notification = getChecklistForNotification(clID,version,docID)
+        if notification:
+            notification["checked"] = checked
+            allNotificationList.append(notification)
+            allNotiCounter += 1
+        else:
+            notification = getLoggedChecklistForNotification(clID,version,docID)
+            if notification:
+                notification["checked"] = checked
+                allNotificationList.append(notification)
+                allNotiCounter += 1
+
+    results["totalCount"] = allNotiCounter
+    results["newCount"] = newNotiCounter
+    allNotificationList = sortNotifications(allNotificationList)
+    results["notifications"] = allNotificationList
+
+    return results
+
 def getNewNotifications(username):
     collection = db.Notifications
 

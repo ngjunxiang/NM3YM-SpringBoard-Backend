@@ -52,6 +52,7 @@ urlpatterns = [
     url(r'^rm/retrieve-rm-names', userViews.RMRetrieveRMNames.as_view()),
     url(r'^rm/retrieve-latest-notifications', notificationViews.RMRetrieveLatestNotification.as_view()),
     url(r'^rm/retrieve-all-notifications', notificationViews.RMRetrieveAllNotification.as_view()),
+    url(r'^rm/retrieve-notifications', notificationViews.RMRetrieveNotifications.as_view()),
     url(r'^rm/update-notifications', notificationViews.RMUpdateNotification.as_view()),
     url(r'^rm/update-urgency', onboardViews.UpdateUrgency.as_view()),
     url(r'^rm/retrieve-urgency', onboardViews.RetrieveUrgency.as_view()),

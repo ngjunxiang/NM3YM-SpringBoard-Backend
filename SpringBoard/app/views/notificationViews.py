@@ -64,6 +64,32 @@ class RMRetrieveAllNotification(CreateAPIView):
         client.close()
         return Response(results)
 
+class RMRetrieveNotifications(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Notifications.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isRM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = {}
+        results["results"] = getNotifications(username)
+
+        client.close()
+        return Response(results)
+        
+        
 class RMUpdateNotification(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Notifications.find()
