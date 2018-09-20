@@ -325,3 +325,10 @@ def loadUrgentJson(obID):
     results["Urgent"] = False
 
     return json.loads(results)
+
+def filterSort(query):
+
+    collection = db.Checklists
+    
+    table = collection.find({},{"_id":0})
+    rList = [item for item in table]

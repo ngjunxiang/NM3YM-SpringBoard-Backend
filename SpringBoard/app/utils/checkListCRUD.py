@@ -89,27 +89,27 @@ def updateCheckList(input,name,clID,version):
         index = 0
         for document in value:
             # if new document, assign docID
+            changedVal = int(document.get("changed"))
             if document.get("docID") == "":
                 input["complianceDocuments"][section][index]["docID"] = str(latestDocID)
                 checkBool = createNotification(clID,str(version),str(latestDocID),2,input)
                 latestDocID += 1
-            changedVal = int(document.get("changed"))
-            if changedVal != 0:
+            elif changedVal != 0:
+                print(changedVal)
                 docID = document.get("docID")
                 checkBool = createNotification(clID,str(version),docID,changedVal,input)
-                
             index += 1
 
     for section,value in input["legalDocuments"].items():
         index = 0
         for document in value:
             # if new document, assign docID
+            changedVal = int(document.get("changed"))
             if document.get("docID") == "":
                 input["legalDocuments"][section][index]["docID"] = str(latestDocID)
                 checkBool = createNotification(clID,str(version),str(latestDocID),2,input)
                 latestDocID += 1
-            changedVal = int(document.get("changed"))
-            if changedVal != 0:
+            elif changedVal != 0:
                 docID = document.get("docID")
                 checkBool = createNotification(clID,str(version),docID,changedVal,input)
             index += 1
@@ -302,10 +302,3 @@ def retrieveLoggedCheckLists(clID,version):
 
     client.close()
     return results
-
-def filterSort(query):
-
-    collection = db.Checklists
-    
-    table = collection.find({},{"_id":0})
-    rList = [item for item in table]

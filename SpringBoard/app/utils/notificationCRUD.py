@@ -8,7 +8,7 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
 def createNotification(clID,version,docID,changed,input):
-    if not getSelectedNotification(clID,docID,input):
+    if changed!=3 and not getSelectedNotification(clID,docID,input):
         return False
 
     collection = db.Notifications
@@ -22,7 +22,10 @@ def createNotification(clID,version,docID,changed,input):
     notification = {}
     notification["noID"] = noID
     notification["clID"] = clID
-    notification["version"] = version
+    if changed == 3:
+        notification["version"] = str(int(version)-1)
+    else:
+        notification["version"] = version
     notification["docID"] = docID
     rms = []
 
@@ -32,7 +35,8 @@ def createNotification(clID,version,docID,changed,input):
     notification["RMs"] = rms
 
     try:
-        collection.insert_one(notification)
+        results = collection.insert_one(notification)
+        print(results)
     except:
         return False
 
@@ -42,7 +46,7 @@ def createNotification(clID,version,docID,changed,input):
 def getAllNotifications(username):
     collection = db.Notifications
 
-    table = collection.find({"RMs.username":username},{"_id":0,"clID":1,"version":1,"docID":1})
+    table = collection.find({"RMs.username":username},{"_id":0,"clID":1,"version":1,"docID":1,"RMs.changed":1})
 
     results = {}
     notificationList = []
@@ -51,12 +55,14 @@ def getAllNotifications(username):
         clID = item["clID"]
         version = item["version"]
         docID = item["docID"]
+        rms = item["RMs"]
+        changed = rms[0]["changed"]
         notification = getChecklistForNotification(clID,version,docID)
         if notification:
             notificationList.append(notification)
             counter += 1
         else:
-            notification = getLoggedChecklistForNotification(clID,version,docID)
+            notification = getLoggedChecklistForNotification(clID,version,docID,changed)
             if notification:
                 notificationList.append(notification)
                 counter += 1
@@ -70,7 +76,7 @@ def getAllNotifications(username):
 def getNotifications(username):
     collection = db.Notifications
 
-    allNoti = collection.find({"RMs.username":username},{"_id":0,"clID":1,"version":1,"docID":1,"RMs.checked":1})
+    allNoti = collection.find({"RMs.username":username},{"_id":0,"clID":1,"version":1,"docID":1,"RMs.checked":1,"RMs.changed":1})
 
     results = {}
     allNotiCounter = 0
@@ -79,18 +85,20 @@ def getNotifications(username):
     for item in allNoti:
         rms = item["RMs"]
         checked = rms[0]["checked"]
+        changed = rms[0]["changed"]
         if not checked:
             newNotiCounter += 1
         clID = item["clID"]
         version = item["version"]
         docID = item["docID"]
         notification = getChecklistForNotification(clID,version,docID)
+        print(notification)
         if notification:
             notification["checked"] = checked
             allNotificationList.append(notification)
             allNotiCounter += 1
         else:
-            notification = getLoggedChecklistForNotification(clID,version,docID)
+            notification = getLoggedChecklistForNotification(clID,version,docID,changed)
             if notification:
                 notification["checked"] = checked
                 allNotificationList.append(notification)
@@ -106,7 +114,7 @@ def getNotifications(username):
 def getNewNotifications(username):
     collection = db.Notifications
 
-    table = collection.find({"RMs.username":username,"RMs.checked":False},{"_id":0,"clID":1,"version":1,"docID":1})
+    table = collection.find({"RMs.username":username,"RMs.checked":False},{"_id":0,"clID":1,"version":1,"docID":1,"RMs.changed":1})
     results = {}
     notificationList = []
     counter = 0
@@ -114,12 +122,14 @@ def getNewNotifications(username):
         clID = item["clID"]
         version = item["version"]
         docID = item["docID"]
+        rms = item["RMs"]
+        changed = rms[0]["changed"]
         notification = getChecklistForNotification(clID,version,docID)
         if notification:
             notificationList.append(notification)
             counter += 1
         else:
-            notification = getLoggedChecklistForNotification(clID,version,docID)    
+            notification = getLoggedChecklistForNotification(clID,version,docID,changed)    
             if notification:
                 notificationList.append(notification)
                 counter += 1
@@ -164,7 +174,7 @@ def getChecklistForNotification(clID,version,docID):
     client.close()
     return results
 
-def getLoggedChecklistForNotification(clID,version,docID):
+def getLoggedChecklistForNotification(clID,version,docID,changed):
     collection = db.ChecklistLogs
     results = {}
 
@@ -177,6 +187,8 @@ def getLoggedChecklistForNotification(clID,version,docID):
     for section, value in docs["complianceDocuments"].items():
         for document in value:
             if document.get("docID") == docID:
+                if changed == 3:
+                    document["changed"] = changed
                 results["DocChanged"] = "Compliance Documents"
                 results["type"] = document
                 break
@@ -185,6 +197,8 @@ def getLoggedChecklistForNotification(clID,version,docID):
         for section, value in docs["legalDocuments"].items():
             for document in value:
                 if document.get("docID") == docID:
+                    if changed == 3:
+                        document["changed"] = changed
                     results["DocChanged"] = "Legal Documents"
                     results["type"] = document
                     break
@@ -236,20 +250,25 @@ def sortNotifications(notificationList):
     sortedList = []
     if not sortedList:
         sortedList.append(notificationList[0])
-
+    
     for i in range(1,len(notificationList)):
         itemDate = notificationList[i].get("dateCreated")
         itemType = notificationList[i].get("type")
         itemDocID = int(itemType.get("docID"))
+        itemChanged = itemType.get("changed")
         for j,noti in enumerate(sortedList):
             date = noti.get("dateCreated")
             type = noti.get("type")
             docID = int(type.get("docID"))
+            changed = type.get("changed")
             if itemDate > date:
                 sortedList.insert(j,notificationList[i])
                 break
             elif date == itemDate:
-                if itemDocID < docID:
+                if int(itemChanged) > int(changed):
+                    sortedList.insert(j,notificationList[i])
+                    break
+                elif itemDocID < docID:
                     sortedList.insert(j,notificationList[i])
                     break
             else:
