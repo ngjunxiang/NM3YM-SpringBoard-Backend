@@ -35,7 +35,7 @@ class retrieveAnswers(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = retrieveAnswers(question)
+        results = getAnswer(question)
 
         client.close()
         return Response(results)

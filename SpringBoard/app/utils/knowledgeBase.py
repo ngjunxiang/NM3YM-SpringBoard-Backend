@@ -4,7 +4,7 @@ from pymongo import cursor
 from app.utils.userCRUD import *
 import json
 
-def retrieveAnswers(question):
+def getAnswer(question):
 
     collection = db.knowledgeBase
 
