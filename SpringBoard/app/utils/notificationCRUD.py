@@ -159,7 +159,6 @@ def getChecklistForNotification(clID,version,docID):
     for section, value in docs["complianceDocuments"].items():
         for document in value:
             if document.get("docID") == docID:
-                results["DocChanged"] = "Compliance Documents"
                 results["docChanged"] = "Compliance Documents"
                 results["type"] = document
                 break
