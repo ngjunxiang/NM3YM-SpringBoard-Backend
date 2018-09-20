@@ -741,3 +741,174 @@ db.Notifications.createIndex({ "noID": 1, "clID": 1, "version": 1, "docID": 1 })
 
 // set up agmt code table
 db.AgmtCodes.createIndex({ "code": 1 }, { unique: true })
+
+// set up knowledgeBase table
+db.knowledgeBase.insertMany([
+    {
+        "question": "What are the documents required for opening of Sub-Account?",
+        "answer": "(1) Refer to COB website (under FORMS): (a) obtain the relevant Sub-Account Opening Form (Individual / Corporate), & (b) Open New Account in the same name as existing (For same booking centre) (2) Refer to COB website (under LEGAL & COMPLIANCE CHECKLISTS): (a) Regional Sub-Account Opening Checklist",
+        "intent": "AccountOpeningIndDocuments",
+        "entities": {
+            "Account": ["Sub-Account"],
+            "Document": ["Document"],
+            "Action": ["open"]
+        }
+    },
+    {
+        "question": "If an additional LPOA is added to an account, does the existing LPOA need to sign on the LPOA letter?",
+        "answer": "Yes, if the existing LPOA is still valid. If you refer to the LPOA letter, the new letter will supersede and replace all authorisation letters previously issued by the client.",
+        "intent": "AccountOpeningIndDocumentInfo",
+        "entities": {
+            "Entity": ["LPOA"],
+            "Document": ["LPOA letter"],
+            "Account": ["Account"]
+        }
+    },
+    {
+        "question": "If the new role of account A is in our existing account B, can we refer to his address proof from account B?",
+        "answer": "Yes, if his address proof in account B is valid within 3 months and is also acceptable under current guidelines. If not, the address proof needs to be refreshed.",
+        "intent": "AccountOpeningIndDocumentInfo",
+        "entities": {
+            "Document": ["Address Proof"],
+            "Account": ["Account","Existing Account"]
+        }
+    },
+    {
+        "question": "What is the list of acceptable address proofs?",
+        "answer": "Refer to REG 51 page A9 - A10",
+        "intent": "AccountOpeningIndDocumentInfo",
+        "entities": {
+          "Document": ["Address Proof"]
+        }
+    },
+    {
+        "question": "How many signers are needed for an account?",
+        "answer": "Refer to DMS, Pearl or ICE",
+        "intent": "AccountOpeningInfo",
+        "entities": {
+            "Entity": ["Signers"],
+            "Account": ["Account"]
+        }
+    },
+    {
+        "question": "What documents are required to add authorized signers?",
+        "answer": "Updated board resolution / change of mandate, Passport copy and address proof of the new authorised signer/s",
+        "intent": "AccountOpeningIndDocuments",
+        "entities": {
+            "Document": ["Document"],
+            "Entity": ["Authorized Signers"]
+        }
+    },
+    {
+        "question": "What are the NDM/NCF documents?",
+        "answer": "Please refer to REG 51 section 1.6.2",
+        "intent": "AccountOpeningIndDocuments",
+        "entities": {
+            "DocumentType": ["NDM","NCF"],
+            "Document": ["Document"]
+        }
+    },
+    {
+        "question": "Can a Relationship Manager open an account for another market?",
+        "answer": "The RM will have to approach the respective market and obtain the necessary approval before proceeding.",
+        "intent": "AccountOpeningInfo",
+        "entities": {
+            "Entity": "RM",
+            "Account": ["Account"],
+            "Action": ["Open"]
+        }
+    },
+    {
+        "question": "Where to find the new SOP for AOR?",
+        "answer": "Please refer to the following link: http://b2e.group.echonet/cid1507835-pid13291-lid2/Account-Opening-and-recertification.html",
+        "intent": "AccountOpeningInfo",
+        "entities": {
+          "Proced   ure": ["SOP","AOR"]
+        }
+    },
+    {
+        "question": "What are indicators of dual nationality?",
+        "answer": "Refer to REG51 page A8 and A41",
+        "intent": "AccountOpeningInfo",
+        "entities": {
+          "Nat  ionality": ["Dual Nationality"]
+        }
+    },
+    {
+        "question": "Is the Insider representation form a Non-Deferrable Mandatory document?",
+        "answer": "No it is not. Refer to the Account opening checklist on COB onboarding website.",
+        "intent": "AccountOpeningIndDocuments",
+        "entities": {
+            "Document": ["Insider Representation Form", "Document"],
+            "DocumentType": ["NDM"]
+        }
+    },
+    {
+        "question": "Is IPQ an Non-Deferrable Mandatory document?",
+        "answer": "No it is not. The account will not be blocked, but no investment will be allowed except for spot FX, Loan and deposit until the IPQ is received.",
+        "intent": "AccountOpeningIndDocuments",
+        "entities": {
+            "Document": ["IPQ","Document"],
+            "DocumentType": ["NDM"]
+        }
+    },
+    {
+        "question": "Why do we need to confirm dual nationality if the client is a Singapore Citizen?",
+        "answer": "Refer to REG 51 page A8 - A9",
+        "intent": "AccountOpeningInfo",
+        "entities": {
+             "Nationality": ["Dual Nationality","Singapore Citizen"]
+        }
+    },
+    {
+        "question": "Where can I get a copy of the MSCQ form?",
+        "answer": "Refer to AOR 2.5",
+        "intent": "AccountOpeningIndDocumentInfo",
+        "entities": {
+            "Document": ["MSCQ"]
+        }
+    },
+    {
+        "question": "What if the Client Acceptance Form has more telephone numbers than the Account Opening Booklet?",
+        "answer": "The FO has to submit \"Change of Address/ Telephone numbers\" for deletion of extra phone numbers.",
+        "intent": "AccountOpeningIndDocumentInfo",
+        "entities": {
+            "Document": ["CAF","Account Opening Booklet"]
+        }
+    },
+    {
+        "question": "Do we only submit pages of pages of AEOI Self Cert & IPQ that require client action?",
+        "answer": "No, please submit the full set of documents.",
+        "intent": "AccountOpeningIndDocumentInfo",
+        "entities": {
+            "Document": ["AEOI","IPQ"]
+        }
+    },
+    {
+        "question": "What if Address Proof submitted differs from Account Opening Booklet?",
+        "answer": "Follow the address stated on the address proof.",
+        "intent": "AccountOpeningIndDocumentInfo",
+        "entities": {
+            "Document": ["Address Proof","Account Opening Booklet"]
+        }
+    },
+    {
+        "question": "It is difficult to obtain address proof under individual's name in Dubai. Can a visitation call report by RM confirming the members live together suffice?",
+        "answer": "We will still need them to provide a form of address proof together with the call report as a supplementary document, instead of a stand alone call report.",
+        "intent": "AccountOpeningIndDocumentInfo",
+        "entities": {
+            "Document": ["Call Report","Address Proof"],
+            "Country": ["Dubai"],
+            "Entity": ["RM"]
+        }
+    },
+    {
+        "question": "Who is eligible to act as a Legal Representative to sign off the UBO form?",
+        "answer": "Legal representative refers to Authorized signatories as per mandate.",
+        "intent": "AccountOpeningIndDocumentInfo",
+        "entities": {
+            "Entity": ["Legal Representative"],
+            "Document": ["UBO"]
+        }
+    }
+])
