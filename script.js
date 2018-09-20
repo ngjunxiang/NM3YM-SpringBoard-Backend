@@ -66,7 +66,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "<div>NOTE :<\/div><div>- Individual profiles must be completed for all account holders and all persons with a role in the account i.e. Authorised Signatory\/POA\/LPOA (where applicable).<\/div><div><br><\/div><div>- RM signed CAF must be received by Client Management Team no later than 1 month after ICE print date.<\/div><div><br><\/div><div><div>\u25a1 Check that a complete set of CAF document was submitted which includes:<\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\u25cb KYC Folder &amp; Account Root profile are submitted for the account<\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\u25cb Individual profiles of all account holders<\/div><div>\u25a1 Individual profile(s) of all persons with a role in the account<\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \u25cb Limited Power of Attorney&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \u25cb Authorised Signatory\/POA&nbsp;<\/div><div><br><\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\u25cb&nbsp; Persons who signed as BO in the Declaration of Beneficial Ownership&nbsp; &nbsp;&nbsp;<\/div><div>\u25a1 CAF signed and dated (within 1 month from submission) by RM<\/div><div><br><\/div><\/div>",
 			"docID": "0",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "FATCA Account Opening \/ Review Checklist (effective date : 1 July 2014)",
@@ -74,7 +74,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "- Refer to policies relating to US Persons and FATCA.&nbsp;<div><br><\/div><div>Please specify name of person(s) with US Indicia:<br><\/div>",
 			"docID": "1",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "AEOI Individual Checklist (effective date : 1 Jan 2017)",
@@ -82,7 +82,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "- Refer to policies relating to AEOI.<div><br><\/div><div>Please specify name of person(s) with the relevant Indicia:<br><\/div>",
 			"docID": "2",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "Call Report",
@@ -90,7 +90,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "<div>- Validated according to Bank's Standard<\/div><div>- Other than new account under existing relationship where face-to-face meeting has been conducted before and EAM account, the call report should demonstrate face-to-face meeting with account holders.<\/div><div>- Check the face to face&nbsp; meeting date should be within below period.<\/div><div>&nbsp; &nbsp; &nbsp; \u25cb High Risk \/ PEP&nbsp; : 1 year<\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; \u25cb Medium Risk&nbsp; : 2 years<\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; \u25cb Low Risk&nbsp; : 3 years<\/div><div><br><\/div><div><br><\/div><div><div>\u25a1 Check that Call Report submitted was validated.<\/div><div>\u25a1 Check the Call Report that client was contacted within the past 1 year.<\/div><div>\u25a1 Check the Call Report indicate country and location for physical meeting.<\/div><div>\u25a1 Check the face to face&nbsp; meeting date should be within below period.<\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; \u25cb High Risk \/ PEP&nbsp; : 1 year<\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; \u25cb Medium Risk&nbsp; : 2 years<\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; \u25cb Low Risk&nbsp; : 3 years<\/div><\/div>",
 			"docID": "3",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "Clear unexpired Passport \/ ID copies or identification papers bearing clear photograph of accountholders",
@@ -98,7 +98,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "<div>NOTE :<\/div><div>- Individual profiles must be completed for all account holders and all persons with a role in the account i.e. Authorised Signatory\/POA\/LPOA (where applicable).<\/div><div><br><\/div><div>- RM signed CAF must be received by Client Management Team no later than 1 month after ICE print date.<\/div><div><br><\/div><div><div>\u25a1 Check that a complete set of CAF document was submitted which includes:<\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\u25cb KYC Folder &amp; Account Root profile are submitted for the account<\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\u25cb Individual profiles of all account holders<\/div><div>\u25a1 Individual profile(s) of all persons with a role in the account<\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \u25cb Limited Power of Attorney&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \u25cb Authorised Signatory\/POA&nbsp;<\/div><div><br><\/div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;\u25cb&nbsp; Persons who signed as BO in the Declaration of Beneficial Ownership&nbsp; &nbsp;&nbsp;<\/div><div>\u25a1 CAF signed and dated (within 1 month from submission) by RM<\/div><div><br><\/div><\/div>",
 			"docID": "62",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "Proof(s) of Residential Address for all account holders and authorised signatories \/ LPOA",
@@ -106,7 +106,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "<div>- Bank staff to write \"original sighted\", staff's name, date and sign on the copy of the residential address proof, OR photocopy to be certified by suitable certifier*.<\/div><div>- Evidence should be issued within the last 3 months.&nbsp;<\/div><div>- Address proof and ID doc have to be 2 separate document.<\/div><div><br>\u25a1 Translation is required for non English document.<br><\/div>",
 			"docID": "63",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "FATCA\/AEOI self certification (effective date : 1 Jan 2017)",
@@ -114,7 +114,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "- Refer to policies relating to US Persons, FATCA and AEOI.<div><br><\/div><div>Please specify name of person(s) with the relevant Indicia:<br><\/div>",
 			"docID": "64",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "W9 - US Person declared with the IRS and Annex 2 , 3 or 4 (Whichever is appropriate). ",
@@ -122,7 +122,7 @@ db.Checklists.insertOne(
 			"signature": true,
 			"remarks": "",
 			"docID": "65",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "W8 - BEN  Foreign Person for US Fisc (For Treaty claim required or to cure US Indicia )",
@@ -130,7 +130,7 @@ db.Checklists.insertOne(
 			"signature": true,
 			"remarks": "",
 			"docID": "66",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "Declaration of Tax Conformity (DTC)",
@@ -138,7 +138,7 @@ db.Checklists.insertOne(
 			"signature": true,
 			"remarks": "",
 			"docID": "67",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "Tax Compliance Indicator Questionnaire  - Applicable for all client(s)",
@@ -146,7 +146,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "68",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "Tax Indicator Checklist  (for French resident client)",
@@ -154,7 +154,7 @@ db.Checklists.insertOne(
 			"signature": true,
 			"remarks": "",
 			"docID": "69",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "MSC Self-Declaration or MSCQ",
@@ -162,7 +162,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "70",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "MLRA Simulation Form",
@@ -170,7 +170,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "71",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "Evidence of Source of Wealth",
@@ -178,7 +178,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "72",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "Investment Profile Questionnaire",
@@ -186,7 +186,7 @@ db.Checklists.insertOne(
 			"signature": true,
 			"remarks": "",
 			"docID": "73",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "Internet search ",
@@ -194,7 +194,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "74",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "VIGILANCE printouts for persons new to the Bank",
@@ -202,7 +202,7 @@ db.Checklists.insertOne(
 			"signature": true,
 			"remarks": "",
 			"docID": "75",
-			"changed": "2"
+			"changed": "0"
 		  }
 		],
 		"conditional": [
@@ -218,7 +218,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "- applicable for client who is an insider of a listed company (ref. Procedures for Clients Connected to Listed Companies)",
 			"docID": "76",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"conditions": [
@@ -232,7 +232,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "77",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"conditions": [
@@ -246,7 +246,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "78",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"conditions": [
@@ -260,7 +260,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "79",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"conditions": [
@@ -274,7 +274,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "80",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"conditions": [
@@ -288,7 +288,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "81",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"conditions": [
@@ -302,7 +302,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "82",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"conditions": [
@@ -316,7 +316,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "83",
-			"changed": "1"
+			"changed": "0"
 		  },
 		  {
 			"conditions": [
@@ -330,7 +330,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "84",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"conditions": [
@@ -344,7 +344,7 @@ db.Checklists.insertOne(
 			"signature": true,
 			"remarks": "",
 			"docID": "85",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"conditions": [
@@ -358,7 +358,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "86",
-			"changed": "2"
+			"changed": "0"
 		  }
 		],
 		"optional": [
@@ -368,7 +368,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "87",
-			"changed": "2"
+			"changed": "0"
 		  },
 		  {
 			"documentName": "Other documents as required by the Bank",
@@ -376,7 +376,7 @@ db.Checklists.insertOne(
 			"signature": false,
 			"remarks": "",
 			"docID": "88",
-			"changed": "1"
+			"changed": "0"
 		  }
 		]
 	  },
