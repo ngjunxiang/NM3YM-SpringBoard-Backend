@@ -159,6 +159,7 @@ def getChecklistForNotification(clID,version,docID):
     for section, value in docs["complianceDocuments"].items():
         for document in value:
             if document.get("docID") == docID:
+                results["DocChanged"] = "Compliance Documents"
                 results["docChanged"] = "Compliance Documents"
                 results["type"] = document
                 break
@@ -188,7 +189,7 @@ def getLoggedChecklistForNotification(clID,version,docID,changed):
         for document in value:
             if document.get("docID") == docID:
                 if changed == 3:
-                    document["changed"] = changed
+                    document["changed"] = str(changed)
                 results["docChanged"] = "Compliance Documents"
                 results["type"] = document
                 break
@@ -198,7 +199,7 @@ def getLoggedChecklistForNotification(clID,version,docID,changed):
             for document in value:
                 if document.get("docID") == docID:
                     if changed == 3:
-                        document["changed"] = changed
+                        document["changed"] = str(changed)
                     results["docChanged"] = "Legal Documents"
                     results["type"] = document
                     break
