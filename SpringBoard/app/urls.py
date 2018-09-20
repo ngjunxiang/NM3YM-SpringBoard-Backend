@@ -58,7 +58,7 @@ urlpatterns = [
     url(r'^rm/update-notifications', notificationViews.RMUpdateNotification.as_view()),
     url(r'^rm/update-urgency', onboardViews.UpdateUrgency.as_view()),
     url(r'^rm/retrieve-urgency', onboardViews.RetrieveUrgency.as_view()),
-    url(r'^rm/ask', knowledgeBaseViews.retrieveAnswers.as_view()),
+    url(r'^rm/faq', knowledgeBaseViews.retrieveAnswers.as_view()),
 
     # Compliance endpoints
     url(r'^compliance/create-checklist', checklistViews.CreateCL.as_view()),
