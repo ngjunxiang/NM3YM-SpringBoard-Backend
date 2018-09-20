@@ -12,6 +12,7 @@ from app.views import notificationViews
 from app.views import onboardViews
 from app.views import tokenViews
 from app.views import userViews
+from app.views import knowledgeBaseViews
 
 #router = mrouter.DefaultRouter()
 #router.register(r'login', views.UserLogin, base_name = 'login')
@@ -34,6 +35,7 @@ urlpatterns = [
     url(r'^admin/upload-AgmtCodes', agmtCodeViews.UploadAgmtCodes.as_view()),
 
     # CM endpoints
+    url(r'^cm/create-checklist', checklistViews.CreateCL.as_view()),
     url(r'^cm/manage-checklist', checklistViews.ManageCL.as_view()),
     url(r'^cm/update-checklist', checklistViews.UpdateCL.as_view()),
     url(r'^cm/retrieve-checklistNames', checklistViews.CMRetrieveCLNames.as_view()),
@@ -56,6 +58,7 @@ urlpatterns = [
     url(r'^rm/update-notifications', notificationViews.RMUpdateNotification.as_view()),
     url(r'^rm/update-urgency', onboardViews.UpdateUrgency.as_view()),
     url(r'^rm/retrieve-urgency', onboardViews.RetrieveUrgency.as_view()),
+    url(r'^rm/ask', knowledgeBaseViews.retrieveAnswers.as_view()),
 
     # Compliance endpoints
     url(r'^compliance/create-checklist', checklistViews.CreateCL.as_view()),

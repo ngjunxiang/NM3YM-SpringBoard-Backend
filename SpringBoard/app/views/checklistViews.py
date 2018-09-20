@@ -37,7 +37,7 @@ class CreateCL(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isCompliance(userType)):
+        if(not isCM(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -88,7 +88,7 @@ class ManageCL(CreateAPIView):
         if(len(results) != 0):
             client.close()
             return Response(results)
-        if(not isCompliance(userType)):
+        if(not isCM(userType)):
             client.close()
             return Response({'error' : 'invalid userType' })
 
