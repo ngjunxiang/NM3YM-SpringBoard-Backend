@@ -11,7 +11,7 @@ def getAnswer(question):
     collection = db.knowledgeBase
 
     #get intents and entities
-    interpreter = Interpreter.load('/Users/ellpeeaxe/Desktop/NM3YM_Project/Backend/SpringBoard/model')
+    interpreter = Interpreter.load('./model')
     intentEntity = interpreter.parse(question)
 
     intent = intentEntity["intent"]["name"]
