@@ -31,6 +31,10 @@ class UploadAgmtCodes(CreateAPIView):
             client.close()
             return Response(tokenResults)
 
+        if(not (isCM(userType) or isCompliance(userType))):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
         # check if file ends with .csv
         csv_file = request.FILES["uploadedFile"]
         if not csv_file.name.endswith('.csv'):

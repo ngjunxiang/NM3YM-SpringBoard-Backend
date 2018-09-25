@@ -10,8 +10,8 @@ def isAdmin(userType):
 def isCM(userType):
     return userType == "CM"
 
-def isRM(userType):
-    return userType == "RM"
+def isFO(userType):
+    return (userType == "RM" or userType == "MA")
 
 def isCompliance(userType):
     return userType == "COMPLIANCE"

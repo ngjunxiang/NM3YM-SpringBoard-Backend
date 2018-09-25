@@ -25,14 +25,13 @@ urlpatterns = [
     url(r'^login', loginViews.UserLogin.as_view()),
     url(r'^authenticateAdmin',tokenViews.authenticateAdmin.as_view()),
     url(r'^authenticateCM',tokenViews.authenticateCM.as_view()),
-    url(r'^authenticateRM',tokenViews.authenticateRM.as_view()),
+    url(r'^authenticateFO',tokenViews.authenticateFO.as_view()),
     url(r'^authenticateCompliance',tokenViews.authenticateCompliance.as_view()),
 
     # admin endpoints
     url(r'^admin/retrieve-users', userViews.RetrieveUsers.as_view()),
     url(r'^admin/manage-users', userViews.ManageUsers.as_view()),
     url(r'^admin/update-users', userViews.UpdateUsers.as_view()),
-    url(r'^admin/upload-AgmtCodes', agmtCodeViews.UploadAgmtCodes.as_view()),
 
     # CM endpoints
     url(r'^cm/create-checklist', checklistViews.CreateCL.as_view()),
@@ -41,24 +40,25 @@ urlpatterns = [
     url(r'^cm/retrieve-checklistNames', checklistViews.CMRetrieveCLNames.as_view()),
     url(r'^cm/retrieve-loggedLists', checklistViews.CMRetrieveLoggedLists.as_view()),
     url(r'^cm/retrieve-clIDWithVersion', checklistViews.CMRetrieveNamesAndVersions.as_view()),
+    url(r'^cm/upload-AgmtCodes', agmtCodeViews.UploadAgmtCodes.as_view()),
     url(r'^cm/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
 
-    # RM endpoints
-    url(r'^rm/retrieve-dashboard', dashboardViews.RMDashboard.as_view()),
-    url(r'^rm/create-onboard', onboardViews.CreateOnboard.as_view()),
-    url(r'^rm/manage-onboard', onboardViews.ManageOnboard.as_view()),
-    url(r'^rm/retrieve-checklistNames', checklistViews.RMRetrieveCLNames.as_view()),
-    url(r'^rm/retrieve-checklist', checklistViews.RMRetrieveCL.as_view()),
-    url(r'^rm/retrieve-all-onboard', onboardViews.RetrieveAllOnboards.as_view()),
-    url(r'^rm/retrieve-selected-onboard', onboardViews.RetrieveSelectedOnboard.as_view()),
-    url(r'^rm/retrieve-rm-names', userViews.RMRetrieveRMNames.as_view()),
-    url(r'^rm/retrieve-latest-notifications', notificationViews.RMRetrieveLatestNotification.as_view()),
-    url(r'^rm/retrieve-all-notifications', notificationViews.RMRetrieveAllNotification.as_view()),
-    url(r'^rm/retrieve-notifications', notificationViews.RMRetrieveNotifications.as_view()),
-    url(r'^rm/update-notifications', notificationViews.RMUpdateNotification.as_view()),
-    url(r'^rm/update-urgency', onboardViews.UpdateUrgency.as_view()),
-    url(r'^rm/retrieve-urgency', onboardViews.RetrieveUrgency.as_view()),
-    url(r'^rm/faq', knowledgeBaseViews.retrieveAnswers.as_view()),
+    # FO endpoints
+    url(r'^fo/retrieve-dashboard', dashboardViews.FODashboard.as_view()),
+    url(r'^fo/create-onboard', onboardViews.CreateOnboard.as_view()),
+    url(r'^fo/manage-onboard', onboardViews.ManageOnboard.as_view()),
+    url(r'^fo/retrieve-checklistNames', checklistViews.FORetrieveCLNames.as_view()),
+    url(r'^fo/retrieve-checklist', checklistViews.FORetrieveCL.as_view()),
+    url(r'^fo/retrieve-all-onboard', onboardViews.RetrieveAllOnboards.as_view()),
+    url(r'^fo/retrieve-selected-onboard', onboardViews.RetrieveSelectedOnboard.as_view()),
+    url(r'^fo/retrieve-rm-names', userViews.FORetrieveRMNames.as_view()),
+    url(r'^fo/retrieve-latest-notifications', notificationViews.FORetrieveLatestNotification.as_view()),
+    url(r'^fo/retrieve-all-notifications', notificationViews.FORetrieveAllNotification.as_view()),
+    url(r'^fo/retrieve-notifications', notificationViews.FORetrieveNotifications.as_view()),
+    url(r'^fo/update-notifications', notificationViews.FOUpdateNotification.as_view()),
+    url(r'^fo/update-urgency', onboardViews.UpdateUrgency.as_view()),
+    url(r'^fo/retrieve-urgency', onboardViews.RetrieveUrgency.as_view()),
+    url(r'^fo/faq', knowledgeBaseViews.retrieveAnswers.as_view()),
 
     # Compliance endpoints
     url(r'^compliance/create-checklist', checklistViews.CreateCL.as_view()),

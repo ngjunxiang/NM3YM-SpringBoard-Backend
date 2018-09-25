@@ -235,11 +235,11 @@ class CMRetrieveCLNames(CreateAPIView):
 
 
 # ------------------------------------------------------------------- #
-#                             RM Methods                              #
+#                             FO Methods                              #
 # ------------------------------------------------------------------- #
 
-# Retrieve a single checklist for RMs
-class RMRetrieveCL(CreateAPIView):
+# Retrieve a single checklist for FOs
+class FORetrieveCL(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Checklists.find()
 
@@ -256,7 +256,7 @@ class RMRetrieveCL(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -265,8 +265,8 @@ class RMRetrieveCL(CreateAPIView):
         client.close()
         return Response(results)
 
-# Returns all checklist names for RMs
-class RMRetrieveCLNames(CreateAPIView):
+# Returns all checklist names for FOs
+class FORetrieveCLNames(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Checklists.find()
 
@@ -282,7 +282,7 @@ class RMRetrieveCLNames(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 

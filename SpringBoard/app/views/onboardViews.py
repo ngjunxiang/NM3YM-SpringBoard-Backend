@@ -35,11 +35,11 @@ class CreateOnboard(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = createNewOnBoard(onboard)
+        results = createNewOnBoard(onboard,username)
 
         client.close()
         return Response(results)
@@ -64,7 +64,7 @@ class ManageOnboard(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -87,7 +87,7 @@ class ManageOnboard(CreateAPIView):
         if(len(results) != 0):
             client.close()
             return Response(results)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType' })
 
@@ -96,7 +96,7 @@ class ManageOnboard(CreateAPIView):
         client.close()
         return Response(results)
 
-#Retrieve all onboard handled by logged on RM
+#Retrieve all onboard handled by logged on FO
 class RetrieveAllOnboards(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Onboards.find()
@@ -113,11 +113,11 @@ class RetrieveAllOnboards(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = getAllCurrentOnboards(username)
+        results = getAllCurrentOnboards(username,userType)
 
         client.close()
         return Response(results)
@@ -140,7 +140,7 @@ class RetrieveSelectedOnboard(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -171,7 +171,7 @@ class RetrieveUrgency(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -198,7 +198,7 @@ class UpdateUrgency(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 

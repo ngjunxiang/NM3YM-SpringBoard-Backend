@@ -112,7 +112,7 @@ class UpdateUsers(CreateAPIView):
         return Response(results)
 
 # Retrieve all RM names
-class RMRetrieveRMNames(CreateAPIView):
+class FORetrieveRMNames(CreateAPIView):
     serializer_class = UserSerializer 
     queryset = db.Users.find()
 
@@ -128,7 +128,7 @@ class RMRetrieveRMNames(CreateAPIView):
         if(len(results) != 0):
             client.close()
             return Response(results)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 

@@ -14,7 +14,7 @@ from app.utils.userCRUD import *
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
-class RMRetrieveLatestNotification(CreateAPIView):
+class FORetrieveLatestNotification(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Notifications.find()
 
@@ -29,7 +29,7 @@ class RMRetrieveLatestNotification(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -39,7 +39,7 @@ class RMRetrieveLatestNotification(CreateAPIView):
         client.close()
         return Response(results)
 
-class RMRetrieveAllNotification(CreateAPIView):
+class FORetrieveAllNotification(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Notifications.find()
 
@@ -54,7 +54,7 @@ class RMRetrieveAllNotification(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -64,7 +64,7 @@ class RMRetrieveAllNotification(CreateAPIView):
         client.close()
         return Response(results)
 
-class RMRetrieveNotifications(CreateAPIView):
+class FORetrieveNotifications(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Notifications.find()
 
@@ -79,7 +79,7 @@ class RMRetrieveNotifications(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -90,7 +90,7 @@ class RMRetrieveNotifications(CreateAPIView):
         return Response(results)
         
         
-class RMUpdateNotification(CreateAPIView):
+class FOUpdateNotification(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Notifications.find()
 
@@ -105,7 +105,7 @@ class RMUpdateNotification(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 

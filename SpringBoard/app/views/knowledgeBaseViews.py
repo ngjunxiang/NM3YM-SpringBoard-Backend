@@ -31,7 +31,7 @@ class retrieveAnswers(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 

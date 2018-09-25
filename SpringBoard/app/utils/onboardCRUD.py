@@ -15,7 +15,7 @@ tz = pytz.timezone('Asia/Singapore')
 #                            Onboard CRUD                             #
 # ------------------------------------------------------------------- #
 
-def createNewOnBoard(input):
+def createNewOnBoard(input,username):
 
     collection = db.Onboards
     # urgentCollection = db.OnboardUrgentChecker
@@ -40,6 +40,7 @@ def createNewOnBoard(input):
     input["obID"] =  str(obID)
     input["dateCreated"] =  str(date)
     input["progress"] = str(progress)
+    input["createdBy"] = getName(username)
 
     if progress == 100:
         input['dataCompleted'] = str(date)
@@ -228,14 +229,19 @@ def getSelectedOnboard(obID):
 #                           Other Methods                             #
 # ------------------------------------------------------------------- #
 
-def getAllCurrentOnboards(username):
+def getAllCurrentOnboards(username,userType):
 
     rmName = getName(username)
     collection = db.Onboards
+    obList = []
+    if userType=="RM":
+        table = collection.find({"requiredFields.RM Name": rmName},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
+        obList = [item for item in table]
+    else:
+        table = collection.find({"createdBy": rmName},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
+        obList = [item for item in table]
+        
 
-    table = collection.find({"requiredFields.RM Name": rmName},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
-    obList = [item for item in table]
-    
     results = {}
     results["obLists"] =  obList
     

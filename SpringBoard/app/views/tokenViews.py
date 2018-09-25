@@ -76,7 +76,7 @@ class authenticateCM(CreateAPIView):
 
         return Response({'newToken' : newToken})
 
-class authenticateRM(CreateAPIView):
+class authenticateFO(CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self,request):
@@ -90,7 +90,7 @@ class authenticateRM(CreateAPIView):
         if(len(results) != 0):
             client.close()
             return Response(results)
-        if(not isRM(userType)):
+        if(not isFO(userType)):
             client.close()
             return Response({'error' : 'Invalid userType' })
 
