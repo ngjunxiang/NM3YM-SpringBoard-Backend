@@ -59,7 +59,7 @@ def createNewOnBoard(input,username):
     return results
 
 
-def updateSelectedOnboard(obID,input):
+def updateSelectedOnboard(obID,input,username):
 
     collection = db.Onboards
 
@@ -104,6 +104,7 @@ def updateSelectedOnboard(obID,input):
     input["dateCreated"] =  date
     input["progress"] = str(progress)
     input["urgent"] = getUrgency(obID)
+    input["createdBy"] = getName(username)
 
     if progress == 100:
         input['dataCompleted'] = str(date)
@@ -231,14 +232,14 @@ def getSelectedOnboard(obID):
 
 def getAllCurrentOnboards(username,userType):
 
-    rmName = getName(username)
+    name = getName(username)
     collection = db.Onboards
     obList = []
     if userType=="RM":
-        table = collection.find({"requiredFields.RM Name": rmName},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
+        table = collection.find({"requiredFields.RM Name": name},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
         obList = [item for item in table]
     else:
-        table = collection.find({"createdBy": rmName},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
+        table = collection.find({"createdBy": name},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
         obList = [item for item in table]
         
 

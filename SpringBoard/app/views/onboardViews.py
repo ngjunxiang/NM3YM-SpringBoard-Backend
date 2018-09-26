@@ -68,7 +68,7 @@ class ManageOnboard(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = updateSelectedOnboard(obID,onboard)
+        results = updateSelectedOnboard(obID,onboard,username)
 
         client.close()
         return Response(results)
