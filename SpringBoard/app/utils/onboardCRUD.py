@@ -59,11 +59,13 @@ def createNewOnBoard(input,username):
     return results
 
 
-def updateSelectedOnboard(obID,input,username):
+def updateSelectedOnboard(obID,input):
 
     collection = db.Onboards
 
     results = {'results':'false'}
+
+    getCreatedBy = collection.find_one({"obID":obID},{"createdBy":1,"_id":0})["createdBy"]
 
     # delete current record
     deletedResults = deleteSelectedOnboard(obID)
@@ -104,7 +106,7 @@ def updateSelectedOnboard(obID,input,username):
     input["dateCreated"] =  date
     input["progress"] = str(progress)
     input["urgent"] = getUrgency(obID)
-    input["createdBy"] = getName(username)
+    input["createdBy"] = getCreatedBy
 
     if progress == 100:
         input['dataCompleted'] = str(date)

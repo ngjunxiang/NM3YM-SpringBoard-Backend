@@ -42,6 +42,9 @@ def getAnswer(question):
 
 def sortBySimilarity(match):
     retMatch = []
+    if not match:
+        return retMatch
+    
     retMatch.append(match[0])
     for i in range(1,len(match)):
         matchVal = match[i]
