@@ -35,19 +35,25 @@ class UploadAgmtCodes(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        # check if file ends with .csv
-        csv_file = request.FILES["uploadedFile"]
-        if not csv_file.name.endswith('.csv'):
-            return Response({'error':'file is not csv'})
-        
+        # check if file ends with .csv or .xlsx
+        file = request.FILES["uploadedFile"]
+        if not file.name.endswith(('.csv','xlsx','xls')):
+            return Response({'error':'file is not csv or excel'})
+        filename = file.name
+        destination = open(filename,'wb+')
+        for chunk in file.chunks():
+            destination.write(chunk)
+        destination.close()
+
         # decode file
         try:
-            csv_file = csv_file.read().decode("utf-8").split("\r\n")
+            if file.name.endswith('csv'):
+                file = file.read().decode("utf-8").split("\r\n")
         except:
             return Response({'error':'file may be corrupted, check file format and try again.'})
 
         results = {}
-        results["results"] = bootstrapAgmt(csv_file)
+        results["results"] = bootstrapAgmt(file,filename)
         
         client.close()
         return Response(results)

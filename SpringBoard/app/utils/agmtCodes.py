@@ -1,36 +1,45 @@
 from pymongo import MongoClient
 from pymongo import cursor
+import pandas as pd
+
 import json
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
-def bootstrapAgmt(file):
+def bootstrapAgmt(file,filename):
 
     # clear prev bootstrap
     collection = db.AgmtCodes
     collection.drop()
 
     results = {'results':'false'}
+    df = pd.DataFrame()
 
-    # tracking variables
-    row = 0
+     # tracking variables
+    try:
+        if filename.endswith('csv'):
+            df = pd.to_csv(filename)
+        else:
+            df = pd.ExcelFile(filename).parse('AgmtCodes')
+    except:
+        results = {"error":"file may be corrupted, check file format and try again."}
+    
+    agmtDict = df.to_dict('records')
+
     inserted = 0
     errors = 0
 
-    for line in file:
+    dfList = list(df)
 
-        # Skip header
-        if row == 0:
-            row += 1
-            continue
-        
-        fields = line.split(",")
+    for x in agmtDict:
+        code = x[dfList[0]]
+        desc = x[dfList[1]]
 
         record = {
-            "code" : fields[0], 
-            "document" : fields[1]
-            }
+            "code" : code,
+            "document" : desc
+        }
 
         try:
             collection.insert_one(record)
