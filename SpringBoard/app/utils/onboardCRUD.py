@@ -244,6 +244,7 @@ def getAllCurrentOnboards(username,userType):
         table = collection.find({"createdBy": name},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
         obList = [item for item in table]
         
+    obList = filterSort(obList)
 
     results = {}
     results["obLists"] =  obList
@@ -335,9 +336,31 @@ def loadUrgentJson(obID):
 
     return json.loads(results)
 
-def filterSort(query):
+def filterSort(obList):
+    if not obList:
+        return obList
 
-    collection = db.Checklists
+    newObList = []
+    newObList.append(obList[0])
+
+    for i in range(1,len(obList)):
+        obDict = obList[i]
+        obName = obDict.get("name")
+        obProgress = float(obDict.get("progress"))
+        for j,item in enumerate(newObList):
+            newObName = item.get("name")
+            if obName<newObName:
+                newObList.insert(j,obList[i])
+                break
+            elif obName == newObName:
+                newObProgress = float(item.get("progress"))
+                if obProgress>newObProgress:
+                    newObList.insert(j,obList[i])
+                    break
+            if(len(newObList)-j==1):
+                newObList.append(obList[i])
+                break
+
+    return newObList
+            
     
-    table = collection.find({},{"_id":0})
-    rList = [item for item in table]
