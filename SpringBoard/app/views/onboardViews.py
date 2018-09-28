@@ -206,3 +206,29 @@ class UpdateUrgency(CreateAPIView):
         
         client.close()
         return Response(results)
+
+class FilterSortOnboard(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Onboards.find()
+
+    def post(self,request):
+    
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+        sortBy = request.data['sortBy']
+
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isFO(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = getSortedOnboards(username,userType,sortBy)
+        
+        client.close()
+        return Response(results)

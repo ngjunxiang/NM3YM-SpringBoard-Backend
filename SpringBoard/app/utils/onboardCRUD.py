@@ -336,6 +336,30 @@ def loadUrgentJson(obID):
 
     return json.loads(results)
 
+# ------------------------------------------------------------------- #
+#                          Sorting Methods                            #
+# ------------------------------------------------------------------- #
+    
+def getSortedOnboards(username,userType,sortBy):
+
+    name = getName(username)
+    collection = db.Onboards
+    obList = []
+    if userType=="RM":
+        table = collection.find({"requiredFields.RM Name": name},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
+        obList = [item for item in table]
+    else:
+        table = collection.find({"createdBy": name},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
+        obList = [item for item in table]
+    
+    obList = sortListBy(obList,sortBy)
+
+    results = {}
+    results["obLists"] =  obList
+    
+    client.close()
+    return results
+
 def filterSort(obList):
     if not obList:
         return obList
@@ -362,5 +386,56 @@ def filterSort(obList):
                 break
 
     return newObList
-            
-    
+
+def sortListBy(obList,sortBy):
+    if not obList:
+        return obList
+    newObList =  []
+
+    if sortBy == "progress":
+        newObList.append(obList[0])
+
+        for i in range(1,len(obList)):
+            obDict = obList[i]
+            obProgress = float(obDict.get("progress"))
+            for j,item in enumerate(newObList):
+                newObProgress = float(item.get("progress"))
+                if obProgress > newObProgress:
+                    newObList.insert(j,obList[i])
+                    break
+                if(len(newObList)-j==1):
+                    newObList.append(obList[i])
+                    break
+        return newObList
+    elif sortBy == "date":
+        newObList.append(obList[0])
+
+        for i in range(1,len(obList)):
+            obDict = obList[i]
+            obDateCreated = obDict.get("dateCreated")
+            for j,item in enumerate(newObList):
+                newObDateCreated = item.get("dateCreated")
+                if obDateCreated > newObDateCreated:
+                    newObList.insert(j,obList[i])
+                    break
+                if(len(newObList)-j==1):
+                    newObList.append(obList[i])
+                    break
+        return newObList
+    elif sortBy == "name":
+        newObList.append(obList[0])
+
+        for i in range(1,len(obList)):
+            obDict = obList[i]
+            obName = obDict.get("name")
+            for j,item in enumerate(newObList):
+                newObName = item.get("name")
+                if obName < newObName:
+                    newObList.insert(j,obList[i])
+                    break
+                if(len(newObList)-j==1):
+                    newObList.append(obList[i])
+                    break
+        return newObList
+    else:
+        return obList
