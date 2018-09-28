@@ -94,7 +94,7 @@ def clientsAffectedByChanges(username):
         onboards = onboardCollection.find({"clID":clID,"version":version,"requiredFields.RM Name": rmName},{"_id":0,"requiredFields.Client Name": 1,"progress":1,"name":1})
         
         for ob in onboards:
-            if int(ob.get("progress")) != 100:
+            if ob.get("progress") != 100.0:
                 data = {}
                 data["Client"] = ob.get("requiredFields.Client Name")
                 data["DocName"] = ob.get("name")
