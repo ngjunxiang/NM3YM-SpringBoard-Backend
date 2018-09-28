@@ -14,31 +14,58 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
 # retrieve number of completed onboards for given RM
-def getCompletedClients(username):
+def getCompletedClients(username,userType):
 
     collection = db.Onboards
 
-    rmName = getName(username)
-    completedCount = collection.find({"requiredFields.RM Name": rmName,"progress":"100"}).count()
+    name = getName(username)
+    completedCount = 0
+
+    if (checkFOType(userType)=="RM"):
+        completedCount = collection.find({"requiredFields.RM Name": name,"progress":100}).count()
+    else:
+        completedCount = collection.find({"createdBy": name,"progress":100}).count()
 
     return completedCount
 
 # retrieve number of pending onboards for given RM
-def getPendingClients(username):
+def getPendingClients(username,userType):
     collection = db.Onboards
 
-    rmName = getName(username)
-    totalCount = collection.find({"requiredFields.RM Name": rmName}).count()
-    completedCount = getCompletedClients(username)
+    name = getName(username)
+    totalCount = 0
+    if (checkFOType(userType)=="RM"):
+        totalCount = collection.find({"requiredFields.RM Name": name}).count()
+    else:
+        totalCount = collection.find({"createdBy": name}).count()
+    
+    completedCount = getCompletedClients(username,userType)
 
     return totalCount - completedCount
-    
-# retrieve all completed onboards for given RM
-def getOnboardedClients(username):
+
+def getAllPendingClients(username,userType):
     collection = db.Onboards
 
-    rmName = getName(username)
-    table = collection.find({"requiredFields.RM Name": rmName,"progress":"100"},{"dateCompleted":1,"_id":0})
+    name = getName(username)
+    table = collection.find({"requiredFields.RM Name": name,"progress":{"$lt":100}},{"name":1,"requiredFields":1,"dateCreated":1,"_id":0})
+    if (checkFOType(userType)=="MA"):
+        table = collection.find({"createdBy": name,"progress":{"$lt":100}},{"name":1,"requiredFields":1,"dateCreated":1,"_id":0})
+
+    pendingList = [item for item in table]
+
+    return pendingList
+
+# retrieve all completed onboards for given RM
+def getOnboardedClients(username,userType):
+    collection = db.Onboards
+
+    name = getName(username)
+
+
+    table = collection.find({"requiredFields.RM Name": name,"progress":100},{"dateCompleted":1,"_id":0})
+    if (checkFOType(userType)=="MA"):
+        table = collection.find({"createdBy": name,"progress":100},{"dateCompleted":1,"_id":0})
+    
     results = {}
 
     for item in table:
@@ -101,9 +128,9 @@ def clientsAffectedByChanges(username):
                 onboardsList.append(data)
 
     return onboardsList
-    
 
-
-
-
-
+def checkFOType(userType):
+    if userType=="RM":
+        return "RM"
+    else:
+        return "MA"

@@ -35,14 +35,15 @@ class FODashboard(CreateAPIView):
             return Response({'error' : 'invalid userType'})
 
         content = {}
-        content["completedCount"] = getCompletedClients(username)
-        content["pendingCount"] = getPendingClients(username)
-        content["onBoardedClients"] = getOnboardedClients(username)
+        content["completedCount"] = getCompletedClients(username,userType)
+        content["pendingCount"] = getPendingClients(username,userType)
+        content["onBoardedClients"] = getOnboardedClients(username,userType)
         
         results = {}
         results["results"] = content
         results["docChanges"] = changesInChecklists(username)
         results["clientsAffected"] = clientsAffectedByChanges(username)
+        results["pendingClients"] = getAllPendingClients(username, userType)
 
         client.close()
         return Response(results)

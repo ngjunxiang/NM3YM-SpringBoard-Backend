@@ -39,10 +39,10 @@ def createNewOnBoard(input,username):
     # update additional info
     input["obID"] =  str(obID)
     input["dateCreated"] =  str(date)
-    input["progress"] = str(progress)
+    input["progress"] = progress
     input["createdBy"] = getName(username)
 
-    if progress == 100:
+    if int(progress) == 100:
         input['dataCompleted'] = str(date)
 
     results = {'results':'false'}
@@ -104,11 +104,11 @@ def updateSelectedOnboard(obID,input):
     # update additional info
     input["obID"] =  str(obID)
     input["dateCreated"] =  date
-    input["progress"] = str(progress)
+    input["progress"] = progress
     input["urgent"] = getUrgency(obID)
     input["createdBy"] = getCreatedBy
 
-    if progress == 100:
+    if int(progress) == 100:
         input['dataCompleted'] = str(date)
     
     try:
