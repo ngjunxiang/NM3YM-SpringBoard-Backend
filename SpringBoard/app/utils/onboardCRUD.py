@@ -159,7 +159,7 @@ def getSelectedOnboard(obID):
         # stacked comparison
         while version < clVersion-1:
             version += 1
-            log = logCollection.find_one({"clID":clID, "version":version},{"_id":0})
+            log = logCollection.find_one({"clID":clID, "version":str(version)},{"_id":0})
             # compare each version from oldest
             for section,value in log["complianceDocuments"].items():
                 for document in value:
