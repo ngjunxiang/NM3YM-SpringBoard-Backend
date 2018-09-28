@@ -80,9 +80,8 @@ def getNotifications(username):
 
     results = {}
     allNotiCounter = 0
-    #allNotificationList = []
     newNotificationList = []
-    oldNotificationList = []
+    notificationList = []
     newNotiCounter = 0
     for item in allNoti:
         rms = item["RMs"]
@@ -98,8 +97,9 @@ def getNotifications(username):
             if not checked:
                 newNotiCounter += 1
                 newNotificationList.append(notification)
+                notificationList.append(notification)
             else:
-                oldNotificationList.append(notification)
+                notificationList.append(notification)
             #allNotificationList.append(notification)
             allNotiCounter += 1
         else:
@@ -109,19 +109,18 @@ def getNotifications(username):
                 if not checked:
                     newNotiCounter += 1
                     newNotificationList.append(notification)
+                    notificationList.append(notification)
                 else:
-                    oldNotificationList.append(notification)
+                    notificationList.append(notification)
                 #allNotificationList.append(notification)
                 allNotiCounter += 1
 
     results["totalCount"] = allNotiCounter
     results["newCount"] = newNotiCounter
-    #allNotificationList = sortNotifications(allNotificationList)
     newNotificationList = sortNotifications(newNotificationList)
-    oldNotificationList = sortNotifications(oldNotificationList)
+    notificationList = sortNotifications(notificationList)
     results["newNotifications"] = newNotificationList
-    results["oldNotifications"] = oldNotificationList
-    #results["notifications"] = allNotificationList
+    results["notifications"] = notificationList
 
     return results
 
