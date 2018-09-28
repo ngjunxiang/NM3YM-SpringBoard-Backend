@@ -47,9 +47,9 @@ def getAllPendingClients(username,userType):
     collection = db.Onboards
 
     name = getName(username)
-    table = collection.find({"requiredFields.RM Name": name,"progress":{"$lt":100}},{"name":1,"requiredFields":1,"dateCreated":1,"_id":0})
+    table = collection.find({"requiredFields.RM Name": name,"progress":{"$lt":100}},{"clID":1,"obID":1,"name":1,"requiredFields":1,"dateCreated":1,"_id":0})
     if (checkFOType(userType)=="MA"):
-        table = collection.find({"createdBy": name,"progress":{"$lt":100}},{"name":1,"requiredFields":1,"dateCreated":1,"_id":0})
+        table = collection.find({"createdBy": name,"progress":{"$lt":100}},{"clID":1,"obID":1,"name":1,"requiredFields":1,"dateCreated":1,"_id":0})
 
     pendingList = [item for item in table]
 
