@@ -58,7 +58,6 @@ urlpatterns = [
     url(r'^fo/update-notifications', notificationViews.FOUpdateNotification.as_view()),
     url(r'^fo/update-urgency', onboardViews.UpdateUrgency.as_view()),
     url(r'^fo/retrieve-urgency', onboardViews.RetrieveUrgency.as_view()),
-    url(r'^fo/faq', knowledgeBaseViews.retrieveAnswers.as_view()),
 
     # Compliance endpoints
     url(r'^compliance/create-checklist', checklistViews.CreateCL.as_view()),
@@ -68,6 +67,20 @@ urlpatterns = [
     url(r'^compliance/retrieve-loggedLists', checklistViews.ComplianceRetrieveLoggedLists.as_view()),
     url(r'^compliance/retrieve-clIDWithVersion', checklistViews.ComplianceRetrieveNamesAndVersions.as_view()),
     url(r'^compliance/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
+
+    # Knowledge base endpoints
+    # -- CM --
+    url(r'^faq/add-AQ', knowledgeBaseViews.AddAnsweredQuestion.as_view()),
+    url(r'^faq/delete-AQ', knowledgeBaseViews.DeleteAnsweredQuestion.as_view()),
+    url(r'^faq/edit-AQ', knowledgeBaseViews.EditAnsweredQuestion.as_view()),
+    url(r'^faq/delete-UQ', knowledgeBaseViews.DeleteUnansweredQuestion.as_view()),
+    url(r'^faq/retrieve-UQ', knowledgeBaseViews.RetrieveUnansweredQuestion.as_view()),
+    url(r'^faq/retrieve-unclean', knowledgeBaseViews.RetrieveAllUncleanQNA.as_view()),
+    # -- FO --
+    url(r'^faq/add-UQ', knowledgeBaseViews.AddUnansweredQuestion.as_view()),
+    # -- BOTH --
+    url(r'^faq/retrieve-allAQ', knowledgeBaseViews.RetrieveAllQNA.as_view()), 
+    url(r'^faq/retrieve', knowledgeBaseViews.RetrieveAnswers.as_view()),
 
     # others
     url(r'^invalidateUser', tokenViews.InvalidateUser.as_view()),
