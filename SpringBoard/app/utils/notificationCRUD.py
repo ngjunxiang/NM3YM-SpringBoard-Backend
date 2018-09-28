@@ -80,34 +80,48 @@ def getNotifications(username):
 
     results = {}
     allNotiCounter = 0
-    allNotificationList = []
+    #allNotificationList = []
+    newNotificationList = []
+    oldNotificationList = []
     newNotiCounter = 0
     for item in allNoti:
         rms = item["RMs"]
         checked = rms[0]["checked"]
         changed = rms[0]["changed"]
-        if not checked:
-            newNotiCounter += 1
+        
         clID = item["clID"]
         version = item["version"]
         docID = item["docID"]
         notification = getChecklistForNotification(clID,version,docID)
-        print(notification)
         if notification:
             notification["checked"] = checked
-            allNotificationList.append(notification)
+            if not checked:
+                newNotiCounter += 1
+                newNotificationList.append(notification)
+            else:
+                oldNotificationList.append(notification)
+            #allNotificationList.append(notification)
             allNotiCounter += 1
         else:
             notification = getLoggedChecklistForNotification(clID,version,docID,changed)
             if notification:
                 notification["checked"] = checked
-                allNotificationList.append(notification)
+                if not checked:
+                    newNotiCounter += 1
+                    newNotificationList.append(notification)
+                else:
+                    oldNotificationList.append(notification)
+                #allNotificationList.append(notification)
                 allNotiCounter += 1
 
     results["totalCount"] = allNotiCounter
     results["newCount"] = newNotiCounter
-    allNotificationList = sortNotifications(allNotificationList)
-    results["notifications"] = allNotificationList
+    #allNotificationList = sortNotifications(allNotificationList)
+    newNotificationList = sortNotifications(newNotificationList)
+    oldNotificationList = sortNotifications(oldNotificationList)
+    results["newNotifications"] = newNotificationList
+    results["oldNotifications"] = oldNotificationList
+    #results["notifications"] = allNotificationList
 
     return results
 
