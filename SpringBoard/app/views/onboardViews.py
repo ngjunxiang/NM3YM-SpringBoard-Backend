@@ -221,7 +221,6 @@ class FilterSortOnboard(CreateAPIView):
         sortBy = request.data['sortBy']
         obList = request.data['obList']
     
-        
         # authentication
         tokenResults = tokenAuthenticate(username,token)
         if(len(tokenResults) != 0):

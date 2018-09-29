@@ -394,7 +394,6 @@ def sortListBy(obList,sortBy):
     if not obList:
         return obList
     newObList =  []
-
     if sortBy == "progress":
         newObList.append(obList[0])
 
@@ -413,6 +412,7 @@ def sortListBy(obList,sortBy):
     elif sortBy == "date":
         newObList.append(obList[0])
 
+       
         for i in range(1,len(obList)):
             obDict = obList[i]
             obDateCreated = obDict.get("dateCreated")
@@ -446,7 +446,7 @@ def sortListBy(obList,sortBy):
 def filterListBy(obList,filterBy):
     if not obList:
         return obList
-
+    
     newObList =  []
 
     if filterBy == "pending":
