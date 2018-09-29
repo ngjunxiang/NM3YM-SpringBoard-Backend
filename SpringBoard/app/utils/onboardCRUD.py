@@ -340,19 +340,25 @@ def loadUrgentJson(obID):
 #                          Sorting Methods                            #
 # ------------------------------------------------------------------- #
     
-def getSortedOnboards(username,userType,sortBy):
+def getSortedOnboards(sortBy,obList):
 
-    name = getName(username)
     collection = db.Onboards
-    obList = []
-    if userType=="RM":
-        table = collection.find({"requiredFields.RM Name": name},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
-        obList = [item for item in table]
-    else:
-        table = collection.find({"createdBy": name},{"name":1,"conditions":1,"requiredFields":1,"obID":1,"dateCreated":1,"progress":1,"_id":0})
-        obList = [item for item in table]
     
+    obList = json.loads(obList)
     obList = sortListBy(obList,sortBy)
+
+    results = {}
+    results["obLists"] =  obList
+    
+    client.close()
+    return results
+
+def getFilteredOnboards(filterBy,obList):
+    
+    collection = db.Onboards
+    
+    obList = json.loads(obList)
+    obList = filterListBy(obList,filterBy)
 
     results = {}
     results["obLists"] =  obList
@@ -436,6 +442,33 @@ def sortListBy(obList,sortBy):
                 if(len(newObList)-j==1):
                     newObList.append(obList[i])
                     break
+        return newObList
+    else:
+        return obList
+
+def filterListBy(obList,filterBy):
+    if not obList:
+        return obList
+
+    newObList =  []
+
+    if filterBy == "pending":
+        for i in range(0,len(obList)):
+            obDict = obList[i]
+            obProgress = obDict.get("progress")
+            if int(obProgress) == 100:
+                newObList.append(obList[i])
+            else:
+                newObList.insert(0,obList[i])
+        return newObList
+    elif filterBy == "completed":
+        for i in range(0,len(obList)):
+            obDict = obList[i]
+            obProgress = obDict.get("progress")
+            if int(obProgress) == 100:
+                newObList.insert(0,obList[i])
+            else:
+                newObList.append(obList[i])
         return newObList
     else:
         return obList

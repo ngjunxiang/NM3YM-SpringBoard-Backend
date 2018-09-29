@@ -218,6 +218,7 @@ class FilterSortOnboard(CreateAPIView):
         token = request.data['token']
         userType = request.data['userType']
         sortBy = request.data['sortBy']
+        obList = request.data['obList']
 
         # authentication
         tokenResults = tokenAuthenticate(username,token)
@@ -228,7 +229,36 @@ class FilterSortOnboard(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = getSortedOnboards(username,userType,sortBy)
+        results = {}
+        results["results"] = getSortedOnboards(sortBy,obList)
+        
+        client.close()
+        return Response(results)
+
+class FilterByOnboard(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Onboards.find()
+
+    def post(self,request):
+    
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+        filterBy = request.data['filterBy']
+        obList = request.data['obList']
+
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isFO(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = {}
+        results["results"] = getFilteredOnboards(filterBy,obList)
         
         client.close()
         return Response(results)

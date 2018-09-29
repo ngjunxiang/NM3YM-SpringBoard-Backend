@@ -59,6 +59,7 @@ urlpatterns = [
     url(r'^fo/update-urgency', onboardViews.UpdateUrgency.as_view()),
     url(r'^fo/retrieve-urgency', onboardViews.RetrieveUrgency.as_view()),
     url(r'^fo/filtersort-onboard', onboardViews.FilterSortOnboard.as_view()),
+    url(r'^fo/filterby-onboard', onboardViews.FilterByOnboard.as_view()),
 
     # Compliance endpoints
     url(r'^compliance/create-checklist', checklistViews.CreateCL.as_view()),
