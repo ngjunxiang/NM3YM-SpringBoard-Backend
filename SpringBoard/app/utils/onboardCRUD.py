@@ -343,8 +343,6 @@ def loadUrgentJson(obID):
 def getSortedOnboards(sortBy,obList):
 
     collection = db.Onboards
-    
-    obList = json.loads(obList)
     obList = sortListBy(obList,sortBy)
 
     results = {}
@@ -357,7 +355,6 @@ def getFilteredOnboards(filterBy,obList):
     
     collection = db.Onboards
     
-    obList = json.loads(obList)
     obList = filterListBy(obList,filterBy)
 
     results = {}

@@ -117,7 +117,8 @@ class RetrieveAllOnboards(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = getAllCurrentOnboards(username,userType)
+        results = {}
+        results['results'] = getAllCurrentOnboards(username,userType)
 
         client.close()
         return Response(results)
@@ -219,7 +220,8 @@ class FilterSortOnboard(CreateAPIView):
         userType = request.data['userType']
         sortBy = request.data['sortBy']
         obList = request.data['obList']
-
+    
+        
         # authentication
         tokenResults = tokenAuthenticate(username,token)
         if(len(tokenResults) != 0):
