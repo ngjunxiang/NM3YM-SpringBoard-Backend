@@ -109,7 +109,7 @@ def updateSelectedOnboard(obID,input):
     input["createdBy"] = getCreatedBy
 
     if int(progress) == 100:
-        input['dataCompleted'] = str(date)
+        input['dateCompleted'] = str(date)
     
     try:
         collection.insert_one(input)
