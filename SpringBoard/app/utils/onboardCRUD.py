@@ -261,11 +261,11 @@ def checkProgress(input):
 
     compConditional = compDocs["conditional"]
     compMandatory = compDocs["mandatory"]
-    compOptional = compDocs["optional"]
+    #compOptional = compDocs["optional"]
     
     legalConditional = legalDocs["conditional"]
     legalMandatory = legalDocs["mandatory"]
-    legalOptional = legalDocs["optional"]
+    #legalOptional = legalDocs["optional"]
 
     totalCheckBoxes = 0
     totalCheckedBoxes = 0
@@ -281,10 +281,10 @@ def checkProgress(input):
         if(index["checked"]):
             totalCheckedBoxes = totalCheckedBoxes + 1
 
-    for index in compOptional:
-        totalCheckBoxes = totalCheckBoxes + 1
-        if(index["checked"]):
-            totalCheckedBoxes = totalCheckedBoxes + 1
+    #for index in compOptional:
+    #    totalCheckBoxes = totalCheckBoxes + 1
+    #    if(index["checked"]):
+    #        totalCheckedBoxes = totalCheckedBoxes + 1
 
     for index in legalConditional:
         totalCheckBoxes = totalCheckBoxes + 1
@@ -296,10 +296,10 @@ def checkProgress(input):
         if(index["checked"]):
             totalCheckedBoxes = totalCheckedBoxes + 1
 
-    for index in legalOptional:
-        totalCheckBoxes = totalCheckBoxes + 1
-        if(index["checked"]):
-            totalCheckedBoxes = totalCheckedBoxes + 1
+    #for index in legalOptional:
+    #    totalCheckBoxes = totalCheckBoxes + 1
+    #    if(index["checked"]):
+    #        totalCheckedBoxes = totalCheckedBoxes + 1
 
     return round(totalCheckedBoxes/totalCheckBoxes*100,1)
 
@@ -453,18 +453,14 @@ def filterListBy(obList,filterBy):
         for i in range(0,len(obList)):
             obDict = obList[i]
             obProgress = obDict.get("progress")
-            if int(obProgress) == 100:
+            if not int(obProgress) == 100:
                 newObList.append(obList[i])
-            else:
-                newObList.insert(0,obList[i])
         return newObList
     elif filterBy == "completed":
         for i in range(0,len(obList)):
             obDict = obList[i]
             obProgress = obDict.get("progress")
             if int(obProgress) == 100:
-                newObList.insert(0,obList[i])
-            else:
                 newObList.append(obList[i])
         return newObList
     else:
