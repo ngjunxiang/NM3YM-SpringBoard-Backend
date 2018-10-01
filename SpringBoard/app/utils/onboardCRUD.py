@@ -396,14 +396,15 @@ def sortListBy(obList,sortBy):
 
     newObList =  []
 
+    print(obList)
     if sortBy == "Client Name":
         newObList.append(obList[0])
 
         for i in range(1,len(obList)):
             obDict = obList[i]
-            obClientName = obDict.get("Client Name")
+            obClientName = obDict.get("requiredFields")[0].get("Client Name")
             for j,item in enumerate(newObList):
-                newObClientName =item.get("Client Name")
+                newObClientName = item.get("requiredFields")[0].get("Client Name")
                 if obClientName < newObClientName:
                     newObList.insert(j,obList[i])
                     break
