@@ -53,7 +53,13 @@ class UploadAgmtCodes(CreateAPIView):
             return Response({'error':'file may be corrupted, check file format and try again.'})
 
         results = {}
-        results["results"] = bootstrapAgmt(file,filename)
+        agmtResults = bootstrapAgmt(file,filename)
+
+        if "error" in agmtResults.keys():
+            client.close()
+            return Response(agmtResults)
+
+        results["results"] = agmtResults
         
         client.close()
         return Response(results)
