@@ -396,7 +396,6 @@ def sortListBy(obList,sortBy):
 
     newObList =  []
 
-    print(obList)
     if sortBy == "Client Name":
         newObList.append(obList[0])
 
