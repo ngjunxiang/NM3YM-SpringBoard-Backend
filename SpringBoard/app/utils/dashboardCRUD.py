@@ -61,7 +61,7 @@ def getOnboardedClients(username,userType):
 
     name = getName(username)
 
-
+    
     table = collection.find({"requiredFields.RM Name": name,"progress":100},{"dateCompleted":1,"_id":0})
     if (checkFOType(userType)=="MA"):
         table = collection.find({"createdBy": name,"progress":100},{"dateCompleted":1,"_id":0})
@@ -106,26 +106,36 @@ def changesInChecklists(username):
 
     return itertools.islice(cl.items(),0,10)
 
-def clientsAffectedByChanges(username):
+def clientsAffectedByChanges(username,userType):
     notiCollection = db.Notifications
     onboardCollection = db.Onboards
 
-    noti = notiCollection.find({},{"_id":0,"clID":1,"version":1}).sort([["noID",pymongo.DESCENDING]]).limit(10)
+    noti = notiCollection.find({},{"_id":0,"noID":1,"clID":1}).sort("noID",pymongo.DESCENDING).limit(10)
     onboardsList = []
-    rmName = getName(username)
+    name = getName(username)
+    obIDList = []
 
     for item in noti:
         clID = item["clID"]
-        version = item["version"]
-
-        onboards = onboardCollection.find({"clID":clID,"version":version,"requiredFields.RM Name": rmName},{"_id":0,"requiredFields.Client Name": 1,"progress":1,"name":1})
         
+        if userType=="RM":
+            onboards = onboardCollection.find({"clID":clID,"requiredFields.RM Name": name},{"_id":0,"requiredFields": 1,"progress":1,"name":1,"obID":1})
+        elif userType=="MA":
+            onboards = onboardCollection.find({"clID":clID,"createdBy": name},{"_id":0,"requiredFields": 1,"progress":1,"name":1,"obID":1})
+        else:
+            return onboardsList
+
         for ob in onboards:
             if ob.get("progress") != 100.0:
                 data = {}
-                data["Client"] = ob.get("requiredFields.Client Name")
+                obID = ob.get("obID")
+                data["obID"] = obID
+                data["Client"] = ob.get("requiredFields")[0]["Client Name"]
                 data["DocName"] = ob.get("name")
-                onboardsList.append(data)
+                if obID not in obIDList:
+                    onboardsList.append(data)
+                    obIDList.append(obID)
+                   
 
     return onboardsList
 

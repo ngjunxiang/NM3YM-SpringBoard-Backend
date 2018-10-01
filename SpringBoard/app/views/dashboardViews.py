@@ -42,7 +42,7 @@ class FODashboard(CreateAPIView):
         results = {}
         results["results"] = content
         results["docChanges"] = changesInChecklists(username)
-        results["clientsAffected"] = clientsAffectedByChanges(username)
+        results["clientsAffected"] = clientsAffectedByChanges(username, userType)
         results["pendingClients"] = getAllPendingClients(username, userType)
 
         client.close()
