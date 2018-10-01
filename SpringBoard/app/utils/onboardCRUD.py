@@ -43,7 +43,7 @@ def createNewOnBoard(input,username):
     input["createdBy"] = getName(username)
 
     if int(progress) == 100:
-        input['dataCompleted'] = str(date)
+        input['dateCompleted'] = str(date)
 
     results = {'results':'false'}
     
