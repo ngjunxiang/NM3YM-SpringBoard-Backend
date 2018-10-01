@@ -393,8 +393,26 @@ def filterSort(obList):
 def sortListBy(obList,sortBy):
     if not obList:
         return obList
+
     newObList =  []
-    if sortBy == "progress":
+
+    if sortBy == "Client Name":
+        newObList.append(obList[0])
+
+        for i in range(1,len(obList)):
+            obDict = obList[i]
+            obClientName = obDict.get("Client Name")
+            for j,item in enumerate(newObList):
+                newObClientName =item.get("Client Name")
+                if obClientName < newObClientName:
+                    newObList.insert(j,obList[i])
+                    break
+                if(len(newObList)-j==1):
+                    newObList.append(obList[i])
+                    break
+        return newObList
+
+    elif sortBy == "progress":
         newObList.append(obList[0])
 
         for i in range(1,len(obList)):
@@ -409,10 +427,10 @@ def sortListBy(obList,sortBy):
                     newObList.append(obList[i])
                     break
         return newObList
+
     elif sortBy == "date":
         newObList.append(obList[0])
 
-       
         for i in range(1,len(obList)):
             obDict = obList[i]
             obDateCreated = obDict.get("dateCreated")
@@ -425,6 +443,7 @@ def sortListBy(obList,sortBy):
                     newObList.append(obList[i])
                     break
         return newObList
+
     elif sortBy == "name":
         newObList.append(obList[0])
 
@@ -440,6 +459,7 @@ def sortListBy(obList,sortBy):
                     newObList.append(obList[i])
                     break
         return newObList
+
     else:
         return obList
 
