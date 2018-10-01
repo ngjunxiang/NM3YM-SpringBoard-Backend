@@ -18,6 +18,7 @@ def createNotification(clID,version,docID,changed,input):
     db.NotificationCounter.update({"_id":"noID"}, {'$inc': {'sequence_value': 1}})
 
     rmUsernames = getAllRMUsernames()
+    maUsernames = getAllMAUsernames()
 
     notification = {}
     notification["noID"] = noID
@@ -28,11 +29,17 @@ def createNotification(clID,version,docID,changed,input):
         notification["version"] = version
     notification["docID"] = docID
     rms = []
+    usernameList = []
 
     for username in rmUsernames:
         rms.append({"username":username,"changed":changed,"checked":False})
+        usernameList.append(username)
+    for username in maUsernames:
+        rms.append({"username":username,"changed":changed,"checked":False})
+        usernameList.append(username)
 
     notification["RMs"] = rms
+    notification["usernameList"] = usernameList
 
     try:
         results = collection.insert_one(notification)
@@ -76,7 +83,7 @@ def getAllNotifications(username):
 def getNotifications(username):
     collection = db.Notifications
 
-    allNoti = collection.find({"RMs.username":username},{"_id":0,"clID":1,"version":1,"docID":1,"RMs.checked":1,"RMs.changed":1})
+    allNoti = collection.find({"RMs.username":username},{"_id":0,"clID":1,"version":1,"docID":1,"RMs":1,"usernameList":1})
 
     results = {}
     allNotiCounter = 0
@@ -84,9 +91,17 @@ def getNotifications(username):
     notificationList = []
     newNotiCounter = 0
     for item in allNoti:
+        userIndex = 0
+        usernameList = item["usernameList"]
+
+        for i,user in enumerate(usernameList):
+            if user == username:
+                userIndex = i
+                break
+
         rms = item["RMs"]
-        checked = rms[0]["checked"]
-        changed = rms[0]["changed"]
+        checked = rms[userIndex]["checked"]
+        changed = rms[userIndex]["changed"]
         
         clID = item["clID"]
         version = item["version"]
