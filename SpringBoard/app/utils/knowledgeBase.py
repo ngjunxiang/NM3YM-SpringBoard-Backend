@@ -1,3 +1,5 @@
+import re, math
+from collections import Counter
 from pymongo import MongoClient
 from pymongo import cursor
 from rasa_nlu.model import Metadata, Interpreter
@@ -104,7 +106,10 @@ def getAnswer(question):
         for entity,value in entities.items():
             if q["entities"].get(entity) != None:
                 if value in q["entities"][entity]:
-                    q["similarity"] = SequenceMatcher(None, question, q["question"]).ratio()
+                    quesVector1 = createVector(question)
+                    quesVector2 = createVector(q["question"])
+                    q["similarity"] = getCosSimilarity(quesVector1, quesVector2)
+                    # q["similarity"] = SequenceMatcher(None, question, q["question"]).ratio()
                     match.append(q)
 
     # keep top 5
@@ -117,7 +122,10 @@ def getAnswer(question):
     extras = []
 
     for q in otherList:
-        q["similarity"] = SequenceMatcher(None, question, q["question"]).ratio()
+        quesVector1 = createVector(question)
+        quesVector2 = createVector(q["question"])
+        q["similarity"] = getCosSimilarity(quesVector1, quesVector2)
+        # q["similarity"] = SequenceMatcher(None, question, q["question"]).ratio()
         extras.append(q)
 
     # keep top 10 and return
@@ -217,4 +225,21 @@ def sortBySimilarity(match):
     return retMatch
 
 
+def getCosSimilarity(vec1, vec2):
+    intersection = set(vec1.keys()) & set(vec2.keys())
+    numerator = sum([vec1[x] * vec2[x] for x in intersection])
 
+    sum1 = sum([vec1[x]**2 for x in vec1.keys()])
+    sum2 = sum([vec2[x]**2 for x in vec2.keys()])
+    denominator = math.sqrt(sum1) * math.sqrt(sum2)
+
+    if not denominator:
+        return 0.0
+    else:
+        return float(numerator) / denominator
+
+
+def createVector(text):
+    regex = re.compile(r'\w+')
+    words = regex.findall(text)
+    return Counter(words)
