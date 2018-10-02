@@ -47,6 +47,8 @@ def createCheckList(input,name):
     input["version"] =  "1"
     input["status"] =  "valid"
     input["dateCreated"] =  date
+    input["dateUpdated"] = date
+    input["createdBy"] = name
     input["updatedBy"] =  name
 
     results = {'results':'false'}
@@ -60,7 +62,7 @@ def createCheckList(input,name):
     client.close()
     return results
 
-def updateCheckList(input,name,clID,version):
+def updateCheckList(input,name,clID,version,createdDate,createdBy):
     
     logsCollection = db.ChecklistLogs
     collection = db.Checklists
@@ -118,7 +120,9 @@ def updateCheckList(input,name,clID,version):
     input["latestDocID"] =  str(latestDocID) 
     input["clID"] =  str(clID) 
     input["version"] =  str(version)
-    input["dateCreated"] =  date
+    input["dateCreated"] =  createdDate
+    input["dateUpdated"] = date
+    input["createdBy"] = createdBy
     input["updatedBy"] =  name
 
     results = {'results':'false'}
@@ -153,13 +157,25 @@ def getCLversion(clID):
 
     return collection.find_one({"clID": clID })["version"]
 
+def getCreatedDate(clID):
+
+    collection = db.Checklists
+
+    return collection.find_one({"clID": clID})["dateCreated"]
+
+def getCreatedBy(clID):
+    
+    collection = db.Checklists
+
+    return collection.find_one({"clID": clID})["createdBy"]
+
 # returns names of all the current checklists
 def retrieveCheckListByName():
 
     collection = db.Checklists
     
     # retrieve names of all current checklists
-    table = collection.find({},{"name":1,"dateCreated":1,"updatedBy":1, "clID":1, "version":1,"_id":0})
+    table = collection.find({},{"name":1,"dateCreated":1,"dateUpdated":1,"createdBy":1,"updatedBy":1, "clID":1, "version":1,"_id":0})
     clList = [item for item in table]
 
     results = {}

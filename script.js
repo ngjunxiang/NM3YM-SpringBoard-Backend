@@ -708,6 +708,8 @@ db.Checklists.insertOne(
         "version": "1",
         "status": "valid",
         "dateCreated": "2018-09-17 15:00:53",
+        "dateUpdated": "2018-09-17 15:00:53",
+        "createdBy": "Randy Lai YongHao",
         "updatedBy": "Randy Lai YongHao"
     }
 )
