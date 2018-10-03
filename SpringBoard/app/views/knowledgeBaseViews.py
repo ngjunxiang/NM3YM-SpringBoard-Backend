@@ -66,7 +66,6 @@ class AddAnsweredQuestion(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        qna = json.loads(qna)
         results = addQNA(qna)
 
         client.close()
@@ -121,7 +120,6 @@ class EditAnsweredQuestion(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        qna = json.loads(qna)
         results = editQNA(qna)
 
         client.close()

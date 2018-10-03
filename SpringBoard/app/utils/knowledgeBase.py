@@ -62,7 +62,6 @@ def retrieveAllQNA():
     table = collection.find({},{"_id":0})
     qnaList = [item for item in table]
 
-    print(qnaList)
     results = {}
     results["results"] =  qnaList
 
