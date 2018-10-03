@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from pymongo import cursor
 from rasa_nlu.model import Metadata, Interpreter
 from difflib import SequenceMatcher
+from operator import itemgetter
 
 from app.utils.userCRUD import *
 import json
@@ -61,6 +62,8 @@ def retrieveAllQNA():
 
     table = collection.find({},{"_id":0})
     qnaList = [item for item in table]
+
+    qnaList = sorted(qnaList, key=itemgetter('question')) 
 
     results = {}
     results["results"] =  qnaList
