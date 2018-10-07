@@ -204,6 +204,7 @@ class AddUnansweredQuestion(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
+        print(question)
         results = addQuestion(question)
 
         client.close()

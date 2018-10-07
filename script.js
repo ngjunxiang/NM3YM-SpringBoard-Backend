@@ -914,3 +914,9 @@ db.knowledgeBase.insertMany([
         }
     }
 ])
+
+//set up notification IDs
+db.QuestionNotificationCounter.insertOne({ "_id": "noID", "sequence_value": 1 })
+
+//set up notification table
+db.QuestionNotifications.createIndex({ "noID": 1, "question": 1 })

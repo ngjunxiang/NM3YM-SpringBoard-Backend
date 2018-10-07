@@ -42,6 +42,8 @@ urlpatterns = [
     url(r'^cm/retrieve-clIDWithVersion', checklistViews.CMRetrieveNamesAndVersions.as_view()),
     url(r'^cm/upload-AgmtCodes', agmtCodeViews.UploadAgmtCodes.as_view()),
     url(r'^cm/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
+    url(r'^cm/retrieve-notifications', notificationViews.CMRetrieveNotification.as_view()),
+    url(r'^cm/update-notifications', notificationViews.CMUpdateNotification.as_view()),
 
     # FO endpoints
     url(r'^fo/retrieve-dashboard', dashboardViews.FODashboard.as_view()),
@@ -52,8 +54,8 @@ urlpatterns = [
     url(r'^fo/retrieve-all-onboard', onboardViews.RetrieveAllOnboards.as_view()),
     url(r'^fo/retrieve-selected-onboard', onboardViews.RetrieveSelectedOnboard.as_view()),
     url(r'^fo/retrieve-rm-names', userViews.FORetrieveRMNames.as_view()),
-    url(r'^fo/retrieve-latest-notifications', notificationViews.FORetrieveLatestNotification.as_view()),
-    url(r'^fo/retrieve-all-notifications', notificationViews.FORetrieveAllNotification.as_view()),
+    #url(r'^fo/retrieve-latest-notifications', notificationViews.FORetrieveLatestNotification.as_view()),
+    #url(r'^fo/retrieve-all-notifications', notificationViews.FORetrieveAllNotification.as_view()),
     url(r'^fo/retrieve-notifications', notificationViews.FORetrieveNotifications.as_view()),
     url(r'^fo/update-notifications', notificationViews.FOUpdateNotification.as_view()),
     url(r'^fo/update-urgency', onboardViews.UpdateUrgency.as_view()),

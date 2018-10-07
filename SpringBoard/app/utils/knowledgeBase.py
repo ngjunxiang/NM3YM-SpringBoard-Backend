@@ -7,6 +7,7 @@ from difflib import SequenceMatcher
 from operator import itemgetter
 
 from app.utils.userCRUD import *
+from app.utils.notificationCRUD import *
 import json
 
 interpreter = Interpreter.load('./model')
@@ -167,6 +168,10 @@ def addQuestion(question):
     # add into unanswered only if no duplicates
     if duplicate == None and questionDuplicate == None:
         collection.insert_one({"question":question})
+        checkNotification = createQuestionNotifications(question)
+        if checkNotification:
+            results = {"results": "true"}
+
         results = {"results": "true"}
     
     client.close()

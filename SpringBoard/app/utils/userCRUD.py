@@ -97,3 +97,10 @@ def getAllMAUsernames():
     table = collection.find({'userType':'MA'},{'username':1,'_id':0})
     usernames = [item.get("username") for item in table]
     return usernames
+
+def getAllCMUsernames():
+    collection = db.Users
+    results = {}
+    table = collection.find({'userType':'CM'},{'username':1,'_id':0})
+    usernames = [item.get("username") for item in table]
+    return usernames

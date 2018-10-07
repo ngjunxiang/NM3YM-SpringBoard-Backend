@@ -14,55 +14,55 @@ from app.utils.userCRUD import *
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
-class FORetrieveLatestNotification(CreateAPIView):
-    serializer_class = CLSerializer
-    queryset = db.Notifications.find()
+# class FORetrieveLatestNotification(CreateAPIView):
+#     serializer_class = CLSerializer
+#     queryset = db.Notifications.find()
 
-    def post(self,request):
+#     def post(self,request):
 
-        # request parameters
-        username = request.data['username']
-        token = request.data['token']
-        userType = request.data['userType']
+#         # request parameters
+#         username = request.data['username']
+#         token = request.data['token']
+#         userType = request.data['userType']
 
-        tokenResults = tokenAuthenticate(username,token)
-        if(len(tokenResults) != 0):
-            client.close()
-            return Response(tokenResults)
-        if(not isFO(userType)):
-            client.close()
-            return Response({'error' : 'invalid userType'})
+#         tokenResults = tokenAuthenticate(username,token)
+#         if(len(tokenResults) != 0):
+#             client.close()
+#             return Response(tokenResults)
+#         if(not isFO(userType)):
+#             client.close()
+#             return Response({'error' : 'invalid userType'})
 
-        results = {}
-        results["results"] = getNewNotifications(username)
+#         results = {}
+#         results["results"] = getNewNotifications(username)
 
-        client.close()
-        return Response(results)
+#         client.close()
+#         return Response(results)
 
-class FORetrieveAllNotification(CreateAPIView):
-    serializer_class = CLSerializer
-    queryset = db.Notifications.find()
+# class FORetrieveAllNotification(CreateAPIView):
+#     serializer_class = CLSerializer
+#     queryset = db.Notifications.find()
 
-    def post(self,request):
+#     def post(self,request):
 
-        # request parameters
-        username = request.data['username']
-        token = request.data['token']
-        userType = request.data['userType']
+#         # request parameters
+#         username = request.data['username']
+#         token = request.data['token']
+#         userType = request.data['userType']
 
-        tokenResults = tokenAuthenticate(username,token)
-        if(len(tokenResults) != 0):
-            client.close()
-            return Response(tokenResults)
-        if(not isFO(userType)):
-            client.close()
-            return Response({'error' : 'invalid userType'})
+#         tokenResults = tokenAuthenticate(username,token)
+#         if(len(tokenResults) != 0):
+#             client.close()
+#             return Response(tokenResults)
+#         if(not isFO(userType)):
+#             client.close()
+#             return Response({'error' : 'invalid userType'})
 
-        results = {}
-        results["results"] = getAllNotifications(username)
+#         results = {}
+#         results["results"] = getAllNotifications(username)
 
-        client.close()
-        return Response(results)
+#         client.close()
+#         return Response(results)
 
 class FORetrieveNotifications(CreateAPIView):
     serializer_class = CLSerializer
@@ -111,6 +111,56 @@ class FOUpdateNotification(CreateAPIView):
 
         results = {}
         results["results"]= updateNotification(username)
+
+        client.close()
+        return Response(results)
+
+class CMRetrieveNotification(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Notifications.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = {}
+        results["results"] = getCMNotifications(username)
+
+        client.close()
+        return Response(results)
+
+class CMUpdateNotification(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Notifications.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = {}
+        results["results"]= updateCMNotification(username)
 
         client.close()
         return Response(results)
