@@ -745,7 +745,7 @@ db.Notifications.createIndex({ "noID": 1, "clID": 1, "version": 1, "docID": 1 })
 db.AgmtCodes.createIndex({ "code": 1 }, { unique: true })
 
 // set up knowledgeBase table
-db.knowledgeBase.insertMany([
+db.KnowledgeBase.insertMany([
     {
         "question": "What are the documents required for opening of Sub-Account?",
         "answer": "(1) Refer to COB website (under FORMS): (a) obtain the relevant Sub-Account Opening Form (Individual / Corporate), & (b) Open New Account in the same name as existing (For same booking centre) (2) Refer to COB website (under LEGAL & COMPLIANCE CHECKLISTS): (a) Regional Sub-Account Opening Checklist",
@@ -914,9 +914,17 @@ db.knowledgeBase.insertMany([
         }
     }
 ])
+//set up Questions IDs
+db.QuestionCounter.insertOne({ "_id": "qnID", "sequence_value": 1 })
 
-//set up notification IDs
+//set up Questions notification IDs
 db.QuestionNotificationCounter.insertOne({ "_id": "noID", "sequence_value": 1 })
 
-//set up notification table
+//set up Questions notification table
 db.QuestionNotifications.createIndex({ "noID": 1, "question": 1 })
+
+//set up Answers notification IDs
+db.AnswerNotificationCounter.insertOne({ "_id": "noID", "sequence_value": 1 })
+
+//set up Answers notification table
+db.AnswerNotifications.createIndex({ "noID": 1, "question": 1, "answer": 1 })

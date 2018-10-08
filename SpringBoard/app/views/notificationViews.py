@@ -84,7 +84,7 @@ class FORetrieveNotifications(CreateAPIView):
             return Response({'error' : 'invalid userType'})
 
         results = {}
-        results["results"] = getNotifications(username)
+        results["results"] = getFONotifications(username)
 
         client.close()
         return Response(results)
@@ -109,13 +109,16 @@ class FOUpdateNotification(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = {}
-        results["results"]= updateNotification(username)
+        results = {"error": "Notifications not updated"}
+        notiBool = updateChecklistNotification(username)
+        ansNotiBool = updateAnswerNotification(username)
+        if(notiBool and ansNotiBool):
+            results = {"Success":"Notifications updated"}
 
         client.close()
         return Response(results)
 
-class CMRetrieveNotification(CreateAPIView):
+class CMRetrieveNotifications(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Notifications.find()
 

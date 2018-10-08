@@ -19,7 +19,7 @@ interpreter = Interpreter.load('./model')
 # delete qna
 def deleteQNA(question):
 
-    collection = db.knowledgeBase
+    collection = db.KnowledgeBase
     deleted = collection.delete_one({"question": question})
 
     results = {}
@@ -46,11 +46,14 @@ def editQNA(qna):
 # add answered question to knowledge base
 def addQNA(qna):
 
-    collection = db.knowledgeBase
+    collection = db.KnowledgeBase
 
     collection.insert_one(qna)
     deleteUnanswered(qna["question"])
-    
+    checkNotification = createAnswerNotifications(qna)
+    if checkNotification:
+        results = {"results": "true"}
+
     results = {"results": "true"}
 
     client.close()
@@ -59,7 +62,7 @@ def addQNA(qna):
 
 # retrieve all qna
 def retrieveAllQNA():
-    collection = db.knowledgeBase
+    collection = db.KnowledgeBase
 
     table = collection.find({},{"_id":0})
     qnaList = [item for item in table]
@@ -75,7 +78,7 @@ def retrieveAllQNA():
 
 # retrieve uncleaned qna (e.g. no intent)
 def retrieveAllUnclean():
-    collection = db.knowledgeBase
+    collection = db.KnowledgeBase
 
     table = collection.find({"intent": { "$exists": False }},{"_id":0})
     qnaList = [item for item in table]
@@ -90,7 +93,7 @@ def retrieveAllUnclean():
 # get answers for specific question
 def getAnswer(question):
 
-    collection = db.knowledgeBase
+    collection = db.KnowledgeBase
 
     #get intents and entities
     intentEntity = interpreter.parse(question)
@@ -154,10 +157,13 @@ def getAnswer(question):
 # ------------------------------------------------------------------- #
 
 # add unanswered question
-def addQuestion(question):
+def addQuestion(question,username):
 
-    collection = db.unansweredQuestions
-    questionCollection = db.knowledgeBase
+    counter = db.QuestionCounter
+    collection = db.UnansweredQuestions
+    questionCollection = db.KnowledgeBase
+    qnID = int(counter.find_one({"_id":"qnID"})["sequence_value"])
+    db.QuestionCounter.update({"_id":"qnID"}, {'$inc': {'sequence_value': 1}})
 
     # find duplicates in unanswered questions and knowledge base
     duplicate = collection.find_one({"question":question},{"_id":0})
@@ -167,8 +173,8 @@ def addQuestion(question):
 
     # add into unanswered only if no duplicates
     if duplicate == None and questionDuplicate == None:
-        collection.insert_one({"question":question})
-        checkNotification = createQuestionNotifications(question)
+        collection.insert_one({"qnID":qnID,"question":question})
+        checkNotification = createQuestionNotifications(question,username,qnID)
         if checkNotification:
             results = {"results": "true"}
 
@@ -181,7 +187,7 @@ def addQuestion(question):
 # retrieve unanswered questions
 def retrieveUnanswered():
 
-    collection = db.unansweredQuestions
+    collection = db.UnansweredQuestions
     
     table = collection.find({},{"_id":0})
     questionList = [item for item in table]
@@ -195,7 +201,7 @@ def retrieveUnanswered():
 # delete unanswered question
 def deleteUnanswered(question):
 
-    collection = db.unansweredQuestions
+    collection = db.UnansweredQuestions
     
     deleted = collection.delete_one({"question": question})
 

@@ -42,7 +42,7 @@ urlpatterns = [
     url(r'^cm/retrieve-clIDWithVersion', checklistViews.CMRetrieveNamesAndVersions.as_view()),
     url(r'^cm/upload-AgmtCodes', agmtCodeViews.UploadAgmtCodes.as_view()),
     url(r'^cm/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
-    url(r'^cm/retrieve-notifications', notificationViews.CMRetrieveNotification.as_view()),
+    url(r'^cm/retrieve-notifications', notificationViews.CMRetrieveNotifications.as_view()),
     url(r'^cm/update-notifications', notificationViews.CMUpdateNotification.as_view()),
 
     # FO endpoints
