@@ -31,13 +31,13 @@ def deleteQNA(question):
 
 
 # edit qna
-def editQNA(qna):
+def editQNA(qna,username):
     
     #delete existing qna
     deleteQNA(qna["question"])
 
     #add updated qna
-    results = addQNA(qna)
+    results = addQNA(qna,username)
 
     client.close()
     return results
@@ -194,7 +194,6 @@ def retrieveUnanswered():
     questionList = [item for item in table]
     
     results = {"results" : questionList}
-
     client.close()
     return results
 

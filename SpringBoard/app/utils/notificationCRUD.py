@@ -95,7 +95,6 @@ def createAnswerNotifications(qna):
 
     notification = {}
     notification["noID"] = noID
-
     qnID = qna["qnID"]
     username = questionCollection.find_one({"qnID":qnID})["username"]
 
