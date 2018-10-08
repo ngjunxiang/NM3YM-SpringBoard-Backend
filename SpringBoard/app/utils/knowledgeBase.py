@@ -44,10 +44,11 @@ def editQNA(qna):
 
 
 # add answered question to knowledge base
-def addQNA(qna):
+def addQNA(qna,username):
 
     collection = db.KnowledgeBase
-
+    
+    qna["username"] = username
     collection.insert_one(qna)
     deleteUnanswered(qna["question"])
     checkNotification = createAnswerNotifications(qna)

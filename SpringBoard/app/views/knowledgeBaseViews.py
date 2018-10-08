@@ -65,8 +65,8 @@ class AddAnsweredQuestion(CreateAPIView):
         if(not isCM(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
-        
-        results = addQNA(qna)
+
+        results = addQNA(qna,username)
 
         client.close()
         return Response(results)

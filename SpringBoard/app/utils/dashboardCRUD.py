@@ -139,8 +139,64 @@ def clientsAffectedByChanges(username,userType):
 
     return onboardsList
 
+def getUpdatedChecklists():
+    collection = db.Checklists
+
+    table = collection.find({},{"_id":0,"clID":1,"name":1,"dateCreated":1,"dateUpdated":1})
+
+    clList = []
+    for item in table:
+        cl = {}
+        if item["dateCreated"] == item["dateUpdated"]:
+            cl["clID"] = item["clID"]
+            cl["name"] = item["name"]
+            cl["dateUpdated"] = item["dateUpdated"]
+            clList.append(cl)
+    
+    return clList
+
+def unansweredQuestions():
+    questionCollection = db.QuestionNotifications
+
+    unansweredCount = questionCollection.find({"isAnswered":False}).count()
+
+    return unansweredCount
+
+def numberOfAnsweredQuestions(username):
+    knowledgeCollection = db.KnowledgeBase
+
+    answeredCount = knowledgeCollection.find({"username":username}).count()
+
+    return answeredCount
+
+def mostRecentQuestions():
+    unansweredCollection = db.UnansweredQuestions
+
+    questionTable = unansweredCollection.find({},{"_id":0}).sort("qnID",pymongo.DESCENDING)
+    unansweredCount = unansweredCollection.find().count()
+
+    questionList = []
+
+    for item in questionTable:
+        print(item)
+        item["answer"] = "unanswered"
+        questionList.append(item)
+
+    if unansweredCount < 10:
+        qnaCollection = db.KnowledgeBase
+        limit = 10 - unansweredCount
+        qnaTable = qnaCollection.find({},{"_id":0,"qnID":1,"question":1,"answer":1}).sort("qnID",pymongo.DESCENDING).limit(limit)
+
+        for item in qnaTable:
+            questionList.append(item)
+
+    return questionList
+        
+
+
 def checkFOType(userType):
     if userType=="RM":
         return "RM"
     else:
         return "MA"
+

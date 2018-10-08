@@ -44,6 +44,7 @@ urlpatterns = [
     url(r'^cm/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
     url(r'^cm/retrieve-notifications', notificationViews.CMRetrieveNotifications.as_view()),
     url(r'^cm/update-notifications', notificationViews.CMUpdateNotification.as_view()),
+    url(r'^cm/retrieve-dashboard', dashboardViews.CMDashboard.as_view()),
 
     # FO endpoints
     url(r'^fo/retrieve-dashboard', dashboardViews.FODashboard.as_view()),
