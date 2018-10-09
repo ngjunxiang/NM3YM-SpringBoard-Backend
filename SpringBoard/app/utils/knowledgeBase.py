@@ -31,17 +31,27 @@ def deleteQNA(question):
 
 
 # edit qna
-def editQNA(qna,username):
+def editQNA(qna):
     
     #delete existing qna
     deleteQNA(qna["question"])
 
     #add updated qna
-    results = addQNA(qna,username)
+    results = addEditedQNA(qna)
 
     client.close()
     return results
 
+def addEditedQNA(qna):
+
+    collection = db.KnowledgeBase
+    collection.insert_one(qna)
+    deleteUnanswered(qna["question"])
+
+    results = {"results":"true"}
+
+    client.close()
+    return results
 
 # add answered question to knowledge base
 def addQNA(qna,username):

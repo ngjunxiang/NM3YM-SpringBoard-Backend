@@ -120,7 +120,7 @@ class EditAnsweredQuestion(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = editQNA(qna,username)
+        results = editQNA(qna)
 
         client.close()
         return Response(results)
