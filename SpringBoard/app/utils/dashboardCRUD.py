@@ -147,7 +147,7 @@ def getUpdatedChecklists():
     clList = []
     for item in table:
         cl = {}
-        if item["dateCreated"] == item["dateUpdated"]:
+        if item["dateCreated"] != item["dateUpdated"]:
             cl["clID"] = item["clID"]
             cl["name"] = item["name"]
             cl["dateUpdated"] = item["dateUpdated"]
