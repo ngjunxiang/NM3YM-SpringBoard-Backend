@@ -147,8 +147,7 @@ class RetrieveAllQNA(CreateAPIView):
             return Response({'error' : 'invalid userType'})
 
         results = retrieveAllQNA()
-
-        print(results)
+        
         client.close()
         return Response(results)
 
