@@ -58,7 +58,7 @@ def addQNA(qna,username):
 
     collection = db.KnowledgeBase
     
-    qna["username"] = username
+    qna["CMusername"] = username
     collection.insert_one(qna)
     deleteUnanswered(qna["question"])
     checkNotification = createAnswerNotifications(qna)
@@ -184,7 +184,11 @@ def addQuestion(question,username):
 
     # add into unanswered only if no duplicates
     if duplicate == None and questionDuplicate == None:
-        collection.insert_one({"qnID":qnID,"question":question})
+        collection.insert_one({
+            "qnID":qnID,
+            "question":question,
+            "username":username
+        })
         checkNotification = createQuestionNotifications(question,username,qnID)
         if checkNotification:
             results = {"results": "true"}
@@ -222,6 +226,29 @@ def deleteUnanswered(question):
     client.close()
     return results
 
+# ------------------------------------------------------------------- #
+#                        FO/CM specific methods                       #
+# ------------------------------------------------------------------- #
+
+# retrieve all questions asked by user
+def userRetrieveAllQNA(username):
+    answeredCollection = db.KnowledgeBase
+    unansweredCollection = db.UnansweredQuestions
+
+    table = answeredCollection.find({"username":username},{"_id":0})
+    answeredList = [item for item in table]
+
+    table = unansweredCollection.find({"username":username},{"_id":0})
+    unansweredList = [item for item in table]
+
+    results = {}
+    results["results"] =  {
+        "answered" : answeredList,
+        "unanswered" : unansweredList
+    }
+
+    client.close()
+    return results
 
 # ------------------------------------------------------------------- #
 #                            Helper methods                           #
