@@ -148,6 +148,7 @@ class RetrieveAllQNA(CreateAPIView):
 
         results = retrieveAllQNA()
 
+        print(results)
         client.close()
         return Response(results)
 

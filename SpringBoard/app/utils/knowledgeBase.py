@@ -61,9 +61,9 @@ def addQNA(qna,username):
     qna["CMusername"] = username
     collection.insert_one(qna)
     deleteUnanswered(qna["question"])
-    checkNotification = createAnswerNotifications(qna)
-    if checkNotification:
-        results = {"results": "true"}
+    # checkNotification = createAnswerNotifications(qna)
+    # if checkNotification:
+    #     results = {"results": "true"}
 
     results = {"results": "true"}
 
