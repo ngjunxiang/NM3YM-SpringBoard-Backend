@@ -56,11 +56,7 @@ def editQNA(qna,username):
         "dateAnswered": prevQNA["dateAnswered"]
     }
 
-    if "prevAnswer" in qna:
-        qna["prevAnswer"].append(prevAnswer)
-    else:
-        qna["prevAnswer"] = [prevAnswer]
-
+    qna["prevAnswer"].append(prevAnswer)
     qna["CMusername"] = username
     qna["dateAnswered"] = str(date)
 
@@ -76,16 +72,26 @@ def editQNA(qna,username):
 def addQNA(qna,username):
 
     collection = db.KnowledgeBase
+    qCollection = db.UnansweredQuestions
+
+    # retrieve question
+    question = qCollection.find_one({"qnID":qna["qnID"]})
 
     # get timezone corrected date
     date = datetime.datetime.now(pytz.utc).astimezone(tz)
     date = str(date)
     date = date[:date.index(".")]
     
+    qna["username"] = question["username"]
+    qna["dateAsked"] = question["dateAsked"]
+    qna["prevAnswer"] = []
+
     qna["CMusername"] = username
     qna["dateAnswered"] = str(date)
+
     collection.insert_one(qna)
     deleteUnanswered(qna["qnID"])
+
     checkNotification = createAnswerNotifications(qna)
     if checkNotification:
         results = {"results": "true"}
