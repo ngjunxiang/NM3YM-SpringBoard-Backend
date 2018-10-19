@@ -9,8 +9,10 @@ from operator import itemgetter
 from app.utils.userCRUD import *
 from app.utils.notificationCRUD import *
 import json
+import pytz
 
 interpreter = Interpreter.load('./model')
+tz = pytz.timezone('Asia/Singapore')
 
 # ------------------------------------------------------------------- #
 #                      Knowledge Base Management                      #
@@ -31,34 +33,56 @@ def deleteQNA(qnID):
 
 
 # edit qna
-def editQNA(qna):
+def editQNA(qna,username):
     
-    #delete existing qna
+    collection = db.KnowledgeBase
+
+    # retrieve existing qna
+    prevQNA = collection.find_one({"qnID":qna["qnID"]})
+
+    # delete existing qna
     deleteQNA(qna["qnID"])
 
+    # get timezone corrected date
+    date = datetime.datetime.now(pytz.utc).astimezone(tz)
+    date = str(date)
+    date = date[:date.index(".")]
+
+    # move current answer to log
+    prevAnswer = {
+        "answer": prevQNA["answer"],
+        "CMusername": prevQNA["CMusername"],
+        "dateAnswered": prevQNA["dateAnswered"]
+    }
+
+    if "prevAnswer" in qna:
+        qna["prevAnswer"].append(prevAnswer)
+    else:
+        qna["prevAnswer"] = [prevAnswer]
+
+    qna["CMusername"] = username
+    qna["dateAnswered"] = str(date)
+
     #add updated qna
-    results = addEditedQNA(qna)
-
-    client.close()
-    return results
-
-def addEditedQNA(qna):
-
-    collection = db.KnowledgeBase
     collection.insert_one(qna)
-    deleteUnanswered(qna["qnID"])
 
     results = {"results":"true"}
-
     client.close()
     return results
+
 
 # add answered question to knowledge base
 def addQNA(qna,username):
 
     collection = db.KnowledgeBase
+
+    # get timezone corrected date
+    date = datetime.datetime.now(pytz.utc).astimezone(tz)
+    date = str(date)
+    date = date[:date.index(".")]
     
     qna["CMusername"] = username
+    qna["dateAnswered"] = str(date)
     collection.insert_one(qna)
     deleteUnanswered(qna["qnID"])
     checkNotification = createAnswerNotifications(qna)
@@ -180,6 +204,11 @@ def addQuestion(question,username):
     duplicate = collection.find_one({"question":question},{"_id":0})
     questionDuplicate = questionCollection.find_one({"question":question},{"_id":0})
 
+    # get timezone corrected date
+    date = datetime.datetime.now(pytz.utc).astimezone(tz)
+    date = str(date)
+    date = date[:date.index(".")]
+
     results = {"error": "duplicate question"}
 
     # add into unanswered only if no duplicates
@@ -187,7 +216,8 @@ def addQuestion(question,username):
         collection.insert_one({
             "qnID":qnID,
             "question":question,
-            "username":username
+            "username":username,
+            "dateAsked" =  str(date)
         })
         checkNotification = createQuestionNotifications(question,username,qnID)
         if checkNotification:
