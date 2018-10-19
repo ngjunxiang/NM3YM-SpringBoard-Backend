@@ -17,10 +17,10 @@ interpreter = Interpreter.load('./model')
 # ------------------------------------------------------------------- #
 
 # delete qna
-def deleteQNA(question):
+def deleteQNA(qnID):
 
     collection = db.KnowledgeBase
-    deleted = collection.delete_one({"question": question})
+    deleted = collection.delete_one({"qnID": qnID})
 
     results = {}
     results["results"] = deleted.acknowledged
@@ -34,7 +34,7 @@ def deleteQNA(question):
 def editQNA(qna):
     
     #delete existing qna
-    deleteQNA(qna["question"])
+    deleteQNA(qna["qnID"])
 
     #add updated qna
     results = addEditedQNA(qna)
@@ -46,7 +46,7 @@ def addEditedQNA(qna):
 
     collection = db.KnowledgeBase
     collection.insert_one(qna)
-    deleteUnanswered(qna["question"])
+    deleteUnanswered(qna["qnID"])
 
     results = {"results":"true"}
 
@@ -60,7 +60,7 @@ def addQNA(qna,username):
     
     qna["CMusername"] = username
     collection.insert_one(qna)
-    deleteUnanswered(qna["question"])
+    deleteUnanswered(qna["qnID"])
     checkNotification = createAnswerNotifications(qna)
     if checkNotification:
         results = {"results": "true"}
@@ -213,11 +213,11 @@ def retrieveUnanswered():
 
 
 # delete unanswered question
-def deleteUnanswered(question):
+def deleteUnanswered(qnID):
 
     collection = db.UnansweredQuestions
     
-    deleted = collection.delete_one({"question": question})
+    deleted = collection.delete_one({"qnID": qnID})
 
     results = {}
     results["results"] = deleted.acknowledged

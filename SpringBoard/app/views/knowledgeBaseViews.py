@@ -79,7 +79,7 @@ class DeleteAnsweredQuestion(CreateAPIView):
     def post(self,request):
 
         # request parameters
-        question = request.data['question']
+        qnID = request.data['qnID']
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
@@ -93,7 +93,7 @@ class DeleteAnsweredQuestion(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = deleteQNA(question)
+        results = deleteQNA(qnID)
 
         client.close()
         return Response(results)
@@ -243,7 +243,7 @@ class DeleteUnansweredQuestion(CreateAPIView):
     def post(self,request):
 
         # request parameters
-        question = request.data['question']
+        qnID = request.data['qnID']
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
@@ -257,7 +257,7 @@ class DeleteUnansweredQuestion(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = deleteUnanswered(question)
+        results = deleteUnanswered(qnID)
 
         client.close()
         return Response(results)

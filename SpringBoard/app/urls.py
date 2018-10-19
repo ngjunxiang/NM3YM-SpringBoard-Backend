@@ -13,6 +13,7 @@ from app.views import onboardViews
 from app.views import tokenViews
 from app.views import userViews
 from app.views import knowledgeBaseViews
+from app.views import trainModelViews
 
 #router = mrouter.DefaultRouter()
 #router.register(r'login', views.UserLogin, base_name = 'login')
