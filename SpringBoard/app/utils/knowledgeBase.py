@@ -56,7 +56,16 @@ def editQNA(qna,username):
         "dateAnswered": prevQNA["dateAnswered"]
     }
 
-    qna["prevAnswer"].append(prevAnswer)
+    if "prevAnswer" in prevQNA:
+        prevQNAs = prevQNA["prevAnswer"]
+        prevQNAs.append(prevAnswer)
+        qna["prevAnswer"] = prevQNAs
+    else:
+        qna["prevAnswer"] = [prevAnswer]
+
+
+    qna["username"] = prevQNA["username"]
+    qna["dateAsked"] = prevQNA["dateAsked"]
     qna["CMusername"] = username
     qna["dateAnswered"] = str(date)
 
@@ -84,14 +93,13 @@ def addQNA(qna,username):
     
     qna["username"] = question["username"]
     qna["dateAsked"] = question["dateAsked"]
-    qna["prevAnswer"] = []
 
     qna["CMusername"] = username
     qna["dateAnswered"] = str(date)
 
     collection.insert_one(qna)
     deleteUnanswered(qna["qnID"])
-
+    
     checkNotification = createAnswerNotifications(qna)
     if checkNotification:
         results = {"results": "true"}
