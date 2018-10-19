@@ -97,6 +97,8 @@ def addQNA(qna,username):
     qna["CMusername"] = username
     qna["dateAnswered"] = str(date)
 
+    qna["views"] = 0
+
     collection.insert_one(qna)
     deleteUnanswered(qna["qnID"])
     
@@ -201,6 +203,18 @@ def getAnswer(question):
     client.close()
     return results
 
+# increment views of question
+def incrementViews(qnID):
+    collection = db.KnowledgeBase
+
+    # retrieve question
+    collection.find_one_and_update({"qnID": int(qnID)}, {'$inc': {'views': 1}})
+
+    results = {"results": "true"}
+
+    client.close()
+    return results
+
 
 # ------------------------------------------------------------------- #
 #                      Unanswered Qns Management                      #
@@ -213,7 +227,7 @@ def addQuestion(question,username):
     collection = db.UnansweredQuestions
     questionCollection = db.KnowledgeBase
     qnID = int(counter.find_one({"_id":"qnID"})["sequence_value"])
-    db.QuestionCounter.update({"_id":"qnID"}, {'$inc': {'sequence_value': 1}})
+    counter.find_one_and_update({"_id":"qnID"}, {'$inc': {'sequence_value': 1}})
 
     # find duplicates in unanswered questions and knowledge base
     duplicate = collection.find_one({"question":question},{"_id":0})

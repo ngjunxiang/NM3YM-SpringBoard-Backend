@@ -262,6 +262,33 @@ class DeleteUnansweredQuestion(CreateAPIView):
         client.close()
         return Response(results)
 
+# increment view
+class incrementQNAViews(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.unansweredQuestions.find()
+
+    def post(self,request):
+
+        # request parameters
+        qnID = request.data['qnID']
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isFO(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = incrementViews(qnID)
+
+        client.close()
+        return Response(results)
+
 # ------------------------------------------------------------------- #
 #                        FO/CM specific methods                       #
 # ------------------------------------------------------------------- #
