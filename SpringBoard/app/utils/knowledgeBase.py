@@ -10,6 +10,7 @@ from app.utils.userCRUD import *
 from app.utils.notificationCRUD import *
 import json
 import pytz
+import datetime
 
 interpreter = Interpreter.load('./model')
 tz = pytz.timezone('Asia/Singapore')
@@ -217,7 +218,7 @@ def addQuestion(question,username):
             "qnID":qnID,
             "question":question,
             "username":username,
-            "dateAsked" =  str(date)
+            "dateAsked":  str(date)
         })
         checkNotification = createQuestionNotifications(question,username,qnID)
         if checkNotification:
