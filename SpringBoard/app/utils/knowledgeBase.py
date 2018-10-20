@@ -111,6 +111,37 @@ def addQNA(qna,username):
     client.close()
     return results
 
+# cm add question to knowledge base
+def cmAddQNA(qna,username):
+
+    collection = db.KnowledgeBase
+    counter = db.QuestionCounter
+
+    # get timezone corrected date
+    date = datetime.datetime.now(pytz.utc).astimezone(tz)
+    date = str(date)
+    date = date[:date.index(".")]
+
+    # get qnID
+    qnID = int(counter.find_one({"_id":"qnID"})["sequence_value"])
+    counter.find_one_and_update({"_id":"qnID"}, {'$inc': {'sequence_value': 1}})
+    
+    qna["qnID"] = qnID
+
+    qna["username"] = "FO"
+    qna["dateAsked"] = str(date)
+
+    qna["CMusername"] = username
+    qna["dateAnswered"] = str(date)
+
+    qna["views"] = 0
+
+    collection.insert_one(qna)
+
+    results = {"results": "true"}
+
+    client.close()
+    return results
 
 # retrieve all qna
 def retrieveAllQNA():

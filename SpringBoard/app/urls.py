@@ -77,6 +77,7 @@ urlpatterns = [
     # Knowledge base endpoints
     # -- CM --
     url(r'^faq/add-AQ', knowledgeBaseViews.AddAnsweredQuestion.as_view()),
+    url(r'^faq/add-CMQ', knowledgeBaseViews.CMAddAnsweredQuestion.as_view()),
     url(r'^faq/delete-AQ', knowledgeBaseViews.DeleteAnsweredQuestion.as_view()),
     url(r'^faq/edit-AQ', knowledgeBaseViews.EditAnsweredQuestion.as_view()),
     url(r'^faq/delete-UQ', knowledgeBaseViews.DeleteUnansweredQuestion.as_view()),

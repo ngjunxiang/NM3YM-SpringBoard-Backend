@@ -71,6 +71,33 @@ class AddAnsweredQuestion(CreateAPIView):
         client.close()
         return Response(results)
 
+# CM add to knowledge base
+class CMAddAnsweredQuestion(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.knowledgeBase.find()
+
+    def post(self,request):
+
+        # request parameters
+        qna = request.data['qna']
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = cmAddQNA(qna,username)
+
+        client.close()
+        return Response(results)
+
 # delete from knowledge base
 class DeleteAnsweredQuestion(CreateAPIView):
     serializer_class = CLSerializer
