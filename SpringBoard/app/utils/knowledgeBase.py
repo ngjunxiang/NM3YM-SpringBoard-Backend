@@ -66,6 +66,7 @@ def editQNA(qna,username):
 
     qna["username"] = prevQNA["username"]
     qna["dateAsked"] = prevQNA["dateAsked"]
+    qna["views"] = prevQNA["views"]
     qna["CMusername"] = username
     qna["dateAnswered"] = str(date)
 
