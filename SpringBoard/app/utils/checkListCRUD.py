@@ -19,9 +19,8 @@ def createCheckList(input,name):
     db.ChecklistCounter.update({"_id":"clID"}, {'$inc': {'sequence_value': 1}})
 
     # get timezone corrected date
-    date = datetime.datetime.now(pytz.utc).astimezone(tz)
+    date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d')
     date = str(date)
-    date = date[:date.index(".")]
 
     latestDocID = 0
 
@@ -68,9 +67,8 @@ def updateCheckList(input,name,clID,version,createdDate,createdBy):
     collection = db.Checklists
 
     # get timezone corrected date
-    date = datetime.datetime.now(pytz.utc).astimezone(tz)
+    date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d')
     date = str(date)
-    date = date[:date.index(".")]
 
     # parse input from frontend
     input = json.loads(input)  

@@ -45,9 +45,8 @@ def editQNA(qna,username):
     deleteQNA(qna["qnID"])
 
     # get timezone corrected date
-    date = datetime.datetime.now(pytz.utc).astimezone(tz)
+    date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d')
     date = str(date)
-    date = date[:date.index(".")]
 
     # move current answer to log
     prevAnswer = {
@@ -88,9 +87,8 @@ def addQNA(qna,username):
     question = qCollection.find_one({"qnID":qna["qnID"]})
 
     # get timezone corrected date
-    date = datetime.datetime.now(pytz.utc).astimezone(tz)
+    date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d')
     date = str(date)
-    date = date[:date.index(".")]
     
     qna["username"] = question["username"]
     qna["dateAsked"] = question["dateAsked"]
@@ -119,9 +117,8 @@ def cmAddQNA(qna,username):
     counter = db.QuestionCounter
 
     # get timezone corrected date
-    date = datetime.datetime.now(pytz.utc).astimezone(tz)
+    date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d')
     date = str(date)
-    date = date[:date.index(".")]
 
     # get qnID
     qnID = int(counter.find_one({"_id":"qnID"})["sequence_value"])
@@ -266,9 +263,8 @@ def addQuestion(question,username):
     questionDuplicate = questionCollection.find_one({"question":question},{"_id":0})
 
     # get timezone corrected date
-    date = datetime.datetime.now(pytz.utc).astimezone(tz)
+    date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d')
     date = str(date)
-    date = date[:date.index(".")]
 
     results = {"error": "duplicate question"}
 
