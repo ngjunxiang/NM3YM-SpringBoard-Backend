@@ -142,14 +142,17 @@ def cmAddQNA(qna,username):
     return results
 
 # retrieve all qna
-def retrieveAllQNA():
+def retrieveAllQNA(userType):
     collection = db.KnowledgeBase
 
     table = collection.find({},{"_id":0})
     qnaList = [item for item in table]
 
-    qnaList = sorted(qnaList, key=itemgetter('question')) 
-
+    qnaList = sorted(qnaList, key=itemgetter('question'))
+    if userType=="CM": 
+        qnaList = sortByViewsAndDate(qnaList)
+    else:
+        qnaList = sortByDate(qnaList)
     results = {}
     results["results"] =  qnaList
 
@@ -361,6 +364,45 @@ def sortBySimilarity(match):
             
     return retMatch
 
+def sortByViewsAndDate(qnaList):
+    if not qnaList:
+        return qnaList
+    retList = []
+    retList.append(qnaList[0])
+    for i in range(1,len(qnaList)):
+        views = qnaList[i]["views"]
+        for j,qnItem in enumerate(retList):
+            retViews = qnItem["views"]
+            if(views>retViews):
+                retList.insert(j,qnaList[i])
+                break
+            elif(views==retViews):
+                dateAsked = qnaList[i]["dateAsked"]
+                retDateAsked = qnItem["dateAsked"]
+                if(dateAsked>retDateAsked):
+                    retList.insert(j,qnaList[i])
+                    break
+            if(j==len(retList)-1):
+                retList.append(qnaList[i])
+                break
+    return retList
+
+def sortByDate(qnaList):
+    if not qnaList:
+        return qnaList
+    retList = []
+    retList.append(qnaList[0])
+    for i in range(1,len(qnaList)):
+        dateAsked = qnaList[i]["dateAsked"]
+        for j,qnItem in enumerate(retList):
+            retDateAsked = qnItem["dateAsked"]
+            if(dateAsked<retDateAsked):
+                retList.insert(j,qnaList[i])
+                break
+            if(j==len(retList)-1):
+                retList.append(qnaList[i])
+                break
+    return retList
 
 def getCosSimilarity(vec1, vec2):
     intersection = set(vec1.keys()) & set(vec2.keys())
