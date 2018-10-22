@@ -91,8 +91,10 @@ urlpatterns = [
     url(r'^faq/retrieve-allAQ', knowledgeBaseViews.RetrieveAllQNA.as_view()), 
     url(r'^faq/retrieve', knowledgeBaseViews.RetrieveAnswers.as_view()),
     
-    # Train model endpoints
+    # Model endpoints
     url(r'^train/train-model', trainModelViews.TrainKMSModel.as_view()),
+    url(r'^train/update-synonyms', trainModelViews.UpdateSynonyms.as_view()),
+    url(r'^train/retrieve-synonyms', trainModelViews.RetrieveSynonyms.as_view()),
 
     # others
     url(r'^invalidateUser', tokenViews.InvalidateUser.as_view()),

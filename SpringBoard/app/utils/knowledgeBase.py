@@ -12,7 +12,7 @@ import json
 import pytz
 import datetime
 
-interpreter = Interpreter.load('./model')
+interpreter = Interpreter.load('./model/default/SpringBoardKMS/')
 tz = pytz.timezone('Asia/Singapore')
 
 # ------------------------------------------------------------------- #
@@ -178,6 +178,7 @@ def getAnswer(question):
 
     #get intents and entities
     intentEntity = interpreter.parse(question)
+    print(intentEntity)
     intent = intentEntity["intent"]["name"]
     entities = {}
     for entity in intentEntity["entities"]:
@@ -188,16 +189,17 @@ def getAnswer(question):
     faqList = [item for item in table]
     match = []
 
+    quesVector1 = createVector(question)
+
     # filter by question similarity
     for q in faqList:
         for entity,value in entities.items():
             if q["entities"].get(entity) != None:
                 if value in q["entities"][entity]:
-                    quesVector1 = createVector(question)
                     quesVector2 = createVector(q["question"])
                     q["similarity"] = getCosSimilarity(quesVector1, quesVector2)
-                    # q["similarity"] = SequenceMatcher(None, question, q["question"]).ratio()
                     match.append(q)
+                    break
 
     # keep top 5
     match = sortBySimilarity(match)
@@ -209,14 +211,25 @@ def getAnswer(question):
     extras = []
 
     for q in otherList:
-        quesVector1 = createVector(question)
-        quesVector2 = createVector(q["question"])
-        q["similarity"] = getCosSimilarity(quesVector1, quesVector2)
-        # q["similarity"] = SequenceMatcher(None, question, q["question"]).ratio()
-        extras.append(q)
+        entityMatch = False
+        for entity,value in entities.items():
+            if q["entities"].get(entity) != None:
+                if value in q["entities"][entity]:
+                    quesVector2 = createVector(q["question"])
+                    q["similarity"] = getCosSimilarity(quesVector1, quesVector2)
+                    extras.append(q)
+                    entityMatch = True
+        if not entityMatch:
+            quesVector2 = createVector(q["question"])
+            q["similarity"] = getCosSimilarity(quesVector1, quesVector2)
+            extras.append(q)
+
+
 
     # keep top 10 and return
-    extras = sortBySimilarity(extras)
+    if len(extras)!=0:
+        extras = sortBySimilarity(extras)
+
     top10 = []
 
     if len(top5)==0:
