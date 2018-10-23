@@ -13,6 +13,8 @@ import pytz
 import datetime
 
 interpreter = Interpreter.load('./model/default/SpringBoardKMS/')
+client = MongoClient('mongodb://localhost:27017/')
+db = client.SpringBoard
 tz = pytz.timezone('Asia/Singapore')
 
 # ------------------------------------------------------------------- #

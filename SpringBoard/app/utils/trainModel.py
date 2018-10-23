@@ -2,7 +2,12 @@ from rasa_nlu.training_data import load_data
 from rasa_nlu.config import RasaNLUModelConfig
 from rasa_nlu.model import Trainer
 from rasa_nlu import config
+from pymongo import MongoClient
+from pymongo import cursor
 import json
+
+client = MongoClient('mongodb://localhost:27017/')
+db = client.SpringBoard
 
 def trainKMSModel():
     try:
@@ -64,3 +69,21 @@ def retrieveSynonyms():
         reversedDict[v].append(k)
     
     return ({"results": reversedDict})
+
+def retrieveIntents():
+    collection = db.KnowledgeBase
+
+    table = collection.find({},{"_id":0})
+    qnaList = [item for item in table]
+
+    intentList = []
+    intentSet = set(intentList)
+
+    for qna in qnaList:
+        intent = qna["intent"]
+        if intent not in intentSet:
+            intentSet.add(intent)
+            intentList.append(intent)
+
+    client.close()
+    return ({"results": intentList})

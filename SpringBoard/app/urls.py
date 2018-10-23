@@ -94,6 +94,7 @@ urlpatterns = [
     # Model endpoints
     url(r'^train/train-model', trainModelViews.TrainKMSModel.as_view()),
     url(r'^train/update-synonyms', trainModelViews.UpdateSynonyms.as_view()),
+    url(r'^train/retrieve-intents', trainModelViews.RetrieveIntents.as_view()),
     url(r'^train/retrieve-synonyms', trainModelViews.RetrieveSynonyms.as_view()),
 
     # others
