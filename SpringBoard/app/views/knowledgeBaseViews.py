@@ -178,6 +178,33 @@ class RetrieveAllQNA(CreateAPIView):
         client.close()
         return Response(results)
 
+# retrieve all questions by views or date from knowledge base
+class RetrieveAllQNABy(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.knowledgeBase.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+        retrieveBy = request.data['retrieveBy']
+
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not (isCM(userType) or isFO(userType))):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = retrieveAllQNABy(retrieveBy)
+        
+        client.close()
+        return Response(results)
+
 # retrieve all uncleaned questions from knowledge base
 class RetrieveAllUncleanQNA(CreateAPIView):
     serializer_class = CLSerializer
