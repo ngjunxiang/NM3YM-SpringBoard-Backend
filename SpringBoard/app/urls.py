@@ -87,6 +87,7 @@ urlpatterns = [
     url(r'^faq/add-UQ', knowledgeBaseViews.AddUnansweredQuestion.as_view()),
     url(r'^faq/retrieve-userQNA', knowledgeBaseViews.UserRetrieveAnswers.as_view()),
     url(r'^faq/increment-QNAViews', knowledgeBaseViews.incrementQNAViews.as_view()),
+    
     # -- BOTH --
     url(r'^faq/retrieve-allAQ', knowledgeBaseViews.RetrieveAllQNA.as_view()), 
     url(r'^faq/retrieve', knowledgeBaseViews.RetrieveAnswers.as_view()),
