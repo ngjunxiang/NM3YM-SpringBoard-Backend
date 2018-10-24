@@ -90,6 +90,16 @@ def retrieveIntents():
     client.close()
     return ({"results": intentList})
 
+# retrieve questions by intent
+def retrieveByIntent(intent):
+    collection = db.KnowledgeBase
+
+    table = collection.find({"intent" : intent},{"_id":0})
+    qnaList = [item for item in table]
+
+    client.close()
+    return ({"results": qnaList})
+
 # retrieve uncleaned qna (e.g. no intent) 5 at a time
 def retrieveAllUnclean():
     collection = db.KnowledgeBase
