@@ -188,7 +188,8 @@ def retrieveAllUnclean():
     qnaList = [item for item in table]
 
     results = {}
-    results["results"] =  qnaList
+    results["results"] =  qnaList[0:5]
+    results["numUnclean"] =  len(qnaList)
 
     client.close()
     return results
