@@ -161,6 +161,24 @@ def retrieveAllQNA(userType):
     client.close()
     return results
 
+#sort qna
+def retrieveAllQNABy(retrieveBy):
+    collection = db.KnowledgeBase
+
+    table = collection.find({},{"_id":0})
+    qnaList = [item for item in table]
+
+    qnaList = sorted(qnaList, key=itemgetter('question'))
+    if retrieveBy=="views": 
+        qnaList = sortByViews(qnaList)
+    else:
+        qnaList = sortByDate(qnaList)
+    results = {}
+    results["results"] =  qnaList
+
+    client.close()
+    return results
+
 
 # retrieve uncleaned qna (e.g. no intent)
 def retrieveAllUnclean():
@@ -397,6 +415,23 @@ def sortByViewsAndDate(qnaList):
                 if(dateAsked>retDateAsked):
                     retList.insert(j,qnaList[i])
                     break
+            if(j==len(retList)-1):
+                retList.append(qnaList[i])
+                break
+    return retList
+
+def sortByViews(qnaList):
+    if not qnaList:
+        return qnaList
+    retList = []
+    retList.append(qnaList[0])
+    for i in range(1,len(qnaList)):
+        views = qnaList[i]["views"]
+        for j,qnItem in enumerate(retList):
+            retViews = qnItem["views"]
+            if(views>retViews):
+                retList.insert(j,qnaList[i])
+                break
             if(j==len(retList)-1):
                 retList.append(qnaList[i])
                 break
