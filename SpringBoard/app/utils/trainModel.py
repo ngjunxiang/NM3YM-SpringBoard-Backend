@@ -80,8 +80,8 @@ def retrieveIntents():
     intentSet = set(intentList)
 
     for qna in qnaList:
-        intent = qna["intent"]
-        if intent not in intentSet:
+        intent = qna.get("intent")
+        if (intent != None) and (intent not in intentSet):
             intentSet.add(intent)
             intentList.append(intent)
 
