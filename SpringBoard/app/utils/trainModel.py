@@ -2,12 +2,14 @@ from rasa_nlu.training_data import load_data
 from rasa_nlu.config import RasaNLUModelConfig
 from rasa_nlu.model import Trainer
 from rasa_nlu import config
+from collections import OrderedDict
 from pymongo import MongoClient
 from pymongo import cursor
 import json
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
+
 
 def trainKMSModel():
     try:
@@ -67,8 +69,8 @@ def retrieveSynonyms():
     for k,v in master_entity_synonyms.items(): 
         reversedDict[v]= reversedDict.get(v,[])
         reversedDict[v].append(k)
-    
-    return ({"results": reversedDict})
+
+    return ({"results": OrderedDict(sorted(reversedDict.items(), key=lambda t: t[0]))})
 
 def retrieveIntents():
     collection = db.KnowledgeBase

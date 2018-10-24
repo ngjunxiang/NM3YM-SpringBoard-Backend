@@ -233,8 +233,6 @@ def getAnswer(question):
             q["similarity"] = getCosSimilarity(quesVector1, quesVector2)
             extras.append(q)
 
-
-
     # keep top 10 and return
     if len(extras)!=0:
         extras = sortBySimilarity(extras)
