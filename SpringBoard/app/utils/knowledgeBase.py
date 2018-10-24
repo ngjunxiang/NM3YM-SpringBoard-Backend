@@ -202,6 +202,8 @@ def getAnswer(question):
 
     # filter by question similarity
     for q in faqList:
+        if q.get("entities") == None:
+            continue
         for entity,value in entities.items():
             if q["entities"].get(entity) != None:
                 if value in q["entities"][entity]:
@@ -220,6 +222,8 @@ def getAnswer(question):
     extras = []
 
     for q in otherList:
+        if q.get("entities") == None:
+            continue
         entityMatch = False
         for entity,value in entities.items():
             if q["entities"].get(entity) != None:
