@@ -82,7 +82,7 @@ urlpatterns = [
     url(r'^faq/edit-AQ', knowledgeBaseViews.EditAnsweredQuestion.as_view()),
     url(r'^faq/delete-UQ', knowledgeBaseViews.DeleteUnansweredQuestion.as_view()),
     url(r'^faq/retrieve-UQ', knowledgeBaseViews.RetrieveUnansweredQuestion.as_view()),
-    url(r'^faq/retrieve-unclean', knowledgeBaseViews.RetrieveAllUncleanQNA.as_view()),
+    
     # -- FO --
     url(r'^faq/add-UQ', knowledgeBaseViews.AddUnansweredQuestion.as_view()),
     url(r'^faq/retrieve-userQNA', knowledgeBaseViews.UserRetrieveAnswers.as_view()),
@@ -97,6 +97,7 @@ urlpatterns = [
     url(r'^train/train-model', trainModelViews.TrainKMSModel.as_view()),
     url(r'^train/update-synonyms', trainModelViews.UpdateSynonyms.as_view()),
     url(r'^train/retrieve-intents', trainModelViews.RetrieveIntents.as_view()),
+    url(r'^train/retrieve-unclean', trainModelViews.RetrieveAllUncleanQNA.as_view()),
     url(r'^train/retrieve-synonyms', trainModelViews.RetrieveSynonyms.as_view()),
 
     # others

@@ -87,3 +87,17 @@ def retrieveIntents():
 
     client.close()
     return ({"results": intentList})
+
+# retrieve uncleaned qna (e.g. no intent) 5 at a time
+def retrieveAllUnclean():
+    collection = db.KnowledgeBase
+
+    table = collection.find({"intent": { "$exists": False }},{"_id":0})
+    qnaList = [item for item in table]
+
+    results = {}
+    results["results"] =  qnaList[0:5]
+    results["numUnclean"] =  len(qnaList)
+
+    client.close()
+    return results

@@ -180,21 +180,6 @@ def retrieveAllQNABy(retrieveBy):
     return results
 
 
-# retrieve uncleaned qna (e.g. no intent)
-def retrieveAllUnclean():
-    collection = db.KnowledgeBase
-
-    table = collection.find({"intent": { "$exists": False }},{"_id":0})
-    qnaList = [item for item in table]
-
-    results = {}
-    results["results"] =  qnaList[0:5]
-    results["numUnclean"] =  len(qnaList)
-
-    client.close()
-    return results
-
-
 # get answers for specific question
 def getAnswer(question):
 
