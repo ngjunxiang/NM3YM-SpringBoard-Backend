@@ -98,6 +98,7 @@ urlpatterns = [
     url(r'^train/update-synonyms', trainModelViews.UpdateSynonyms.as_view()),
     url(r'^train/retrieve-byIntent', trainModelViews.RetrieveByIntent.as_view()),
     url(r'^train/retrieve-intents', trainModelViews.RetrieveIntents.as_view()),
+    url(r'^train/retrieve-clean', trainModelViews.RetrieveAllCleanQNA.as_view()),
     url(r'^train/retrieve-unclean', trainModelViews.RetrieveAllUncleanQNA.as_view()),
     url(r'^train/retrieve-synonyms', trainModelViews.RetrieveSynonyms.as_view()),
 

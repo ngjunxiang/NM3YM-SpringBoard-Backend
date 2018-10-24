@@ -113,3 +113,16 @@ def retrieveAllUnclean():
 
     client.close()
     return results
+
+# retrieve all cleaned qna
+def retrieveAllClean():
+    collection = db.KnowledgeBase
+
+    table = collection.find({"intent": { "$exists": True }},{"_id":0})
+    qnaList = [item for item in table]
+
+    results = {}
+    results["results"] =  qnaList
+
+    client.close()
+    return results
