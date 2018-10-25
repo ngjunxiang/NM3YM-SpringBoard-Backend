@@ -105,7 +105,7 @@ class RetrieveIntents(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isCM(userType)):
+        if(not (isCM(userType) or isFO(userType))):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -131,7 +131,7 @@ class RetrieveByIntent(CreateAPIView):
         if(len(tokenResults) != 0):
             client.close()
             return Response(tokenResults)
-        if(not isCM(userType)):
+        if(not (isCM(userType) or isFO(userType))):
             client.close()
             return Response({'error' : 'invalid userType'})
 
