@@ -187,7 +187,6 @@ def getAnswer(question):
 
     #get intents and entities
     intentEntity = interpreter.parse(question)
-    print(intentEntity)
     intent = intentEntity["intent"]["name"]
     entities = {}
     for entity in intentEntity["entities"]:
@@ -434,7 +433,7 @@ def sortByDate(qnaList):
         dateAsked = qnaList[i]["dateAsked"]
         for j,qnItem in enumerate(retList):
             retDateAsked = qnItem["dateAsked"]
-            if(dateAsked<retDateAsked):
+            if(dateAsked>retDateAsked):
                 retList.insert(j,qnaList[i])
                 break
             if(j==len(retList)-1):

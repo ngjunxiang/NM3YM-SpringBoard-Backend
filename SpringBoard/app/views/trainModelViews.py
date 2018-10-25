@@ -135,7 +135,7 @@ class RetrieveByIntent(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = retrieveByIntent()
+        results = retrieveByIntent(intent)
 
         client.close()
         return Response(results)
