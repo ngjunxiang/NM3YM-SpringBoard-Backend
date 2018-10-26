@@ -191,3 +191,31 @@ class RetrieveAllCleanQNA(CreateAPIView):
 
         client.close()
         return Response(results)
+
+# store cleaned questions
+class StoreCleanedQNA(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.knowledgeBase.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+        cleanedQNA = request.data['results']
+
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = {}
+        results["results"] = storeCleanedQNA(cleanedQNA)
+
+        client.close()
+        return Response(results)

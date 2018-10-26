@@ -101,6 +101,7 @@ urlpatterns = [
     url(r'^train/retrieve-clean', trainModelViews.RetrieveAllCleanQNA.as_view()),
     url(r'^train/retrieve-unclean', trainModelViews.RetrieveAllUncleanQNA.as_view()),
     url(r'^train/retrieve-synonyms', trainModelViews.RetrieveSynonyms.as_view()),
+    url(r'^train/store-cleaned', trainModelViews.StoreCleanedQNA.as_view()),
 
     # others
     url(r'^invalidateUser', tokenViews.InvalidateUser.as_view()),

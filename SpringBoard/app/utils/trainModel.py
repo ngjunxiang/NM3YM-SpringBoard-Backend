@@ -6,6 +6,7 @@ from collections import OrderedDict
 from pymongo import MongoClient
 from pymongo import cursor
 import json
+import re
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
@@ -104,11 +105,11 @@ def retrieveByIntent(intent):
 def retrieveAllUnclean():
     collection = db.KnowledgeBase
 
-    table = collection.find({"intent": { "$exists": False }},{"_id":0})
+    table = collection.find({"intent": { "$exists": False }},{"_id":0}).limit(5)
     qnaList = [item for item in table]
 
     results = {}
-    results["results"] =  qnaList[0:5]
+    results["results"] =  qnaList
     results["numUnclean"] =  len(qnaList)
 
     client.close()
@@ -125,4 +126,60 @@ def retrieveAllClean():
     results["results"] =  qnaList
 
     client.close()
+    return results
+
+def storeCleanedQNA(cleanedQNA):
+    collection = db.StoreIntents
+    kbCollection = db.KnowledgeBase
+
+    storeCounter = 0
+    failedQnNums = []
+    success = False
+    toStore = {}
+    for item in cleanedQNA:
+        intent = item["intent"]
+        toStore["intent"] = intent
+        toStore["entities"] = []
+        question = item["question"]
+        entities = item["entities"]
+        storedEntities = {}
+        for entity in entities:
+            word = entity["word"]
+            index = question.find(word)
+            endOfIndex = index + len(word)
+            entityObj = {}
+            entityObj["start"] = index
+            entityObj["end"] = endOfIndex
+            ent = entity["entity"]
+            val = entity["value"]
+            entityObj["value"] = val
+            entityObj["entity"] = ent
+            entitiesList = toStore["entities"]
+            entitiesList.append(entityObj)
+            toStore["entities"] = entitiesList
+            if ent in storedEntities:
+                entList = storedEntities[ent]
+                entList.append(val)
+                storedEntities[ent] = entList
+            else:
+                newList = []
+                newList.append(val)
+                storedEntities[ent] = newList
+
+        toStore["text"] = question
+        try:
+            collection.insert_one(toStore)
+            storeCounter += 1
+            success = True
+        except:
+            failedQnNums.append(question)
+        if success:
+            qnID = item["qnID"]
+            kbCollection.update_one({'qnID':qnID},{"$set" : {'intent':intent,'entities':storedEntities}})
+            success = False
+        toStore = {}
+
+    results = {}
+    results["StoredCount"] = storeCounter
+    results["failedQnNums"] = failedQnNums
     return results
