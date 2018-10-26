@@ -11,8 +11,25 @@ import re
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
+def createTrainingFile():
+    collection = db.StoreIntents
+
+    training_data = collection.find({},{"_id":0})
+
+    training_data_file = "./app/data/training_data.json"
+
+    to_json = {}
+    rasa_nlu_data = {}
+    commExamplesList = [item for item in training_data]
+    rasa_nlu_data["common_examples"] = commExamplesList
+    to_json["rasa_nlu_data"] = rasa_nlu_data
+
+    with open(training_data_file,'w') as fp:
+        json.dump(to_json,fp)
+
 
 def trainKMSModel():
+    createTrainingFile()
     try:
         # train model
         training_data = load_data('./app/data/training_data.json')
@@ -138,9 +155,10 @@ def storeCleanedQNA(cleanedQNA):
     toStore = {}
     for item in cleanedQNA:
         intent = item["intent"]
+        question = item["question"]
+        toStore["text"] = question
         toStore["intent"] = intent
         toStore["entities"] = []
-        question = item["question"]
         entities = item["entities"]
         storedEntities = {}
         for entity in entities:
@@ -165,8 +183,6 @@ def storeCleanedQNA(cleanedQNA):
                 newList = []
                 newList.append(val)
                 storedEntities[ent] = newList
-
-        toStore["text"] = question
         try:
             collection.insert_one(toStore)
             storeCounter += 1
