@@ -13,8 +13,7 @@ db.Users.insertMany([
 
 // set up checklists table
 db.Checklists.createIndex({ "clID": 1 }, { unique: true })
-db.Checklists.insertOne(
-{
+db.Checklists.insertOne({
         "_id" : ObjectId("5bbc19d7073526264465e184"),
         "name" : "Account Opening (Individual)",
         "requiredFields" : [
@@ -62,6 +61,9 @@ db.Checklists.insertOne(
         "complianceDocuments" : {
                 "mandatory" : [
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "ICE KYC Profile and Client Acceptance Form (including modifications since last CAC)",
                                 "agmtCode" : "301",
                                 "signature" : false,
@@ -70,6 +72,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "FATCA Account Opening / Review Checklist (effective date : 1 July 2014)",
                                 "agmtCode" : "285",
                                 "signature" : false,
@@ -78,6 +83,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "AEOI Individual Checklist (effective date : 1 Jan 2017)",
                                 "agmtCode" : "189",
                                 "signature" : false,
@@ -86,6 +94,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Call Report",
                                 "agmtCode" : "N.A.",
                                 "signature" : false,
@@ -94,6 +105,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Clear unexpired Passport / ID copies or identification papers bearing clear photograph of accountholders",
                                 "agmtCode" : "011",
                                 "signature" : false,
@@ -102,6 +116,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Proof(s) of Residential Address for all account holders and authorised signatories / LPOA",
                                 "agmtCode" : "558",
                                 "signature" : false,
@@ -110,6 +127,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "FATCA/AEOI self certification (effective date : 1 Jan 2017)",
                                 "agmtCode" : "127 / 245",
                                 "signature" : false,
@@ -118,6 +138,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "W9 - US Person declared with the IRS and Annex 2 , 3 or 4 (Whichever is appropriate). ",
                                 "agmtCode" : "212",
                                 "signature" : true,
@@ -126,6 +149,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "W8 - BEN  Foreign Person for US Fisc (For Treaty claim required or to cure US Indicia )",
                                 "agmtCode" : "202 / 208",
                                 "signature" : true,
@@ -134,6 +160,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Declaration of Tax Conformity (DTC)",
                                 "agmtCode" : "887",
                                 "signature" : true,
@@ -142,6 +171,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Tax Compliance Indicator Questionnaire  - Applicable for all client(s)",
                                 "agmtCode" : "659",
                                 "signature" : false,
@@ -150,6 +182,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Tax Indicator Checklist  (for French resident client)",
                                 "agmtCode" : "--",
                                 "signature" : true,
@@ -158,6 +193,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "MSC Self-Declaration or MSCQ",
                                 "agmtCode" : "282 / 283",
                                 "signature" : false,
@@ -166,6 +204,9 @@ db.Checklists.insertOne(
                                 "changed" : "1"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "MLRA Simulation Form",
                                 "agmtCode" : "---",
                                 "signature" : false,
@@ -174,6 +215,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Evidence of Source of Wealth",
                                 "agmtCode" : "870",
                                 "signature" : false,
@@ -182,6 +226,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Investment Profile Questionnaire",
                                 "agmtCode" : "964",
                                 "signature" : true,
@@ -190,6 +237,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Internet search ",
                                 "agmtCode" : "----",
                                 "signature" : false,
@@ -198,16 +248,19 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "VIGILANCE printouts for persons new to the Bank",
                                 "agmtCode" : "- ",
                                 "signature" : true,
                                 "remarks" : "",
                                 "docID" : "75",
                                 "changed" : "0"
-                        }
-                ],
-                "conditional" : [
+                        },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Insider of Listed Company",
@@ -222,6 +275,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -236,6 +291,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -250,6 +307,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -264,6 +323,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -278,6 +339,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -292,6 +355,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -306,6 +371,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -320,6 +387,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "SG booking Personal Investor",
@@ -334,6 +403,8 @@ db.Checklists.insertOne(
                                 "changed" : "1"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Employees of HKMA/SFC ",
@@ -348,6 +419,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Walk-In Client",
@@ -364,6 +437,9 @@ db.Checklists.insertOne(
                 ],
                 "optional" : [
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Not Applicable",
                                 "documentName" : "Vulnerable Customer Assessment Form",
                                 "agmtCode" : "983 / 984",
                                 "signature" : false,
@@ -372,6 +448,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Not Applicable",
                                 "documentName" : "Other documents as required by the Bank",
                                 "agmtCode" : "-------",
                                 "signature" : false,
@@ -384,6 +463,9 @@ db.Checklists.insertOne(
         "legalDocuments" : {
                 "mandatory" : [
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Account Opening Book (V6)",
                                 "agmtCode" : "677",
                                 "signature" : true,
@@ -393,6 +475,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Letter of Authority",
                                 "agmtCode" : "333",
                                 "signature" : true,
@@ -402,6 +487,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Risk Disclosure Statement (RDS)",
                                 "agmtCode" : "302",
                                 "signature" : true,
@@ -411,6 +499,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Derivative Master Agreement (DMA)",
                                 "agmtCode" : "585",
                                 "signature" : true,
@@ -418,10 +509,10 @@ db.Checklists.insertOne(
                                 "remarks" : "",
                                 "docID" : "34",
                                 "changed" : "0"
-                        }
-                ],
-                "conditional" : [
+                        },
                         {
+                                "hasConditions": true,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Booking Centre",
@@ -437,6 +528,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Booking Centre",
@@ -452,6 +545,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Booking Centre",
@@ -467,6 +562,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Booking Centre",
@@ -482,6 +579,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Booking Centre",
@@ -497,6 +596,8 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Booking Centre",
@@ -514,6 +615,9 @@ db.Checklists.insertOne(
                 ],
                 "optional" : [
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Consent Letter for Referred Clients on Business Introducer referral fees",
                                 "agmtCode" : "-",
                                 "signature" : true,
@@ -523,6 +627,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Email Indemnity",
                                 "agmtCode" : "029",
                                 "signature" : true,
@@ -532,6 +639,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Discretionary Portfolio Management Agreement",
                                 "agmtCode" : "002",
                                 "signature" : true,
@@ -541,6 +651,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Letter of Instruction and Indemnity (Special Mailing Request) ",
                                 "agmtCode" : "892 / 894 / 896",
                                 "signature" : true,
@@ -550,6 +663,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Letter to Open Subsequent Account",
                                 "agmtCode" : "313",
                                 "signature" : true,
@@ -559,6 +675,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Internet Services Asia e-Banking",
                                 "agmtCode" : "048",
                                 "signature" : true,
@@ -568,6 +687,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Letter of Instructions & Indemnity (e-Document)",
                                 "agmtCode" : "898",
                                 "signature" : true,
@@ -577,6 +699,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Limited Power of Attorney (No Fund Transfer Out)",
                                 "agmtCode" : "555",
                                 "signature" : true,
@@ -586,6 +711,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Power of Attorney for Authorised Signatory",
                                 "agmtCode" : "013 / 040",
                                 "signature" : true,
@@ -595,6 +723,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Subscription of Equity Linked Notes (\"ELN\")",
                                 "agmtCode" : "689",
                                 "signature" : true,
@@ -604,6 +735,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Subscription of Daily Accrual Callable Notes (\"DAC\")",
                                 "agmtCode" : "690",
                                 "signature" : true,
@@ -613,6 +747,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgmentc for Investments in Knock-Out Forward Options & Reverse Knock-Out Forward Options (collectively referred to as \"Forward Options\")",
                                 "agmtCode" : "691",
                                 "signature" : true,
@@ -622,6 +759,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Investments in Fixed Coupon Callable Notes (\"FCN\")",
                                 "agmtCode" : "692",
                                 "signature" : true,
@@ -631,6 +771,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Dual Currency Investments (\"DCI\")",
                                 "agmtCode" : "693",
                                 "signature" : true,
@@ -640,6 +783,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Investments in FX Accumulator Forwards",
                                 "agmtCode" : "694",
                                 "signature" : true,
@@ -649,6 +795,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Commodity Linked Investments (\"CLI\")",
                                 "agmtCode" : "695",
                                 "signature" : true,
@@ -658,6 +807,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Option (OTC and Listed)",
                                 "agmtCode" : "696",
                                 "signature" : true,
@@ -667,6 +819,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Contingent Convertible Bonds (\"Coco Bonds\") Transactions",
                                 "agmtCode" : "747",
                                 "signature" : true,
@@ -676,6 +831,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Non-HK Resident Declaration Form (for open CNY Account)",
                                 "agmtCode" : "629",
                                 "signature" : true,
@@ -685,6 +843,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Request for open CNY Account Form (for HKID Holders)",
                                 "agmtCode" : "584",
                                 "signature" : false,
@@ -694,6 +855,9 @@ db.Checklists.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "China Stock Connect",
                                 "agmtCode" : "856",
                                 "signature" : true,
@@ -711,13 +875,10 @@ db.Checklists.insertOne(
         "dateUpdated" : "2018-10-09",
         "createdBy" : "Randy Lai YongHao",
         "updatedBy" : "Randy Lai YongHao"
-}
-)
+})
 
-
-// set up checklistLigs table
+// set up checklistLogs table
 db.ChecklistLogs.createIndex({ "clID": 1, "version": 1 }, { unique: true })
-
 db.ChecklistLogs.insertOne(
 	{
         "_id" : ObjectId("5bbc19d6073526264465e181"),
@@ -767,6 +928,9 @@ db.ChecklistLogs.insertOne(
         "complianceDocuments" : {
                 "mandatory" : [
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "ICE KYC Profile and Client Acceptance Form (including modifications since last CAC)",
                                 "agmtCode" : "301",
                                 "signature" : false,
@@ -775,6 +939,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "FATCA Account Opening / Review Checklist (effective date : 1 July 2014)",
                                 "agmtCode" : "285",
                                 "signature" : false,
@@ -783,6 +950,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "AEOI Individual Checklist (effective date : 1 Jan 2017)",
                                 "agmtCode" : "189",
                                 "signature" : false,
@@ -791,6 +961,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Call Report",
                                 "agmtCode" : "N.A.",
                                 "signature" : false,
@@ -799,6 +972,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Clear unexpired Passport / ID copies or identification papers bearing clear photograph of accountholders",
                                 "agmtCode" : "011",
                                 "signature" : false,
@@ -807,6 +983,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Proof(s) of Residential Address for all account holders and authorised signatories / LPOA",
                                 "agmtCode" : "558",
                                 "signature" : false,
@@ -815,6 +994,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "FATCA/AEOI self certification (effective date : 1 Jan 2017)",
                                 "agmtCode" : "127 / 245",
                                 "signature" : false,
@@ -823,6 +1005,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "W9 - US Person declared with the IRS and Annex 2 , 3 or 4 (Whichever is appropriate). ",
                                 "agmtCode" : "212",
                                 "signature" : true,
@@ -831,6 +1016,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "W8 - BEN  Foreign Person for US Fisc (For Treaty claim required or to cure US Indicia )",
                                 "agmtCode" : "202 / 208",
                                 "signature" : true,
@@ -839,6 +1027,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Declaration of Tax Conformity (DTC)",
                                 "agmtCode" : "887",
                                 "signature" : true,
@@ -847,6 +1038,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Tax Compliance Indicator Questionnaire  - Applicable for all client(s)",
                                 "agmtCode" : "659",
                                 "signature" : false,
@@ -855,6 +1049,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Tax Indicator Checklist  (for French resident client)",
                                 "agmtCode" : "--",
                                 "signature" : true,
@@ -863,6 +1060,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "MSC Self-Declaration or MSCQ",
                                 "agmtCode" : "282 / 283",
                                 "signature" : false,
@@ -871,6 +1071,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "MLRA Simulation Form",
                                 "agmtCode" : "---",
                                 "signature" : false,
@@ -879,6 +1082,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Evidence of Source of Wealth",
                                 "agmtCode" : "870",
                                 "signature" : false,
@@ -887,6 +1093,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Investment Profile Questionnaire",
                                 "agmtCode" : "964",
                                 "signature" : true,
@@ -895,6 +1104,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "Internet search ",
                                 "agmtCode" : "----",
                                 "signature" : false,
@@ -903,16 +1115,19 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "conditions": [],
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "documentName" : "VIGILANCE printouts for persons new to the Bank",
                                 "agmtCode" : "- ",
                                 "signature" : true,
                                 "remarks" : "",
                                 "docID" : "75",
                                 "changed" : "0"
-                        }
-                ],
-                "conditional" : [
+                        },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Insider of Listed Company",
@@ -927,6 +1142,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -941,6 +1158,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -955,6 +1174,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -969,6 +1190,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -983,6 +1206,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -997,6 +1222,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -1011,6 +1238,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Place of Residence",
@@ -1025,6 +1254,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "SG booking Personal Investor",
@@ -1039,6 +1270,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Employees of HKMA/SFC ",
@@ -1053,6 +1286,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Not Applicable",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Walk-In Client",
@@ -1069,6 +1304,9 @@ db.ChecklistLogs.insertOne(
                 ],
                 "optional" : [
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Vulnerable Customer Assessment Form",
                                 "agmtCode" : "983 / 984",
                                 "signature" : false,
@@ -1077,6 +1315,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Other documents as required by the Bank",
                                 "agmtCode" : "-------",
                                 "signature" : false,
@@ -1089,6 +1330,9 @@ db.ChecklistLogs.insertOne(
         "legalDocuments" : {
                 "mandatory" : [
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Account Opening Book (V6)",
                                 "agmtCode" : "677",
                                 "signature" : true,
@@ -1098,6 +1342,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Letter of Authority",
                                 "agmtCode" : "333",
                                 "signature" : true,
@@ -1107,6 +1354,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Risk Disclosure Statement (RDS)",
                                 "agmtCode" : "302",
                                 "signature" : true,
@@ -1116,6 +1366,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Derivative Master Agreement (DMA)",
                                 "agmtCode" : "585",
                                 "signature" : true,
@@ -1123,10 +1376,10 @@ db.ChecklistLogs.insertOne(
                                 "remarks" : "",
                                 "docID" : "34",
                                 "changed" : "0"
-                        }
-                ],
-                "conditional" : [
+                        },
                         {
+                                "hasConditions": true,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Booking Centre",
@@ -1142,6 +1395,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Booking Centre",
@@ -1157,6 +1412,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Booking Centre",
@@ -1172,6 +1429,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Booking Centre",
@@ -1187,6 +1446,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Booking Centre",
@@ -1202,6 +1463,8 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": true,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
                                 "conditions" : [
                                         {
                                                 "conditionName" : "Booking Centre",
@@ -1219,6 +1482,9 @@ db.ChecklistLogs.insertOne(
                 ],
                 "optional" : [
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Consent Letter for Referred Clients on Business Introducer referral fees",
                                 "agmtCode" : "-",
                                 "signature" : true,
@@ -1228,6 +1494,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Email Indemnity",
                                 "agmtCode" : "029",
                                 "signature" : true,
@@ -1237,6 +1506,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Discretionary Portfolio Management Agreement",
                                 "agmtCode" : "002",
                                 "signature" : true,
@@ -1246,6 +1518,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Letter of Instruction and Indemnity (Special Mailing Request) ",
                                 "agmtCode" : "892 / 894 / 896",
                                 "signature" : true,
@@ -1255,6 +1530,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Letter to Open Subsequent Account",
                                 "agmtCode" : "313",
                                 "signature" : true,
@@ -1264,6 +1542,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Internet Services Asia e-Banking",
                                 "agmtCode" : "048",
                                 "signature" : true,
@@ -1273,6 +1554,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Letter of Instructions & Indemnity (e-Document)",
                                 "agmtCode" : "898",
                                 "signature" : true,
@@ -1282,6 +1566,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Limited Power of Attorney (No Fund Transfer Out)",
                                 "agmtCode" : "555",
                                 "signature" : true,
@@ -1291,6 +1578,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Power of Attorney for Authorised Signatory",
                                 "agmtCode" : "013 / 040",
                                 "signature" : true,
@@ -1300,6 +1590,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Subscription of Equity Linked Notes (\"ELN\")",
                                 "agmtCode" : "689",
                                 "signature" : true,
@@ -1309,6 +1602,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Subscription of Daily Accrual Callable Notes (\"DAC\")",
                                 "agmtCode" : "690",
                                 "signature" : true,
@@ -1318,6 +1614,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgmentc for Investments in Knock-Out Forward Options & Reverse Knock-Out Forward Options (collectively referred to as \"Forward Options\")",
                                 "agmtCode" : "691",
                                 "signature" : true,
@@ -1327,6 +1626,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Investments in Fixed Coupon Callable Notes (\"FCN\")",
                                 "agmtCode" : "692",
                                 "signature" : true,
@@ -1336,6 +1638,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Dual Currency Investments (\"DCI\")",
                                 "agmtCode" : "693",
                                 "signature" : true,
@@ -1345,6 +1650,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Investments in FX Accumulator Forwards",
                                 "agmtCode" : "694",
                                 "signature" : true,
@@ -1354,6 +1662,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Commodity Linked Investments (\"CLI\")",
                                 "agmtCode" : "695",
                                 "signature" : true,
@@ -1363,6 +1674,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Option (OTC and Listed)",
                                 "agmtCode" : "696",
                                 "signature" : true,
@@ -1372,6 +1686,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Acknowledgement for Contingent Convertible Bonds (\"Coco Bonds\") Transactions",
                                 "agmtCode" : "747",
                                 "signature" : true,
@@ -1381,6 +1698,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Non-HK Resident Declaration Form (for open CNY Account)",
                                 "agmtCode" : "629",
                                 "signature" : true,
@@ -1390,6 +1710,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "Request for open CNY Account Form (for HKID Holders)",
                                 "agmtCode" : "584",
                                 "signature" : false,
@@ -1399,6 +1722,9 @@ db.ChecklistLogs.insertOne(
                                 "changed" : "0"
                         },
                         {
+                                "hasConditions": false,
+                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "conditions": [],
                                 "documentName" : "China Stock Connect",
                                 "agmtCode" : "856",
                                 "signature" : true,
@@ -1427,2372 +1753,19 @@ db.ChecklistCounter.insertOne({ "_id": "clID", "sequence_value": 1 })
 db.Tokens.createIndex({ "username": 1, "token": 1 }, { unique: true })
 
 // set up onboard IDs
-db.OnboardCounter.insertOne({ "_id": "obID", "sequence_value": 5 })
+db.OnboardCounter.insertOne({ "_id": "obID", "sequence_value": 0 })
 
 // set up onboard table
 db.Onboards.createIndex({ "clientName": 1, "RMName": 1, "dateCreated": 1 }, { unique: true })
-
-// insert into onboards
-db.Onboards.insertMany([
-	{
-        "_id" : ObjectId("5bbc1392073526264465e164"),
-        "clID" : "0",
-        "complianceDocuments" : {
-                "mandatory" : [
-                        {
-                                "documentName" : "ICE KYC Profile and Client Acceptance Form (including modifications since last CAC)",
-                                "agmtCode" : "301",
-                                "signature" : false,
-                                "remarks" : "<div>NOTE :</div><div>- Individual profiles must be completed for all account holders and all persons with a role in the account i.e. Authorised Signatory/POA/LPOA (where applicable).</div><div><br></div><div>- RM signed CAF must be received by Client Management Team no later than 1 month after ICE print date.</div><div><br></div><div><div>□ Check that a complete set of CAF document was submitted which includes:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ KYC Folder &amp; Account Root profile are submitted for the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ Individual profiles of all account holders</div><div>□ Individual profile(s) of all persons with a role in the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Limited Power of Attorney&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Authorised Signatory/POA&nbsp;</div><div><br></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○&nbsp; Persons who signed as BO in the Declaration of Beneficial Ownership&nbsp; &nbsp;&nbsp;</div><div>□ CAF signed and dated (within 1 month from submission) by RM</div><div><br></div></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "0"
-                        },
-                        {
-                                "documentName" : "FATCA Account Opening / Review Checklist (effective date : 1 July 2014)",
-                                "agmtCode" : "285",
-                                "signature" : false,
-                                "remarks" : "- Refer to policies relating to US Persons and FATCA.&nbsp;<div><br></div><div>Please specify name of person(s) with US Indicia:<br></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "1"
-                        },
-                        {
-                                "documentName" : "AEOI Individual Checklist (effective date : 1 Jan 2017)",
-                                "agmtCode" : "189",
-                                "signature" : false,
-                                "remarks" : "- Refer to policies relating to AEOI.<div><br></div><div>Please specify name of person(s) with the relevant Indicia:<br></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "2"
-                        },
-                        {
-                                "documentName" : "Call Report",
-                                "agmtCode" : "N.A.",
-                                "signature" : false,
-                                "remarks" : "<div>- Validated according to Bank's Standard</div><div>- Other than new account under existing relationship where face-to-face meeting has been conducted before and EAM account, the call report should demonstrate face-to-face meeting with account holders.</div><div>- Check the face to face&nbsp; meeting date should be within below period.</div><div>&nbsp; &nbsp; &nbsp; ○ High Risk / PEP&nbsp; : 1 year</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Medium Risk&nbsp; : 2 years</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Low Risk&nbsp; : 3 years</div><div><br></div><div><br></div><div><div>□ Check that Call Report submitted was validated.</div><div>□ Check the Call Report that client was contacted within the past 1 year.</div><div>□ Check the Call Report indicate country and location for physical meeting.</div><div>□ Check the face to face&nbsp; meeting date should be within below period.</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ High Risk / PEP&nbsp; : 1 year</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Medium Risk&nbsp; : 2 years</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Low Risk&nbsp; : 3 years</div></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "3"
-                        },
-                        {
-                                "documentName" : "Clear unexpired Passport / ID copies or identification papers bearing clear photograph of accountholders",
-                                "agmtCode" : "011",
-                                "signature" : false,
-                                "remarks" : "<div>NOTE :</div><div>- Individual profiles must be completed for all account holders and all persons with a role in the account i.e. Authorised Signatory/POA/LPOA (where applicable).</div><div><br></div><div>- RM signed CAF must be received by Client Management Team no later than 1 month after ICE print date.</div><div><br></div><div><div>□ Check that a complete set of CAF document was submitted which includes:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ KYC Folder &amp; Account Root profile are submitted for the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ Individual profiles of all account holders</div><div>□ Individual profile(s) of all persons with a role in the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Limited Power of Attorney&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Authorised Signatory/POA&nbsp;</div><div><br></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○&nbsp; Persons who signed as BO in the Declaration of Beneficial Ownership&nbsp; &nbsp;&nbsp;</div><div>□ CAF signed and dated (within 1 month from submission) by RM</div><div><br></div></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "62"
-                        },
-                        {
-                                "documentName" : "Proof(s) of Residential Address for all account holders and authorised signatories / LPOA",
-                                "agmtCode" : "558",
-                                "signature" : false,
-                                "remarks" : "<div>- Bank staff to write \"original sighted\", staff's name, date and sign on the copy of the residential address proof, OR photocopy to be certified by suitable certifier*.</div><div>- Evidence should be issued within the last 3 months.&nbsp;</div><div>- Address proof and ID doc have to be 2 separate document.</div><div><br>□ Translation is required for non English document.<br></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "63"
-                        },
-                        {
-                                "documentName" : "FATCA/AEOI self certification (effective date : 1 Jan 2017)",
-                                "agmtCode" : "127 / 245",
-                                "signature" : false,
-                                "remarks" : "- Refer to policies relating to US Persons, FATCA and AEOI.<div><br></div><div>Please specify name of person(s) with the relevant Indicia:<br></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "64"
-                        },
-                        {
-                                "documentName" : "W9 - US Person declared with the IRS and Annex 2 , 3 or 4 (Whichever is appropriate). ",
-                                "agmtCode" : "212",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "65"
-                        },
-                        {
-                                "documentName" : "W8 - BEN  Foreign Person for US Fisc (For Treaty claim required or to cure US Indicia )",
-                                "agmtCode" : "202 / 208",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "66"
-                        },
-                        {
-                                "documentName" : "Declaration of Tax Conformity (DTC)",
-                                "agmtCode" : "887",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "67"
-                        },
-                        {
-                                "documentName" : "Tax Compliance Indicator Questionnaire  - Applicable for all client(s)",
-                                "agmtCode" : "659",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "68"
-                        },
-                        {
-                                "documentName" : "Tax Indicator Checklist  (for French resident client)",
-                                "agmtCode" : "--",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "69"
-                        },
-                        {
-                                "documentName" : "MSC Self-Declaration or MSCQ",
-                                "agmtCode" : "282 / 283",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "70"
-                        },
-                        {
-                                "documentName" : "MLRA Simulation Form",
-                                "agmtCode" : "---",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "71"
-                        },
-                        {
-                                "documentName" : "Evidence of Source of Wealth",
-                                "agmtCode" : "870",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "72"
-                        },
-                        {
-                                "documentName" : "Investment Profile Questionnaire",
-                                "agmtCode" : "964",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "73"
-                        },
-                        {
-                                "documentName" : "Internet search ",
-                                "agmtCode" : "----",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "74"
-                        },
-                        {
-                                "documentName" : "VIGILANCE printouts for persons new to the Bank",
-                                "agmtCode" : "- ",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "75"
-                        }
-                ],
-                "conditional" : [
-                        {
-                                "documentName" : "Client Request Evidence Form",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Place of Residence",
-                                                "conditionOption" : "Taiwan"
-                                        }
-                                ],
-                                "agmtCode" : "855",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "78"
-                        },
-                        {
-                                "documentName" : "Accredited Investor ",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "SG booking Personal Investor",
-                                                "conditionOption" : "Yes"
-                                        }
-                                ],
-                                "agmtCode" : "-   ",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "84"
-                        }
-                ],
-                "optional" : [
-                        {
-                                "documentName" : "Vulnerable Customer Assessment Form",
-                                "agmtCode" : "983 / 984",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "87"
-                        },
-                        {
-                                "documentName" : "Other documents as required by the Bank",
-                                "agmtCode" : "-------",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "88"
-                        }
-                ]
-        },
-        "conditions" : [
-                {
-                        "conditionName" : "Booking Centre",
-                        "conditionOption" : "Hong Kong"
-                },
-                {
-                        "conditionName" : "Business Centre",
-                        "conditionOption" : "Singapore"
-                },
-                {
-                        "conditionName" : "Place of Residence",
-                        "conditionOption" : "Taiwan"
-                },
-                {
-                        "conditionName" : "Insider of Listed Company",
-                        "conditionOption" : "No"
-                },
-                {
-                        "conditionName" : "SG booking Personal Investor",
-                        "conditionOption" : "Yes"
-                },
-                {
-                        "conditionName" : "Employees of HKMA/SFC ",
-                        "conditionOption" : "No"
-                },
-                {
-                        "conditionName" : "Walk-In Client",
-                        "conditionOption" : "No"
-                }
-        ],
-        "dateCreated" : "2018-10-09",
-        "legalDocuments" : {
-                "mandatory" : [
-                        {
-                                "documentName" : "Account Opening Book (V6)",
-                                "agmtCode" : "677",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "31"
-                        },
-                        {
-                                "documentName" : "Letter of Authority",
-                                "agmtCode" : "333",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "32"
-                        },
-                        {
-                                "documentName" : "Risk Disclosure Statement (RDS)",
-                                "agmtCode" : "302",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "33"
-                        },
-                        {
-                                "documentName" : "Derivative Master Agreement (DMA)",
-                                "agmtCode" : "585",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "34"
-                        }
-                ],
-                "conditional" : [
-                        {
-                                "documentName" : "Personal Data Privacy Ordinance (Wef Mar 2013) / Direct Marketing Opt Out",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Booking Centre",
-                                                "conditionOption" : "Hong Kong"
-                                        }
-                                ],
-                                "agmtCode" : "554/679",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "35"
-                        },
-                        {
-                                "documentName" : "Waiver in relation to requirements under Securities and Futures (Contract Notes, Statements of Account and Receipts) Rules ",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Booking Centre",
-                                                "conditionOption" : "Hong Kong"
-                                        }
-                                ],
-                                "agmtCode" : "042",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "36"
-                        },
-                        {
-                                "documentName" : "Notice to Customers  Acknowledgement - Deposit Covered by the Deposit Protection Scheme Form",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Booking Centre",
-                                                "conditionOption" : "Hong Kong"
-                                        }
-                                ],
-                                "agmtCode" : "760",
-                                "signature" : false,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "37"
-                        },
-                        {
-                                "documentName" : "Financial Intermediary Agreement",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Booking Centre",
-                                                "conditionOption" : "Hong Kong"
-                                        }
-                                ],
-                                "agmtCode" : "337",
-                                "signature" : true,
-                                "remarks" : "Ref: FIN INT AGT",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "38"
-                        },
-                        {
-                                "documentName" : "Capital Investment Entrant Scheme",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Booking Centre",
-                                                "conditionOption" : "Hong Kong"
-                                        }
-                                ],
-                                "agmtCode" : "750",
-                                "signature" : false,
-                                "remarks" : "Ensure that the Financial Intermediary Agreement is in place\n\n",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "39"
-                        }
-                ],
-                "optional" : [
-                        {
-                                "documentName" : "Consent Letter for Referred Clients on Business Introducer referral fees",
-                                "agmtCode" : "-",
-                                "signature" : true,
-                                "remarks" : "For referred client whose BI had signed agreement with WM HK branch or WM SG branch with HK referring activities",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "41"
-                        },
-                        {
-                                "documentName" : "Email Indemnity",
-                                "agmtCode" : "029",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "42"
-                        },
-                        {
-                                "documentName" : "Discretionary Portfolio Management Agreement",
-                                "agmtCode" : "002",
-                                "signature" : true,
-                                "remarks" : "For DPM Service Only",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "43"
-                        },
-                        {
-                                "documentName" : "Letter of Instruction and Indemnity (Special Mailing Request) ",
-                                "agmtCode" : "892 / 894 / 896",
-                                "signature" : true,
-                                "remarks" : "Check the provided reason for applying Special Mail service",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "44"
-                        },
-                        {
-                                "documentName" : "Letter to Open Subsequent Account",
-                                "agmtCode" : "313",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "45"
-                        },
-                        {
-                                "documentName" : "Internet Services Asia e-Banking",
-                                "agmtCode" : "048",
-                                "signature" : true,
-                                "remarks" : "Incorporated in Account Opening Book",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "46"
-                        },
-                        {
-                                "documentName" : "Letter of Instructions & Indemnity (e-Document)",
-                                "agmtCode" : "898",
-                                "signature" : true,
-                                "remarks" : "In Standard Bank Format only.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "47"
-                        },
-                        {
-                                "documentName" : "Limited Power of Attorney (No Fund Transfer Out)",
-                                "agmtCode" : "555",
-                                "signature" : true,
-                                "remarks" : "In Standard Bank Format only.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "48"
-                        },
-                        {
-                                "documentName" : "Power of Attorney for Authorised Signatory",
-                                "agmtCode" : "013 / 040",
-                                "signature" : true,
-                                "remarks" : "Incorporated in Account Opening Book.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "49"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Subscription of Equity Linked Notes (\"ELN\")",
-                                "agmtCode" : "689",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "50"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Subscription of Daily Accrual Callable Notes (\"DAC\")",
-                                "agmtCode" : "690",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "51"
-                        },
-                        {
-                                "documentName" : "Acknowledgmentc for Investments in Knock-Out Forward Options & Reverse Knock-Out Forward Options (collectively referred to as \"Forward Options\")",
-                                "agmtCode" : "691",
-                                "signature" : true,
-                                "remarks" : "V3.2b (15092017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "52"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Investments in Fixed Coupon Callable Notes (\"FCN\")",
-                                "agmtCode" : "692",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "53"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Dual Currency Investments (\"DCI\")",
-                                "agmtCode" : "693",
-                                "signature" : true,
-                                "remarks" : "V2.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "54"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Investments in FX Accumulator Forwards",
-                                "agmtCode" : "694",
-                                "signature" : true,
-                                "remarks" : "V2.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "55"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Commodity Linked Investments (\"CLI\")",
-                                "agmtCode" : "695",
-                                "signature" : true,
-                                "remarks" : "V2.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "56"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Option (OTC and Listed)",
-                                "agmtCode" : "696",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "57"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Contingent Convertible Bonds (\"Coco Bonds\") Transactions",
-                                "agmtCode" : "747",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "58"
-                        },
-                        {
-                                "documentName" : "Non-HK Resident Declaration Form (for open CNY Account)",
-                                "agmtCode" : "629",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "59"
-                        },
-                        {
-                                "documentName" : "Request for open CNY Account Form (for HKID Holders)",
-                                "agmtCode" : "584",
-                                "signature" : false,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "60"
-                        },
-                        {
-                                "documentName" : "China Stock Connect",
-                                "agmtCode" : "856",
-                                "signature" : true,
-                                "remarks" : "PRC passport holder or person holding a resident identification card or eqv governament issued identification of Mainland China is not allow.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "61"
-                        }
-                ]
-        },
-        "name" : "Account Opening (Individual)",
-        "obID" : "1",
-        "progress" : 69,
-        "version" : "1",
-        "requiredFields" : [
-                {
-                        "Client Name" : "David Seattle "
-                },
-                {
-                        "RM Name" : "Lim Pei Xuan"
-                },
-                {
-                        "Account Number" : "123-4123-511"
-                },
-                {
-                        "Date of Submission" : "02/10/2018"
-                }
-        ],
-        "urgent" : {
-                "error" : "Invalid Onboard ID"
-        },
-        "createdBy" : "Lim Pei Xuan"
-}
-{
-        "_id" : ObjectId("5bbc13f4073526264465e167"),
-        "clID" : "0",
-        "name" : "Account Opening (Individual)",
-        "version" : "1",
-        "requiredFields" : [
-                {
-                        "Client Name" : "Low Chun Fatt"
-                },
-                {
-                        "RM Name" : "Lim Pei Xuan"
-                },
-                {
-                        "Account Number" : "231-21321-41"
-                },
-                {
-                        "Date of Submission" : "04/10/2018"
-                }
-        ],
-        "conditions" : [
-                {
-                        "conditionName" : "Booking Centre",
-                        "conditionOption" : "Hong Kong"
-                },
-                {
-                        "conditionName" : "Business Centre",
-                        "conditionOption" : "Hong Kong"
-                },
-                {
-                        "conditionName" : "Place of Residence",
-                        "conditionOption" : "Hong Kong"
-                },
-                {
-                        "conditionName" : "Insider of Listed Company",
-                        "conditionOption" : "No"
-                },
-                {
-                        "conditionName" : "SG booking Personal Investor",
-                        "conditionOption" : "No"
-                },
-                {
-                        "conditionName" : "Employees of HKMA/SFC ",
-                        "conditionOption" : "No"
-                },
-                {
-                        "conditionName" : "Walk-In Client",
-                        "conditionOption" : "No"
-                }
-        ],
-        "complianceDocuments" : {
-                "mandatory" : [
-                        {
-                                "documentName" : "ICE KYC Profile and Client Acceptance Form (including modifications since last CAC)",
-                                "agmtCode" : "301",
-                                "signature" : false,
-                                "remarks" : "<div>NOTE :</div><div>- Individual profiles must be completed for all account holders and all persons with a role in the account i.e. Authorised Signatory/POA/LPOA (where applicable).</div><div><br></div><div>- RM signed CAF must be received by Client Management Team no later than 1 month after ICE print date.</div><div><br></div><div><div>□ Check that a complete set of CAF document was submitted which includes:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ KYC Folder &amp; Account Root profile are submitted for the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ Individual profiles of all account holders</div><div>□ Individual profile(s) of all persons with a role in the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Limited Power of Attorney&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Authorised Signatory/POA&nbsp;</div><div><br></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○&nbsp; Persons who signed as BO in the Declaration of Beneficial Ownership&nbsp; &nbsp;&nbsp;</div><div>□ CAF signed and dated (within 1 month from submission) by RM</div><div><br></div></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "0"
-                        },
-                        {
-                                "documentName" : "FATCA Account Opening / Review Checklist (effective date : 1 July 2014)",
-                                "agmtCode" : "285",
-                                "signature" : false,
-                                "remarks" : "- Refer to policies relating to US Persons and FATCA.&nbsp;<div><br></div><div>Please specify name of person(s) with US Indicia:<br></div>",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "1"
-                        },
-                        {
-                                "documentName" : "AEOI Individual Checklist (effective date : 1 Jan 2017)",
-                                "agmtCode" : "189",
-                                "signature" : false,
-                                "remarks" : "- Refer to policies relating to AEOI.<div><br></div><div>Please specify name of person(s) with the relevant Indicia:<br></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "2"
-                        },
-                        {
-                                "documentName" : "Call Report",
-                                "agmtCode" : "N.A.",
-                                "signature" : false,
-                                "remarks" : "<div>- Validated according to Bank's Standard</div><div>- Other than new account under existing relationship where face-to-face meeting has been conducted before and EAM account, the call report should demonstrate face-to-face meeting with account holders.</div><div>- Check the face to face&nbsp; meeting date should be within below period.</div><div>&nbsp; &nbsp; &nbsp; ○ High Risk / PEP&nbsp; : 1 year</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Medium Risk&nbsp; : 2 years</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Low Risk&nbsp; : 3 years</div><div><br></div><div><br></div><div><div>□ Check that Call Report submitted was validated.</div><div>□ Check the Call Report that client was contacted within the past 1 year.</div><div>□ Check the Call Report indicate country and location for physical meeting.</div><div>□ Check the face to face&nbsp; meeting date should be within below period.</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ High Risk / PEP&nbsp; : 1 year</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Medium Risk&nbsp; : 2 years</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Low Risk&nbsp; : 3 years</div></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "3"
-                        },
-                        {
-                                "documentName" : "Clear unexpired Passport / ID copies or identification papers bearing clear photograph of accountholders",
-                                "agmtCode" : "011",
-                                "signature" : false,
-                                "remarks" : "<div>NOTE :</div><div>- Individual profiles must be completed for all account holders and all persons with a role in the account i.e. Authorised Signatory/POA/LPOA (where applicable).</div><div><br></div><div>- RM signed CAF must be received by Client Management Team no later than 1 month after ICE print date.</div><div><br></div><div><div>□ Check that a complete set of CAF document was submitted which includes:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ KYC Folder &amp; Account Root profile are submitted for the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ Individual profiles of all account holders</div><div>□ Individual profile(s) of all persons with a role in the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Limited Power of Attorney&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Authorised Signatory/POA&nbsp;</div><div><br></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○&nbsp; Persons who signed as BO in the Declaration of Beneficial Ownership&nbsp; &nbsp;&nbsp;</div><div>□ CAF signed and dated (within 1 month from submission) by RM</div><div><br></div></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "62"
-                        },
-                        {
-                                "documentName" : "Proof(s) of Residential Address for all account holders and authorised signatories / LPOA",
-                                "agmtCode" : "558",
-                                "signature" : false,
-                                "remarks" : "<div>- Bank staff to write \"original sighted\", staff's name, date and sign on the copy of the residential address proof, OR photocopy to be certified by suitable certifier*.</div><div>- Evidence should be issued within the last 3 months.&nbsp;</div><div>- Address proof and ID doc have to be 2 separate document.</div><div><br>□ Translation is required for non English document.<br></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "63"
-                        },
-                        {
-                                "documentName" : "FATCA/AEOI self certification (effective date : 1 Jan 2017)",
-                                "agmtCode" : "127 / 245",
-                                "signature" : false,
-                                "remarks" : "- Refer to policies relating to US Persons, FATCA and AEOI.<div><br></div><div>Please specify name of person(s) with the relevant Indicia:<br></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "64"
-                        },
-                        {
-                                "documentName" : "W9 - US Person declared with the IRS and Annex 2 , 3 or 4 (Whichever is appropriate). ",
-                                "agmtCode" : "212",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "65"
-                        },
-                        {
-                                "documentName" : "W8 - BEN  Foreign Person for US Fisc (For Treaty claim required or to cure US Indicia )",
-                                "agmtCode" : "202 / 208",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "66"
-                        },
-                        {
-                                "documentName" : "Declaration of Tax Conformity (DTC)",
-                                "agmtCode" : "887",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "67"
-                        },
-                        {
-                                "documentName" : "Tax Compliance Indicator Questionnaire  - Applicable for all client(s)",
-                                "agmtCode" : "659",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "68"
-                        },
-                        {
-                                "documentName" : "Tax Indicator Checklist  (for French resident client)",
-                                "agmtCode" : "--",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "69"
-                        },
-                        {
-                                "documentName" : "MSC Self-Declaration or MSCQ",
-                                "agmtCode" : "282 / 283",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "70"
-                        },
-                        {
-                                "documentName" : "MLRA Simulation Form",
-                                "agmtCode" : "---",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "71"
-                        },
-                        {
-                                "documentName" : "Evidence of Source of Wealth",
-                                "agmtCode" : "870",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "72"
-                        },
-                        {
-                                "documentName" : "Investment Profile Questionnaire",
-                                "agmtCode" : "964",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "73"
-                        },
-                        {
-                                "documentName" : "Internet search ",
-                                "agmtCode" : "----",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "74"
-                        },
-                        {
-                                "documentName" : "VIGILANCE printouts for persons new to the Bank",
-                                "agmtCode" : "- ",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "75"
-                        }
-                ],
-                "conditional" : [ ],
-                "optional" : [
-                        {
-                                "documentName" : "Vulnerable Customer Assessment Form",
-                                "agmtCode" : "983 / 984",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "87"
-                        },
-                        {
-                                "documentName" : "Other documents as required by the Bank",
-                                "agmtCode" : "-------",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "88"
-                        }
-                ]
-        },
-        "legalDocuments" : {
-                "mandatory" : [
-                        {
-                                "documentName" : "Account Opening Book (V6)",
-                                "agmtCode" : "677",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "31"
-                        },
-                        {
-                                "documentName" : "Letter of Authority",
-                                "agmtCode" : "333",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "32"
-                        },
-                        {
-                                "documentName" : "Risk Disclosure Statement (RDS)",
-                                "agmtCode" : "302",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "33"
-                        },
-                        {
-                                "documentName" : "Derivative Master Agreement (DMA)",
-                                "agmtCode" : "585",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "34"
-                        }
-                ],
-                "conditional" : [
-                        {
-                                "documentName" : "Personal Data Privacy Ordinance (Wef Mar 2013) / Direct Marketing Opt Out",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Booking Centre",
-                                                "conditionOption" : "Hong Kong"
-                                        }
-                                ],
-                                "agmtCode" : "554/679",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "35"
-                        },
-                        {
-                                "documentName" : "Waiver in relation to requirements under Securities and Futures (Contract Notes, Statements of Account and Receipts) Rules ",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Booking Centre",
-                                                "conditionOption" : "Hong Kong"
-                                        }
-                                ],
-                                "agmtCode" : "042",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "36"
-                        },
-                        {
-                                "documentName" : "Notice to Customers  Acknowledgement - Deposit Covered by the Deposit Protection Scheme Form",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Booking Centre",
-                                                "conditionOption" : "Hong Kong"
-                                        }
-                                ],
-                                "agmtCode" : "760",
-                                "signature" : false,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "37"
-                        },
-                        {
-                                "documentName" : "Financial Intermediary Agreement",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Booking Centre",
-                                                "conditionOption" : "Hong Kong"
-                                        }
-                                ],
-                                "agmtCode" : "337",
-                                "signature" : true,
-                                "remarks" : "Ref: FIN INT AGT",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "38"
-                        },
-                        {
-                                "documentName" : "Capital Investment Entrant Scheme",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Booking Centre",
-                                                "conditionOption" : "Hong Kong"
-                                        }
-                                ],
-                                "agmtCode" : "750",
-                                "signature" : false,
-                                "remarks" : "Ensure that the Financial Intermediary Agreement is in place\n\n",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "39"
-                        }
-                ],
-                "optional" : [
-                        {
-                                "documentName" : "Consent Letter for Referred Clients on Business Introducer referral fees",
-                                "agmtCode" : "-",
-                                "signature" : true,
-                                "remarks" : "For referred client whose BI had signed agreement with WM HK branch or WM SG branch with HK referring activities",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "41"
-                        },
-                        {
-                                "documentName" : "Email Indemnity",
-                                "agmtCode" : "029",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "42"
-                        },
-                        {
-                                "documentName" : "Discretionary Portfolio Management Agreement",
-                                "agmtCode" : "002",
-                                "signature" : true,
-                                "remarks" : "For DPM Service Only",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "43"
-                        },
-                        {
-                                "documentName" : "Letter of Instruction and Indemnity (Special Mailing Request) ",
-                                "agmtCode" : "892 / 894 / 896",
-                                "signature" : true,
-                                "remarks" : "Check the provided reason for applying Special Mail service",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "44"
-                        },
-                        {
-                                "documentName" : "Letter to Open Subsequent Account",
-                                "agmtCode" : "313",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "45"
-                        },
-                        {
-                                "documentName" : "Internet Services Asia e-Banking",
-                                "agmtCode" : "048",
-                                "signature" : true,
-                                "remarks" : "Incorporated in Account Opening Book",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "46"
-                        },
-                        {
-                                "documentName" : "Letter of Instructions & Indemnity (e-Document)",
-                                "agmtCode" : "898",
-                                "signature" : true,
-                                "remarks" : "In Standard Bank Format only.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "47"
-                        },
-                        {
-                                "documentName" : "Limited Power of Attorney (No Fund Transfer Out)",
-                                "agmtCode" : "555",
-                                "signature" : true,
-                                "remarks" : "In Standard Bank Format only.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "48"
-                        },
-                        {
-                                "documentName" : "Power of Attorney for Authorised Signatory",
-                                "agmtCode" : "013 / 040",
-                                "signature" : true,
-                                "remarks" : "Incorporated in Account Opening Book.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "49"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Subscription of Equity Linked Notes (\"ELN\")",
-                                "agmtCode" : "689",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "50"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Subscription of Daily Accrual Callable Notes (\"DAC\")",
-                                "agmtCode" : "690",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "51"
-                        },
-                        {
-                                "documentName" : "Acknowledgmentc for Investments in Knock-Out Forward Options & Reverse Knock-Out Forward Options (collectively referred to as \"Forward Options\")",
-                                "agmtCode" : "691",
-                                "signature" : true,
-                                "remarks" : "V3.2b (15092017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "52"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Investments in Fixed Coupon Callable Notes (\"FCN\")",
-                                "agmtCode" : "692",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "53"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Dual Currency Investments (\"DCI\")",
-                                "agmtCode" : "693",
-                                "signature" : true,
-                                "remarks" : "V2.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "54"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Investments in FX Accumulator Forwards",
-                                "agmtCode" : "694",
-                                "signature" : true,
-                                "remarks" : "V2.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "55"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Commodity Linked Investments (\"CLI\")",
-                                "agmtCode" : "695",
-                                "signature" : true,
-                                "remarks" : "V2.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "56"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Option (OTC and Listed)",
-                                "agmtCode" : "696",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "57"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Contingent Convertible Bonds (\"Coco Bonds\") Transactions",
-                                "agmtCode" : "747",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "58"
-                        },
-                        {
-                                "documentName" : "Non-HK Resident Declaration Form (for open CNY Account)",
-                                "agmtCode" : "629",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "59"
-                        },
-                        {
-                                "documentName" : "Request for open CNY Account Form (for HKID Holders)",
-                                "agmtCode" : "584",
-                                "signature" : false,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "60"
-                        },
-                        {
-                                "documentName" : "China Stock Connect",
-                                "agmtCode" : "856",
-                                "signature" : true,
-                                "remarks" : "PRC passport holder or person holding a resident identification card or eqv governament issued identification of Mainland China is not allow.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "61"
-                        }
-                ]
-        },
-        "obID" : "2",
-        "dateCreated" : "2018-10-09",
-        "progress" : 74.1,
-        "createdBy" : "Lim Pei Xuan"
-}
-{
-        "_id" : ObjectId("5bbc1463073526264465e16a"),
-        "clID" : "0",
-        "name" : "Account Opening (Individual)",
-        "version" : "1",
-        "requiredFields" : [
-                {
-                        "Client Name" : "Hannah Baker "
-                },
-                {
-                        "RM Name" : "Lim Pei Xuan"
-                },
-                {
-                        "Account Number" : "123-2122-4123"
-                },
-                {
-                        "Date of Submission" : "05/10/2018"
-                }
-        ],
-        "conditions" : [
-                {
-                        "conditionName" : "Booking Centre",
-                        "conditionOption" : "Singapore"
-                },
-                {
-                        "conditionName" : "Business Centre",
-                        "conditionOption" : "Singapore"
-                },
-                {
-                        "conditionName" : "Place of Residence",
-                        "conditionOption" : "Singapore"
-                },
-                {
-                        "conditionName" : "Insider of Listed Company",
-                        "conditionOption" : "Yes"
-                },
-                {
-                        "conditionName" : "SG booking Personal Investor",
-                        "conditionOption" : "Yes"
-                },
-                {
-                        "conditionName" : "Employees of HKMA/SFC ",
-                        "conditionOption" : "No"
-                },
-                {
-                        "conditionName" : "Walk-In Client",
-                        "conditionOption" : "No"
-                }
-        ],
-        "complianceDocuments" : {
-                "mandatory" : [
-                        {
-                                "documentName" : "ICE KYC Profile and Client Acceptance Form (including modifications since last CAC)",
-                                "agmtCode" : "301",
-                                "signature" : false,
-                                "remarks" : "<div>NOTE :</div><div>- Individual profiles must be completed for all account holders and all persons with a role in the account i.e. Authorised Signatory/POA/LPOA (where applicable).</div><div><br></div><div>- RM signed CAF must be received by Client Management Team no later than 1 month after ICE print date.</div><div><br></div><div><div>□ Check that a complete set of CAF document was submitted which includes:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ KYC Folder &amp; Account Root profile are submitted for the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ Individual profiles of all account holders</div><div>□ Individual profile(s) of all persons with a role in the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Limited Power of Attorney&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Authorised Signatory/POA&nbsp;</div><div><br></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○&nbsp; Persons who signed as BO in the Declaration of Beneficial Ownership&nbsp; &nbsp;&nbsp;</div><div>□ CAF signed and dated (within 1 month from submission) by RM</div><div><br></div></div>",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "0"
-                        },
-                        {
-                                "documentName" : "FATCA Account Opening / Review Checklist (effective date : 1 July 2014)",
-                                "agmtCode" : "285",
-                                "signature" : false,
-                                "remarks" : "- Refer to policies relating to US Persons and FATCA.&nbsp;<div><br></div><div>Please specify name of person(s) with US Indicia:<br></div>",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "1"
-                        },
-                        {
-                                "documentName" : "AEOI Individual Checklist (effective date : 1 Jan 2017)",
-                                "agmtCode" : "189",
-                                "signature" : false,
-                                "remarks" : "- Refer to policies relating to AEOI.<div><br></div><div>Please specify name of person(s) with the relevant Indicia:<br></div>",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "2"
-                        },
-                        {
-                                "documentName" : "Call Report",
-                                "agmtCode" : "N.A.",
-                                "signature" : false,
-                                "remarks" : "<div>- Validated according to Bank's Standard</div><div>- Other than new account under existing relationship where face-to-face meeting has been conducted before and EAM account, the call report should demonstrate face-to-face meeting with account holders.</div><div>- Check the face to face&nbsp; meeting date should be within below period.</div><div>&nbsp; &nbsp; &nbsp; ○ High Risk / PEP&nbsp; : 1 year</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Medium Risk&nbsp; : 2 years</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Low Risk&nbsp; : 3 years</div><div><br></div><div><br></div><div><div>□ Check that Call Report submitted was validated.</div><div>□ Check the Call Report that client was contacted within the past 1 year.</div><div>□ Check the Call Report indicate country and location for physical meeting.</div><div>□ Check the face to face&nbsp; meeting date should be within below period.</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ High Risk / PEP&nbsp; : 1 year</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Medium Risk&nbsp; : 2 years</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Low Risk&nbsp; : 3 years</div></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "3"
-                        },
-                        {
-                                "documentName" : "Clear unexpired Passport / ID copies or identification papers bearing clear photograph of accountholders",
-                                "agmtCode" : "011",
-                                "signature" : false,
-                                "remarks" : "<div>NOTE :</div><div>- Individual profiles must be completed for all account holders and all persons with a role in the account i.e. Authorised Signatory/POA/LPOA (where applicable).</div><div><br></div><div>- RM signed CAF must be received by Client Management Team no later than 1 month after ICE print date.</div><div><br></div><div><div>□ Check that a complete set of CAF document was submitted which includes:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ KYC Folder &amp; Account Root profile are submitted for the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ Individual profiles of all account holders</div><div>□ Individual profile(s) of all persons with a role in the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Limited Power of Attorney&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Authorised Signatory/POA&nbsp;</div><div><br></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○&nbsp; Persons who signed as BO in the Declaration of Beneficial Ownership&nbsp; &nbsp;&nbsp;</div><div>□ CAF signed and dated (within 1 month from submission) by RM</div><div><br></div></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "62"
-                        },
-                        {
-                                "documentName" : "Proof(s) of Residential Address for all account holders and authorised signatories / LPOA",
-                                "agmtCode" : "558",
-                                "signature" : false,
-                                "remarks" : "<div>- Bank staff to write \"original sighted\", staff's name, date and sign on the copy of the residential address proof, OR photocopy to be certified by suitable certifier*.</div><div>- Evidence should be issued within the last 3 months.&nbsp;</div><div>- Address proof and ID doc have to be 2 separate document.</div><div><br>□ Translation is required for non English document.<br></div>",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "63"
-                        },
-                        {
-                                "documentName" : "FATCA/AEOI self certification (effective date : 1 Jan 2017)",
-                                "agmtCode" : "127 / 245",
-                                "signature" : false,
-                                "remarks" : "- Refer to policies relating to US Persons, FATCA and AEOI.<div><br></div><div>Please specify name of person(s) with the relevant Indicia:<br></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "64"
-                        },
-                        {
-                                "documentName" : "W9 - US Person declared with the IRS and Annex 2 , 3 or 4 (Whichever is appropriate). ",
-                                "agmtCode" : "212",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "65"
-                        },
-                        {
-                                "documentName" : "W8 - BEN  Foreign Person for US Fisc (For Treaty claim required or to cure US Indicia )",
-                                "agmtCode" : "202 / 208",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "66"
-                        },
-                        {
-                                "documentName" : "Declaration of Tax Conformity (DTC)",
-                                "agmtCode" : "887",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "67"
-                        },
-                        {
-                                "documentName" : "Tax Compliance Indicator Questionnaire  - Applicable for all client(s)",
-                                "agmtCode" : "659",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "68"
-                        },
-                        {
-                                "documentName" : "Tax Indicator Checklist  (for French resident client)",
-                                "agmtCode" : "--",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "69"
-                        },
-                        {
-                                "documentName" : "MSC Self-Declaration or MSCQ",
-                                "agmtCode" : "282 / 283",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "70"
-                        },
-                        {
-                                "documentName" : "MLRA Simulation Form",
-                                "agmtCode" : "---",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "71"
-                        },
-                        {
-                                "documentName" : "Evidence of Source of Wealth",
-                                "agmtCode" : "870",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "72"
-                        },
-                        {
-                                "documentName" : "Investment Profile Questionnaire",
-                                "agmtCode" : "964",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "73"
-                        },
-                        {
-                                "documentName" : "Internet search ",
-                                "agmtCode" : "----",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "74"
-                        },
-                        {
-                                "documentName" : "VIGILANCE printouts for persons new to the Bank",
-                                "agmtCode" : "- ",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "75"
-                        }
-                ],
-                "conditional" : [
-                        {
-                                "documentName" : "Insider Representation Form",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Insider of Listed Company",
-                                                "conditionOption" : "Yes"
-                                        }
-                                ],
-                                "agmtCode" : "561",
-                                "signature" : false,
-                                "remarks" : "- applicable for client who is an insider of a listed company (ref. Procedures for Clients Connected to Listed Companies)",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "76"
-                        },
-                        {
-                                "documentName" : "Accredited Investor ",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "SG booking Personal Investor",
-                                                "conditionOption" : "Yes"
-                                        }
-                                ],
-                                "agmtCode" : "-   ",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "84"
-                        }
-                ],
-                "optional" : [
-                        {
-                                "documentName" : "Vulnerable Customer Assessment Form",
-                                "agmtCode" : "983 / 984",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "87"
-                        },
-                        {
-                                "documentName" : "Other documents as required by the Bank",
-                                "agmtCode" : "-------",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "88"
-                        }
-                ]
-        },
-        "legalDocuments" : {
-                "mandatory" : [
-                        {
-                                "documentName" : "Account Opening Book (V6)",
-                                "agmtCode" : "677",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "31"
-                        },
-                        {
-                                "documentName" : "Letter of Authority",
-                                "agmtCode" : "333",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "32"
-                        },
-                        {
-                                "documentName" : "Risk Disclosure Statement (RDS)",
-                                "agmtCode" : "302",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "33"
-                        },
-                        {
-                                "documentName" : "Derivative Master Agreement (DMA)",
-                                "agmtCode" : "585",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "34"
-                        }
-                ],
-                "conditional" : [
-                        {
-                                "documentName" : "Limited POA for Investment Purpose",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Booking Centre",
-                                                "conditionOption" : "Singapore"
-                                        }
-                                ],
-                                "agmtCode" : "598",
-                                "signature" : true,
-                                "remarks" : "For Third Party Manager's Account. In Standard Bank Format only.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "40"
-                        }
-                ],
-                "optional" : [
-                        {
-                                "documentName" : "Consent Letter for Referred Clients on Business Introducer referral fees",
-                                "agmtCode" : "-",
-                                "signature" : true,
-                                "remarks" : "For referred client whose BI had signed agreement with WM HK branch or WM SG branch with HK referring activities",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "41"
-                        },
-                        {
-                                "documentName" : "Email Indemnity",
-                                "agmtCode" : "029",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "42"
-                        },
-                        {
-                                "documentName" : "Discretionary Portfolio Management Agreement",
-                                "agmtCode" : "002",
-                                "signature" : true,
-                                "remarks" : "For DPM Service Only",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "43"
-                        },
-                        {
-                                "documentName" : "Letter of Instruction and Indemnity (Special Mailing Request) ",
-                                "agmtCode" : "892 / 894 / 896",
-                                "signature" : true,
-                                "remarks" : "Check the provided reason for applying Special Mail service",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "44"
-                        },
-                        {
-                                "documentName" : "Letter to Open Subsequent Account",
-                                "agmtCode" : "313",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "45"
-                        },
-                        {
-                                "documentName" : "Internet Services Asia e-Banking",
-                                "agmtCode" : "048",
-                                "signature" : true,
-                                "remarks" : "Incorporated in Account Opening Book",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "46"
-                        },
-                        {
-                                "documentName" : "Letter of Instructions & Indemnity (e-Document)",
-                                "agmtCode" : "898",
-                                "signature" : true,
-                                "remarks" : "In Standard Bank Format only.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "47"
-                        },
-                        {
-                                "documentName" : "Limited Power of Attorney (No Fund Transfer Out)",
-                                "agmtCode" : "555",
-                                "signature" : true,
-                                "remarks" : "In Standard Bank Format only.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "48"
-                        },
-                        {
-                                "documentName" : "Power of Attorney for Authorised Signatory",
-                                "agmtCode" : "013 / 040",
-                                "signature" : true,
-                                "remarks" : "Incorporated in Account Opening Book.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "49"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Subscription of Equity Linked Notes (\"ELN\")",
-                                "agmtCode" : "689",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "50"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Subscription of Daily Accrual Callable Notes (\"DAC\")",
-                                "agmtCode" : "690",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "51"
-                        },
-                        {
-                                "documentName" : "Acknowledgmentc for Investments in Knock-Out Forward Options & Reverse Knock-Out Forward Options (collectively referred to as \"Forward Options\")",
-                                "agmtCode" : "691",
-                                "signature" : true,
-                                "remarks" : "V3.2b (15092017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "52"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Investments in Fixed Coupon Callable Notes (\"FCN\")",
-                                "agmtCode" : "692",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "53"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Dual Currency Investments (\"DCI\")",
-                                "agmtCode" : "693",
-                                "signature" : true,
-                                "remarks" : "V2.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "54"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Investments in FX Accumulator Forwards",
-                                "agmtCode" : "694",
-                                "signature" : true,
-                                "remarks" : "V2.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "55"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Commodity Linked Investments (\"CLI\")",
-                                "agmtCode" : "695",
-                                "signature" : true,
-                                "remarks" : "V2.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "56"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Option (OTC and Listed)",
-                                "agmtCode" : "696",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "57"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Contingent Convertible Bonds (\"Coco Bonds\") Transactions",
-                                "agmtCode" : "747",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "58"
-                        },
-                        {
-                                "documentName" : "Non-HK Resident Declaration Form (for open CNY Account)",
-                                "agmtCode" : "629",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "59"
-                        },
-                        {
-                                "documentName" : "Request for open CNY Account Form (for HKID Holders)",
-                                "agmtCode" : "584",
-                                "signature" : false,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "60"
-                        },
-                        {
-                                "documentName" : "China Stock Connect",
-                                "agmtCode" : "856",
-                                "signature" : true,
-                                "remarks" : "PRC passport holder or person holding a resident identification card or eqv governament issued identification of Mainland China is not allow.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "61"
-                        }
-                ]
-        },
-        "obID" : "3",
-        "dateCreated" : "2018-10-09",
-        "progress" : 32,
-        "createdBy" : "Lim Pei Xuan"
-}
-{
-        "_id" : ObjectId("5bbc14d1073526264465e16d"),
-        "clID" : "0",
-        "name" : "Account Opening (Individual)",
-        "version" : "1",
-        "requiredFields" : [
-                {
-                        "Client Name" : "Melvin Loong "
-                },
-                {
-                        "RM Name" : "Lim Pei Xuan"
-                },
-                {
-                        "Account Number" : "2323-41-231"
-                },
-                {
-                        "Date of Submission" : "09/10/2018"
-                }
-        ],
-        "conditions" : [
-                {
-                        "conditionName" : "Booking Centre",
-                        "conditionOption" : "Singapore"
-                },
-                {
-                        "conditionName" : "Business Centre",
-                        "conditionOption" : "Singapore"
-                },
-                {
-                        "conditionName" : "Place of Residence",
-                        "conditionOption" : "Singapore"
-                },
-                {
-                        "conditionName" : "Insider of Listed Company",
-                        "conditionOption" : "Yes"
-                },
-                {
-                        "conditionName" : "SG booking Personal Investor",
-                        "conditionOption" : "Yes"
-                },
-                {
-                        "conditionName" : "Employees of HKMA/SFC ",
-                        "conditionOption" : "No"
-                },
-                {
-                        "conditionName" : "Walk-In Client",
-                        "conditionOption" : "Yes"
-                }
-        ],
-        "complianceDocuments" : {
-                "mandatory" : [
-                        {
-                                "documentName" : "ICE KYC Profile and Client Acceptance Form (including modifications since last CAC)",
-                                "agmtCode" : "301",
-                                "signature" : false,
-                                "remarks" : "<div>NOTE :</div><div>- Individual profiles must be completed for all account holders and all persons with a role in the account i.e. Authorised Signatory/POA/LPOA (where applicable).</div><div><br></div><div>- RM signed CAF must be received by Client Management Team no later than 1 month after ICE print date.</div><div><br></div><div><div>□ Check that a complete set of CAF document was submitted which includes:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ KYC Folder &amp; Account Root profile are submitted for the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ Individual profiles of all account holders</div><div>□ Individual profile(s) of all persons with a role in the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Limited Power of Attorney&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Authorised Signatory/POA&nbsp;</div><div><br></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○&nbsp; Persons who signed as BO in the Declaration of Beneficial Ownership&nbsp; &nbsp;&nbsp;</div><div>□ CAF signed and dated (within 1 month from submission) by RM</div><div><br></div></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "0"
-                        },
-                        {
-                                "documentName" : "FATCA Account Opening / Review Checklist (effective date : 1 July 2014)",
-                                "agmtCode" : "285",
-                                "signature" : false,
-                                "remarks" : "- Refer to policies relating to US Persons and FATCA.&nbsp;<div><br></div><div>Please specify name of person(s) with US Indicia:<br></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "1"
-                        },
-                        {
-                                "documentName" : "AEOI Individual Checklist (effective date : 1 Jan 2017)",
-                                "agmtCode" : "189",
-                                "signature" : false,
-                                "remarks" : "- Refer to policies relating to AEOI.<div><br></div><div>Please specify name of person(s) with the relevant Indicia:<br></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "2"
-                        },
-                        {
-                                "documentName" : "Call Report",
-                                "agmtCode" : "N.A.",
-                                "signature" : false,
-                                "remarks" : "<div>- Validated according to Bank's Standard</div><div>- Other than new account under existing relationship where face-to-face meeting has been conducted before and EAM account, the call report should demonstrate face-to-face meeting with account holders.</div><div>- Check the face to face&nbsp; meeting date should be within below period.</div><div>&nbsp; &nbsp; &nbsp; ○ High Risk / PEP&nbsp; : 1 year</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Medium Risk&nbsp; : 2 years</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Low Risk&nbsp; : 3 years</div><div><br></div><div><br></div><div><div>□ Check that Call Report submitted was validated.</div><div>□ Check the Call Report that client was contacted within the past 1 year.</div><div>□ Check the Call Report indicate country and location for physical meeting.</div><div>□ Check the face to face&nbsp; meeting date should be within below period.</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ High Risk / PEP&nbsp; : 1 year</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Medium Risk&nbsp; : 2 years</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ○ Low Risk&nbsp; : 3 years</div></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "3"
-                        },
-                        {
-                                "documentName" : "Clear unexpired Passport / ID copies or identification papers bearing clear photograph of accountholders",
-                                "agmtCode" : "011",
-                                "signature" : false,
-                                "remarks" : "<div>NOTE :</div><div>- Individual profiles must be completed for all account holders and all persons with a role in the account i.e. Authorised Signatory/POA/LPOA (where applicable).</div><div><br></div><div>- RM signed CAF must be received by Client Management Team no later than 1 month after ICE print date.</div><div><br></div><div><div>□ Check that a complete set of CAF document was submitted which includes:</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ KYC Folder &amp; Account Root profile are submitted for the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○ Individual profiles of all account holders</div><div>□ Individual profile(s) of all persons with a role in the account</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Limited Power of Attorney&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ○ Authorised Signatory/POA&nbsp;</div><div><br></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;○&nbsp; Persons who signed as BO in the Declaration of Beneficial Ownership&nbsp; &nbsp;&nbsp;</div><div>□ CAF signed and dated (within 1 month from submission) by RM</div><div><br></div></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "62"
-                        },
-                        {
-                                "documentName" : "Proof(s) of Residential Address for all account holders and authorised signatories / LPOA",
-                                "agmtCode" : "558",
-                                "signature" : false,
-                                "remarks" : "<div>- Bank staff to write \"original sighted\", staff's name, date and sign on the copy of the residential address proof, OR photocopy to be certified by suitable certifier*.</div><div>- Evidence should be issued within the last 3 months.&nbsp;</div><div>- Address proof and ID doc have to be 2 separate document.</div><div><br>□ Translation is required for non English document.<br></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "63"
-                        },
-                        {
-                                "documentName" : "FATCA/AEOI self certification (effective date : 1 Jan 2017)",
-                                "agmtCode" : "127 / 245",
-                                "signature" : false,
-                                "remarks" : "- Refer to policies relating to US Persons, FATCA and AEOI.<div><br></div><div>Please specify name of person(s) with the relevant Indicia:<br></div>",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "64"
-                        },
-                        {
-                                "documentName" : "W9 - US Person declared with the IRS and Annex 2 , 3 or 4 (Whichever is appropriate). ",
-                                "agmtCode" : "212",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "65"
-                        },
-                        {
-                                "documentName" : "W8 - BEN  Foreign Person for US Fisc (For Treaty claim required or to cure US Indicia )",
-                                "agmtCode" : "202 / 208",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "66"
-                        },
-                        {
-                                "documentName" : "Declaration of Tax Conformity (DTC)",
-                                "agmtCode" : "887",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "67"
-                        },
-                        {
-                                "documentName" : "Tax Compliance Indicator Questionnaire  - Applicable for all client(s)",
-                                "agmtCode" : "659",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "68"
-                        },
-                        {
-                                "documentName" : "Tax Indicator Checklist  (for French resident client)",
-                                "agmtCode" : "--",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "69"
-                        },
-                        {
-                                "documentName" : "MSC Self-Declaration or MSCQ",
-                                "agmtCode" : "282 / 283",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "70"
-                        },
-                        {
-                                "documentName" : "MLRA Simulation Form",
-                                "agmtCode" : "---",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "71"
-                        },
-                        {
-                                "documentName" : "Evidence of Source of Wealth",
-                                "agmtCode" : "870",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "72"
-                        },
-                        {
-                                "documentName" : "Investment Profile Questionnaire",
-                                "agmtCode" : "964",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "73"
-                        },
-                        {
-                                "documentName" : "Internet search ",
-                                "agmtCode" : "----",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "74"
-                        },
-                        {
-                                "documentName" : "VIGILANCE printouts for persons new to the Bank",
-                                "agmtCode" : "- ",
-                                "signature" : true,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "75"
-                        }
-                ],
-                "conditional" : [
-                        {
-                                "documentName" : "Insider Representation Form",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Insider of Listed Company",
-                                                "conditionOption" : "Yes"
-                                        }
-                                ],
-                                "agmtCode" : "561",
-                                "signature" : false,
-                                "remarks" : "- applicable for client who is an insider of a listed company (ref. Procedures for Clients Connected to Listed Companies)",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "76"
-                        },
-                        {
-                                "documentName" : "Accredited Investor ",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "SG booking Personal Investor",
-                                                "conditionOption" : "Yes"
-                                        }
-                                ],
-                                "agmtCode" : "-   ",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "84"
-                        },
-                        {
-                                "documentName" : "Bank Reference Letter ",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Walk-In Client",
-                                                "conditionOption" : "Yes"
-                                        }
-                                ],
-                                "agmtCode" : "-    ",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "86"
-                        }
-                ],
-                "optional" : [
-                        {
-                                "documentName" : "Vulnerable Customer Assessment Form",
-                                "agmtCode" : "983 / 984",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "87"
-                        },
-                        {
-                                "documentName" : "Other documents as required by the Bank",
-                                "agmtCode" : "-------",
-                                "signature" : false,
-                                "remarks" : "",
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "88"
-                        }
-                ]
-        },
-        "legalDocuments" : {
-                "mandatory" : [
-                        {
-                                "documentName" : "Account Opening Book (V6)",
-                                "agmtCode" : "677",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "31"
-                        },
-                        {
-                                "documentName" : "Letter of Authority",
-                                "agmtCode" : "333",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "32"
-                        },
-                        {
-                                "documentName" : "Risk Disclosure Statement (RDS)",
-                                "agmtCode" : "302",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "33"
-                        },
-                        {
-                                "documentName" : "Derivative Master Agreement (DMA)",
-                                "agmtCode" : "585",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "34"
-                        }
-                ],
-                "conditional" : [
-                        {
-                                "documentName" : "Limited POA for Investment Purpose",
-                                "conditions" : [
-                                        {
-                                                "conditionName" : "Booking Centre",
-                                                "conditionOption" : "Singapore"
-                                        }
-                                ],
-                                "agmtCode" : "598",
-                                "signature" : true,
-                                "remarks" : "For Third Party Manager's Account. In Standard Bank Format only.",
-                                "canWaiver" : false,
-                                "checked" : true,
-                                "changed" : "0",
-                                "docID" : "40"
-                        }
-                ],
-                "optional" : [
-                        {
-                                "documentName" : "Consent Letter for Referred Clients on Business Introducer referral fees",
-                                "agmtCode" : "-",
-                                "signature" : true,
-                                "remarks" : "For referred client whose BI had signed agreement with WM HK branch or WM SG branch with HK referring activities",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "41"
-                        },
-                        {
-                                "documentName" : "Email Indemnity",
-                                "agmtCode" : "029",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "42"
-                        },
-                        {
-                                "documentName" : "Discretionary Portfolio Management Agreement",
-                                "agmtCode" : "002",
-                                "signature" : true,
-                                "remarks" : "For DPM Service Only",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "43"
-                        },
-                        {
-                                "documentName" : "Letter of Instruction and Indemnity (Special Mailing Request) ",
-                                "agmtCode" : "892 / 894 / 896",
-                                "signature" : true,
-                                "remarks" : "Check the provided reason for applying Special Mail service",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "44"
-                        },
-                        {
-                                "documentName" : "Letter to Open Subsequent Account",
-                                "agmtCode" : "313",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "45"
-                        },
-                        {
-                                "documentName" : "Internet Services Asia e-Banking",
-                                "agmtCode" : "048",
-                                "signature" : true,
-                                "remarks" : "Incorporated in Account Opening Book",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "46"
-                        },
-                        {
-                                "documentName" : "Letter of Instructions & Indemnity (e-Document)",
-                                "agmtCode" : "898",
-                                "signature" : true,
-                                "remarks" : "In Standard Bank Format only.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "47"
-                        },
-                        {
-                                "documentName" : "Limited Power of Attorney (No Fund Transfer Out)",
-                                "agmtCode" : "555",
-                                "signature" : true,
-                                "remarks" : "In Standard Bank Format only.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "48"
-                        },
-                        {
-                                "documentName" : "Power of Attorney for Authorised Signatory",
-                                "agmtCode" : "013 / 040",
-                                "signature" : true,
-                                "remarks" : "Incorporated in Account Opening Book.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "49"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Subscription of Equity Linked Notes (\"ELN\")",
-                                "agmtCode" : "689",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "50"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Subscription of Daily Accrual Callable Notes (\"DAC\")",
-                                "agmtCode" : "690",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "51"
-                        },
-                        {
-                                "documentName" : "Acknowledgmentc for Investments in Knock-Out Forward Options & Reverse Knock-Out Forward Options (collectively referred to as \"Forward Options\")",
-                                "agmtCode" : "691",
-                                "signature" : true,
-                                "remarks" : "V3.2b (15092017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "52"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Investments in Fixed Coupon Callable Notes (\"FCN\")",
-                                "agmtCode" : "692",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "53"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Dual Currency Investments (\"DCI\")",
-                                "agmtCode" : "693",
-                                "signature" : true,
-                                "remarks" : "V2.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "54"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Investments in FX Accumulator Forwards",
-                                "agmtCode" : "694",
-                                "signature" : true,
-                                "remarks" : "V2.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "55"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Commodity Linked Investments (\"CLI\")",
-                                "agmtCode" : "695",
-                                "signature" : true,
-                                "remarks" : "V2.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "56"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Option (OTC and Listed)",
-                                "agmtCode" : "696",
-                                "signature" : true,
-                                "remarks" : "V1.2 (26052017)",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "57"
-                        },
-                        {
-                                "documentName" : "Acknowledgement for Contingent Convertible Bonds (\"Coco Bonds\") Transactions",
-                                "agmtCode" : "747",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "58"
-                        },
-                        {
-                                "documentName" : "Non-HK Resident Declaration Form (for open CNY Account)",
-                                "agmtCode" : "629",
-                                "signature" : true,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "59"
-                        },
-                        {
-                                "documentName" : "Request for open CNY Account Form (for HKID Holders)",
-                                "agmtCode" : "584",
-                                "signature" : false,
-                                "remarks" : "",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "60"
-                        },
-                        {
-                                "documentName" : "China Stock Connect",
-                                "agmtCode" : "856",
-                                "signature" : true,
-                                "remarks" : "PRC passport holder or person holding a resident identification card or eqv governament issued identification of Mainland China is not allow.",
-                                "canWaiver" : false,
-                                "checked" : false,
-                                "changed" : "0",
-                                "docID" : "61"
-                        }
-                ]
-        },
-        "obID" : "4",
-        "dateCreated" : "2018-10-09",
-        "progress" : 100,
-        "createdBy" : "Lim Pei Xuan",
-        "dateCompleted" : "2018-10-09"
-}
-])
 
 // set up onboard checker urgent checker
 db.OnboardUrgentChecker.createIndex({ "obID": 1, "Urgent": 1 }, { unique: true })
 
 //set up notification IDs
-db.NotificationCounter.insertOne({ "_id": "noID", "sequence_value": 3 })
+db.NotificationCounter.insertOne({ "_id": "noID", "sequence_value": 0 })
 
 //set up notification table
 db.Notifications.createIndex({ "noID": 1, "clID": 1, "version": 1, "docID": 1 })
-
-db.Notifications.insertMany([
-	{
-        "_id" : ObjectId("5bbc19d7073526264465e182"),
-        "noID" : 1,
-        "clID" : "0",
-        "version" : "2",
-        "docID" : "70",
-        "RMs" : [
-                {
-                        "username" : "LimPeiXuan",
-                        "changed" : 1,
-                        "checked" : false
-                },
-                {
-                        "username" : "NgJunXiang",
-                        "changed" : 1,
-                        "checked" : false
-                }
-        ],
-        "usernameList" : [
-                "LimPeiXuan",
-                "NgJunXiang"
-        ]
-}
-{
-        "_id" : ObjectId("5bbc19d7073526264465e183"),
-        "noID" : 2,
-        "clID" : "0",
-        "version" : "2",
-        "docID" : "84",
-        "RMs" : [
-                {
-                        "username" : "LimPeiXuan",
-                        "changed" : 1,
-                        "checked" : false
-                },
-                {
-                        "username" : "NgJunXiang",
-                        "changed" : 1,
-                        "checked" : false
-                }
-        ],
-        "usernameList" : [
-                "LimPeiXuan",
-                "NgJunXiang"
-        ]
-}
-])
 
 // set up agmt code table
 db.AgmtCodes.createIndex({ "code": 1 }, { unique: true })
@@ -4081,6 +2054,7 @@ db.KnowledgeBase.insertMany([
         }
     }
 ])
+
 //set up Questions IDs
 db.QuestionCounter.insertOne({ "_id": "qnID", "sequence_value": 20 })
 

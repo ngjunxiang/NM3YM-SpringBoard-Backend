@@ -48,7 +48,6 @@ def createNewOnBoard(input,username):
     
     try:
         collection.insert_one(input)
-        # urgentCollection.insert_one(loadUrgentJson(obID))
         results['results'] = 'true' 
 
     except Exception as e:
@@ -103,7 +102,6 @@ def updateSelectedOnboard(obID,input):
     input["obID"] =  str(obID)
     input["dateCreated"] =  date
     input["progress"] = progress
-    input["urgent"] = getUrgency(obID)
     input["createdBy"] = getCreatedBy
 
     if int(progress) == 100:
@@ -257,82 +255,38 @@ def checkProgress(input):
     compDocs = input["complianceDocuments"]
     legalDocs = input["legalDocuments"]
 
-    compConditional = compDocs["conditional"]
     compMandatory = compDocs["mandatory"]
-    #compOptional = compDocs["optional"]
+    compOptional = compDocs["optional"]
     
-    legalConditional = legalDocs["conditional"]
     legalMandatory = legalDocs["mandatory"]
-    #legalOptional = legalDocs["optional"]
+    legalOptional = legalDocs["optional"]
 
     totalCheckBoxes = 0
     totalCheckedBoxes = 0
 
     # iterate through all documents
-    for index in compConditional:
-        totalCheckBoxes = totalCheckBoxes + 1
-        if(index["checked"]):
-            totalCheckedBoxes = totalCheckedBoxes + 1
-
     for index in compMandatory:
         totalCheckBoxes = totalCheckBoxes + 1
         if(index["checked"]):
             totalCheckedBoxes = totalCheckedBoxes + 1
 
-    #for index in compOptional:
-    #    totalCheckBoxes = totalCheckBoxes + 1
-    #    if(index["checked"]):
-    #        totalCheckedBoxes = totalCheckedBoxes + 1
-
-    for index in legalConditional:
-        totalCheckBoxes = totalCheckBoxes + 1
-        if(index["checked"]):
-            totalCheckedBoxes = totalCheckedBoxes + 1
+    for index in compOptional:
+       totalCheckBoxes = totalCheckBoxes + 1
+       if(index["checked"]):
+           totalCheckedBoxes = totalCheckedBoxes + 1
 
     for index in legalMandatory:
         totalCheckBoxes = totalCheckBoxes + 1
         if(index["checked"]):
             totalCheckedBoxes = totalCheckedBoxes + 1
 
-    #for index in legalOptional:
-    #    totalCheckBoxes = totalCheckBoxes + 1
-    #    if(index["checked"]):
-    #        totalCheckedBoxes = totalCheckedBoxes + 1
+    for index in legalOptional:
+       totalCheckBoxes = totalCheckBoxes + 1
+       if(index["checked"]):
+           totalCheckedBoxes = totalCheckedBoxes + 1
 
     return round(totalCheckedBoxes/totalCheckBoxes*100,1)
 
-
-# ------------------------------------------------------------------- #
-#                          Urgency Methods                            #
-# ------------------------------------------------------------------- #
-
-def getUrgency(obID):
-
-    collection = db.OnboardUrgentChecker
-
-    results = collection.find_one({"obID":obID},{"_id":0})
-
-    if results == None:
-        return {'error' : 'Invalid Onboard ID'}
-
-    return results
-
-def updateUrgency(obID,urgency):
-
-    collection = db.OnboardUrgentChecker
-    results = {}
-    updated = collection.update({'obID':obID},{"$set":{'Urgent':urgency}})
-    results["items_updated"] = updated.ok
-    client.close()
-
-    return results
-
-def loadUrgentJson(obID):
-    results = {}
-    results["obID"] = obID
-    results["Urgent"] = False
-
-    return json.loads(results)
 
 # ------------------------------------------------------------------- #
 #                          Sorting Methods                            #
