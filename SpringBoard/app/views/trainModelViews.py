@@ -203,7 +203,7 @@ class StoreCleanedQNA(CreateAPIView):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
-        cleanedQNA = request.data['results']
+        cleanedQNA = request.data['cleanedFAQ']
 
         # authentication
         tokenResults = tokenAuthenticate(username,token)
