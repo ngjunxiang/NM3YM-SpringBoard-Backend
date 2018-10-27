@@ -14,7 +14,7 @@ db = client.SpringBoard
 def createTrainingFile():
     collection = db.StoreIntents
 
-    training_data = collection.find({},{"_id":0})
+    training_data = collection.find({},{"_id":0,"qnID":0})
 
     training_data_file = "./app/data/training_data.json"
 
@@ -156,6 +156,8 @@ def storeCleanedQNA(cleanedQNA):
     for item in cleanedQNA:
         intent = item["intent"]
         question = item["question"]
+        qnID = item["qnID"]
+        toStore["qnID"] = qnID
         toStore["text"] = question
         toStore["intent"] = intent
         toStore["entities"] = []
@@ -190,7 +192,6 @@ def storeCleanedQNA(cleanedQNA):
         except:
             failedQnNums.append(question)
         if success:
-            qnID = item["qnID"]
             kbCollection.update_one({'qnID':qnID},{"$set" : {'intent':intent,'entities':storedEntities}})
             success = False
         toStore = {}

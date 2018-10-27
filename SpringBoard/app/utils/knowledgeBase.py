@@ -162,17 +162,21 @@ def retrieveAllQNA(userType):
     return results
 
 #sort qna
-def retrieveAllQNABy(retrieveBy):
+def retrieveAllQNABy(retrieveBy,sortBy):
     collection = db.KnowledgeBase
-
+    
     table = collection.find({},{"_id":0})
+    if retrieveBy:
+        table = collection.find({"intent":retrieveBy},{"_id":0})
     qnaList = [item for item in table]
 
     qnaList = sorted(qnaList, key=itemgetter('question'))
-    if retrieveBy=="views": 
+    if sortBy=="views": 
         qnaList = sortByViews(qnaList)
-    else:
+    elif sortBy=="date":
         qnaList = sortByDate(qnaList)
+    else:
+        qnaList = sortByViewsAndDate(qnaList)
     results = {}
     results["results"] =  qnaList
 

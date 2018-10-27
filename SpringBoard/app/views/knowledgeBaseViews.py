@@ -190,6 +190,7 @@ class RetrieveAllQNABy(CreateAPIView):
         token = request.data['token']
         userType = request.data['userType']
         retrieveBy = request.data['retrieveBy']
+        sortBy = request.data['sortBy']
 
         # authentication
         tokenResults = tokenAuthenticate(username,token)
@@ -200,7 +201,7 @@ class RetrieveAllQNABy(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = retrieveAllQNABy(retrieveBy)
+        results = retrieveAllQNABy(retrieveBy,sortBy)
         
         client.close()
         return Response(results)
