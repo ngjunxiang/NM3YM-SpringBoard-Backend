@@ -90,6 +90,30 @@ def retrieveSynonyms():
 
     return ({"results": OrderedDict(sorted(reversedDict.items(), key=lambda t: t[0]))})
 
+def retrieveEntities():
+    collection = db.KnowledgeBase
+
+    table = collection.find({},{"_id":0})
+    qnaList = [item for item in table]
+
+    entityDict = {}
+
+    for qna in qnaList:
+        entities = qna.get("entities")
+        for entity,value in entities.items():
+            if entityDict.get(entity) == None :
+                entityDict[entity] = []
+            for item in value:
+                if item not in entityDict[entity]:
+                    entityDict[entity].append(item)
+
+    for entity,entities in entityDict.items():
+        entities.sort()
+
+    client.close()
+    return ({"results": OrderedDict(sorted(entityDict.items(), key=lambda t: t[0]))})
+
+
 def retrieveIntents():
     collection = db.KnowledgeBase
 

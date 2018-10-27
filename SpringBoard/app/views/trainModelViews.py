@@ -89,6 +89,31 @@ class RetrieveSynonyms(CreateAPIView):
         client.close()
         return Response(results)
 
+class RetrieveEntities(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.KnowledgeBase.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if (not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = retrieveEntities()
+
+        client.close()
+        return Response(results)
+
 class RetrieveIntents(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.KnowledgeBase.find()

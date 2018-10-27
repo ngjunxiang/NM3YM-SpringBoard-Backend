@@ -1785,7 +1785,7 @@ db.KnowledgeBase.insertMany([
         "entities": {
             "Account": ["Sub-Account"],
             "Document": ["Document"],
-            "Action": ["open"]
+            "Action": ["Open"]
         }
     },
     {   
