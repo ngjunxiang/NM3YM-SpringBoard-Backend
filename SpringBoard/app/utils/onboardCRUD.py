@@ -32,6 +32,15 @@ def createNewOnBoard(input,username):
     # parse input from frontend
     input = json.loads(input)
 
+    # set all changed to 0
+    for section,value in input["complianceDocuments"].items():
+        for document in value:
+            input["complianceDocuments"][section][document]["changed"] = "0"
+
+    for section,value in input["legalDocuments"].items():
+        for document in value:
+            input["complianceDocuments"][section][document]["changed"] = "0"
+
     # get onboard progress
     progress = checkProgress(input)
     
