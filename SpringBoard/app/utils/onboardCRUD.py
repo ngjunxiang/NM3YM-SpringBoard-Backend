@@ -42,7 +42,7 @@ def createNewOnBoard(input,username):
     for section,value in input["legalDocuments"].items():
         index = 0
         for document in value:
-            input["complianceDocuments"][section][index]["changed"] = "0"
+            input["legalDocuments"][section][index]["changed"] = "0"
             index += 1
 
     # get onboard progress
