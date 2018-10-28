@@ -100,6 +100,8 @@ def retrieveEntities():
 
     for qna in qnaList:
         entities = qna.get("entities")
+        if entities == None:
+            continue
         for entity,value in entities.items():
             if entityDict.get(entity) == None :
                 entityDict[entity] = []
