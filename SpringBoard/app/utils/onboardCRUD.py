@@ -34,12 +34,16 @@ def createNewOnBoard(input,username):
 
     # set all changed to 0
     for section,value in input["complianceDocuments"].items():
+        index = 0
         for document in value:
-            input["complianceDocuments"][section][document]["changed"] = "0"
+            input["complianceDocuments"][section][index]["changed"] = "0"
+            index += 1
 
     for section,value in input["legalDocuments"].items():
+        index = 0
         for document in value:
-            input["complianceDocuments"][section][document]["changed"] = "0"
+            input["complianceDocuments"][section][index]["changed"] = "0"
+            index += 1
 
     # get onboard progress
     progress = checkProgress(input)
