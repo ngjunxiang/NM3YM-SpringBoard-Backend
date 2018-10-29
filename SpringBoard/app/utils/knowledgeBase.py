@@ -67,6 +67,8 @@ def editQNA(qna,username):
 
     qna["username"] = prevQNA["username"]
     qna["dateAsked"] = prevQNA["dateAsked"]
+    qna["intent"] = prevQNA["intent"]
+    qna["entities"] = prevQNA["entities"]
     qna["views"] = prevQNA["views"]
     qna["CMusername"] = username
     qna["dateAnswered"] = str(date)
@@ -188,6 +190,10 @@ def retrieveAllQNABy(retrieveBy,sortBy):
 def getAnswer(question):
 
     collection = db.KnowledgeBase
+    quesVector1 = createVector(question.lower())
+
+    intentBoost = 0.04
+    entityBoost = 0.2
 
     #get intents and entities
     intentEntity = interpreter.parse(question)
@@ -196,64 +202,50 @@ def getAnswer(question):
     for entity in intentEntity["entities"]:
         entities[entity["entity"]] = entity["value"]
 
-    # retrieve all qna with similar intent
-    table = collection.find({"intent": intent},{"_id":0})
+    # retrieve all qna 
+    table = collection.find({},{"_id":0})
     faqList = [item for item in table]
     match = []
 
-    quesVector1 = createVector(question)
-
     # filter by question similarity
     for q in faqList:
-        if q.get("entities") == None:
-            continue
-        for entity,value in entities.items():
-            if q["entities"].get(entity) != None:
-                if value in q["entities"][entity]:
-                    quesVector2 = createVector(q["question"])
-                    q["similarity"] = getCosSimilarity(quesVector1, quesVector2)
-                    match.append(q)
-                    break
+        quesVector2 = createVector(q["question"].lower())
+        q["similarity"] = getCosSimilarity(quesVector1, quesVector2)
+        match.append(q)
 
-    # keep top 5
-    match = sortBySimilarity(match)
-    top5 = match[:5]
+    # keep top 20
+    match = sorted(match, key=itemgetter('similarity'), reverse=True) 
+    top20 = match[:20]
 
-    # string matching for other results
-    table = collection.find({"intent": {"$ne": intent}},{"_id":0})
-    otherList = [item for item in table]
-    extras = []
+    # adjust similarity by boosting intent/ entities
+    mostSim = []
+    for q in top20:
 
-    for q in otherList:
-        if q.get("entities") == None:
-            continue
-        entityMatch = False
-        for entity,value in entities.items():
-            if q["entities"].get(entity) != None:
-                if value in q["entities"][entity]:
-                    quesVector2 = createVector(q["question"])
-                    q["similarity"] = getCosSimilarity(quesVector1, quesVector2)
-                    extras.append(q)
-                    entityMatch = True
-        if not entityMatch:
-            quesVector2 = createVector(q["question"])
-            q["similarity"] = getCosSimilarity(quesVector1, quesVector2)
-            extras.append(q)
+        if q.get("intent") == intent : 
+            q["similarity"] = q["similarity"] + intentBoost
+        
+        if q.get("entities") != None:
 
-    # keep top 10 and return
-    if len(extras)!=0:
-        extras = sortBySimilarity(extras)
+            # get number of entities
+            numEnt = 0
+            for e in q["entities"]:
+                numEnt += len(e)
+            
+            for entity,value in entities.items():
+                if q["entities"].get(entity) != None:
+                    if value in q["entities"][entity]:
+                        q["similarity"] = q["similarity"] + entityBoost/numEnt
 
-    top10 = []
+        if q["similarity"] >= 0.1:
+            mostSim.append(q)
 
-    if len(top5)==0:
-        top10 = extras
-    else:
-        top5.extend(extras)
-        top10 = top5
+
+    # keep top 10 
+    mostSim = sorted(mostSim, key=itemgetter('similarity'), reverse=True) 
+    top10 = mostSim[:10]
 
     results = {
-        "results": top10[:10]
+        "results": top10
     }
 
     client.close()

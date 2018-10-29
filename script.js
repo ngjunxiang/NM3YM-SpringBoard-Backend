@@ -8,27 +8,7 @@ db.Users.insertMany([
     { "username": "admin", "password": "$argon2i$v=19$m=512,t=2,p=2$DnsATHr7veqT+VB1hl6x8g$B9u6dgxpfnMnPT41sMgKNQ", "userType": "ADMIN", "name": "Admin Tan WeiMing", "email": "admin@email.com" },
     { "username": "RandyLai", "password": "$argon2i$v=19$m=512,t=2,p=2$8ph7QVLriA54gSK5vXochg$kXZc0gzl4EKtteyqeDe2Fg", "userType": "CM", "name": "Randy Lai YongHao", "email": "randy@email.com" },
     { "username": "LimPeiXuan", "password": "$argon2i$v=19$m=512,t=2,p=2$7NeenOtq2fEc12u1mjlUPw$IWHWu4LZFHtlXNTLlwkBGw", "userType": "RM", "name": "Lim Pei Xuan", "email": "peixuan@email.com" },
-    { "username": "NgJunXiang", "password": "$argon2i$v=19$m=512,t=2,p=2$r2ZuDjspB02UKmaxCB1Dbg$A3vIULuZQ8LX+KwMOk+i3Q", "userType": "MA", "name": "Ng Jun Xiang", "email": "junxiang@email.com" },
-    { "username": "CMTesting1", "password": "$argon2i$v=19$m=512,t=2,p=2$IND+ijCy9usq/YUCmg8nSw$Saw+g+eIVrwkHJVWw3pP2Q", "userType": "CM", "name": "CM 1", "email": "CMTesting1@email.com" },
-    { "username": "MATesting1", "password": "$argon2i$v=19$m=512,t=2,p=2$FNJ2tv2gxszJkwWHCh2UGw$ZnjMJwt9c/ojk+H8KZhOLQ", "userType": "MA", "name": "MA 1", "email": "MATesting1@email.com" },
-    { "username": "CMTesting2", "password": "$argon2i$v=19$m=512,t=2,p=2$OKjOPNY5IxLPE2Hn3PEspA$g+p4wFIkYCKo6tHcFgNnHg", "userType": "CM", "name": "CM 2", "email": "CMTesting2@email.com" },
-    { "username": "MATesting2", "password": "$argon2i$v=19$m=512,t=2,p=2$2Y3JI2nLvf2eWQzYb9K93A$nbDD3vWR8obQqtELC5Mh3g", "userType": "MA", "name": "MA 2", "email": "MATesting2@email.com" },
-    { "username": "CMTesting3", "password": "$argon2i$v=19$m=512,t=2,p=2$ILQWhmxmDAtbwks5/heF5w$+jJY3cpyPEdW2JDDp6j2WQ", "userType": "CM", "name": "CM 3", "email": "CMTesting3@email.com" },
-    { "username": "MATesting3", "password": "$argon2i$v=19$m=512,t=2,p=2$+XlBsOvVE/eDwJAeNEm37A$+qZou2ehcjjxjmT1NGtFLA", "userType": "MA", "name": "MA 3", "email": "MATesting3@email.com" },
-    { "username": "CMTesting4", "password": "$argon2i$v=19$m=512,t=2,p=2$lVhpf+LCuFUMBbYz8uUjtw$ae6C5VnZY2OZibIeDC49zg", "userType": "CM", "name": "CM 4", "email": "CMTesting4@email.com" },
-    { "username": "MATesting4", "password": "$argon2i$v=19$m=512,t=2,p=2$ORbDPKvy64N1MycPobF13Q$GDaYSeS618Yh05MuMwhetA", "userType": "MA", "name": "MA 4", "email": "MATesting4@email.com" },
-    { "username": "CMTesting5", "password": "$argon2i$v=19$m=512,t=2,p=2$nc5etG2V0kv0bnCRP7bfSQ$mgZyXoyFVLQT7h88jEu4sQ", "userType": "CM", "name": "CM 5", "email": "CMTesting5@email.com" },
-    { "username": "MATesting5", "password": "$argon2i$v=19$m=512,t=2,p=2$XGR6t+w0qRntcmoE7eEmnw$j5T8rCF3Ga4sLxg2/CEffA", "userType": "MA", "name": "MA 5", "email": "MATesting5@email.com" },
-    { "username": "CMTesting6", "password": "$argon2i$v=19$m=512,t=2,p=2$tRxZmX62GCBd2pEkFIa/Hg$te3PJeb3/1lq6d/OMVKsgg", "userType": "CM", "name": "CM 6", "email": "CMTesting6@email.com" },
-    { "username": "MATesting6", "password": "$argon2i$v=19$m=512,t=2,p=2$lsdYTtfZfpJUAlSNva7Wdw$1N7fluXT4tySAIChg8F7Cg", "userType": "MA", "name": "MA 6", "email": "MATesting6@email.com" },
-    { "username": "CMTesting7", "password": "$argon2i$v=19$m=512,t=2,p=2$f2r+u2Wx0p/vhrrmC7Q8cw$C5IsUx9ceAMsCJO3+BbzQw", "userType": "CM", "name": "CM 7", "email": "CMTesting7@email.com" },
-    { "username": "MATesting7", "password": "$argon2i$v=19$m=512,t=2,p=2$fl4wuJlGl5tCH13MK2kA1w$J+ovupctz29GgU1E9pF+eA", "userType": "MA", "name": "MA 7", "email": "MATesting7@email.com" },
-    { "username": "CMTesting8", "password": "$argon2i$v=19$m=512,t=2,p=2$GVYWxGp9kfU2NBbCmEmS2g$Xia9F3n6RbHxz4Xu+FYrKQ", "userType": "CM", "name": "CM 8", "email": "CMTesting8@email.com" },
-    { "username": "MATesting8", "password": "$argon2i$v=19$m=512,t=2,p=2$6JL5epYiMsKtJ1E/1yE4BA$s+2ZVzzYz8xNmyMqbJFAzw", "userType": "MA", "name": "MA 8", "email": "MATesting8@email.com" },
-    { "username": "CMTesting9", "password": "$argon2i$v=19$m=512,t=2,p=2$ZFMeqB1Xu4O7QWLZ5BU82w$dRSipy2ijSlKijnGDm12Cg", "userType": "CM", "name": "CM 9", "email": "CMTesting9@email.com" },
-    { "username": "MATesting9", "password": "$argon2i$v=19$m=512,t=2,p=2$/B/v6/7WMeFuzOLYbFcw2w$5CIqkdspTGgzFsArx32AWg", "userType": "MA", "name": "MA 9", "email": "MATesting9@email.com" },
-    { "username": "CMTesting10", "password": "$argon2i$v=19$m=512,t=2,p=2$F3LCZ7DXE2nEDHhefkUyNA$i4xbhIBGR0q9FzAXhSOnsg", "userType": "CM", "name": "CM 10", "email": "CMTesting10@email.com" },
-    { "username": "MATesting10", "password": "$argon2i$v=19$m=512,t=2,p=2$ecSaDS3ydVBktWAfHjp4lQ$Ehu+xMiGnFHKdhennUFjyw", "userType": "MA", "name": "MA 10", "email": "MATesting10@email.com" }
+    { "username": "NgJunXiang", "password": "$argon2i$v=19$m=512,t=2,p=2$r2ZuDjspB02UKmaxCB1Dbg$A3vIULuZQ8LX+KwMOk+i3Q", "userType": "MA", "name": "Ng Jun Xiang", "email": "junxiang@email.com" }
 ])
 
 // set up checklists table
@@ -1801,7 +1781,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What are the documents required for opening of Sub-Account?",
         "answer": "(1) Refer to COB website (under FORMS): (a) obtain the relevant Sub-Account Opening Form (Individual / Corporate), & (b) Open New Account in the same name as existing (For same booking centre) (2) Refer to COB website (under LEGAL & COMPLIANCE CHECKLISTS): (a) Regional Sub-Account Opening Checklist",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Account": ["Sub-Account"],
             "Document": ["Document"],
@@ -1817,7 +1797,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "If an additional LPOA is added to an account, does the existing LPOA need to sign on the LPOA letter?",
         "answer": "Yes, if the existing LPOA is still valid. If you refer to the LPOA letter, the new letter will supersede and replace all authorisation letters previously issued by the client.",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Entity": ["LPOA"],
             "Document": ["LPOA letter"],
@@ -1833,7 +1813,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "If the new role of account A is in our existing account B, can we refer to his address proof from account B?",
         "answer": "Yes, if his address proof in account B is valid within 3 months and is also acceptable under current guidelines. If not, the address proof needs to be refreshed.",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["Address Proof"],
             "Account": ["Account","Existing Account"]
@@ -1848,7 +1828,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What is the list of acceptable address proofs?",
         "answer": "Refer to REG 51 page A9 - A10",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
           "Document": ["Address Proof"]
         }
@@ -1862,7 +1842,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "How many signers are needed for an account?",
         "answer": "Refer to DMS, Pearl or ICE",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Entity": ["Signers"],
             "Account": ["Account"]
@@ -1877,7 +1857,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What documents are required to add authorized signers?",
         "answer": "Updated board resolution / change of mandate, Passport copy and address proof of the new authorised signer/s",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["Document"],
             "Entity": ["Authorized Signers"]
@@ -1892,7 +1872,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What are the NDM/NCF documents?",
         "answer": "Please refer to REG 51 section 1.6.2",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": {
             "DocumentType": ["NDM","NCF"],
             "Document": ["Document"]
@@ -1907,7 +1887,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Can a Relationship Manager open an account for another market?",
         "answer": "The RM will have to approach the respective market and obtain the necessary approval before proceeding.",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Entity": "RM",
             "Account": ["Account"],
@@ -1923,7 +1903,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Where to find the new SOP for AOR?",
         "answer": "Please refer to the following link: http://b2e.group.echonet/cid1507835-pid13291-lid2/Account-Opening-and-recertification.html",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
           "Proced   ure": ["SOP","AOR"]
         }
@@ -1937,7 +1917,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What are indicators of dual nationality?",
         "answer": "Refer to REG51 page A8 and A41",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
           "Nat  ionality": ["Dual Nationality"]
         }
@@ -1951,7 +1931,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Is the Insider representation form a Non-Deferrable Mandatory document?",
         "answer": "No it is not. Refer to the Account opening checklist on COB onboarding website.",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["Insider Representation Form", "Document"],
             "DocumentType": ["NDM"]
@@ -1966,7 +1946,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Is IPQ an Non-Deferrable Mandatory document?",
         "answer": "No it is not. The account will not be blocked, but no investment will be allowed except for spot FX, Loan and deposit until the IPQ is received.",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["IPQ","Document"],
             "DocumentType": ["NDM"]
@@ -1981,7 +1961,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Why do we need to confirm dual nationality if the client is a Singapore Citizen?",
         "answer": "Refer to REG 51 page A8 - A9",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
              "Nationality": ["Dual Nationality","Singapore Citizen"]
         }
@@ -1995,7 +1975,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Where can I get a copy of the MSCQ form?",
         "answer": "Refer to AOR 2.5",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["MSCQ"]
         }
@@ -2009,7 +1989,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What if the Client Acceptance Form has more telephone numbers than the Account Opening Booklet?",
         "answer": "The FO has to submit \"Change of Address/ Telephone numbers\" for deletion of extra phone numbers.",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["CAF","Account Opening Booklet"]
         }
@@ -2023,7 +2003,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Do we only submit pages of pages of AEOI Self Cert & IPQ that require client action?",
         "answer": "No, please submit the full set of documents.",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["AEOI","IPQ"]
         }
@@ -2037,7 +2017,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What if Address Proof submitted differs from Account Opening Booklet?",
         "answer": "Follow the address stated on the address proof.",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["Address Proof","Account Opening Booklet"]
         }
@@ -2051,7 +2031,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "It is difficult to obtain address proof under individual's name in Dubai. Can a visitation call report by RM confirming the members live together suffice?",
         "answer": "We will still need them to provide a form of address proof together with the call report as a supplementary document, instead of a stand alone call report.",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["Call Report","Address Proof"],
             "Country": ["Dubai"],
@@ -2067,7 +2047,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Who is eligible to act as a Legal Representative to sign off the UBO form?",
         "answer": "Legal representative refers to Authorized signatories as per mandate.",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": {
             "Entity": ["Legal Representative"],
             "Document": ["UBO"]
