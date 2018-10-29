@@ -8,7 +8,27 @@ db.Users.insertMany([
     { "username": "admin", "password": "$argon2i$v=19$m=512,t=2,p=2$DnsATHr7veqT+VB1hl6x8g$B9u6dgxpfnMnPT41sMgKNQ", "userType": "ADMIN", "name": "Admin Tan WeiMing", "email": "admin@email.com" },
     { "username": "RandyLai", "password": "$argon2i$v=19$m=512,t=2,p=2$8ph7QVLriA54gSK5vXochg$kXZc0gzl4EKtteyqeDe2Fg", "userType": "CM", "name": "Randy Lai YongHao", "email": "randy@email.com" },
     { "username": "LimPeiXuan", "password": "$argon2i$v=19$m=512,t=2,p=2$7NeenOtq2fEc12u1mjlUPw$IWHWu4LZFHtlXNTLlwkBGw", "userType": "RM", "name": "Lim Pei Xuan", "email": "peixuan@email.com" },
-    { "username": "NgJunXiang", "password": "$argon2i$v=19$m=512,t=2,p=2$r2ZuDjspB02UKmaxCB1Dbg$A3vIULuZQ8LX+KwMOk+i3Q", "userType": "MA", "name": "Ng Jun Xiang", "email": "junxiang@email.com" }
+    { "username": "NgJunXiang", "password": "$argon2i$v=19$m=512,t=2,p=2$r2ZuDjspB02UKmaxCB1Dbg$A3vIULuZQ8LX+KwMOk+i3Q", "userType": "MA", "name": "Ng Jun Xiang", "email": "junxiang@email.com" },
+    { "username": "CMTesting1", "password": "$argon2i$v=19$m=512,t=2,p=2$IND+ijCy9usq/YUCmg8nSw$Saw+g+eIVrwkHJVWw3pP2Q", "userType": "CM", "name": "CM 1", "email": "CMTesting1@email.com" },
+    { "username": "MATesting1", "password": "$argon2i$v=19$m=512,t=2,p=2$FNJ2tv2gxszJkwWHCh2UGw$ZnjMJwt9c/ojk+H8KZhOLQ", "userType": "MA", "name": "MA 1", "email": "MATesting1@email.com" },
+    { "username": "CMTesting2", "password": "$argon2i$v=19$m=512,t=2,p=2$OKjOPNY5IxLPE2Hn3PEspA$g+p4wFIkYCKo6tHcFgNnHg", "userType": "CM", "name": "CM 2", "email": "CMTesting2@email.com" },
+    { "username": "MATesting2", "password": "$argon2i$v=19$m=512,t=2,p=2$2Y3JI2nLvf2eWQzYb9K93A$nbDD3vWR8obQqtELC5Mh3g", "userType": "MA", "name": "MA 2", "email": "MATesting2@email.com" },
+    { "username": "CMTesting3", "password": "$argon2i$v=19$m=512,t=2,p=2$ILQWhmxmDAtbwks5/heF5w$+jJY3cpyPEdW2JDDp6j2WQ", "userType": "CM", "name": "CM 3", "email": "CMTesting3@email.com" },
+    { "username": "MATesting3", "password": "$argon2i$v=19$m=512,t=2,p=2$+XlBsOvVE/eDwJAeNEm37A$+qZou2ehcjjxjmT1NGtFLA", "userType": "MA", "name": "MA 3", "email": "MATesting3@email.com" },
+    { "username": "CMTesting4", "password": "$argon2i$v=19$m=512,t=2,p=2$lVhpf+LCuFUMBbYz8uUjtw$ae6C5VnZY2OZibIeDC49zg", "userType": "CM", "name": "CM 4", "email": "CMTesting4@email.com" },
+    { "username": "MATesting4", "password": "$argon2i$v=19$m=512,t=2,p=2$ORbDPKvy64N1MycPobF13Q$GDaYSeS618Yh05MuMwhetA", "userType": "MA", "name": "MA 4", "email": "MATesting4@email.com" },
+    { "username": "CMTesting5", "password": "$argon2i$v=19$m=512,t=2,p=2$nc5etG2V0kv0bnCRP7bfSQ$mgZyXoyFVLQT7h88jEu4sQ", "userType": "CM", "name": "CM 5", "email": "CMTesting5@email.com" },
+    { "username": "MATesting5", "password": "$argon2i$v=19$m=512,t=2,p=2$XGR6t+w0qRntcmoE7eEmnw$j5T8rCF3Ga4sLxg2/CEffA", "userType": "MA", "name": "MA 5", "email": "MATesting5@email.com" },
+    { "username": "CMTesting6", "password": "$argon2i$v=19$m=512,t=2,p=2$tRxZmX62GCBd2pEkFIa/Hg$te3PJeb3/1lq6d/OMVKsgg", "userType": "CM", "name": "CM 6", "email": "CMTesting6@email.com" },
+    { "username": "MATesting6", "password": "$argon2i$v=19$m=512,t=2,p=2$lsdYTtfZfpJUAlSNva7Wdw$1N7fluXT4tySAIChg8F7Cg", "userType": "MA", "name": "MA 6", "email": "MATesting6@email.com" },
+    { "username": "CMTesting7", "password": "$argon2i$v=19$m=512,t=2,p=2$f2r+u2Wx0p/vhrrmC7Q8cw$C5IsUx9ceAMsCJO3+BbzQw", "userType": "CM", "name": "CM 7", "email": "CMTesting7@email.com" },
+    { "username": "MATesting7", "password": "$argon2i$v=19$m=512,t=2,p=2$fl4wuJlGl5tCH13MK2kA1w$J+ovupctz29GgU1E9pF+eA", "userType": "MA", "name": "MA 7", "email": "MATesting7@email.com" },
+    { "username": "CMTesting8", "password": "$argon2i$v=19$m=512,t=2,p=2$GVYWxGp9kfU2NBbCmEmS2g$Xia9F3n6RbHxz4Xu+FYrKQ", "userType": "CM", "name": "CM 8", "email": "CMTesting8@email.com" },
+    { "username": "MATesting8", "password": "$argon2i$v=19$m=512,t=2,p=2$6JL5epYiMsKtJ1E/1yE4BA$s+2ZVzzYz8xNmyMqbJFAzw", "userType": "MA", "name": "MA 8", "email": "MATesting8@email.com" },
+    { "username": "CMTesting9", "password": "$argon2i$v=19$m=512,t=2,p=2$ZFMeqB1Xu4O7QWLZ5BU82w$dRSipy2ijSlKijnGDm12Cg", "userType": "CM", "name": "CM 9", "email": "CMTesting9@email.com" },
+    { "username": "MATesting9", "password": "$argon2i$v=19$m=512,t=2,p=2$/B/v6/7WMeFuzOLYbFcw2w$5CIqkdspTGgzFsArx32AWg", "userType": "MA", "name": "MA 9", "email": "MATesting9@email.com" },
+    { "username": "CMTesting10", "password": "$argon2i$v=19$m=512,t=2,p=2$F3LCZ7DXE2nEDHhefkUyNA$i4xbhIBGR0q9FzAXhSOnsg", "userType": "CM", "name": "CM 10", "email": "CMTesting10@email.com" },
+    { "username": "MATesting10", "password": "$argon2i$v=19$m=512,t=2,p=2$ecSaDS3ydVBktWAfHjp4lQ$Ehu+xMiGnFHKdhennUFjyw", "userType": "MA", "name": "MA 10", "email": "MATesting10@email.com" }
 ])
 
 // set up checklists table
