@@ -106,6 +106,7 @@ def addQNA(qna,username):
     deleteUnanswered(qna["qnID"])
     
     checkNotification = createAnswerNotifications(qna)
+    updateCMNotification(username)
     if checkNotification:
         results = {"results": "true"}
 
