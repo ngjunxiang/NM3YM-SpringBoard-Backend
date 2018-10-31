@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.generics import *
 from app.serializers import *
 from app.models import *
+from django.http import HttpResponse
 
 from app.utils.tokenCRUD import *
 from app.utils.knowledgeBase import *
@@ -346,3 +347,35 @@ class UserRetrieveAnswers(CreateAPIView):
 
         client.close()
         return Response(results)
+
+# ------------------------------------------------------------------- #
+#                           Retrieve PDF File                         #
+# ------------------------------------------------------------------- #
+
+class RetrieveFile(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.knowledgeBase.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not (isCM(userType) or isFO(userType))):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        returnFile =  open("./app/data/reg51.pdf", 'rb')
+        
+        results = HttpResponse(returnFile, content_type='application/pdf')
+        results['Content-Disposition'] = 'attachment; filename="reg51.pdf"'
+
+        client.close()
+        return results
