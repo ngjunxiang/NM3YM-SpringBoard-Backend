@@ -314,7 +314,7 @@ class incrementQNAViews(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = incrementViews(qnID)
+        results = incrementViews(qnID,username)
 
         client.close()
         return Response(results)

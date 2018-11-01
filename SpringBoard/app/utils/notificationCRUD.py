@@ -4,9 +4,13 @@ from pymongo import cursor
 from app.utils.userCRUD import *
 import json
 import pymongo
+import datetime
+from datetime import timedelta
+import pytz
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
+tz = pytz.timezone('Asia/Singapore')
 
 def createNotification(clID,version,docID,changed,input):
     if changed!=3 and not getSelectedNotification(clID,docID,input):
@@ -112,6 +116,56 @@ def createAnswerNotifications(qna):
     client.close()
     return True
 
+def createQnAUpdateNotification(qnID):
+    collection = db.QnANotifications
+    counter = db.QnANotificationCounter
+    viewTracker = db.ViewTracker
+    kBCollection = db.KnowledgeBase
+
+    date = datetime.datetime.now(pytz.utc).astimezone(tz)
+    thirtyDaysAgo = date - timedelta(days=31)
+    thirtyDaysAgo = thirtyDaysAgo.strftime('%Y-%m-%d')
+
+    table =  viewTracker.find({"qnID":qnID},{"_id":0})
+    
+    usersViewed = []
+    usernameList = []
+    for item in table:
+        usersViewed = item["usersViewed"]
+        for i in range(len(usersViewed)):
+            usernameView = list(usersViewed[i].keys())[0]
+            userViewedDate = usersViewed[i][usernameView]
+            if(userViewedDate > thirtyDaysAgo):
+                usernameList.append(usernameView)
+
+    
+    noID = int(counter.find_one({"_id":"noID"})["sequence_value"])
+    db.QnANotificationCounter.update({"_id":"noID"}, {'$inc': {'sequence_value': 1}})
+
+
+    fos = []
+
+    for username in usernameList:
+        fos.append({"username":username,"checked":False})
+
+    notification = {}
+    notification["noID"] = noID
+    notification["FOs"] = fos
+    notification["usernameList"] = usernameList
+    notification["qnID"] = qnID
+
+    kBTable = kBCollection.find_one({"qnID":qnID},{"_id":0,"question":1,"answer":1})
+
+    notification["question"] = kBTable["question"]
+    notification["answer"] = kBTable["answer"]
+
+    try:
+        collection.insert_one(notification)
+    except:
+        return False
+
+    return True
+
 def getAllNotifications(username):
     collection = db.Notifications
 
@@ -145,10 +199,13 @@ def getAllNotifications(username):
 def getFONotifications(username):
     collection = db.Notifications
     ansCollection = db.AnswerNotifications
+    qnaCollection = db.QnANotifications
 
     allNoti = collection.find({"RMs.username":username},{"_id":0,"clID":1,"version":1,"docID":1,"RMs":1,"usernameList":1})
-    ansNoti = ansCollection.find({"username":username,"checked":False},{"_id":0}).sort("noID",pymongo.DESCENDING)
+    ansNoti = ansCollection.find({"username":username,"checked":False},{"_id":0,"qnID":1,"question":1,"answer":1}).sort("noID",pymongo.DESCENDING)
     ansCount = ansCollection.find({"username":username,"checked":False}).count()
+    qnaNoti = qnaCollection.find({"FOs.username":username,"FOs.checked":False},{"_id":0,"qnID":1,"question":1,"answer":1}).sort("noID",pymongo.DESCENDING)
+    qnaCount = qnaCollection.find({"FOs.username":username,"FOs.checked":False},{}).count()
 
     results = {}
     allNotiCounter = 0
@@ -195,6 +252,8 @@ def getFONotifications(username):
 
                 allNotiCounter += 1
 
+
+
     results["checklistTotalCount"] = allNotiCounter
     results["checkListNewCount"] = newNotiCounter
     results["checkListOldCount"] = oldNotiCounter
@@ -204,6 +263,10 @@ def getFONotifications(username):
     ansNotificationList = [item for item in ansNoti]
     results["answerCount"] = ansCount
     results["answerNotifications"] = ansNotificationList
+
+    qnaNotificationList = [item for item in qnaNoti]
+    results["qnaCount"] = qnaCount
+    results["qnaNotifications"] = qnaNotificationList
 
     return results
 
@@ -286,20 +349,37 @@ def getCMNotifications(username):
 def updateChecklistNotification(username):
     collection = db.Notifications
 
-    results = collection.update({"RMs.username":username},{'$set':{"RMs.$.checked":True}},multi=True)
-    return results["ok"] > 0
+    try:
+        results = collection.update({"RMs.username":username},{'$set':{"RMs.$.checked":True}},multi=True)
+    except:
+        return False
+    return True
 
 def updateAnswerNotification(username):
     collection = db.AnswerNotifications
 
-    results = collection.update({"username":username},{'$set':{"checked":True}},multi=True)
-    return results["ok"] > 0
+    try:
+        results = collection.update({"username":username},{'$set':{"checked":True}},multi=True)
+    except:
+        return False
+    return True
 
 def updateCMNotification(username):
     collection = db.QuestionNotifications
 
-    results = collection.update({"CMs.username":username},{'$set':{"CMs.$.checked":True,"isAnswered":True}},multi=True)
-    return results["ok"] > 0
+    try:
+        results = collection.update({"CMs.username":username},{'$set':{"CMs.$.checked":True,"isAnswered":True}},multi=True)
+    except:
+        return False
+    return True
+
+def updateQnANotification(username):
+    collection = db.QnANotifications
+    try:
+        results = collection.update({"FOs.username":username},{'$set':{"FOs.$.checked":True}},multi=True)
+    except:
+        return False
+    return True
 
 def getChecklistForNotification(clID,version,docID):
     collection = db.Checklists
@@ -398,6 +478,9 @@ def getSelectedNotification(clID,docID,input):
                                 return False
 
     return True
+
+
+#sorting methods
 
 def sortNotifications(notificationList):
     if not notificationList:
