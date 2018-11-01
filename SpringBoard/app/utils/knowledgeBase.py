@@ -12,11 +12,16 @@ import json
 import pytz
 import datetime
 
-interpreter = Interpreter.load('./model/default/SpringBoardKMS/')
+interpreter = None
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 tz = pytz.timezone('Asia/Singapore')
 
+def initialiseModel():
+    global interpreter
+    interpreter = Interpreter.load('./model/default/SpringBoardKMS/')
+    return True
+    
 # ------------------------------------------------------------------- #
 #                      Knowledge Base Management                      #
 # ------------------------------------------------------------------- #

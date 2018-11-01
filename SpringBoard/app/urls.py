@@ -13,8 +13,10 @@ from app.views import onboardViews
 from app.views import tokenViews
 from app.views import userViews
 from app.views import knowledgeBaseViews
+from app.utils.knowledgeBase import initialiseModel
 from app.views import trainModelViews
 
+initialiseModel()
 #router = mrouter.DefaultRouter()
 #router.register(r'login', views.UserLogin, base_name = 'login')
 #router.add_api_view(r'auth', url(r'^auth/$', ObtainAuthToken.as_view(), name=r"auth"))

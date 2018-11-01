@@ -349,7 +349,7 @@ class UserRetrieveAnswers(CreateAPIView):
         return Response(results)
 
 # ------------------------------------------------------------------- #
-#                           Retrieve PDF File                         #
+#                                PDF File                             #
 # ------------------------------------------------------------------- #
 
 class RetrieveFile(CreateAPIView):
