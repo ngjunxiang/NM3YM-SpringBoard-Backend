@@ -374,7 +374,7 @@ def cmUserRetrieveAllQNA(username):
     answeredList = [item for item in table]
     answeredList = sorted(answeredList, key=itemgetter('dateAnswered'), reverse=True) 
 
-    table = answeredCollection.find({"prevAnswer.CMusername": username },{"_id":0})
+    table = answeredCollection.find({"prevAnswer.CMusername": username, "CMusername":{"$ne":username}},{"_id":0})
     prevAnsweredList = [item for item in table]
     prevAnsweredList = sorted(prevAnsweredList, key=itemgetter('dateAnswered'), reverse=True) 
 
@@ -383,8 +383,6 @@ def cmUserRetrieveAllQNA(username):
         "answered" : answeredList,
         "prevAnswered" : prevAnsweredList
     }
-
-    
 
     client.close()
     return results
