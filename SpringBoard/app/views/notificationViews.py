@@ -112,7 +112,8 @@ class FOUpdateNotification(CreateAPIView):
         results = {"error": "Notifications not updated"}
         notiBool = updateChecklistNotification(username)
         ansNotiBool = updateAnswerNotification(username)
-        if(notiBool and ansNotiBool):
+        qnaNotiBool = updateQnANotification(username)
+        if(notiBool and ansNotiBool and qnaNotiBool):
             results = {"Success":"Notifications updated"}
 
         client.close()

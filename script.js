@@ -2070,6 +2070,12 @@ db.AnswerNotificationCounter.insertOne({ "_id": "noID", "sequence_value": 1 })
 //set up Answers notification table
 db.AnswerNotifications.createIndex({ "noID": 1, "question": 1, "answer": 1 })
 
+//set up QnA notification IDs
+db.QnANotificationCounter.insertOne({ "_id": "noID", "sequence_value": 1 })
+
+//set up QnA notification table
+db.QnANotifications.createIndex({ "noID": 1})
+
 //Set up Store intents table
 db.StoreIntents.insertMany(
     [

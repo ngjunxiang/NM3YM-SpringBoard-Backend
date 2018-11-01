@@ -47,7 +47,10 @@ def editQNA(qna,username):
 
     # retrieve existing qna
     prevQNA = collection.find_one({"qnID":qna["qnID"]})
-    print(prevQNA)
+
+    qnID = qna["qnID"]
+    # delete existing qna
+    deleteQNA(qnID)
 
     # get timezone corrected date
     date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d %H:%M')
@@ -75,6 +78,7 @@ def editQNA(qna,username):
 
     qna["username"] = prevQNA["username"]
     qna["dateAsked"] = prevQNA["dateAsked"]
+
     qna["views"] = prevQNA["views"]
     qna["CMusername"] = username
     qna["dateAnswered"] = str(date)
@@ -85,7 +89,12 @@ def editQNA(qna,username):
     #add updated qna
     collection.insert_one(qna)
 
-    results = {"results":"true"}
+
+    results = {}
+    if createQnAUpdateNotification(qnID):
+        results["notification"] = "Notification update fail"
+
+    results["results"] = "true"
     client.close()
     return results
 
@@ -100,6 +109,7 @@ def addQNA(qna,username):
     question = qCollection.find_one({"qnID":qna["qnID"]})
 
     # get timezone corrected date
+
     date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d %H:%M')
     date = str(date)
     
@@ -131,6 +141,7 @@ def cmAddQNA(qna,username):
     counter = db.QuestionCounter
 
     # get timezone corrected date
+
     date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d %H:%M')
     date = str(date)
 
@@ -158,9 +169,19 @@ def cmAddQNA(qna,username):
 # retrieve all qna
 def retrieveAllQNA(userType):
     collection = db.KnowledgeBase
+    viewTracker = db.ViewTracker
 
     table = collection.find({},{"_id":0})
-    qnaList = [item for item in table]
+
+    qnaList = []
+    for item in table:
+        qnID = item["qnID"]
+        viewers = viewTracker.find_one({"qnID":qnID},{"_id":0})
+        if viewers:
+            item["views"] = len(viewers["usersViewed"])
+        else:
+            item["views"] = 0
+        qnaList.append(item)
 
     qnaList = sorted(qnaList, key=itemgetter('question'))
     if userType=="CM": 
@@ -176,11 +197,22 @@ def retrieveAllQNA(userType):
 #sort qna
 def retrieveAllQNABy(retrieveBy,sortBy):
     collection = db.KnowledgeBase
-    
+    viewTracker = db.ViewTracker
+
     table = collection.find({},{"_id":0})
+    
     if retrieveBy:
         table = collection.find({"intent":retrieveBy},{"_id":0})
-    qnaList = [item for item in table]
+
+    qnaList = []
+    for item in table:
+        qnID = item["qnID"]
+        viewers = viewTracker.find_one({"qnID":qnID},{"_id":0})
+        if viewers:
+            item["views"] = len(viewers["usersViewed"])
+        else:
+            item["views"] = 0
+        qnaList.append(item)
 
     qnaList = sorted(qnaList, key=itemgetter('question'))
     if sortBy=="views": 
@@ -262,11 +294,51 @@ def getAnswer(question):
     return results
 
 # increment views of question
-def incrementViews(qnID):
-    collection = db.KnowledgeBase
+
+def incrementViews(qnID,username):
+    #collection = db.KnowledgeBase
+    qnViewTracker = db.ViewTracker
 
     # retrieve question
-    collection.find_one_and_update({"qnID": int(qnID)}, {'$inc': {'views': 1}})
+    #collection.find_one_and_update({"qnID": int(qnID)}, {'$inc': {'views': 1}})
+
+    #populate question view table to see who have seen the question
+    doc = qnViewTracker.find_one({"qnID":qnID},{"_id":0})
+    date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d')
+
+    usersViewed = []
+    viewedUsers = {}
+
+    if doc:
+        usersViewed = doc["usersViewed"]
+        print(usersViewed)
+        for i in range(len(usersViewed)):
+            uvObj = usersViewed[i]
+            if username in uvObj.keys():
+                usersViewed.pop(i)
+                break
+        viewedUsers[username] = date
+        usersViewed.append(viewedUsers)
+        try:
+            qnViewTracker.update_one({"qnID":qnID},{"$set":{"usersViewed":usersViewed}})
+        except Exception as e:
+            #collection.find_one_and_update({"qnID": int(qnID)}, {'$inc': {'views': -1}})
+            results = {"error":str(e)}
+            client.close()
+            return results
+    else:
+        viewedUsers[username] = date
+        usersViewed.append(viewedUsers)
+        toInsert = {}
+        toInsert["qnID"] = qnID
+        toInsert["usersViewed"] = usersViewed
+        try:
+            qnViewTracker.insert_one(toInsert)
+        except Exception as e:
+            #collection.find_one_and_update({"qnID": int(qnID)}, {'$inc': {'views': -1}})
+            results = {"error":str(e)}
+            client.close()
+            return results
 
     results = {"results": "true"}
 
@@ -292,6 +364,7 @@ def addQuestion(question,username):
     questionDuplicate = questionCollection.find_one({"question":question},{"_id":0})
 
     # get timezone corrected date
+
     date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d %H:%M')
     date = str(date)
 
