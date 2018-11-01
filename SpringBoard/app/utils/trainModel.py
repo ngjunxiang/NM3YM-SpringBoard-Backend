@@ -148,7 +148,7 @@ def retrieveByIntent(intent):
 def retrieveAllUnclean():
     collection = db.KnowledgeBase
 
-    table = collection.find({"intent": { "$exists": False }},{"_id":0}).limit(5)
+    table = collection.find({"intent": { "$exists": False }},{"_id":0}).limit(1)
     qnaList = [item for item in table]
 
     results = {}
