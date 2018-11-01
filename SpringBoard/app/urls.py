@@ -83,6 +83,7 @@ urlpatterns = [
     url(r'^faq/delete-AQ', knowledgeBaseViews.DeleteAnsweredQuestion.as_view()),
     url(r'^faq/edit-AQ', knowledgeBaseViews.EditAnsweredQuestion.as_view()),
     url(r'^faq/delete-UQ', knowledgeBaseViews.DeleteUnansweredQuestion.as_view()),
+    url(r'^faq/retrieve-cmUserQNA', knowledgeBaseViews.CMUserRetrieveAnswers.as_view()),
     url(r'^faq/retrieve-UQ', knowledgeBaseViews.RetrieveUnansweredQuestion.as_view()),
     url(r'^faq/retrieve-file', knowledgeBaseViews.RetrieveFile.as_view()),
     

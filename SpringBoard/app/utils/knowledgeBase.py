@@ -47,9 +47,7 @@ def editQNA(qna,username):
 
     # retrieve existing qna
     prevQNA = collection.find_one({"qnID":qna["qnID"]})
-
-    # delete existing qna
-    deleteQNA(qna["qnID"])
+    print(prevQNA)
 
     # get timezone corrected date
     date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d %H:%M')
@@ -69,14 +67,20 @@ def editQNA(qna,username):
     else:
         qna["prevAnswer"] = [prevAnswer]
 
+    try:
+        qna["intent"] = prevQNA["intent"]
+        qna["entities"] = prevQNA["entities"]
+    except:
+        pass
 
     qna["username"] = prevQNA["username"]
     qna["dateAsked"] = prevQNA["dateAsked"]
-    qna["intent"] = prevQNA["intent"]
-    qna["entities"] = prevQNA["entities"]
     qna["views"] = prevQNA["views"]
     qna["CMusername"] = username
     qna["dateAnswered"] = str(date)
+
+    # delete existing qna
+    deleteQNA(qna["qnID"])
 
     #add updated qna
     collection.insert_one(qna)
@@ -358,6 +362,29 @@ def userRetrieveAllQNA(username):
         "answered" : answeredList,
         "unanswered" : unansweredList
     }
+
+    client.close()
+    return results
+
+# retrieve all questions answered by user
+def cmUserRetrieveAllQNA(username):
+    answeredCollection = db.KnowledgeBase
+
+    table = answeredCollection.find({"CMusername":username},{"_id":0})
+    answeredList = [item for item in table]
+    answeredList = sorted(answeredList, key=itemgetter('dateAnswered'), reverse=True) 
+
+    table = answeredCollection.find({"prevAnswer.CMusername": username },{"_id":0})
+    prevAnsweredList = [item for item in table]
+    prevAnsweredList = sorted(prevAnsweredList, key=itemgetter('dateAnswered'), reverse=True) 
+
+    results = {}
+    results["results"] =  {
+        "answered" : answeredList,
+        "prevAnswered" : prevAnsweredList
+    }
+
+    
 
     client.close()
     return results
