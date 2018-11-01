@@ -49,6 +49,7 @@ class UpdateSynonyms(CreateAPIView):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
+        synonyms = request.data['synonyms']
 
         # authentication
         tokenResults = tokenAuthenticate(username,token)
@@ -59,7 +60,7 @@ class UpdateSynonyms(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = updateSynonyms()
+        results = updateSynonyms(synonyms)
 
         client.close()
         return Response(results)
