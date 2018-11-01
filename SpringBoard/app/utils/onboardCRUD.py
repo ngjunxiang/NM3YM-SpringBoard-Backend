@@ -26,7 +26,7 @@ def createNewOnBoard(input,username):
     db.OnboardCounter.update({"_id":"obID"}, {'$inc': {'sequence_value': 1}})
 
     # get timezone corrected date
-    date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d')
+    date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d %H:%M')
     date = str(date)
 
     # parse input from frontend
@@ -85,7 +85,7 @@ def updateSelectedOnboard(obID,input):
         return results
 
     # get timezone corrected date
-    date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d')
+    date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d %H:%M')
     date = str(date)
 
     # parse input from frontend
