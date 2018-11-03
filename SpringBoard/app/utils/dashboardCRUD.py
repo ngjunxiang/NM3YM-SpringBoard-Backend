@@ -162,6 +162,8 @@ def unansweredQuestions():
 
     return unansweredCount
 
+    
+
 def numberOfAnsweredQuestions(username):
     knowledgeCollection = db.KnowledgeBase
 
@@ -178,7 +180,6 @@ def mostRecentQuestions():
     questionList = []
 
     for item in questionTable:
-        print(item)
         item["answer"] = "unanswered"
         questionList.append(item)
 
@@ -192,11 +193,44 @@ def mostRecentQuestions():
 
     return questionList
         
+def mostPopularQuestions():
+    qnaCollection = db.QnANotifications
 
+    qnaTable = qnaCollection.find({},{"_id":0,"usernameList":1,"qnID":1,"question":1,"answer":1})
+    qnaList = []
+
+    for item in qnaTable:
+        newQNA = {}
+        viewsCount = len(item["usernameList"])
+        newQNA["viewCount"] = viewsCount
+        newQNA["qnID"] = item["qnID"]
+        newQNA["question"] = item["question"]
+        newQNA["answer"] = item["answer"]
+        qnaList.append(newQNA)
+    
+    qnaList = sortQNAListByViews(qnaList)
+
+    return qnaList[:5]
 
 def checkFOType(userType):
     if userType=="RM":
         return "RM"
     else:
         return "MA"
+
+def sortQNAListByViews(qnaList):
+    retQNAList = []
+    retQNAList.append(qnaList[0])
+
+    for i in range(1,len(qnaList)):
+        qnaViewsCount = qnaList[i]["viewCount"]
+        for j,item in enumerate(retQNAList):
+            retqnaViewsCount = item["viewCount"]
+            if(qnaViewsCount>retqnaViewsCount):
+                retQNAList.insert(j,item)
+                break
+            if(len(retQNAList)-1 == j):
+                retQNAList.append(item)
+
+    return retQNAList
 

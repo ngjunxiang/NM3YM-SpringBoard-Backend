@@ -76,6 +76,7 @@ class CMDashboard(CreateAPIView):
         results["results"] = content
         results["updatedChecklists"] = getUpdatedChecklists()
         results["mostRecentQuestions"] = mostRecentQuestions()
+        results["mostPopularQuestions"] = mostPopularQuestions()
         #results["pendingClients"] = getAllPendingClients(username, userType)
 
         client.close()
