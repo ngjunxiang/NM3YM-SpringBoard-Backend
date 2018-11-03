@@ -10,6 +10,7 @@ from app.models import *
 from app.utils.agmtCodes import *
 from app.utils.tokenCRUD import *
 from app.utils.userCRUD import *
+from app.utils.notificationCRUD import *
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
@@ -90,12 +91,18 @@ class UploadReg51(CreateAPIView):
             return Response({'error':'file is not pdf'})
         filename = "./app/data/"
         filename += file.name
-        destination = open(filename,'wb+')
-        for chunk in file.chunks():
-            destination.write(chunk)
-        destination.close()
-
         results = {}
+        try:
+            destination = open(filename,'wb+')
+            for chunk in file.chunks():
+                destination.write(chunk)
+            destination.close()
+        except:
+            return Response({"error":"Failed to upload file"})
+        
+        if(not createReq51UploadNotification()):
+            return Response({"error":"Notification failed to populate but file uploaded"})
+
         results["Results"] = {"Success":"True"}
         return Response(results)
 

@@ -116,6 +116,28 @@ def createAnswerNotifications(qna):
     client.close()
     return True
 
+def createReq51UploadNotification():
+    collection = db.Req51Notifications
+
+    date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d')
+    date = str(date)
+
+    checkForRec = collection.find_one()
+
+    try:
+        if not checkForRec:
+            toInsert = {}
+            toInsert["toShow"] = True
+            toInsert["date"] =  date
+            collection.insert_one(toInsert)
+        else:
+            collection.update({},{"toShow":True,"date":date})
+    except:
+        return False
+
+    return True
+
+
 def createQnAUpdateNotification(qnID):
     collection = db.QnANotifications
     counter = db.QnANotificationCounter
@@ -351,6 +373,19 @@ def updateChecklistNotification(username):
 
     try:
         results = collection.update({"RMs.username":username},{'$set':{"RMs.$.checked":True}},multi=True)
+    except:
+        return False
+    return True
+
+def updateReq51Notification(triggerNoti):
+    collection = db.Req51Notifications
+    dateCheck = collection.find_one({},{"_id":0,"date":1})
+    if dateCheck:
+        date = dateCheck["date"]
+    else:
+        return False
+    try:
+        collection.update({},{"toShow":triggerNoti,"date":date})
     except:
         return False
     return True

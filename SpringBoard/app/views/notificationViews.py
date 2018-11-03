@@ -168,3 +168,32 @@ class CMUpdateNotification(CreateAPIView):
 
         client.close()
         return Response(results)
+
+class CMUpdateReq51Notification(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Notifications.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+        triggerNoti = request.data['req51Noti']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = {}
+        if(updateReq51Notification(triggerNoti)):
+            results["results"]= {"Success":"True"}
+        else:
+            results["results"]= {"error":"Either no Req51 is uploaded or server has an issue, Notification failed to populate"}
+
+        client.close()
+        return Response(results)
