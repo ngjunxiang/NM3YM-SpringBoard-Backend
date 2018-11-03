@@ -48,6 +48,7 @@ urlpatterns = [
     url(r'^cm/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
     url(r'^cm/retrieve-notifications', notificationViews.CMRetrieveNotifications.as_view()),
     url(r'^cm/update-notifications', notificationViews.CMUpdateNotification.as_view()),
+    url(r'^cm/retrieve-req51-notifications', notificationViews.CMRetrieveReq51Notification.as_view()),
     url(r'^cm/update-req51-notifications', notificationViews.CMUpdateReq51Notification.as_view()),
     url(r'^cm/retrieve-dashboard', dashboardViews.CMDashboard.as_view()),
 

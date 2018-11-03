@@ -337,6 +337,18 @@ def getCMNotifications(username):
     results["oldCount"] = oldNotiCounter
 
     return results
+
+def getReg51Notification():
+    collection = db.Req51Notifications
+
+    reg51Notification = collection.find_one({},{"_id":0})
+    
+    if not reg51Notification or not reg51Notification["toShow"]:
+        return {"Nil":"Nothing to Show"}
+
+    return {"reg51Notification":"Reg 51 was last updated on " + reg51Notification["date"]}
+    
+    
         
 
 # def getNewNotifications(username):
@@ -385,7 +397,11 @@ def updateReq51Notification(triggerNoti):
     else:
         return False
     try:
-        collection.update({},{"toShow":triggerNoti,"date":date})
+        if triggerNoti == "False":
+            collection.update({},{"toShow":False,"date":date})
+        elif triggerNoti == "True":
+            collection.update({},{"toShow":True,"date":date})
+        
     except:
         return False
     return True
