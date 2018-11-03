@@ -44,6 +44,7 @@ urlpatterns = [
     url(r'^cm/retrieve-loggedLists', checklistViews.CMRetrieveLoggedLists.as_view()),
     url(r'^cm/retrieve-clIDWithVersion', checklistViews.CMRetrieveNamesAndVersions.as_view()),
     url(r'^cm/upload-AgmtCodes', agmtCodeViews.UploadAgmtCodes.as_view()),
+    url(r'^cm/upload-reg51', agmtCodeViews.UploadReg51.as_view()),
     url(r'^cm/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
     url(r'^cm/retrieve-notifications', notificationViews.CMRetrieveNotifications.as_view()),
     url(r'^cm/update-notifications', notificationViews.CMUpdateNotification.as_view()),

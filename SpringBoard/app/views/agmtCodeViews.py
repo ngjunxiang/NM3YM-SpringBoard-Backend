@@ -64,6 +64,41 @@ class UploadAgmtCodes(CreateAPIView):
         client.close()
         return Response(results)
 
+class UploadReg51(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.AgmtCodes.find()
+
+    def post(self,request):
+         # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+
+        if(not (isCM(userType) or isCompliance(userType))):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+         # check if file ends with .pdf
+        file = request.FILES["uploadedFile"]
+        if not file.name.endswith(('.pdf')):
+            return Response({'error':'file is not pdf'})
+        filename = "./app/data/"
+        filename += file.name
+        destination = open(filename,'wb+')
+        for chunk in file.chunks():
+            destination.write(chunk)
+        destination.close()
+
+        results = {}
+        results["Results"] = {"Success":"True"}
+        return Response(results)
+
 class RetrieveAgmtCodes(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.AgmtCodes.find()
