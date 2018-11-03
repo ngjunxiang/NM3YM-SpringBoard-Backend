@@ -138,10 +138,14 @@ def addQNA(qna,username):
 def cmAddQNA(qna,username):
 
     collection = db.KnowledgeBase
+    uqCollection = db.UnansweredQuestions
     counter = db.QuestionCounter
 
-    # get timezone corrected date
+    # find duplicates in unanswered questions and knowledge base
+    duplicate = collection.find_one({"question":qna["question"]},{"_id":0})
+    questionDuplicate = uqCollection.find_one({"question":qna["question"]},{"_id":0})
 
+    # get timezone corrected date
     date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d %H:%M')
     date = str(date)
 
@@ -149,6 +153,7 @@ def cmAddQNA(qna,username):
     qnID = int(counter.find_one({"_id":"qnID"})["sequence_value"])
     counter.find_one_and_update({"_id":"qnID"}, {'$inc': {'sequence_value': 1}})
     
+
     qna["qnID"] = qnID
 
     qna["username"] = "FO"
