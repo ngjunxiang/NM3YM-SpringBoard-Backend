@@ -344,9 +344,9 @@ def getReg51Notification():
     reg51Notification = collection.find_one({},{"_id":0})
     
     if not reg51Notification or not reg51Notification["toShow"]:
-        return {"Nil":"Nothing to Show"}
+        return {"toShow": False}
 
-    return {"reg51Notification":"Reg 51 was last updated on " + reg51Notification["date"]}
+    return {"toShow":True,"lastUpdatedDate":reg51Notification["date"]}
     
     
         
@@ -397,11 +397,8 @@ def updateReq51Notification(triggerNoti):
     else:
         return False
     try:
-        if triggerNoti == "False":
-            collection.update({},{"toShow":False,"date":date})
-        elif triggerNoti == "True":
-            collection.update({},{"toShow":True,"date":date})
-        
+        collection.update({},{"toShow":triggerNoti,"date":date})
+            
     except:
         return False
     return True

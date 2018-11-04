@@ -220,17 +220,19 @@ def checkFOType(userType):
 
 def sortQNAListByViews(qnaList):
     retQNAList = []
-    retQNAList.append(qnaList[0])
+    
+    if qnaList and len(qnaList) > 0:
+        retQNAList.append(qnaList[0])
 
-    for i in range(1,len(qnaList)):
-        qnaViewsCount = qnaList[i]["viewCount"]
-        for j,item in enumerate(retQNAList):
-            retqnaViewsCount = item["viewCount"]
-            if(qnaViewsCount>retqnaViewsCount):
-                retQNAList.insert(j,item)
-                break
-            if(len(retQNAList)-1 == j):
-                retQNAList.append(item)
+        for i in range(1,len(qnaList)):
+            qnaViewsCount = qnaList[i]["viewCount"]
+            for j,item in enumerate(retQNAList):
+                retqnaViewsCount = item["viewCount"]
+                if(qnaViewsCount>retqnaViewsCount):
+                    retQNAList.insert(j,item)
+                    break
+                if(len(retQNAList)-1 == j):
+                    retQNAList.append(item)
 
     return retQNAList
 
