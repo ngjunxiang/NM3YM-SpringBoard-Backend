@@ -1781,6 +1781,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What are the documents required for opening of Sub-Account?",
         "answer": "(1) Refer to COB website (under FORMS): (a) obtain the relevant Sub-Account Opening Form (Individual / Corporate), & (b) Open New Account in the same name as existing (For same booking centre) (2) Refer to COB website (under LEGAL & COMPLIANCE CHECKLISTS): (a) Regional Sub-Account Opening Checklist",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Account": ["Sub-Account"],
@@ -1797,6 +1798,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "If an additional LPOA is added to an account, does the existing LPOA need to sign on the LPOA letter?",
         "answer": "Yes, if the existing LPOA is still valid. If you refer to the LPOA letter, the new letter will supersede and replace all authorisation letters previously issued by the client.",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Entity": ["LPOA"],
@@ -1813,6 +1815,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "If the new role of account A is in our existing account B, can we refer to his address proof from account B?",
         "answer": "Yes, if his address proof in account B is valid within 3 months and is also acceptable under current guidelines. If not, the address proof needs to be refreshed.",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["Address Proof"],
@@ -1828,6 +1831,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What is the list of acceptable address proofs?",
         "answer": "Refer to REG 51 page A9 - A10",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
           "Document": ["Address Proof"]
@@ -1842,6 +1846,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "How many signers are needed for an account?",
         "answer": "Refer to DMS, Pearl or ICE",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Entity": ["Signers"],
@@ -1857,6 +1862,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What documents are required to add authorized signers?",
         "answer": "Updated board resolution / change of mandate, Passport copy and address proof of the new authorised signer/s",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["Document"],
@@ -1872,6 +1878,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What are the NDM/NCF documents?",
         "answer": "Please refer to REG 51 section 1.6.2",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "DocumentType": ["NDM","NCF"],
@@ -1887,9 +1894,10 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Can a Relationship Manager open an account for another market?",
         "answer": "The RM will have to approach the respective market and obtain the necessary approval before proceeding.",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
-            "Entity": "RM",
+            "Entity": ["RM"],
             "Account": ["Account"],
             "Action": ["Open"]
         }
@@ -1903,9 +1911,10 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Where to find the new SOP for AOR?",
         "answer": "Please refer to the following link: http://b2e.group.echonet/cid1507835-pid13291-lid2/Account-Opening-and-recertification.html",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
-          "Proced   ure": ["SOP","AOR"]
+          "Procedure": ["SOP","AOR"]
         }
     },
     {
@@ -1917,9 +1926,10 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What are indicators of dual nationality?",
         "answer": "Refer to REG51 page A8 and A41",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
-          "Nat  ionality": ["Dual Nationality"]
+          "Nationality": ["Dual Nationality"]
         }
     },
     {
@@ -1931,6 +1941,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Is the Insider representation form a Non-Deferrable Mandatory document?",
         "answer": "No it is not. Refer to the Account opening checklist on COB onboarding website.",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["Insider Representation Form", "Document"],
@@ -1946,6 +1957,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Is IPQ an Non-Deferrable Mandatory document?",
         "answer": "No it is not. The account will not be blocked, but no investment will be allowed except for spot FX, Loan and deposit until the IPQ is received.",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["IPQ","Document"],
@@ -1961,6 +1973,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Why do we need to confirm dual nationality if the client is a Singapore Citizen?",
         "answer": "Refer to REG 51 page A8 - A9",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
              "Nationality": ["Dual Nationality","Singapore Citizen"]
@@ -1975,6 +1988,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Where can I get a copy of the MSCQ form?",
         "answer": "Refer to AOR 2.5",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["MSCQ"]
@@ -1989,6 +2003,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What if the Client Acceptance Form has more telephone numbers than the Account Opening Booklet?",
         "answer": "The FO has to submit \"Change of Address/ Telephone numbers\" for deletion of extra phone numbers.",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["CAF","Account Opening Booklet"]
@@ -2003,6 +2018,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Do we only submit pages of pages of AEOI Self Cert & IPQ that require client action?",
         "answer": "No, please submit the full set of documents.",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["AEOI","IPQ"]
@@ -2017,6 +2033,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "What if Address Proof submitted differs from Account Opening Booklet?",
         "answer": "Follow the address stated on the address proof.",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["Address Proof","Account Opening Booklet"]
@@ -2031,6 +2048,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "It is difficult to obtain address proof under individual's name in Dubai. Can a visitation call report by RM confirming the members live together suffice?",
         "answer": "We will still need them to provide a form of address proof together with the call report as a supplementary document, instead of a stand alone call report.",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Document": ["Call Report","Address Proof"],
@@ -2047,6 +2065,7 @@ db.KnowledgeBase.insertMany([
         "views" : 0,
         "question": "Who is eligible to act as a Legal Representative to sign off the UBO form?",
         "answer": "Legal representative refers to Authorized signatories as per mandate.",
+        "refPages": [],
         "intent": "AccountOpeningInd",
         "entities": {
             "Entity": ["Legal Representative"],
