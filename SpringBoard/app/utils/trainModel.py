@@ -5,6 +5,7 @@ from rasa_nlu import config
 from collections import OrderedDict
 from pymongo import MongoClient
 from pymongo import cursor
+from app.utils.knowledgeBase import initialiseModel
 import json
 import re
 
@@ -25,7 +26,7 @@ def createTrainingFile():
     to_json["rasa_nlu_data"] = rasa_nlu_data
 
     with open(training_data_file,'w') as fp:
-        json.dump(to_json,fp)
+        json.dump(to_json,fp,indent=4)
 
 
 def trainKMSModel():
@@ -50,10 +51,13 @@ def trainKMSModel():
     master_entity_synonyms = {**master_entity_synonyms,**entity_synonyms}
 
     with open('./model/default/SpringBoardKMS/entity_synonyms.json', 'w') as f:
-        json.dump(master_entity_synonyms,f)
+        json.dump(master_entity_synonyms,f,indent=4)
 
     with open('./app/data/master_entity_synonyms.json','w') as f:
-        json.dump(master_entity_synonyms,f)   
+        json.dump(master_entity_synonyms,f,indent=4)   
+
+    # re-initialise interpreter
+    initialiseModel()
 
     return ({"results":"true"})
 
