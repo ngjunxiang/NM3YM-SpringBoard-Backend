@@ -145,6 +145,9 @@ def cmAddQNA(qna,username):
     duplicate = collection.find_one({"question":qna["question"]},{"_id":0})
     questionDuplicate = uqCollection.find_one({"question":qna["question"]},{"_id":0})
 
+    if ((duplicate != None) or (questionDuplicate != None)):
+        return {"error": "duplicate question"}
+
     # get timezone corrected date
     date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d %H:%M')
     date = str(date)
