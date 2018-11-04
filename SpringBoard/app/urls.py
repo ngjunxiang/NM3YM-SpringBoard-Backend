@@ -98,6 +98,7 @@ urlpatterns = [
     # -- BOTH --
     url(r'^faq/retrieve-allAQBy', knowledgeBaseViews.RetrieveAllQNABy.as_view()), 
     url(r'^faq/retrieve-allAQ', knowledgeBaseViews.RetrieveAllQNA.as_view()),
+    url(r'^faq/retrieve-AQ', knowledgeBaseViews.RetrieveQNA.as_view()),
     url(r'^faq/retrieve', knowledgeBaseViews.RetrieveAnswers.as_view()),
     
     # Model endpoints

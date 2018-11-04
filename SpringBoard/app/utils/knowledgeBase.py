@@ -39,7 +39,6 @@ def deleteQNA(qnID):
     client.close()
     return results
 
-
 # edit qna
 def editQNA(qna,username):
     
@@ -97,7 +96,6 @@ def editQNA(qna,username):
     results["results"] = "true"
     client.close()
     return results
-
 
 # add answered question to knowledge base
 def addQNA(qna,username):
@@ -171,6 +169,18 @@ def cmAddQNA(qna,username):
     client.close()
     return results
 
+# retrieve qna by qnID
+def retrieveQNA(qnID):
+    collection = db.KnowledgeBase
+
+    qna = collection.find_one({"qnID":int(qnID)},{"_id":0})
+
+    results = {}
+    results["results"] =  qna
+
+    client.close()
+    return results
+
 # retrieve all qna
 def retrieveAllQNA(userType):
     collection = db.KnowledgeBase
@@ -231,7 +241,6 @@ def retrieveAllQNABy(retrieveBy,sortBy):
 
     client.close()
     return results
-
 
 # get answers for specific question
 def getAnswer(question):
@@ -299,7 +308,6 @@ def getAnswer(question):
     return results
 
 # increment views of question
-
 def incrementViews(qnID,username):
     #collection = db.KnowledgeBase
     qnViewTracker = db.ViewTracker
@@ -392,7 +400,6 @@ def addQuestion(question,username):
     client.close()
     return results 
 
-
 # retrieve unanswered questions
 def retrieveUnanswered():
 
@@ -404,7 +411,6 @@ def retrieveUnanswered():
     results = {"results" : questionList}
     client.close()
     return results
-
 
 # delete unanswered question
 def deleteUnanswered(qnID):
@@ -558,7 +564,6 @@ def getCosSimilarity(vec1, vec2):
         return 0.0
     else:
         return float(numerator) / denominator
-
 
 def createVector(text):
     regex = re.compile(r'\w+')
