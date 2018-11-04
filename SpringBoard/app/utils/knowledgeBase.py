@@ -183,6 +183,22 @@ def retrieveQNA(qnID):
     client.close()
     return results
 
+# retrieve qna with document reference
+def retrieveRefQNA():
+    collection = db.KnowledgeBase
+
+    table = collection.find({"refPages":{ "$exists": "true", "$ne": [] }},{"_id":0})
+
+    qnaList = []
+    for item in table:
+        qnaList.append(item)
+
+    results = {}
+    results["results"] =  qnaList
+
+    client.close()
+    return results
+
 # retrieve all qna
 def retrieveAllQNA(userType):
     collection = db.KnowledgeBase
