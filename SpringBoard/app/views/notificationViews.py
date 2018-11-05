@@ -179,7 +179,7 @@ class CMUpdateReq51Notification(CreateAPIView):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
-        triggerNoti = request.data['req51Noti']
+        triggerNoti = request.data['reg51Notification']
 
         tokenResults = tokenAuthenticate(username,token)
         if(len(tokenResults) != 0):
@@ -191,9 +191,9 @@ class CMUpdateReq51Notification(CreateAPIView):
 
         results = {}
         if(updateReq51Notification(triggerNoti)):
-            results["results"]= {"Success":"True"}
+            results["results"]= "true"
         else:
-            results["results"]= {"error":"Either no Req51 is uploaded or server has an issue, Notification failed to populate"}
+            results["error"]= "Notification failed to populate. Either no Req51 is uploaded or server has an issue."
 
         client.close()
         return Response(results)
@@ -218,7 +218,7 @@ class CMRetrieveReq51Notification(CreateAPIView):
             return Response({'error' : 'invalid userType'})
 
         results = {}
-        results = {"Success":getReg51Notification()}
+        results = {"results":getReg51Notification()}
 
         client.close()
         return Response(results)
