@@ -103,7 +103,7 @@ class UploadReg51(CreateAPIView):
         if(not createReq51UploadNotification()):
             return Response({"error":"Notification failed to populate but file uploaded"})
 
-        results["Results"] = {"Success":"True"}
+        results["results"] = True
         return Response(results)
 
 class RetrieveAgmtCodes(CreateAPIView):
