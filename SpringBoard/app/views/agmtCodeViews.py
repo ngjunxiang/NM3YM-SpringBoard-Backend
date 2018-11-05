@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 import json
+import PyPDF2
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -14,6 +15,7 @@ from app.utils.notificationCRUD import *
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
+filename = "./app/data/reg51.pdf"
 
 class UploadAgmtCodes(CreateAPIView):
     serializer_class = CLSerializer
@@ -89,8 +91,6 @@ class UploadReg51(CreateAPIView):
         file = request.FILES["uploadedFile"]
         if not file.name.endswith(('.pdf')):
             return Response({'error':'file is not pdf'})
-        filename = "./app/data/"
-        filename += file.name
         results = {}
         try:
             destination = open(filename,'wb+')
@@ -129,6 +129,35 @@ class RetrieveAgmtCodes(CreateAPIView):
 
         results = {}
         results["results"] = retrieveAgmt()
+        
+        client.close()
+        return Response(results)
+
+class RetrieveReg51PageCount(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.AgmtCodes.find()
+
+    def post(self,request):
+        
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+
+        if(not (isCM(userType) or isCompliance(userType))):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = {}
+        reader = PyPDF2.PdfFileReader(open(filename,'rb'))
+        pageCount = reader.getNumPages()
+        results["results"] = {"pageCount":pageCount}
         
         client.close()
         return Response(results)
