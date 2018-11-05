@@ -181,6 +181,33 @@ class RetrieveQNA(CreateAPIView):
         client.close()
         return Response(results)
 
+
+# retrieve questions with references
+class RetrieveRefQNA(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.knowledgeBase.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = retrieveRefQNA()
+        
+        client.close()
+        return Response(results)
+
 # retrieve all questions from knowledge base
 class RetrieveAllQNA(CreateAPIView):
     serializer_class = CLSerializer

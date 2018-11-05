@@ -48,6 +48,7 @@ def editQNA(qna,username):
     prevQNA = collection.find_one({"qnID":qna["qnID"]})
 
     qnID = qna["qnID"]
+
     # delete existing qna
     deleteQNA(qnID)
 
@@ -59,7 +60,8 @@ def editQNA(qna,username):
     prevAnswer = {
         "answer": prevQNA["answer"],
         "CMusername": prevQNA["CMusername"],
-        "dateAnswered": prevQNA["dateAnswered"]
+        "dateAnswered": prevQNA["dateAnswered"],
+        "refPages": prevQNA["refPages"]
     }
 
     if "prevAnswer" in prevQNA:
@@ -180,6 +182,22 @@ def retrieveQNA(qnID):
 
     results = {}
     results["results"] =  qna
+
+    client.close()
+    return results
+
+# retrieve qna with document reference
+def retrieveRefQNA():
+    collection = db.KnowledgeBase
+
+    table = collection.find({"refPages":{ "$exists": "true", "$ne": [] }},{"_id":0})
+
+    qnaList = []
+    for item in table:
+        qnaList.append(item)
+
+    results = {}
+    results["results"] =  qnaList
 
     client.close()
     return results
