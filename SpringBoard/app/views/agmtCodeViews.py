@@ -150,7 +150,7 @@ class RetrieveReg51PageCount(CreateAPIView):
             client.close()
             return Response(tokenResults)
 
-        if(not (isCM(userType) or isCompliance(userType))):
+        if(not (isCM(userType) or isFO(userType))):
             client.close()
             return Response({'error' : 'invalid userType'})
 
