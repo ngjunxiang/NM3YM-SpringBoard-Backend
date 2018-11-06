@@ -222,3 +222,28 @@ class CMRetrieveReq51Notification(CreateAPIView):
 
         client.close()
         return Response(results)
+
+class FORetrieveReq51Notification(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.Notifications.find()
+
+    def post(self,request):
+
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isFO(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = {}
+        results = {"results":getReg51Notification()}
+
+        client.close()
+        return Response(results)

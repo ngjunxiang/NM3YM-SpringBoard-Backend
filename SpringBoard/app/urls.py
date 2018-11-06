@@ -65,6 +65,7 @@ urlpatterns = [
     #url(r'^fo/retrieve-latest-notifications', notificationViews.FORetrieveLatestNotification.as_view()),
     #url(r'^fo/retrieve-all-notifications', notificationViews.FORetrieveAllNotification.as_view()),
     url(r'^fo/retrieve-notifications', notificationViews.FORetrieveNotifications.as_view()),
+    url(r'^fo/retrieve-req51-notifications', notificationViews.FORetrieveReq51Notification.as_view()),
     url(r'^fo/update-notifications', notificationViews.FOUpdateNotification.as_view()),
     url(r'^fo/update-urgency', onboardViews.UpdateUrgency.as_view()),
     url(r'^fo/retrieve-urgency', onboardViews.RetrieveUrgency.as_view()),
