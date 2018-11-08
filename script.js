@@ -2100,7 +2100,7 @@ db.StoreIntents.insertMany(
     [
       {
         "text": "What are the documents required for opening of Sub-Account?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(47),
@@ -2124,7 +2124,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What is needed for opening of sub-account?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(30),
@@ -2142,7 +2142,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "To open a sub-account what is needed?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(10),
@@ -2160,7 +2160,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What are the document requirements for opening of sub-account?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(50),
@@ -2184,7 +2184,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Which documents are required for the opening of sub-account?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(48),
@@ -2208,7 +2208,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "If an account adds another new LPOA, does the existing Limited Power of Attorney need to sign on the LPOA letter?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(31),
@@ -2238,7 +2238,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "If an account adds another new LPOA, is the existing LPOA's signature required?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(31),
@@ -2262,7 +2262,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "If an additional LPOA is added to an account, does the existing LPOA need to sign on the LPOA letter?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(17),
@@ -2292,7 +2292,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "If account has another new Limited Power of Attorney, does the current LPOA need to sign on the LPOA letter as well?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(27),
@@ -2322,7 +2322,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "If the new role of account A is in our existing account B, can we refer to his address proof from account B?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(79),
@@ -2346,7 +2346,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "If a new role exists in another account, can we refer to his address proof from the other account?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(61),
@@ -2364,7 +2364,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "If an address proof for a person exists in another account, can we still use it?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(6),
@@ -2382,7 +2382,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "If the added new role of account A is in our existing account B, can we refer to the existing address proof?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(94),
@@ -2406,7 +2406,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What is the list of acceptable address proofs?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(31),
@@ -2418,7 +2418,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Is an electrical bill acceptable as address proof?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(36),
@@ -2436,7 +2436,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Is a Mobile Phone Statement acceptable as address proof?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(42),
@@ -2454,7 +2454,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Are Bank Statements with addresses acceptable as address proofs?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(4),
@@ -2472,7 +2472,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "How many signers in an account?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(9),
@@ -2490,7 +2490,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "How many signers are needed for an account?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(9),
@@ -2508,7 +2508,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What are the docs required to add authorized signers?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(13),
@@ -2526,7 +2526,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What documents are required to add authorized signers?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(5),
@@ -2544,7 +2544,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What is the list of Non-Deferrable Mandatory documents/ Non-Compliant File documents?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(20),
@@ -2574,7 +2574,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What are the NDM/NCF documents?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(13),
@@ -2598,7 +2598,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What documents are NDM?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(5),
@@ -2616,7 +2616,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What documents are considered as NDM?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(33),
@@ -2634,7 +2634,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What documents are NCF?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(5),
@@ -2652,7 +2652,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What documents are considered as NCF?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(33),
@@ -2670,7 +2670,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Can a Relationship Manager open account for another market?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(6),
@@ -2694,7 +2694,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Can an RM from Singapore open an account for Hong Kong?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(7),
@@ -2730,7 +2730,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Can an RM from Hong Kong open an account for Singapore?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(7),
@@ -2766,7 +2766,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Can an RM from another Market open an account?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(7),
@@ -2790,7 +2790,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Can an RM from a different Market open an account?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(7),
@@ -2814,7 +2814,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Where to find the new SOP for AOR?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(22),
@@ -2832,7 +2832,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Where can I find the latest Standard Operating Procedure for Account Opening Recertification Procedure?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(28),
@@ -2850,7 +2850,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "How do I obtain the latest standard operating procedure for AOR?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(27),
@@ -2868,7 +2868,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What is the latest SOP for account opening recertification?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(19),
@@ -2886,7 +2886,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What are indicators of dual nationality?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(23),
@@ -2898,7 +2898,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "How do we tell if the client holds dual nationality?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(35),
@@ -2910,7 +2910,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What are the signs of dual nationality?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(22),
@@ -2922,7 +2922,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Is the Insider representation form a Non-Deferrable Mandatory document?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(7),
@@ -2946,7 +2946,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Is the insider rep form considered an NDM?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(7),
@@ -2964,7 +2964,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Is IPQ an Non-Deferrable Mandatory document?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(3),
@@ -2988,7 +2988,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Is the Investment Profile Questionnaire considered an NDM?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(7),
@@ -3006,7 +3006,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Is the invesment profile questionnaire form an NDM?",
-        "intent": "AccountOpeningIndDocuments",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(7),
@@ -3024,7 +3024,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Why do we need to confirm dual nationality if the client is a Singapore Citizen?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(26),
@@ -3042,7 +3042,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Why is there a need to confirm that the client is holding dual nationality when he is a Singaporean?",
-        "intent": "AccountOpeningInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(58),
@@ -3060,7 +3060,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Where to get the Major Sanction Countries Questionnaire?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(17),
@@ -3072,7 +3072,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Where can I get a copy of the MSCQ form?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(30),
@@ -3084,7 +3084,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "How do I obtain an MSCQ form?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(19),
@@ -3096,7 +3096,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Who can I get the MSCQ form from?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(18),
@@ -3108,7 +3108,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What if the Client Acceptance Form has more telephone numbers than Acc Opening Booklet?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(12),
@@ -3126,7 +3126,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "The CAF has more telephone numbers than the Account Opening Booklet?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(4),
@@ -3144,7 +3144,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Do we only submit pages of Automatic Exchange of Information & Investment Profile Questionnaire that require client action?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(27),
@@ -3162,7 +3162,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Only pages of AEOI Self Cert & IPQ that require client action need to be submitted?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(14),
@@ -3180,7 +3180,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Pages of AEOI Self Cert & IPQ are only submitted if it requires client action?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(9),
@@ -3198,7 +3198,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What if Address Proof submitted differs from Account Opening Booklet?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(8),
@@ -3216,7 +3216,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What if the Address Proof is different from the one in the Acc Opening booklet?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(12),
@@ -3234,7 +3234,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "What should I do if address proof submitted is different from account opening booklet?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(20),
@@ -3252,7 +3252,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Can a visitation call report count as address proof?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(17),
@@ -3270,7 +3270,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "It is difficult to obtain address proof under individual's name in Dubai. Can a visitation call report by RM confirming the members live together suffice?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(91),
@@ -3300,7 +3300,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Who are the Legal representatives to sign off the Ultimate Beneficial Owner form?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(50),
@@ -3318,7 +3318,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Who is eligible to act as a Legal Rep to sign off the UBO form?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(28),
@@ -3336,7 +3336,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "For the UBO form, who can act as a legal representative?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(8),
@@ -3354,7 +3354,7 @@ db.StoreIntents.insertMany(
       },
       {
         "text": "Who is considered a legal representative in the UBO form?",
-        "intent": "AccountOpeningIndDocumentInfo",
+        "intent": "AccountOpeningInd",
         "entities": [
           {
             "start": NumberInt(20),
