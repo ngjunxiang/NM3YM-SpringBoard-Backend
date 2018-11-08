@@ -30,6 +30,10 @@ class RetrieveAnswers(CreateAPIView):
         username = request.data['username']
         token = request.data['token']
         userType = request.data['userType']
+        try:
+            num = request.data['num']
+        except:
+            num = None
 
         # authentication
         tokenResults = tokenAuthenticate(username,token)
@@ -40,7 +44,10 @@ class RetrieveAnswers(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = getAnswer(question)
+        if num != None:
+            results = getAnswer(question,int(num))
+        else: 
+            results = getAnswer(question)
 
         client.close()
         return Response(results)
@@ -180,7 +187,6 @@ class RetrieveQNA(CreateAPIView):
         
         client.close()
         return Response(results)
-
 
 # retrieve questions with references
 class RetrieveRefQNA(CreateAPIView):

@@ -264,7 +264,7 @@ def retrieveAllQNABy(retrieveBy,sortBy):
     return results
 
 # get answers for specific question
-def getAnswer(question):
+def getAnswer(question, num=10):
 
     collection = db.KnowledgeBase
     quesVector1 = createVector(question.lower())
@@ -317,12 +317,12 @@ def getAnswer(question):
             mostSim.append(q)
 
 
-    # keep top 10 
+    # keep num results
     mostSim = sorted(mostSim, key=itemgetter('similarity'), reverse=True) 
-    top10 = mostSim[:10]
+    topNum = mostSim[:num]
 
     results = {
-        "results": top10
+        "results": topNum
     }
 
     client.close()
