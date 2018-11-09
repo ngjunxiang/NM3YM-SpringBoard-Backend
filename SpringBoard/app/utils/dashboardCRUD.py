@@ -194,23 +194,28 @@ def mostRecentQuestions():
     return questionList
         
 def mostPopularQuestions():
-    qnaCollection = db.QnANotifications
+    viewTrackerCollection = db.ViewTracker
+    kBCollection = db.KnowledgeBase
 
-    qnaTable = qnaCollection.find({},{"_id":0,"usernameList":1,"qnID":1,"question":1,"answer":1})
-    qnaList = []
+    viewTrackerTable = viewTrackerCollection.find({},{"_id":0,"qnID":1,"usersViewed":1})
 
-    for item in qnaTable:
+    viewTrackerList = []
+
+    for item in viewTrackerTable:
         newQNA = {}
-        viewsCount = len(item["usernameList"])
+        viewsCount = len(item["usersViewed"])
         newQNA["viewCount"] = viewsCount
-        newQNA["qnID"] = item["qnID"]
-        newQNA["question"] = item["question"]
-        newQNA["answer"] = item["answer"]
-        qnaList.append(newQNA)
-    
-    qnaList = sortQNAListByViews(qnaList)
+        qnID = item["qnID"]
+        newQNA["qnID"] = qnID
+        kBObj = kBCollection.find_one({"qnID":qnID},{"_id":0,"question":1,"answer":1})
+        newQNA["question"] = kBObj["question"]
+        newQNA["answer"] = kBObj["answer"]
+        viewTrackerList.append(newQNA)
+        
+    viewTrackerList = sortQNAListByViews(viewTrackerList)
 
-    return qnaList[:5]
+
+    return viewTrackerList[:5]
 
 def checkFOType(userType):
     if userType=="RM":
@@ -221,18 +226,20 @@ def checkFOType(userType):
 def sortQNAListByViews(qnaList):
     retQNAList = []
     
-    if qnaList and len(qnaList) > 0:
-        retQNAList.append(qnaList[0])
+    if not qnaList:
+        return qnaList
 
-        for i in range(1,len(qnaList)):
-            qnaViewsCount = qnaList[i]["viewCount"]
-            for j,item in enumerate(retQNAList):
-                retqnaViewsCount = item["viewCount"]
-                if(qnaViewsCount>retqnaViewsCount):
-                    retQNAList.insert(j,item)
-                    break
-                if(len(retQNAList)-1 == j):
-                    retQNAList.append(item)
+    retQNAList.append(qnaList[0])
+    for i in range(1,len(qnaList)):
+        qnaViewsCount = qnaList[i]["viewCount"]
+        for j,item in enumerate(retQNAList):
+            retqnaViewsCount = item["viewCount"]
+            if(qnaViewsCount>retqnaViewsCount):
+                retQNAList.insert(j,qnaList[i])
+                break
+            if(len(retQNAList)-1 == j):
+                retQNAList.append(qnaList[i])
+                break
 
     return retQNAList
 
