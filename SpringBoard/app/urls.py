@@ -96,12 +96,12 @@ urlpatterns = [
     url(r'^faq/add-UQ', knowledgeBaseViews.AddUnansweredQuestion.as_view()),
     url(r'^faq/retrieve-userQNA', knowledgeBaseViews.UserRetrieveAnswers.as_view()),
     url(r'^faq/increment-QNAViews', knowledgeBaseViews.incrementQNAViews.as_view()),
-    url(r'^faq/retrieve-reg51-num-pages', agmtCodeViews.RetrieveReg51PageCount.as_view()),
     
     # -- BOTH --
     url(r'^faq/retrieve-allAQBy', knowledgeBaseViews.RetrieveAllQNABy.as_view()), 
     url(r'^faq/retrieve-allAQ', knowledgeBaseViews.RetrieveAllQNA.as_view()),
     url(r'^faq/retrieve-AQ', knowledgeBaseViews.RetrieveQNA.as_view()),
+    url(r'^faq/retrieve-reg51-num-pages', agmtCodeViews.RetrieveReg51PageCount.as_view()),  
     url(r'^faq/retrieve', knowledgeBaseViews.RetrieveAnswers.as_view()),
     
     # Model endpoints
