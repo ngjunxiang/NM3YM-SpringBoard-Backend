@@ -159,7 +159,7 @@ def cmAddQNA(qna,username):
 
     qna["qnID"] = qnID
 
-    qna["username"] = "FO"
+    qna["username"] = "CM"
     qna["dateAsked"] = str(date)
 
     qna["CMusername"] = username
