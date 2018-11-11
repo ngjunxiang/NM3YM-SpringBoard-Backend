@@ -1738,6 +1738,10 @@ db.Checklists.insertMany([
     "_id" : ObjectId("5be3125d3dce0d047c145b5f"),
     "name" : "Transaction Monitoring",
     "requiredFields" : [
+            "Client Name",
+            "RM Name",
+            "Account Number",
+            "Date of Submission",
             "Is the transaction incoming or outgoing?",
             "Transaction Amount in USD",
             "Transaction Amount in Original Currency",

@@ -28,7 +28,6 @@ def createTrainingFile():
     with open(training_data_file,'w') as fp:
         json.dump(to_json,fp,indent=4)
 
-
 def trainKMSModel():
     createTrainingFile()
     try:
@@ -69,16 +68,13 @@ def updateSynonyms(synonymDict):
             reversedDict[value] = k
 
     # get entity synonyms
-    with open('./app/data/master_entity_synonyms.json') as f:
-        master_entity_synonyms = json.load(f)
-
-    master_entity_synonyms = {**master_entity_synonyms,**reversedDict}
+    master_entity_synonyms = {**reversedDict}
 
     with open('./model/default/SpringBoardKMS/entity_synonyms.json', 'w') as f:
-        json.dump(master_entity_synonyms,f)
+        json.dump(master_entity_synonyms,f,indent=4)
 
     with open('./app/data/master_entity_synonyms.json','w') as f:
-        json.dump(master_entity_synonyms,f)   
+        json.dump(master_entity_synonyms,f,indent=4)   
     
     return ({"results":"true"})
 
@@ -92,7 +88,7 @@ def retrieveSynonyms():
         reversedDict[v]= reversedDict.get(v,[])
         reversedDict[v].append(k)
 
-    return ({"results": OrderedDict(sorted(reversedDict.items(), key=lambda t: t[0]))})
+    return (OrderedDict(sorted(reversedDict.items(), key=lambda t: t[0])))
 
 def retrieveEntities():
     collection = db.KnowledgeBase
@@ -118,7 +114,6 @@ def retrieveEntities():
 
     client.close()
     return ({"results": OrderedDict(sorted(entityDict.items(), key=lambda t: t[0]))})
-
 
 def retrieveIntents():
     collection = db.KnowledgeBase

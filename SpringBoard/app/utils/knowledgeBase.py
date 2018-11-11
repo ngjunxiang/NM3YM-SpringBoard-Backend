@@ -265,6 +265,8 @@ def retrieveAllQNABy(retrieveBy,sortBy):
 
 # get answers for specific question
 def getAnswer(question, num=10):
+    
+    from app.utils.trainModel import retrieveSynonyms
 
     collection = db.KnowledgeBase
     quesVector1 = createVector(question.lower())
@@ -296,6 +298,7 @@ def getAnswer(question, num=10):
 
     # adjust similarity by boosting intent/ entities
     mostSim = []
+    takenQues = []
     for q in top20:
 
         if q.get("intent") == intent : 
@@ -313,9 +316,52 @@ def getAnswer(question, num=10):
                     if value in q["entities"][entity]:
                         q["similarity"] = q["similarity"] + entityBoost/numEnt
 
-        if q["similarity"] >= 0.2:
+        if q["similarity"] >= 0.4:
             mostSim.append(q)
+            takenQues.append(q["qnID"])
 
+
+    # do keyword search by synonyms if no results
+    if len(mostSim) < 3 and len(question.split(" ")) < 4:
+        synonyms = retrieveSynonyms()
+        keyword = ""
+        
+        # find the synonyms
+        for key, value in synonyms.items():
+            quesVector2 = createVector(key.lower())
+            if getCosSimilarity(quesVector1, quesVector2) > 0.3:
+                keyword = key
+                break
+            for val in value:
+                quesVector2 = createVector(val.lower())
+                if getCosSimilarity(quesVector1, quesVector2) > 0.3:
+                    keyword = key
+            if keyword != "":
+                break
+        
+        # if keyword exists
+        if keyword != "":
+            keyValues = [key]
+            keyValues.extend(synonyms[key])
+            for q in faqList:
+                added = 0
+                if q["qnID"] not in takenQues:
+                    if q.get("entities") != None:
+                        for entity,value in q["entities"].items():
+                            if key in value:
+                                mostSim.append(q)
+                                added = 1
+                                break
+
+                    if added == 0:
+                        for value in keyValues:
+                            quesVector1 = createVector(value.lower())
+                            quesVector2 = createVector(q["question"].lower())
+                            q["similarity"] = getCosSimilarity(quesVector1, quesVector2)
+                            if q["similarity"] >= 0.3:
+                                mostSim.append(q)
+                                break    
+                        
 
     # keep num results
     mostSim = sorted(mostSim, key=itemgetter('similarity'), reverse=True) 

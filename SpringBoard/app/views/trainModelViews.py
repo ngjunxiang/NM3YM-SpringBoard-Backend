@@ -85,7 +85,7 @@ class RetrieveSynonyms(CreateAPIView):
             client.close()
             return Response({'error' : 'invalid userType'})
 
-        results = retrieveSynonyms()
+        results = {"results": retrieveSynonyms()}
 
         client.close()
         return Response(results)
