@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.conf.urls import include, url
 
 #from rest_framework_mongoengine import routers as mrouter
-from app.views import agmtCodeViews
+from app.views import uploadViews
 from app.views import checklistViews
 from app.views import dashboardViews
 from app.views import loginViews
@@ -43,9 +43,9 @@ urlpatterns = [
     url(r'^cm/retrieve-checklistNames', checklistViews.CMRetrieveCLNames.as_view()),
     url(r'^cm/retrieve-loggedLists', checklistViews.CMRetrieveLoggedLists.as_view()),
     url(r'^cm/retrieve-clIDWithVersion', checklistViews.CMRetrieveNamesAndVersions.as_view()),
-    url(r'^cm/upload-AgmtCodes', agmtCodeViews.UploadAgmtCodes.as_view()),
-    url(r'^cm/upload-reg51', agmtCodeViews.UploadReg51.as_view()),
-    url(r'^cm/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
+    url(r'^cm/upload-AgmtCodes', uploadViews.UploadAgmtCodes.as_view()),
+    url(r'^cm/upload-reg51', uploadViews.UploadReg51.as_view()),
+    url(r'^cm/retrieve-AgmtCodes', uploadViews.RetrieveAgmtCodes.as_view()),
     url(r'^cm/retrieve-notifications', notificationViews.CMRetrieveNotifications.as_view()),
     url(r'^cm/update-notifications', notificationViews.CMUpdateNotification.as_view()),
     url(r'^cm/retrieve-req51-notifications', notificationViews.CMRetrieveReq51Notification.as_view()),
@@ -71,15 +71,6 @@ urlpatterns = [
     url(r'^fo/filtersort-onboard', onboardViews.FilterSortOnboard.as_view()),
     url(r'^fo/filterby-onboard', onboardViews.FilterByOnboard.as_view()),
 
-    # Compliance endpoints
-    url(r'^compliance/create-checklist', checklistViews.CreateCL.as_view()),
-    url(r'^compliance/manage-checklist', checklistViews.ManageCL.as_view()),
-    url(r'^compliance/update-checklist', checklistViews.UpdateCL.as_view()),
-    url(r'^compliance/retrieve-checklistNames', checklistViews.ComplianceRetrieveCLNames.as_view()),
-    url(r'^compliance/retrieve-loggedLists', checklistViews.ComplianceRetrieveLoggedLists.as_view()),
-    url(r'^compliance/retrieve-clIDWithVersion', checklistViews.ComplianceRetrieveNamesAndVersions.as_view()),
-    url(r'^compliance/retrieve-AgmtCodes', agmtCodeViews.RetrieveAgmtCodes.as_view()),
-
     # Knowledge base endpoints
     # -- CM --
     url(r'^faq/add-AQ', knowledgeBaseViews.AddAnsweredQuestion.as_view()),
@@ -101,7 +92,7 @@ urlpatterns = [
     url(r'^faq/retrieve-allAQBy', knowledgeBaseViews.RetrieveAllQNABy.as_view()), 
     url(r'^faq/retrieve-allAQ', knowledgeBaseViews.RetrieveAllQNA.as_view()),
     url(r'^faq/retrieve-AQ', knowledgeBaseViews.RetrieveQNA.as_view()),
-    url(r'^faq/retrieve-reg51-num-pages', agmtCodeViews.RetrieveReg51PageCount.as_view()),  
+    url(r'^faq/retrieve-reg51-num-pages', uploadViews.RetrieveReg51PageCount.as_view()),  
     url(r'^faq/retrieve', knowledgeBaseViews.RetrieveAnswers.as_view()),
     
     # Model endpoints

@@ -11,7 +11,6 @@ def bootstrapAgmt(file,filename):
 
     # clear prev bootstrap
     collection = db.AgmtCodes
-    collection.drop()
 
     results = {'results':'false'}
      # tracking variables
@@ -35,7 +34,7 @@ def bootstrapAgmt(file,filename):
                 }
 
                 try:
-                    collection.insert_one(record)
+                    collection.update({'code':code}, record, True)
                     inserted += 1
                     
                 except Exception as e:
@@ -68,7 +67,7 @@ def bootstrapAgmt(file,filename):
                 }
 
                 try:
-                    collection.insert_one(record)
+                    collection.update({'code':code}, record, True)
                     inserted += 1
                     
                 except Exception as e:

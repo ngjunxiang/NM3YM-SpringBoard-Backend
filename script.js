@@ -63,7 +63,7 @@ db.Checklists.insertOne({
                         {
                                 "hasConditions": false,
                                 "conditions": [],
-                                "documentType": "Non-Deferrable Mandatory (NDM)",
+                                "documentType": "Not Applicable",
                                 "documentName" : "ICE KYC Profile and Client Acceptance Form (including modifications since last CAC)",
                                 "agmtCode" : "301",
                                 "signature" : false,
@@ -871,6 +871,7 @@ db.Checklists.insertOne({
         "latestDocID" : "89",
         "clID" : "0",
         "version" : "2",
+        "status" : "valid",
         "dateCreated" : "2018-09-17 00:00",
         "dateUpdated" : "2018-10-09 00:00",
         "createdBy" : "Randy Lai YongHao",
@@ -1757,9 +1758,6 @@ db.OnboardCounter.insertOne({ "_id": "obID", "sequence_value": 0 })
 
 // set up onboard table
 db.Onboards.createIndex({ "clientName": 1, "RMName": 1, "dateCreated": 1 }, { unique: true })
-
-// set up onboard checker urgent checker
-db.OnboardUrgentChecker.createIndex({ "obID": 1, "Urgent": 1 }, { unique: true })
 
 //set up notification IDs
 db.NotificationCounter.insertOne({ "_id": "noID", "sequence_value": 0 })

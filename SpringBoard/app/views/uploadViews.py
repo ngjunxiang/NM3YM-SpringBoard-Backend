@@ -8,7 +8,7 @@ from rest_framework.generics import *
 from app.serializers import *
 from app.models import *
 
-from app.utils.agmtCodes import *
+from app.utils.upload import *
 from app.utils.tokenCRUD import *
 from app.utils.userCRUD import *
 from app.utils.notificationCRUD import *

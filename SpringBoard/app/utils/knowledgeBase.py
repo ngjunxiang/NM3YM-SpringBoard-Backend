@@ -270,7 +270,7 @@ def getAnswer(question, num=10):
     quesVector1 = createVector(question.lower())
 
     intentBoost = 0.04
-    entityBoost = 0.2
+    entityBoost = 0.4
 
     #get intents and entities
     intentEntity = interpreter.parse(question)
@@ -313,7 +313,7 @@ def getAnswer(question, num=10):
                     if value in q["entities"][entity]:
                         q["similarity"] = q["similarity"] + entityBoost/numEnt
 
-        if q["similarity"] >= 0.1:
+        if q["similarity"] >= 0.2:
             mostSim.append(q)
 
 
