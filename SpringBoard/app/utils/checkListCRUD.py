@@ -138,12 +138,19 @@ def updateCheckList(input,name,clID,version,createdDate,createdBy):
 def deleteCheckList(clID):
 
     collection = db.Checklists
+    onboardCollection = db.Checklists
 
     results = {}
-    deleted = collection.delete_one({'clID':clID})
 
-    results["results"] = deleted.acknowledged
-    results["items_deleted"] = deleted.deleted_count
+    inUse = onboardCollection.find_one({"clID":clID},{"_id":0})
+
+    if inUse == None:
+        deleted = collection.delete_one({'clID':clID})
+
+        results["results"] = deleted.acknowledged
+        results["items_deleted"] = deleted.deleted_count
+    else:
+        results["error"] = "Checklist could not be deleted as it is currently in use."
 
     client.close()
     return results
