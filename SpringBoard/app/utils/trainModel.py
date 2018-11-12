@@ -6,8 +6,11 @@ from collections import OrderedDict
 from pymongo import MongoClient
 from pymongo import cursor
 from app.utils.knowledgeBase import initialiseModel
+from background_task import background
+
 import json
 import re
+import subprocess
 
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
@@ -28,8 +31,8 @@ def createTrainingFile():
     with open(training_data_file,'w') as fp:
         json.dump(to_json,fp,indent=4)
 
-def trainKMSModel():
-    createTrainingFile()
+@background(schedule=5)
+def trainModel():
     try:
         # train model
         training_data = load_data('./app/data/training_data.json')
@@ -54,11 +57,15 @@ def trainKMSModel():
 
     with open('./app/data/master_entity_synonyms.json','w') as f:
         json.dump(master_entity_synonyms,f,indent=4)   
-
     # re-initialise interpreter
     initialiseModel()
 
-    return ({"results":"true"})
+
+def trainKMSModel():
+    createTrainingFile()
+    trainModel()
+
+    return ({"results":"model is currently training"})
 
 def updateSynonyms(synonymDict):
 
