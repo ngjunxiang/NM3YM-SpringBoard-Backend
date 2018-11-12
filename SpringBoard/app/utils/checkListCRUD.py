@@ -138,19 +138,13 @@ def updateCheckList(input,name,clID,version,createdDate,createdBy):
 def deleteCheckList(clID):
 
     collection = db.Checklists
-    onboardCollection = db.Checklists
 
     results = {}
 
-    inUse = onboardCollection.find_one({"clID":clID},{"_id":0})
+    deleted = collection.delete_one({'clID':clID})
 
-    if inUse == None:
-        deleted = collection.delete_one({'clID':clID})
-
-        results["results"] = deleted.acknowledged
-        results["items_deleted"] = deleted.deleted_count
-    else:
-        results["error"] = "Checklist could not be deleted as it is currently in use."
+    results["results"] = deleted.acknowledged
+    results["items_deleted"] = deleted.deleted_count
 
     client.close()
     return results
@@ -219,19 +213,27 @@ def retrieveCheckList(clID):
 # moves checklist to log
 def logCheckList(clID,toDelete = False):
 
+    collection = db.ChecklistLogs
+    onboardCollection = db.Onboards
+
     # check if this checklist exists
     prevChecklist = retrieveCheckList(clID)
     if('error' in prevChecklist):
         client.close()
         return prevChecklist
 
+    results = {}
+
     # mark as deleted if it is a delete call
     if toDelete:
-        prevChecklist["status"] = "deleted"
-    
-    collection = db.ChecklistLogs
+        # check if any onboards using
+        inUse = onboardCollection.find_one({"clID": clID})
 
-    results = {}
+        if inUse == None:
+            prevChecklist["status"] = "deleted"
+        else:
+            results['error'] = "Checklist is currently in use."
+            return results
 
     # insert checklist into log
     try:
@@ -239,6 +241,7 @@ def logCheckList(clID,toDelete = False):
         results['results'] = 'true' 
     except Exception as e:
         results['error'] = str(e)
+        
 
     client.close()
 

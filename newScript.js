@@ -2247,7 +2247,6 @@ db.OnboardCounter.insertOne({ "_id": "obID", "sequence_value": 0 })
 
 // set up onboard table
 db.Onboards.drop()
-db.Onboards.createIndex({ "clientName": 1, "RMName": 1, "dateCreated": 1 }, { unique: true })
 
 //set up notification IDs
 db.NotificationCounter.drop()
