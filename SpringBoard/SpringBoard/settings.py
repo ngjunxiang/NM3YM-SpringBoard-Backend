@@ -30,12 +30,13 @@ SECRET_KEY = '8d9ec4c3-77eb-4185-91a1-c1219ada801e'
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
     'app',
+    'background_task',
     # Add your apps here to enable them
+    'drf_pdf',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -161,7 +162,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
-#CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = ('localhost:4200','http://13.250.105.1',)
 

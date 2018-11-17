@@ -260,6 +260,8 @@ def getAnswer(question, num=10):
     from app.utils.trainModel import retrieveSynonyms
 
     collection = db.KnowledgeBase
+    viewTracker = db.ViewTracker
+
     quesVector1 = createVector(question.lower())
 
     intentBoost = 0.04
@@ -274,7 +276,16 @@ def getAnswer(question, num=10):
 
     # retrieve all qna 
     table = collection.find({},{"_id":0})
-    faqList = [item for item in table]
+    faqList = []
+    for item in table:
+        qnID = item["qnID"]
+        viewers = viewTracker.find_one({"qnID":qnID},{"_id":0})
+        if viewers:
+            item["views"] = len(viewers["usersViewed"])
+        else:
+            item["views"] = 0
+        faqList.append(item)
+
     match = []
 
     # filter by question similarity
@@ -382,7 +393,6 @@ def incrementViews(qnID,username):
 
     if doc:
         usersViewed = doc["usersViewed"]
-        print(usersViewed)
         for i in range(len(usersViewed)):
             uvObj = usersViewed[i]
             if username in uvObj.keys():
@@ -392,6 +402,7 @@ def incrementViews(qnID,username):
         usersViewed.append(viewedUsers)
         try:
             qnViewTracker.update_one({"qnID":qnID},{"$set":{"usersViewed":usersViewed}})
+            #collection.find_one_and_update({"qnID": int(qnID)}, {'$inc': {'views': 1}})
         except Exception as e:
             #collection.find_one_and_update({"qnID": int(qnID)}, {'$inc': {'views': -1}})
             results = {"error":str(e)}
@@ -405,6 +416,7 @@ def incrementViews(qnID,username):
         toInsert["usersViewed"] = usersViewed
         try:
             qnViewTracker.insert_one(toInsert)
+            #collection.find_one_and_update({"qnID": int(qnID)}, {'$inc': {'views': 1}})
         except Exception as e:
             #collection.find_one_and_update({"qnID": int(qnID)}, {'$inc': {'views': -1}})
             results = {"error":str(e)}
@@ -492,9 +504,18 @@ def deleteUnanswered(qnID):
 def userRetrieveAllQNA(username):
     answeredCollection = db.KnowledgeBase
     unansweredCollection = db.UnansweredQuestions
+    viewTracker = db.ViewTracker
 
     table = answeredCollection.find({"username":username},{"_id":0})
-    answeredList = [item for item in table]
+    answeredList = []
+    for item in table:
+        qnID = item["qnID"]
+        viewers = viewTracker.find_one({"qnID":qnID},{"_id":0})
+        if viewers:
+            item["views"] = len(viewers["usersViewed"])
+        else:
+            item["views"] = 0
+        answeredList.append(item)
 
     table = unansweredCollection.find({"username":username},{"_id":0})
     unansweredList = [item for item in table]
@@ -511,9 +532,19 @@ def userRetrieveAllQNA(username):
 # retrieve all questions answered by user
 def cmUserRetrieveAllQNA(username):
     answeredCollection = db.KnowledgeBase
+    viewTracker = db.ViewTracker
 
     table = answeredCollection.find({"CMusername":username},{"_id":0})
-    answeredList = [item for item in table]
+    answeredList = []
+    for item in table:
+        qnID = item["qnID"]
+        viewers = viewTracker.find_one({"qnID":qnID},{"_id":0})
+        if viewers:
+            item["views"] = len(viewers["usersViewed"])
+        else:
+            item["views"] = 0
+        answeredList.append(item)
+
     answeredList = sorted(answeredList, key=itemgetter('dateAnswered'), reverse=True) 
 
     table = answeredCollection.find({"prevAnswer.CMusername": username, "CMusername":{"$ne":username}},{"_id":0})
