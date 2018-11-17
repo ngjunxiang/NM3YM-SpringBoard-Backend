@@ -10,6 +10,13 @@ db = client.SpringBoard
 tz = pytz.timezone('Asia/Singapore')
 
 def createCheckList(input,name):
+    """Inserts a new checklist into the DB.
+
+    Args:
+    input (Dict) : checklist as a json object
+    name (str) : name of creator
+
+    """    
 
     collection = db.Checklists
     counter = db.ChecklistCounter
@@ -24,7 +31,7 @@ def createCheckList(input,name):
 
     latestDocID = 0
 
-    # parse input from frontend
+    # parse input 
     input = json.loads(input)   
 
     # assign docID to each document
@@ -62,6 +69,17 @@ def createCheckList(input,name):
     return results
 
 def updateCheckList(input,name,clID,version,createdDate,createdBy):
+    """Updates checklist and logs the old version.
+
+    Args:
+    input (List) : updated checklist as a json object
+    name (str) : name of person updating
+    clID (str): checklist ID
+    version (int) : new version number
+    createdDate (str) : date created
+    createdBy (str) : creator
+
+    """    
     
     logsCollection = db.ChecklistLogs
     collection = db.Checklists
@@ -136,6 +154,12 @@ def updateCheckList(input,name,clID,version,createdDate,createdBy):
     return results
 
 def deleteCheckList(clID):
+    """Deletes checklist
+
+    Args:
+    clID (str) : checklist ID
+
+    """
 
     collection = db.Checklists
 
@@ -149,27 +173,44 @@ def deleteCheckList(clID):
     client.close()
     return results
 
-# get current version number of the given checklist
 def getCLversion(clID):
+    """Gets the latest version number of given checklist.
+
+    Args:
+    clID (str) : checklist ID
+    
+    """
 
     collection = db.Checklists
 
     return collection.find_one({"clID": clID })["version"]
 
 def getCreatedDate(clID):
+    """Gets the creation date of given checklist.
+
+    Args:
+    clID (str) : checklist ID
+    
+    """
 
     collection = db.Checklists
 
     return collection.find_one({"clID": clID})["dateCreated"]
 
 def getCreatedBy(clID):
+    """Gets the creator of given checklist.
+
+    Args:
+    clID (str) : checklist ID
+    
+    """
     
     collection = db.Checklists
 
     return collection.find_one({"clID": clID})["createdBy"]
 
-# returns names of all the current checklists
 def retrieveCheckListByName():
+    """Gets the names of all existing checklists."""
 
     collection = db.Checklists
     
@@ -183,8 +224,13 @@ def retrieveCheckListByName():
     client.close()
     return results
 
-# returns checklist with given ID
 def retrieveCheckList(clID):
+    """Retrieves the specific checklist.
+
+    Args:
+    clID (str) : checklist ID
+    
+    """
 
     collection = db.Checklists
     
@@ -210,8 +256,14 @@ def retrieveCheckList(clID):
 
     return results
 
-# moves checklist to log
 def logCheckList(clID,toDelete = False):
+    """Logs the specific checklist.
+
+    Args:
+    clID (str) : checklist ID
+    toDelete (bool) : True if deletion, False(default) if update
+    
+    """
 
     collection = db.ChecklistLogs
     onboardCollection = db.Onboards
@@ -247,8 +299,9 @@ def logCheckList(clID,toDelete = False):
 
     return results
 
-# retrieves all current/deleted checklist names and their versions
 def retrieveNamesWithVersions():
+    """Retrieves all current/deleted checklist names and their versions."""
+
     collection = db.Checklists
     delCollection = db.ChecklistLogs
 
@@ -311,8 +364,14 @@ def retrieveNamesWithVersions():
     client.close()
     return results
 
-# retrieves a specific checklist version
+
 def retrieveLoggedCheckLists(clID,version):
+    """Retrieves a specific checklist version.
+
+    Args: 
+    clID (str) : checklist ID
+    version (str) : version
+    """
     
     collection = db.Checklists
     logCollection = db.ChecklistLogs

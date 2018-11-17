@@ -24,9 +24,7 @@ class CreateCL(CreateAPIView):
     queryset = db.Checklists.find()
 
     def post(self,request):
-        """
-        Checklist creation. Takes in checklist as JSON object.
-        """
+        """Checklist creation. Takes in checklist as JSON object."""
 
         # request parameters
         document = request.data['checklist']
@@ -56,9 +54,7 @@ class ManageCL(CreateAPIView):
 
     #retrieve a single checklist
     def post(self,request):
-        """
-        Retrieve checklist with the given clID.
-        """
+        """Retrieve checklist with the given clID."""
         # request parameters
         clID = request.data['clID']
         username = request.data['username']
@@ -81,9 +77,7 @@ class ManageCL(CreateAPIView):
 
     #delete checklist
     def delete(self,request):
-        """
-        Deletes checklist with the given clID.
-        """
+        """Deletes checklist with the given clID."""
 
         # request parameters
         username = request.data['username']
@@ -117,9 +111,7 @@ class UpdateCL(CreateAPIView):
     queryset = db.Checklists.find()
 
     def post(self,request):
-        """
-        Replaces checklist with the given clID.
-        """
+        """Replaces checklist with the given clID."""
 
         # request parameters
         document = request.data['checklist']
@@ -170,9 +162,7 @@ class CMRetrieveNamesAndVersions(CreateAPIView):
     queryset = db.ChecklistLogs.find()
 
     def post(self,request):
-        """
-        Retrieve clID, name and version numbers of all checklists.
-        """
+        """Retrieve clID, name and version numbers of all checklists."""
         # request parameters
         username = request.data['username']
         token = request.data['token']
@@ -199,9 +189,7 @@ class CMRetrieveLoggedLists(CreateAPIView):
     queryset = db.ChecklistLogs.find()
 
     def post(self,request):
-        """
-        Retrieve checklist with the specific clID and version.
-        """
+        """Retrieve checklist with the specific clID and version."""
 
         # request parameters
         username = request.data['username']
@@ -231,9 +219,7 @@ class CMRetrieveCLNames(CreateAPIView):
      queryset = db.Checklists.find()
 
      def post(self,request):
-        """
-        Retrieve names of all checklists.
-        """
+        """Retrieve names of all checklists."""
 
         # request parameters
         username = request.data['username']
@@ -265,9 +251,7 @@ class FORetrieveCL(CreateAPIView):
     queryset = db.Checklists.find()
 
     def post(self,request):
-        """
-        Retrieve checklist with the given clID.
-        """
+        """Retrieve checklist with the given clID."""
 
         # request parameters
         clID = request.data['clID']
@@ -295,9 +279,7 @@ class FORetrieveCLNames(CreateAPIView):
     queryset = db.Checklists.find()
 
     def post(self,request):
-        """
-        Retrieve names of all checklists.
-        """
+        """Retrieve names of all checklists."""
 
         # request parameters
         username = request.data['username']
