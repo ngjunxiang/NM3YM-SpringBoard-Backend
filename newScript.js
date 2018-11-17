@@ -6,7 +6,6 @@ db.Checklists.drop()
 db.Checklists.createIndex({ "clID": 1 }, { unique: true })
 db.Checklists.insertMany([
   {
-    "_id" : ObjectId("5bb2414ecffbb28849f4184b"),
     "name" : "Account Opening (Individual)",
     "requiredFields" : [
             "Client Name",
@@ -870,7 +869,6 @@ db.Checklists.insertMany([
     "updatedBy" : "CM"
   },
   {
-      "_id" : ObjectId("5bb48fc13dce0d0748eb5a49"),
       "name" : "Account Opening (Legal Entity)",
       "requiredFields" : [
               "Client Name",
@@ -1726,7 +1724,7 @@ db.Checklists.insertMany([
               "optional" : [ ]
       },
       "latestDocID" : "55",
-      "clID" : "2",
+      "clID" : "1",
       "version" : "1",
       "status" : "valid",
       "dateCreated" : "2018-10-03 17:45:32",
@@ -1735,17 +1733,12 @@ db.Checklists.insertMany([
       "updatedBy" : "Chantelle Chiew"
   },
   {
-    "_id" : ObjectId("5be3125d3dce0d047c145b5f"),
     "name" : "Transaction Monitoring",
     "requiredFields" : [
             "Client Name",
             "RM Name",
             "Account Number",
             "Date of Submission",
-            "Is the transaction incoming or outgoing?",
-            "Transaction Amount in USD",
-            "Transaction Amount in Original Currency",
-            "What is the name of counterparty",
             "Is the transaction incoming or outgoing?",
             "Transaction Amount in USD",
             "Transaction Amount in Original Currency",
@@ -2219,7 +2212,7 @@ db.Checklists.insertMany([
             "optional" : [ ]
     },
     "latestDocID" : "21",
-    "clID" : "3",
+    "clID" : "2",
     "version" : "1",
     "status" : "valid",
     "dateCreated" : "2018-11-08 00:08:26",
@@ -2235,7 +2228,7 @@ db.ChecklistLogs.createIndex({ "clID": 1, "version": 1 }, { unique: true })
 
 // set up checklist IDs
 db.ChecklistCounter.drop()
-db.ChecklistCounter.insertOne({ "_id": "clID", "sequence_value": 4 })
+db.ChecklistCounter.insertOne({ "_id": "clID", "sequence_value": 3 })
 
 // set up tokens table
 db.Tokens.drop()

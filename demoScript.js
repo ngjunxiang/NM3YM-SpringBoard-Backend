@@ -618,57 +618,464 @@ db.Notifications.createIndex({ "noID": 1, "clID": 1, "version": 1, "docID": 1 })
 db.AgmtCodes.createIndex({ "code": 1 }, { unique: true })
 db.AgmtCodes.insertMany([
   {
-    "code" : 1,
+    "code" : NumberInt(1),
     "document" : "Address Proof"
   },
   {
-    "code" : 2,
+    "code" : NumberInt(2),
     "document" : "Passport"
   },
   {
-    "code" : 3,
+    "code" : NumberInt(3),
     "document" : "Identification Card"
   },
   {
-    "code" : 4,
+    "code" : NumberInt(4),
     "document" : "Income Statement"
   },
   {
-    "code" : 5,
+    "code" : NumberInt(5),
     "document" : "Tax Statement"
   },
   {
-    "code" : 6,
+    "code" : NumberInt(6),
     "document" : "Proof of Residence"
   },
   {
-    "code" : 7,
+    "code" : NumberInt(7),
     "document" : "Sub-Account Details"
   },
   {
-    "code" : 8,
+    "code" : NumberInt(8),
     "document" : "Next-Of-Kin Details"
   },
   {
-    "code" : 9,
+    "code" : NumberInt(9),
     "document" : "ACRA Form"
   },
   {
-    "code" : 10,
+    "code" : NumberInt(10),
     "document" : "Financial Statement"
   },
   {
-    "code" : 11,
+    "code" : NumberInt(11),
     "document" : "List of Directors"
   },
   {
-    "code" : 12,
+    "code" : NumberInt(12),
     "document" : "Bank Statement"
   }
 ])
 
+// set up knowledgeBase table
+db.KnowledgeBase.insertMany([
+  {
+    "question" : "I would like to find out more about the tuition fees",
+    "answer" : "Please refer to the document for more information.",
+    "refPages" : [1],
+    "qnID" : 0,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:33",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:33",
+    "views" : 0,
+    "entities" : {
+      "Fees" : [
+        "Tuition Fee"
+      ]
+    },
+    "intent" : "ScholarshipsAndFees"
+  },
+  {
+    "question" : "Does SMU offer any financial aid?",
+    "answer" : "SMU has a comprehensive range of financial aid schemes to help students in the payment of their tuition fees. These schemes cover only the subsidised tuition fees. They do not cover the miscellaneous fees charged by SMU.",
+    "refPages" : [ ],
+    "qnID" : 1,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:33",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:33",
+    "views" : 0,
+    "entities" : {
+      "Scholarship" : [
+        "FA"
+      ]
+    },
+    "intent" : "ScholarshipsAndFees"
+  },
+  {
+    "question" : "How do I know if I am eligible for financial aid?",
+    "answer" : "You may use the Student Financial Needs Calculator to help determine if you are eligible and to find out the type and quantum of financial aid that you may qualify for.",
+    "refPages" : [ ],
+    "qnID" : 2,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:33",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:33",
+    "views" : 0,
+    "entities" : {
+      "Scholarship" : [
+        "FA"
+      ]
+    },
+    "intent" : "ScholarshipsAndFees"
+  },
+  {
+    "question" : "How do I pay my tuition fees? Can I pay in instalments?",
+    "answer" : "Fees are payable in two instalments in a year – at the beginning of the first and second semesters. Fees for special term courses are payable separately.",
+    "refPages" : [ ],
+    "qnID" : 3,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:34",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:34",
+    "views" : 0,
+    "entities" : {
+      "Fees" : [
+        "Tuition Fee"
+      ],
+      "Payment" : [
+        "Pay",
+        "Instalment"
+      ]
+    },
+    "intent" : "ScholarshipsAndFees"
+  },
+  {
+    "question" : "What are the miscellaneous fees and how often do I have to pay?",
+    "answer" : "Miscellaneous fees are fees charged for registration, information technology, library, sports-related, student activity, insurance and other orientation and academic-related services. They are compulsory and are payable prior to the start of the new academic year.",
+    "refPages" : [ ],
+    "qnID" : 4,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:34",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:34",
+    "views" : 0,
+    "entities" : {
+      "Fees" : [
+        "Miscellaneous Fee"
+      ],
+      "Payment" : [
+        "Pay"
+      ]
+    },
+    "intent" : "ScholarshipsAndFees"
+  },
+  {
+    "question" : "Will students paying unsubsidised tuition fees be eligible for any financial aid or scholarships?",
+    "answer" : "Students paying unsubsidised tuition fees are not eligible for any financial aid or scholarships administered by Singapore Ministry of Education (MOE) or SMU.",
+    "refPages" : [ ],
+    "qnID" : 5,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:35",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:35",
+    "views" : 0,
+    "entities" : {
+      "Fees" : [
+        "Unsubsidised Tuition Fee"
+      ],
+      "Scholarship" : [
+        "FA",
+        "Scholarship"
+      ],
+      "Payment" : [
+        "Pay"
+      ]
+    },
+    "intent" : "ScholarshipsAndFees"
+  },
+  {
+    "question" : "What would be my tuition fees if I am admitted to the Double Degree Programme?",
+    "answer" : "DDP students are required to pay the higher of the tuition fees if both degree programmes are priced differently e.g. Law students pay the higher tuition fees.",
+    "refPages" : [ ],
+    "qnID" : 6,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:35",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:35",
+    "views" : 4,
+    "entities" : {
+      "Fees" : [
+        "Tuition Fee"
+      ],
+      "Programme" : [
+        "DDP"
+      ]
+    },
+    "intent" : "ScholarshipsAndFees"
+  },
+  {
+    "question" : "Does tuition fees include accommodation and living expenses?",
+    "answer" : "Tuition fees do not include accommodation, miscellaneous fees, cost of books and study materials and living expenses.",
+    "refPages" : [ ],
+    "qnID" : 7,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:36",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:36",
+    "views" : 0,
+    "entities" : {
+      "Fees" : [
+        "Tuition Fee"
+      ]
+    },
+    "intent" : "ScholarshipsAndFees"
+  },
+  {
+    "question" : "When can I apply for financial aid?",
+    "answer" : "You may apply for bursaries after submitting your online application for admissions by logon to the Applicant's Self Service . Applications for bursaries for Academic Year 2019-20 open on 2 January 2019 and close on 31 May 2019.",
+    "refPages" : [ ],
+    "qnID" : 8,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:36",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:36",
+    "views" : 3,
+    "entities" : {
+      "Scholarship" : [
+        "FA"
+      ],
+      "Action" : [
+        "Apply"
+      ]
+    },
+    "intent" : "ScholarshipsAndFees"
+  },
+  {
+    "question" : "Where can I find information on scholarships?",
+    "answer" : "Please refer to the document for details on scholarships.",
+    "refPages" : [4],
+    "qnID" : 9,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:36",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:36",
+    "views" : 0,
+    "entities" : {
+      "Scholarship" : [
+        "Scholarship"
+      ]
+    },
+    "intent" : "ScholarshipsAndFees"
+  },
+  {
+    "question" : "How do I apply for scholarships?",
+    "answer" : "<div>You will be asked to indicate your choices of scholarships in the online application form for admission. If you have submitted an online application for admission without having indicated your choices of scholarships, you may do so by applying for scholarships through Applicant's Self Service.</div><div>&nbsp;</div>",
+    "refPages" : [ ],
+    "qnID" : 10,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:37",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:37",
+    "views" : 0,
+    "entities" : {
+      "Action" : [
+        "Apply"
+      ],
+      "Scholarship" : [
+        "Scholarship"
+      ]
+    },
+    "intent" : "ScholarshipsAndFees"
+  },
+  {
+    "question" : "When can I apply for admisson?",
+    "answer" : "<div>For the Academic Year 2019-20, applications opened on 16 October 2018 and will close on 19 March 2019, 11.59pm Singapore Time.&nbsp;&nbsp;</div><div><br></div><div>Please click here for more information.</div>",
+    "refPages" : [ ],
+    "qnID" : 11,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:37",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:37",
+    "views" : 0,
+    "entities" : {
+      "Action" : [
+        "Apply"
+      ],
+      "Applications" : [
+        "Admission"
+      ]
+    },
+    "intent" : "Admissions"
+  },
+  {
+    "question" : "What are the admissions requirements?",
+    "answer" : "At SMU, we are committed to holistic admissions, where we look for students who have not only been successful academically but who also possess qualities that we value.&nbsp; Applicants are selected on the basis of their strong academic and co-curricular records as well as evidence of qualities such as critical thinking, communication skills and aptitude/positive attitude.",
+    "refPages" : [ ],
+    "qnID" : 12,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:38",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:38",
+    "views" : 0,
+    "entities" : {
+      "Applications" : [
+        "Admission"
+      ]
+    },
+    "intent" : "Admissions"
+  },
+  {
+    "question" : "What are the important dates I should take note of for applications?",
+    "answer" : "Please click here for information on the important dates that you should take note of.",
+    "refPages" : [ ],
+    "qnID" : 13,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:39",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:39",
+    "views" : 0,
+    "entities" : {
+      "Applications" : [
+        "Application"
+      ]
+    },
+    "intent" : "Admissions"
+  },
+  {
+    "question" : "Where can I view a sample of the online application form?",
+    "answer" : "Please click here for a sample of the online application form.",
+    "refPages" : [ ],
+    "qnID" : 14,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:39",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:39",
+    "views" : 0,
+    "entities" : {
+      "Forms" : [
+        "Online Application Form"
+      ]
+    },
+    "intent" : "Admissions"
+  },
+  {
+    "question" : "How do I cancel my application?",
+    "answer" : "Please email us at admissions@smu.edu.sg on your decision to cancel or withdraw your application. Kindly indicate your full name and application number in your email.",
+    "refPages" : [ ],
+    "qnID" : 15,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:40",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:40",
+    "views" : 0,
+    "entities" : {
+      "Applications" : [
+        "Application"
+      ],
+      "Action" : [
+        "Cancel"
+      ]
+    },
+    "intent" : "Admissions"
+  },
+  {
+    "question" : "How many degree programmes can I select in the online application?",
+    "answer" : "You may select up to 5 degree programmes, in order of preference.",
+    "refPages" : [ ],
+    "qnID" : 16,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:40",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:40",
+    "views" : 0,
+    "entities" : {
+      "Programme" : [
+        "Degree"
+      ],
+      "Forms" : [
+        "Online Application Form"
+      ]
+    },
+    "intent" : "Admissions"
+  },
+  {
+    "question" : "My application was unsuccessful, can I appeal to be reconsidered?",
+    "answer" : "If your application has not been successful or you have not been offered your first choice of programme or you have been offered admission to a single degree but would like to appeal for a double degree programme, you may submit an appeal for reconsideration.",
+    "refPages" : [ ],
+    "qnID" : 17,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:41",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:41",
+    "views" : 0,
+    "entities" : {
+      "Applications" : [
+        "Application",
+        "Appeal"
+      ]
+    },
+    "intent" : "Admissions"
+  },
+  {
+    "question" : "I have not been offered a place in my programmes of choice, can I appeal for another programme?",
+    "answer" : "You may appeal for a programme that you had not opted previously.",
+    "refPages" : [ ],
+    "qnID" : 18,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:42",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:42",
+    "views" : 0,
+    "entities" : {
+      "Programme" : [
+        "Degree",
+        "Degree"
+      ],
+      "Applications" : [
+        "Appeal"
+      ]
+    },
+    "intent" : "Admissions"
+  },
+  {
+    "question" : "I am still waiting for my appeal outcome, but I am asked to matriculate now. What should I do?",
+    "answer" : "If you have received our email on matriculation, you may wish to matriculate for the programme which you had already accepted. If your appeal is successful, we will make the necessary amendments on our system and your student records to reflect the latest status.",
+    "refPages" : [ ],
+    "qnID" : 19,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:42",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:42",
+    "views" : 0,
+    "entities" : {
+      "Applications" : [
+        "Appeal"
+      ],
+      "Action" : [
+        "Matriculate"
+      ]
+    },
+    "intent" : "Admissions"
+  },
+  {
+    "question" : "How do I submit an appeal to change programme?",
+    "answer" : "<div>Please kindly email (admissions@smu.edu.sg) to express your interest to appeal with the following details :</div><div><br></div><div>(i)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Your full name</div><div><br></div><div>(ii)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Application No.</div><div><br></div><div>(iii)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Programme you intend to change to&nbsp;&nbsp;</div><div><br></div><div>(iv)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Reasons for change of programme (a write-up is preferred; 1000-word limit)</div><div><br></div><div>&nbsp;</div><div><br></div><div>We will inform you on the outcome of your appeal. Please check the status of your appeal online via Applicant’s Self Service. If your appeal for course change is not successful, you will still keep your place in the degree programme that you have previously accepted.&nbsp;</div>",
+    "refPages" : [ ],
+    "qnID" : 20,
+    "username" : "CM",
+    "dateAsked" : "2018-11-12 21:43",
+    "CMusername" : "RandyLai",
+    "dateAnswered" : "2018-11-12 21:43",
+    "views" : 0,
+    "entities" : {
+      "Action" : [
+        "Submit"
+      ],
+      "Applications" : [
+        "Appeal"
+      ],
+      "Programme" : [
+        "Degree"
+      ]
+    },
+    "intent" : "Admissions"
+  }    
+])
+
 //set up Questions IDs
-db.QuestionCounter.insertOne({ "_id": "qnID", "sequence_value": 0 })
+db.QuestionCounter.insertOne({ "_id": "qnID", "sequence_value": 21 })
 
 //set up Questions notification IDs
 db.QuestionNotificationCounter.insertOne({ "_id": "noID", "sequence_value": 1 })
@@ -687,3 +1094,795 @@ db.QnANotificationCounter.insertOne({ "_id": "noID", "sequence_value": 1 })
 
 //set up QnA notification table
 db.QnANotifications.createIndex({ "noID": 1})
+
+db.StoreIntents.insertMany([
+  {
+    "qnID" : 0,
+    "text" : "I would like to find out more about the tuition fees",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(40),
+        "end" : NumberInt(52),
+        "value" : "Tuition Fee",
+        "entity" : "Fees"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "What are the tuition fees?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(13),
+        "end" : NumberInt(25),
+        "value" : "Tuition Fee",
+        "entity" : "Fees"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "How much are the tuition fees?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(17),
+        "end" : NumberInt(29),
+        "value" : "Tuition Fee",
+        "entity" : "Fees"
+      }
+    ]
+  },
+  {
+    "qnID" : 1,
+    "text" : "Does SMU offer any financial aid?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(19),
+        "end" : NumberInt(32),
+        "value" : "FA",
+        "entity" : "Scholarship"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "What are the financial aid options?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(13),
+        "end" : NumberInt(26),
+        "value" : "FA",
+        "entity" : "Scholarship"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "What kind of Financial Aid is available?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(13),
+        "end" : NumberInt(26),
+        "value" : "FA",
+        "entity" : "Scholarship"
+      }
+    ]
+  },
+  {
+    "qnID" : 2,
+    "text" : "How do I know if I am eligible for financial aid?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(35),
+        "end" : NumberInt(48),
+        "value" : "FA",
+        "entity" : "Scholarship"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "Am I eligible for financial aid?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(18),
+        "end" : NumberInt(31),
+        "value" : "ScholarshipsAndFees",
+        "entity" : "Scholarship"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "Who is eligible for financial aid?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(20),
+        "end" : NumberInt(33),
+        "value" : "FA",
+        "entity" : "Scholarship"
+      }
+    ]
+  },
+  {
+    "qnID" : 3,
+    "text" : "How do I pay my tuition fees? Can I pay in instalments?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(16),
+        "end" : NumberInt(28),
+        "value" : "Tuition Fee",
+        "entity" : "Fees"
+      },
+      {
+        "start" : NumberInt(9),
+        "end" : NumberInt(12),
+        "value" : "Pay",
+        "entity" : "Payment"
+      },
+      {
+        "start" : NumberInt(43),
+        "end" : NumberInt(54),
+        "value" : "Instalment",
+        "entity" : "Payment"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "Can I pay the tuition fees in instalments?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(14),
+        "end" : NumberInt(26),
+        "value" : "Tuition Fee",
+        "entity" : "Fees"
+      },
+      {
+        "start" : NumberInt(6),
+        "end" : NumberInt(9),
+        "value" : "Pay",
+        "entity" : "Payment"
+      },
+      {
+        "start" : NumberInt(30),
+        "end" : NumberInt(41),
+        "value" : "Instalment",
+        "entity" : "Payment"
+      }
+    ]
+  },
+  {
+    "qnID" : 4,
+    "text" : "What are the miscellaneous fees and how often do I have to pay?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(13),
+        "end" : NumberInt(31),
+        "value" : "Miscellaneous Fee",
+        "entity" : "Fees"
+      },
+      {
+        "start" : NumberInt(59),
+        "end" : NumberInt(62),
+        "value" : "Pay",
+        "entity" : "Payment"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "How often do I need to pay the miscellaneous fee?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(23),
+        "end" : NumberInt(26),
+        "value" : "Pay",
+        "entity" : "Payment"
+      },
+      {
+        "start" : NumberInt(31),
+        "end" : NumberInt(48),
+        "value" : "Miscellaneous Fee",
+        "entity" : "Fees"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "What are the misc fees for?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(13),
+        "end" : NumberInt(22),
+        "value" : "Miscellaneous Fee",
+        "entity" : "Fees"
+      }
+    ]
+  },
+  {
+    "qnID" : 5,
+    "text" : "Will students paying unsubsidised tuition fees be eligible for any financial aid or scholarships?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(21),
+        "end" : NumberInt(46),
+        "value" : "Unsubsidised Tuition Fee",
+        "entity" : "Fees"
+      },
+      {
+        "start" : NumberInt(67),
+        "end" : NumberInt(80),
+        "value" : "FA",
+        "entity" : "Scholarship"
+      },
+      {
+        "start" : NumberInt(84),
+        "end" : NumberInt(96),
+        "value" : "Scholarship",
+        "entity" : "Scholarship"
+      },
+      {
+        "start" : NumberInt(14),
+        "end" : NumberInt(20),
+        "value" : "Pay",
+        "entity" : "Payment"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "Are students paying unsubsidised tuition fees eligible for any financial aid or scholarships?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(13),
+        "end" : NumberInt(19),
+        "value" : "Pay",
+        "entity" : "Payment"
+      },
+      {
+        "start" : NumberInt(20),
+        "end" : NumberInt(45),
+        "value" : "Unsubsidised Tuition Fee",
+        "entity" : "Fees"
+      },
+      {
+        "start" : NumberInt(63),
+        "end" : NumberInt(76),
+        "value" : "FA",
+        "entity" : "Scholarship"
+      },
+      {
+        "start" : NumberInt(80),
+        "end" : NumberInt(92),
+        "value" : "Scholarship",
+        "entity" : "Scholarship"
+      }
+    ]
+  },
+  {
+    "qnID" : 6,
+    "text" : "What would be my tuition fees if I am admitted to the Double Degree Programme?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(17),
+        "end" : NumberInt(29),
+        "value" : "Tuition Fee",
+        "entity" : "Fees"
+      },
+      {
+        "start" : NumberInt(54),
+        "end" : NumberInt(77),
+        "value" : "DDP",
+        "entity" : "Programme"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "What are the tuition fees for DDP?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(13),
+        "end" : NumberInt(25),
+        "value" : "Tuition Fee",
+        "entity" : "Fees"
+      },
+      {
+        "start" : NumberInt(30),
+        "end" : NumberInt(33),
+        "value" : "DDP",
+        "entity" : "Programme"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "How much is the double degree tuition fee?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(16),
+        "end" : NumberInt(29),
+        "value" : "DDP",
+        "entity" : "Programme"
+      },
+      {
+        "start" : NumberInt(30),
+        "end" : NumberInt(41),
+        "value" : "Tuition Fee",
+        "entity" : "Fees"
+      }
+    ]
+  },
+  {
+    "qnID" : 7,
+    "text" : "Does tuition fees include accommodation and living expenses?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(5),
+        "end" : NumberInt(17),
+        "value" : "Tuition Fee",
+        "entity" : "Fees"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "Are accommodation and living expenses included in the tuition fee?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(54),
+        "end" : NumberInt(65),
+        "value" : "Tuition Fee",
+        "entity" : "Fees"
+      }
+    ]
+  },
+  {
+    "qnID" : 8,
+    "text" : "When can I apply for financial aid?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(21),
+        "end" : NumberInt(34),
+        "value" : "FA",
+        "entity" : "Scholarship"
+      },
+      {
+        "start" : NumberInt(11),
+        "end" : NumberInt(16),
+        "value" : "Apply",
+        "entity" : "Action"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "When can I start applying for financial aid?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(17),
+        "end" : NumberInt(25),
+        "value" : "Apply",
+        "entity" : "Action"
+      },
+      {
+        "start" : NumberInt(30),
+        "end" : NumberInt(43),
+        "value" : "FA",
+        "entity" : "Scholarship"
+      }
+    ]
+  },
+  {
+    "qnID" : 9,
+    "text" : "Where can I find information on scholarships?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(32),
+        "end" : NumberInt(44),
+        "value" : "Scholarship",
+        "entity" : "Scholarship"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "Where can I find out more about scholarships?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(32),
+        "end" : NumberInt(44),
+        "value" : "Scholarship",
+        "entity" : "Scholarship"
+      }
+    ]
+  },
+  {
+    "qnID" : 10,
+    "text" : "How do I apply for scholarships?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(9),
+        "end" : NumberInt(14),
+        "value" : "Apply",
+        "entity" : "Action"
+      },
+      {
+        "start" : NumberInt(19),
+        "end" : NumberInt(31),
+        "value" : "Scholarship",
+        "entity" : "Scholarship"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "How do I start applying for scholarships?",
+    "intent" : "ScholarshipsAndFees",
+    "entities" : [
+      {
+        "start" : NumberInt(28),
+        "end" : NumberInt(40),
+        "value" : "Scholarship",
+        "entity" : "Scholarship"
+      },
+      {
+        "start" : NumberInt(15),
+        "end" : NumberInt(23),
+        "value" : "Apply",
+        "entity" : "Action"
+      }
+    ]
+  },
+  {
+    "qnID" : 11,
+    "text" : "When can I apply for admission?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(11),
+        "end" : NumberInt(16),
+        "value" : "Apply",
+        "entity" : "Action"
+      },
+      {
+        "start" : NumberInt(21),
+        "end" : NumberInt(30),
+        "value" : "Admission",
+        "entity" : "Applications"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "When can I start applying for admissions?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(17),
+        "end" : NumberInt(25),
+        "value" : "Apply",
+        "entity" : "Action"
+      }
+    ]
+  },
+  {
+    "qnID" : 12,
+    "text" : "What are the admissions requirements?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(13),
+        "end" : NumberInt(23),
+        "value" : "Admission",
+        "entity" : "Applications"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "What are the requirements for admission?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(30),
+        "end" : NumberInt(39),
+        "value" : "Admission",
+        "entity" : "Applications"
+      }
+    ]
+  },
+  {
+    "qnID" : 13,
+    "text" : "What are the important dates I should take note of for applications?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(55),
+        "end" : NumberInt(67),
+        "value" : "Application",
+        "entity" : "Applications"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "What are the important admission application dates?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(33),
+        "end" : NumberInt(44),
+        "value" : "Application",
+        "entity" : "Applications"
+      },
+      {
+        "start" : NumberInt(23),
+        "end" : NumberInt(32),
+        "value" : "Admission",
+        "entity" : "Applications"
+      }
+    ]
+  },
+  {
+    "qnID" : 14,
+    "text" : "Where can I view a sample of the online application form?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(33),
+        "end" : NumberInt(56),
+        "value" : "Online Application Form",
+        "entity" : "Forms"
+      }
+    ]
+  },
+  {
+    "qnID" : 15,
+    "text" : "How do I cancel my application?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(19),
+        "end" : NumberInt(30),
+        "value" : "Application",
+        "entity" : "Applications"
+      },
+      {
+        "start" : NumberInt(9),
+        "end" : NumberInt(15),
+        "value" : "Cancel",
+        "entity" : "Action"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "Cancelling my application",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(0),
+        "end" : NumberInt(10),
+        "value" : "Cancel",
+        "entity" : "Action"
+      },
+      {
+        "start" : NumberInt(14),
+        "end" : NumberInt(25),
+        "value" : "Application",
+        "entity" : "Applications"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "How to cancel application?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(7),
+        "end" : NumberInt(13),
+        "value" : "Cancel",
+        "entity" : "Action"
+      },
+      {
+        "start" : NumberInt(14),
+        "end" : NumberInt(25),
+        "value" : "Admissions",
+        "entity" : "Applications"
+      }
+    ]
+  },
+  {
+    "qnID" : 16,
+    "text" : "How many degree programmes can I select in the online application?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(9),
+        "end" : NumberInt(26),
+        "value" : "Degree",
+        "entity" : "Programme"
+      },
+      {
+        "start" : NumberInt(47),
+        "end" : NumberInt(65),
+        "value" : "Online Application Form",
+        "entity" : "Forms"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "How many degree programmes can I apply for?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(9),
+        "end" : NumberInt(26),
+        "value" : "Degree",
+        "entity" : "Programme"
+      },
+      {
+        "start" : NumberInt(33),
+        "end" : NumberInt(38),
+        "value" : "Apply",
+        "entity" : "Action"
+      }
+    ]
+  },
+  {
+    "qnID" : 17,
+    "text" : "My application was unsuccessful, can I appeal to be reconsidered?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(3),
+        "end" : NumberInt(14),
+        "value" : "Application",
+        "entity" : "Applications"
+      },
+      {
+        "start" : NumberInt(39),
+        "end" : NumberInt(45),
+        "value" : "Appeal",
+        "entity" : "Applications"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "Can I appeal if my application was rejected?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(6),
+        "end" : NumberInt(12),
+        "value" : "Appeal",
+        "entity" : "Applications"
+      },
+      {
+        "start" : NumberInt(19),
+        "end" : NumberInt(30),
+        "value" : "Application",
+        "entity" : "Applications"
+      }
+    ]
+  },
+  {
+    "qnID" : 18,
+    "text" : "I have not been offered a place in my programmes of choice, can I appeal for another programme?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(38),
+        "end" : NumberInt(48),
+        "value" : "Degree",
+        "entity" : "Programme"
+      },
+      {
+        "start" : NumberInt(38),
+        "end" : NumberInt(47),
+        "value" : "Degree",
+        "entity" : "Programme"
+      },
+      {
+        "start" : NumberInt(66),
+        "end" : NumberInt(72),
+        "value" : "Appeal",
+        "entity" : "Applications"
+      }
+    ]
+  },
+  {
+    "qnID" : "",
+    "text" : "Can I appeal for a different degree programme?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(6),
+        "end" : NumberInt(12),
+        "value" : "Appeal",
+        "entity" : "Applications"
+      },
+      {
+        "start" : NumberInt(29),
+        "end" : NumberInt(45),
+        "value" : "Degree",
+        "entity" : "Programme"
+      }
+    ]
+  },
+  {
+    "qnID" : 19,
+    "text" : "I am still waiting for my appeal outcome, but I am asked to matriculate now. What should I do?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(26),
+        "end" : NumberInt(32),
+        "value" : "Appeal",
+        "entity" : "Applications"
+      },
+      {
+        "start" : NumberInt(60),
+        "end" : NumberInt(71),
+        "value" : "Matriculate",
+        "entity" : "Action"
+      }
+    ]
+  },
+  {
+    "qnID" : 20,
+    "text" : "How do I submit an appeal to change programme?",
+    "intent" : "Admissions",
+    "entities" : [
+      {
+        "start" : NumberInt(9),
+        "end" : NumberInt(15),
+        "value" : "Submit",
+        "entity" : "Action"
+      },
+      {
+        "start" : NumberInt(19),
+        "end" : NumberInt(25),
+        "value" : "Appeal",
+        "entity" : "Applications"
+      },
+      {
+        "start" : NumberInt(36),
+        "end" : NumberInt(45),
+        "value" : "Degree",
+        "entity" : "Programme"
+      }
+    ]
+  }      
+])
