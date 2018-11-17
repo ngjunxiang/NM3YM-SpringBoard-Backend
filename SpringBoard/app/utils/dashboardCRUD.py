@@ -15,13 +15,20 @@ db = client.SpringBoard
 
 # retrieve number of completed onboards for given RM
 def getCompletedClients(username,userType):
+    """Retrieves count of number of completed clients for specific user.
+
+    Args:
+    username (str) : username 
+    userType (str) : user type
+
+    """    
 
     collection = db.Onboards
 
     name = getName(username)
     completedCount = 0
 
-    if (checkFOType(userType)=="RM"):
+    if (userType =="RM"):
         completedCount = collection.find({"requiredFields.RM Name": name,"progress":100}).count()
     else:
         completedCount = collection.find({"createdBy": name,"progress":100}).count()
@@ -30,11 +37,19 @@ def getCompletedClients(username,userType):
 
 # retrieve number of pending onboards for given RM
 def getPendingClients(username,userType):
+    """Retrieves count of number of pending clients for specific user.
+
+    Args:
+    username (str) : username 
+    userType (str) : user type
+
+    """    
+
     collection = db.Onboards
 
     name = getName(username)
     totalCount = 0
-    if (checkFOType(userType)=="RM"):
+    if (userType=="RM"):
         totalCount = collection.find({"requiredFields.RM Name": name}).count()
     else:
         totalCount = collection.find({"createdBy": name}).count()
@@ -44,11 +59,19 @@ def getPendingClients(username,userType):
     return totalCount - completedCount
 
 def getAllPendingClients(username,userType):
+    """Retrieves all pending clients for specific user.
+
+    Args:
+    username (str) : username 
+    userType (str) : user type
+
+    """    
+
     collection = db.Onboards
 
     name = getName(username)
     table = collection.find({"requiredFields.RM Name": name,"progress":{"$lt":100}},{"clID":1,"obID":1,"name":1,"requiredFields":1,"dateCreated":1,"_id":0})
-    if (checkFOType(userType)=="MA"):
+    if (userType=="MA"):
         table = collection.find({"createdBy": name,"progress":{"$lt":100}},{"clID":1,"obID":1,"name":1,"requiredFields":1,"dateCreated":1,"_id":0})
 
     pendingList = [item for item in table]
@@ -57,13 +80,21 @@ def getAllPendingClients(username,userType):
 
 # retrieve all completed onboards for given RM
 def getOnboardedClients(username,userType):
+    """Retrieves all completed clients for specific user.
+
+    Args:
+    username (str) : username 
+    userType (str) : user type
+
+    """    
+
     collection = db.Onboards
 
     name = getName(username)
 
     
     table = collection.find({"requiredFields.RM Name": name,"progress":100},{"dateCompleted":1,"_id":0})
-    if (checkFOType(userType)=="MA"):
+    if (userType=="MA"):
         table = collection.find({"createdBy": name,"progress":100},{"dateCompleted":1,"_id":0})
     
     results = {}
@@ -97,6 +128,13 @@ def getOnboardedClients(username,userType):
     return results
 
 def changesInChecklists(username):
+    """Retrieves checklist changes by username.
+
+    Args:
+    username (str) : username 
+
+    """    
+
     checkLists = getAllNotifications(username)
 
     cl = collections.OrderedDict(checkLists)
@@ -107,6 +145,14 @@ def changesInChecklists(username):
     return itertools.islice(cl.items(),0,10)
 
 def clientsAffectedByChanges(username,userType):
+    """Retrieves affected clients by user.
+
+    Args:
+    username (str) : username 
+    userType (str) : user type
+
+    """    
+
     notiCollection = db.Notifications
     onboardCollection = db.Onboards
 
@@ -140,6 +186,8 @@ def clientsAffectedByChanges(username,userType):
     return onboardsList
 
 def getUpdatedChecklists():
+    """Retrieves checklists that have been updated."""    
+
     collection = db.Checklists
 
     table = collection.find({},{"_id":0,"clID":1,"name":1,"dateCreated":1,"dateUpdated":1})
@@ -156,6 +204,8 @@ def getUpdatedChecklists():
     return clList
 
 def unansweredQuestions():
+    """Retrieves count of number of unanswered questions."""    
+
     questionCollection = db.QuestionNotifications
 
     unansweredCount = questionCollection.find({"isAnswered":False}).count()
@@ -165,6 +215,13 @@ def unansweredQuestions():
     
 
 def numberOfAnsweredQuestions(username):
+    """Retrieves count of number of answered questions.
+    
+    Args:
+    username (str) : username 
+
+    """    
+
     knowledgeCollection = db.KnowledgeBase
 
     answeredCount = knowledgeCollection.find({"username":username}).count()
@@ -172,6 +229,8 @@ def numberOfAnsweredQuestions(username):
     return answeredCount
 
 def mostRecentQuestions():
+    """Retrieves the most recent questions.""" 
+
     unansweredCollection = db.UnansweredQuestions
 
     questionTable = unansweredCollection.find({},{"_id":0}).sort("qnID",pymongo.DESCENDING)
@@ -194,6 +253,8 @@ def mostRecentQuestions():
     return questionList
         
 def mostPopularQuestions():
+    """Retrieves the most viewed questions.""" 
+
     viewTrackerCollection = db.ViewTracker
     kBCollection = db.KnowledgeBase
 
@@ -217,13 +278,14 @@ def mostPopularQuestions():
 
     return viewTrackerList[:5]
 
-def checkFOType(userType):
-    if userType=="RM":
-        return "RM"
-    else:
-        return "MA"
-
 def sortQNAListByViews(qnaList):
+    """Retrieves the most viewed questions.
+
+    Args:
+    qnaList (list) : list of qna
+    
+    """ 
+
     retQNAList = []
     
     if not qnaList:

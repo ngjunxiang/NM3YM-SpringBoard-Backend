@@ -19,6 +19,7 @@ class FODashboard(CreateAPIView):
     queryset = db.Checklists.find()
 
     def post(self,request):
+        """Retrieves all data for FO dashboard"""
 
         # request parameters
         username = request.data['username']
@@ -53,6 +54,7 @@ class CMDashboard(CreateAPIView):
     queryset = db.Checklists.find()
 
     def post(self,request):
+        """Retrieves all data for CM dashboard"""
 
         # request parameters
         username = request.data['username']
