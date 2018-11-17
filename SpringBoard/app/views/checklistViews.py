@@ -18,12 +18,15 @@ db = client.SpringBoard
 #                            Checklist CRUD                           #
 # ------------------------------------------------------------------- #
 
-#Allows COM to create new checklists
+#Allows CM to create new checklists
 class CreateCL(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Checklists.find()
 
     def post(self,request):
+        """
+        Checklist creation. Takes in checklist as JSON object.
+        """
 
         # request parameters
         document = request.data['checklist']
@@ -53,7 +56,9 @@ class ManageCL(CreateAPIView):
 
     #retrieve a single checklist
     def post(self,request):
-
+        """
+        Retrieve checklist with the given clID.
+        """
         # request parameters
         clID = request.data['clID']
         username = request.data['username']
@@ -76,6 +81,9 @@ class ManageCL(CreateAPIView):
 
     #delete checklist
     def delete(self,request):
+        """
+        Deletes checklist with the given clID.
+        """
 
         # request parameters
         username = request.data['username']
@@ -103,12 +111,15 @@ class ManageCL(CreateAPIView):
         client.close()
         return Response(results)
 
-# Allows COM/CM to update selected CL details
+# Allows CM to update selected CL details
 class UpdateCL(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Checklists.find()
 
     def post(self,request):
+        """
+        Replaces checklist with the given clID.
+        """
 
         # request parameters
         document = request.data['checklist']
@@ -159,7 +170,9 @@ class CMRetrieveNamesAndVersions(CreateAPIView):
     queryset = db.ChecklistLogs.find()
 
     def post(self,request):
-
+        """
+        Retrieve clID, name and version numbers of all checklists.
+        """
         # request parameters
         username = request.data['username']
         token = request.data['token']
@@ -186,6 +199,9 @@ class CMRetrieveLoggedLists(CreateAPIView):
     queryset = db.ChecklistLogs.find()
 
     def post(self,request):
+        """
+        Retrieve checklist with the specific clID and version.
+        """
 
         # request parameters
         username = request.data['username']
@@ -215,6 +231,9 @@ class CMRetrieveCLNames(CreateAPIView):
      queryset = db.Checklists.find()
 
      def post(self,request):
+        """
+        Retrieve names of all checklists.
+        """
 
         # request parameters
         username = request.data['username']
@@ -246,6 +265,9 @@ class FORetrieveCL(CreateAPIView):
     queryset = db.Checklists.find()
 
     def post(self,request):
+        """
+        Retrieve checklist with the given clID.
+        """
 
         # request parameters
         clID = request.data['clID']
@@ -273,6 +295,9 @@ class FORetrieveCLNames(CreateAPIView):
     queryset = db.Checklists.find()
 
     def post(self,request):
+        """
+        Retrieve names of all checklists.
+        """
 
         # request parameters
         username = request.data['username']
@@ -293,89 +318,3 @@ class FORetrieveCLNames(CreateAPIView):
         client.close()
         return Response(results)
 
-
-# ------------------------------------------------------------------- #
-#                             COM Methods                             #
-# ------------------------------------------------------------------- #
-
-# Returns all checklist names for Compliance
-class ComplianceRetrieveCLNames(CreateAPIView):
-     serializer_class = CLSerializer
-     queryset = db.Checklists.find()
-
-     def post(self,request):
-
-        # request parameters
-        username = request.data['username']
-        token = request.data['token']
-        userType = request.data['userType']
-
-        # authentication
-        tokenResults = tokenAuthenticate(username,token)
-        if(len(tokenResults) != 0):
-            client.close()
-            return Response(tokenResults)
-        if(not isCompliance(userType)):
-            client.close()
-            return Response({'error' : 'invalid userType'})
-
-        results = retrieveCheckListByName()
-
-        client.close()
-        return Response(results)
-
-# Retrieve previous version list by passing in the clID and version number
-class ComplianceRetrieveLoggedLists(CreateAPIView):
-    serializer_class = CLSerializer
-    queryset = db.ChecklistLogs.find()
-
-    def post(self,request):
-
-        # request parameters
-        username = request.data['username']
-        token = request.data['token']
-        userType = request.data['userType']
-        clID = request.data['clID']
-        version = request.data['version']
-
-        # authentication
-        tokenResults = tokenAuthenticate(username,token)
-        if(len(tokenResults) != 0):
-            client.close()
-            return Response(tokenResults)
-        if(not isCompliance(userType)):
-            client.close()
-            return Response({'error' : 'invalid userType'})
-
-        results = {}
-        results["results"] = retrieveLoggedCheckLists(clID,version)
-
-        client.close()
-        return Response(results)
-
-# Retrieve all Checklist names and versions
-class ComplianceRetrieveNamesAndVersions(CreateAPIView):
-    serializer_class = CLSerializer
-    queryset = db.ChecklistLogs.find()
-
-    def post(self,request):
-
-        # request parameters
-        username = request.data['username']
-        token = request.data['token']
-        userType = request.data['userType']
-
-        # authentication
-        tokenResults = tokenAuthenticate(username,token)
-        if(len(tokenResults) != 0):
-            client.close()
-            return Response(tokenResults)
-        if(not isCompliance(userType)):
-            client.close()
-            return Response({'error' : 'invalid userType'})
-
-        results = {}
-        results["results"] = retrieveNamesWithVersions()
-        
-        client.close()
-        return Response(results)
