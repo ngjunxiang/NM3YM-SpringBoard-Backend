@@ -186,21 +186,6 @@ def retrieveQNA(qnID):
     client.close()
     return results
 
-# retrieve qna with document reference
-def retrieveRefQNA():
-    collection = db.KnowledgeBase
-
-    table = collection.find({"refPages":{ "$exists": "true", "$ne": [] }},{"_id":0})
-
-    qnaList = []
-    for item in table:
-        qnaList.append(item)
-
-    results = {}
-    results["results"] =  qnaList
-
-    client.close()
-    return results
 
 # retrieve all qna
 def retrieveAllQNA(userType):
@@ -231,14 +216,20 @@ def retrieveAllQNA(userType):
     return results
 
 #sort qna
-def retrieveAllQNABy(retrieveBy,sortBy):
+def retrieveAllQNABy(retrieveBy,sortBy,filterRef):
     collection = db.KnowledgeBase
     viewTracker = db.ViewTracker
 
     table = collection.find({},{"_id":0})
+
+    if filterRef:
+        table = collection.find({"refPages":{ "$exists": "true", "$ne": [] }},{"_id":0})
     
     if retrieveBy:
-        table = collection.find({"intent":retrieveBy},{"_id":0})
+        if filterRef:
+            table = collection.find({"refPages":{ "$exists": "true", "$ne": [] },"intent":retrieveBy},{"_id":0})
+        else:
+            table = collection.find({"intent":retrieveBy},{"_id":0})
 
     qnaList = []
     for item in table:
