@@ -164,7 +164,7 @@ STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ORIGIN_WHITELIST = ('localhost:4200','http://13.250.105.1',)
+CORS_ORIGIN_WHITELIST = ('localhost:4200','http://13.250.105.1','https://www.springboard.pw',)
 
 #CORS_URLS_REGEX = r'^/*$'
 
