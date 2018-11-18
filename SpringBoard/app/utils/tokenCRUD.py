@@ -11,6 +11,14 @@ SECRET_KEY = 'NM^3YM'
 ph = PasswordHasher()
 
 def removeToken(username,token):
+    """Removes token from DB.
+    
+    Args:
+    username (str) : username
+    token (str) : token
+
+    """
+
     collection = db.Tokens
     results = {}
     binToken = "b'" + token + "'"
@@ -21,6 +29,14 @@ def removeToken(username,token):
     return results
 
 def storeToken(username, token):
+    """Stores token into DB.
+    
+    Args:
+    username (str) : username
+    token (str) : token
+
+    """
+
     collection = db.Tokens
     newToken = {'username':username,'token':str(token)}
     results = {'results':'false'}
@@ -35,19 +51,42 @@ def storeToken(username, token):
     return results
 
 def checkToken(token):
+    """Check token.
+    
+    Args:
+    token (str) : token
+
+    """
+
     collection = db.Tokens
     binToken = "b'" + token + "'"
     results = collection.find_one({'token':binToken},{'_id':0})
 
     if results == None:
-        return {'error' : 'Invalid Checklist Name' }
+        return {'error' : 'Invalid Token' }
 
     return results
 
 def checkLogonStatus(username,token):
+    """Checks if user is logged in.
+    
+    Args:
+    username (str) : username
+    token (str) : token
+
+    """
+
     return ({'username': username} == jwt.decode(token, SECRET_KEY, algorithms=['HS256']))
 
 def tokenAuthenticate(username,token):
+    """Authenticates token.
+    
+    Args:
+    username (str) : username
+    token (str) : token
+
+    """
+
     results = {}
     if('error' in checkToken(token)):
         results = {'error' : 'Invalid Token'}
@@ -66,6 +105,13 @@ def tokenAuthenticate(username,token):
     return results
 
 def createToken(username):
+    """Creates a token.
+    
+    Args:
+    username (str) : username
+
+    """
+
     encoded_token = jwt.encode({
                 'username': username,
                 # 'iat': datetime.datetime.utcnow(),

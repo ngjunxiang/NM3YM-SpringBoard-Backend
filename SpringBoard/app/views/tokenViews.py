@@ -20,6 +20,7 @@ class authenticateAdmin(CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self,request):
+        """Authenticates admin."""
 
         # request parameters
         username = request.data['username']
@@ -50,6 +51,7 @@ class authenticateCM(CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self,request):
+        """Authenticates CM."""
 
         # request parameters
         username = request.data['username']
@@ -80,6 +82,8 @@ class authenticateFO(CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self,request):
+        """Authenticates FO."""
+
         # request parameters
         username = request.data['username']
         token = request.data['token']
@@ -105,40 +109,12 @@ class authenticateFO(CreateAPIView):
 
         return Response({'newToken' : newToken})
 
-class authenticateCompliance(CreateAPIView):
-    serializer_class = UserSerializer
-
-    def post(self,request):
-
-        # request parameters
-        username = request.data['username']
-        token = request.data['token']
-        userType = request.data['userType']
-
-        # authentication
-        results = tokenAuthenticate(username,token)
-        if(len(results) != 0):
-            client.close()
-            return Response(results)
-        if(not isCompliance(userType)):
-            client.close()
-            return Response({'error' : 'Invalid userType' })
-
-        # create token
-        newToken = createToken(username)
-        checkResults = removeToken(username,token)
-        if (checkResults['items_deleted']!=1):
-            return Response({'error' : 'Failed to delete token'})
-        checkStore = storeToken(username,newToken)
-        if('error' in checkStore):
-            return Response({'error':'Failed to store token'})
-
-        return Response({'newToken' : newToken})
-
 class InvalidateUser(CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self, request):
+        """Invalidates token."""
+
         # request parameters
         username = request.data['username']
         token = request.data['token']

@@ -20,6 +20,7 @@ class UserLogin(CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self, request):
+        """Verifies user on login."""
 
         collection = db.Users
 

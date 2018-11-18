@@ -12,9 +12,6 @@ def isCM(userType):
 
 def isFO(userType):
     return (userType == "RM" or userType == "MA")
-
-def isCompliance(userType):
-    return userType == "COMPLIANCE"
     
 def retrieveAllUser():
     collection = db.Users

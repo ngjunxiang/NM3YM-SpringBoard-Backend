@@ -32,7 +32,6 @@ urlpatterns = [
     url(r'^authenticateAdmin',tokenViews.authenticateAdmin.as_view()),
     url(r'^authenticateCM',tokenViews.authenticateCM.as_view()),
     url(r'^authenticateFO',tokenViews.authenticateFO.as_view()),
-    url(r'^authenticateCompliance',tokenViews.authenticateCompliance.as_view()),
 
     # admin endpoints
     url(r'^admin/retrieve-users', userViews.RetrieveUsers.as_view()),

@@ -34,7 +34,7 @@ class UploadAgmtCodes(CreateAPIView):
             client.close()
             return Response(tokenResults)
 
-        if(not (isCM(userType) or isCompliance(userType))):
+        if(not isCM(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -83,7 +83,7 @@ class UploadReg51(CreateAPIView):
             client.close()
             return Response(tokenResults)
 
-        if(not (isCM(userType) or isCompliance(userType))):
+        if(not isCM(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
@@ -123,7 +123,7 @@ class RetrieveAgmtCodes(CreateAPIView):
             client.close()
             return Response(tokenResults)
 
-        if(not (isCM(userType) or isCompliance(userType))):
+        if(not isCM(userType)):
             client.close()
             return Response({'error' : 'invalid userType'})
 
