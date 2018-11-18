@@ -24,6 +24,7 @@ class RetrieveAnswers(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Retrieves top 'N' answers."""
 
         # request parameters
         question = request.data['question']
@@ -58,6 +59,7 @@ class AddAnsweredQuestion(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Adds an answered question into the knowledge base."""
 
         # request parameters
         qna = request.data['qna']
@@ -85,6 +87,7 @@ class CMAddAnsweredQuestion(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Adds a question created by CM into the knowledge base."""
 
         # request parameters
         qna = request.data['qna']
@@ -112,6 +115,7 @@ class DeleteAnsweredQuestion(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Adds a question created by CM into the knowledge base."""
 
         # request parameters
         qnID = request.data['qnID']
@@ -139,6 +143,7 @@ class EditAnsweredQuestion(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Edits question in the knowledge base."""
 
         # request parameters
         qna = request.data['qna']
@@ -166,6 +171,7 @@ class RetrieveQNA(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Retrieve QNA with given qnID into the knowledge base."""
 
         # request parameters
         username = request.data['username']
@@ -195,6 +201,7 @@ class RetrieveAllQNA(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Retrieves all questions from knowledge base.""" 
 
         # request parameters
         username = request.data['username']
@@ -221,6 +228,7 @@ class RetrieveAllQNABy(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Retrieves all questions by views or date from knowledge base."""
 
         # request parameters
         username = request.data['username']
@@ -255,6 +263,7 @@ class AddUnansweredQuestion(CreateAPIView):
     queryset = db.unansweredQuestions.find()
 
     def post(self,request):
+        """Stores a new question by FO."""
 
         # request parameters
         question = request.data['question']
@@ -282,6 +291,7 @@ class RetrieveUnansweredQuestion(CreateAPIView):
     queryset = db.unansweredQuestions.find()
 
     def post(self,request):
+        """Retrieves all unanswered questions."""
 
         # request parameters
         username = request.data['username']
@@ -308,6 +318,7 @@ class DeleteUnansweredQuestion(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Deletes an unanswered question."""
 
         # request parameters
         qnID = request.data['qnID']
@@ -335,6 +346,7 @@ class incrementQNAViews(CreateAPIView):
     queryset = db.unansweredQuestions.find()
 
     def post(self,request):
+        """Increments question views."""
 
         # request parameters
         qnID = request.data['qnID']
@@ -365,6 +377,7 @@ class UserRetrieveAnswers(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Retrieves all QNA ask by given FO user."""
 
         # request parameters
         username = request.data['username']
@@ -390,6 +403,7 @@ class CMUserRetrieveAnswers(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Retrieves all QNA ask by given CM user."""
 
         # request parameters
         username = request.data['username']
@@ -419,6 +433,7 @@ class RetrieveFile(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Retrieves reg 51 PDF from server"""
 
         # request parameters
         username = request.data['username']

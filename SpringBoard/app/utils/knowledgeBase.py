@@ -18,6 +18,8 @@ db = client.SpringBoard
 tz = pytz.timezone('Asia/Singapore')
 
 def initialiseModel():
+    """Initialises NLU model."""
+
     global interpreter
     interpreter = Interpreter.load('./model/default/SpringBoardKMS/')
     return True
@@ -28,6 +30,12 @@ def initialiseModel():
 
 # delete qna
 def deleteQNA(qnID):
+    """Deletes QNA with the given qnID.
+    
+    Args:
+    qnID (str) : question ID 
+
+    """
 
     collection = db.KnowledgeBase
     deleted = collection.delete_one({"qnID": qnID})
@@ -41,6 +49,13 @@ def deleteQNA(qnID):
 
 # edit qna
 def editQNA(qna,username):
+    """Edits QNA.
+    
+    Args:
+    qna (dict) : updated QNA object 
+    username (str) : username of user editing
+
+    """
     
     collection = db.KnowledgeBase
 
@@ -48,9 +63,6 @@ def editQNA(qna,username):
     prevQNA = collection.find_one({"qnID":qna["qnID"]})
 
     qnID = qna["qnID"]
-
-    # delete existing qna
-    deleteQNA(qnID)
 
     # get timezone corrected date
     date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d %H:%M')
@@ -101,6 +113,13 @@ def editQNA(qna,username):
 
 # add answered question to knowledge base
 def addQNA(qna,username):
+    """Adds answered QNA to knowledge base.
+    
+    Args:
+    qna (dict) : QNA object 
+    username (str) : username of user 
+
+    """
 
     collection = db.KnowledgeBase
     qCollection = db.UnansweredQuestions
@@ -136,6 +155,13 @@ def addQNA(qna,username):
 
 # cm add question to knowledge base
 def cmAddQNA(qna,username):
+    """Adds QNA created by CM to knowledge base.
+    
+    Args:
+    qna (dict) : QNA object 
+    username (str) : username of CM 
+
+    """
 
     collection = db.KnowledgeBase
     uqCollection = db.UnansweredQuestions
@@ -176,6 +202,13 @@ def cmAddQNA(qna,username):
 
 # retrieve qna by qnID
 def retrieveQNA(qnID):
+    """Retrieves QNA with given qnID.
+    
+    Args:
+    qnID (str) : question ID
+
+    """
+
     collection = db.KnowledgeBase
 
     qna = collection.find_one({"qnID":int(qnID)},{"_id":0})
@@ -189,6 +222,13 @@ def retrieveQNA(qnID):
 
 # retrieve all qna
 def retrieveAllQNA(userType):
+    """Retrieves all QNA. Default sorting depends on user type.
+    
+    Args:
+    userType (str) : user type
+
+    """
+
     collection = db.KnowledgeBase
     viewTracker = db.ViewTracker
 
@@ -217,6 +257,14 @@ def retrieveAllQNA(userType):
 
 #sort qna
 def retrieveAllQNABy(retrieveBy,sortBy,filterRef):
+    """Retrieves all QNA with filter/sort.
+    
+    Args:
+    retrieveBy (str) : Intent/Category to filter by
+    sortBy (str) : Views or Date
+    filterRef (bool) : True = only return QNA with reg51 reference 
+
+    """
     collection = db.KnowledgeBase
     viewTracker = db.ViewTracker
 
@@ -256,6 +304,13 @@ def retrieveAllQNABy(retrieveBy,sortBy,filterRef):
 
 # get answers for specific question
 def getAnswer(question, num=10):
+    """Retrieve top "num" similar answers for the given question.
+    
+    Args:
+    question (str) : Search string
+    num (int) : Number of results to return
+
+    """
     
     from app.utils.trainModel import retrieveSynonyms
 
@@ -378,6 +433,14 @@ def getAnswer(question, num=10):
 
 # increment views of question
 def incrementViews(qnID,username):
+    """Increments the views of the question with the given qnID.
+    
+    Args:
+    qnID (str) : question ID
+    username (str) : username of user who viewed the question
+
+    """
+
     #collection = db.KnowledgeBase
     qnViewTracker = db.ViewTracker
 
@@ -435,6 +498,13 @@ def incrementViews(qnID,username):
 
 # add unanswered question
 def addQuestion(question,username):
+    """Stores question asked by FO.
+    
+    Args:
+    question (str) : question from FO
+    username (str) : username of user who asked
+
+    """ 
 
     counter = db.QuestionCounter
     collection = db.UnansweredQuestions
@@ -472,6 +542,7 @@ def addQuestion(question,username):
 
 # retrieve unanswered questions
 def retrieveUnanswered():
+    """Retrieves all unanswered questions."""
 
     collection = db.UnansweredQuestions
     
@@ -484,6 +555,12 @@ def retrieveUnanswered():
 
 # delete unanswered question
 def deleteUnanswered(qnID):
+    """Delete an unanswered question with the given qnID.
+    
+    Args:
+    qnID (str) : question ID
+
+    """
 
     collection = db.UnansweredQuestions
     
@@ -502,6 +579,13 @@ def deleteUnanswered(qnID):
 
 # retrieve all questions asked by user
 def userRetrieveAllQNA(username):
+    """Retrieve all questions asked by the given FO user.
+    
+    Args:
+    username (str) : username
+
+    """
+
     answeredCollection = db.KnowledgeBase
     unansweredCollection = db.UnansweredQuestions
     viewTracker = db.ViewTracker
@@ -531,6 +615,13 @@ def userRetrieveAllQNA(username):
 
 # retrieve all questions answered by user
 def cmUserRetrieveAllQNA(username):
+    """Retrieve all questions answered by the given CM user.
+    
+    Args:
+    username (str) : username
+
+    """
+
     answeredCollection = db.KnowledgeBase
     viewTracker = db.ViewTracker
 
@@ -564,27 +655,14 @@ def cmUserRetrieveAllQNA(username):
 #                            Helper methods                           #
 # ------------------------------------------------------------------- #
 
-def sortBySimilarity(match):
-    retMatch = []
-    if not match:
-        return retMatch
-    
-    retMatch.append(match[0])
-    for i in range(1,len(match)):
-        matchVal = match[i]
-        matchSim = matchVal.get("similarity")
-        for j, retMatchValue in enumerate(retMatch):
-            retMatchSim = retMatchValue.get("similarity")
-            if matchSim > retMatchSim:
-                retMatch.insert(j,match[i])
-                break
-            else:
-                retMatch.append(match[i])
-                break
-            
-    return retMatch
-
 def sortByViewsAndDate(qnaList):
+    """Sorts given QNA List by views then date.
+    
+    Args:
+    qnaList (list) : list of QNAs 
+
+    """
+
     if not qnaList:
         return qnaList
     retList = []
@@ -608,6 +686,13 @@ def sortByViewsAndDate(qnaList):
     return retList
 
 def sortByViews(qnaList):
+    """Sorts given QNA List by views.
+    
+    Args:
+    qnaList (list) : list of QNAs 
+
+    """
+
     if not qnaList:
         return qnaList
     retList = []
@@ -625,6 +710,13 @@ def sortByViews(qnaList):
     return retList
 
 def sortByDate(qnaList):
+    """Sorts given QNA List by date.
+    
+    Args:
+    qnaList (list) : list of QNAs 
+
+    """
+
     if not qnaList:
         return qnaList
     retList = []
@@ -642,6 +734,14 @@ def sortByDate(qnaList):
     return retList
 
 def getCosSimilarity(vec1, vec2):
+    """Calculates cosine similarity between 2 vectors.
+    
+    Args:
+    vec1 (Counter) : vector of first string
+    vec2 (Counter) : vector of second string
+
+    """
+     
     intersection = set(vec1.keys()) & set(vec2.keys())
     numerator = sum([vec1[x] * vec2[x] for x in intersection])
 
@@ -655,6 +755,13 @@ def getCosSimilarity(vec1, vec2):
         return float(numerator) / denominator
 
 def createVector(text):
+    """Creates a vector of the given text.
+    
+    Args:
+    text (str) : string to convert to vector
+
+    """
+    
     regex = re.compile(r'\w+')
     words = regex.findall(text)
     return Counter(words)
