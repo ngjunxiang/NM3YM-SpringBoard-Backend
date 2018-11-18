@@ -23,6 +23,7 @@ class CreateOnboard(CreateAPIView):
     queryset = db.Onboards.find()
 
     def post(self,request):
+        """Creates an onboard."""
 
         # request parameters
         onboard = request.data['checklist']
@@ -51,6 +52,7 @@ class ManageOnboard(CreateAPIView):
 
     #update onboard
     def post(self,request):
+        """Updates an onboard."""
 
         # request parameters
         obID = request.data['obID']
@@ -75,6 +77,7 @@ class ManageOnboard(CreateAPIView):
 
     #delete onboard
     def delete(self,request):
+        """Deletes an onboard."""
 
         # request parameters
         obID = request.data['obID']
@@ -102,6 +105,7 @@ class RetrieveAllOnboards(CreateAPIView):
     queryset = db.Onboards.find()
 
     def post(self,request):
+        """Retrieves all onboards involving the user."""
 
         # request parameters
         username = request.data['username']
@@ -129,6 +133,7 @@ class RetrieveSelectedOnboard(CreateAPIView):
     queryset = db.Onboards.find()
 
     def post(self,request):
+        """Retrieves the onboard with the given obID."""
 
         # request parameters
         obID = request.data['obID']
@@ -150,69 +155,12 @@ class RetrieveSelectedOnboard(CreateAPIView):
         client.close()
         return Response(results)
 
-
-# ------------------------------------------------------------------- #
-#                          Urgency Tracking                           #
-# ------------------------------------------------------------------- #
-
-class RetrieveUrgency(CreateAPIView):
-    serializer_class = CLSerializer
-    queryset = db.Onboards.find()
-
-    def post(self,request):
-
-        # request parameters
-        obID = request.data['obID']
-        username = request.data['username']
-        token = request.data['token']
-        userType = request.data['userType']
-
-        # authentication
-        tokenResults = tokenAuthenticate(username,token)
-        if(len(tokenResults) != 0):
-            client.close()
-            return Response(tokenResults)
-        if(not isFO(userType)):
-            client.close()
-            return Response({'error' : 'invalid userType'})
-
-        results = getUrgency(obID)
-
-        client.close()
-        return Response(results)
-
-class UpdateUrgency(CreateAPIView):
-    serializer_class = CLSerializer
-    queryset = db.Onboards.find()
-
-    def post(self,request):
-
-        # request parameters
-        obID = request.data['obID']
-        username = request.data['username']
-        token = request.data['token']
-        userType = request.data['userType']
-        urgency = request.data['urgency']
-
-        # authentication
-        tokenResults = tokenAuthenticate(username,token)
-        if(len(tokenResults) != 0):
-            client.close()
-            return Response(tokenResults)
-        if(not isFO(userType)):
-            client.close()
-            return Response({'error' : 'invalid userType'})
-
-        results = updateUrgency(obID,urgency)
-        
-        client.close()
-        return Response(results)
-
 class FilterSortOnboard(CreateAPIView):
     serializer_class = CLSerializer
     queryset = db.Onboards.find()
 
     def post(self,request):
+        """Retrieves sorted onboards."""
     
         # request parameters
         username = request.data['username']
@@ -241,6 +189,7 @@ class FilterByOnboard(CreateAPIView):
     queryset = db.Onboards.find()
 
     def post(self,request):
+        """Retrieves filtered onboards."""
     
         # request parameters
         username = request.data['username']

@@ -68,8 +68,6 @@ urlpatterns = [
     url(r'^fo/retrieve-notifications', notificationViews.FORetrieveNotifications.as_view()),
     url(r'^fo/retrieve-req51-notifications', notificationViews.FORetrieveReq51Notification.as_view()),
     url(r'^fo/update-notifications', notificationViews.FOUpdateNotification.as_view()),
-    url(r'^fo/update-urgency', onboardViews.UpdateUrgency.as_view()),
-    url(r'^fo/retrieve-urgency', onboardViews.RetrieveUrgency.as_view()),
     url(r'^fo/filtersort-onboard', onboardViews.FilterSortOnboard.as_view()),
     url(r'^fo/filterby-onboard', onboardViews.FilterByOnboard.as_view()),
 

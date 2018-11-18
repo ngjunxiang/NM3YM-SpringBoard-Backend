@@ -16,6 +16,13 @@ tz = pytz.timezone('Asia/Singapore')
 # ------------------------------------------------------------------- #
 
 def createNewOnBoard(input,username):
+    """Creates a new onboard.
+    
+    Args:
+    input (dict) : onboard details
+    username (str) : user creating the onboard
+
+    """
 
     collection = db.Onboards
     # urgentCollection = db.OnboardUrgentChecker
@@ -71,6 +78,13 @@ def createNewOnBoard(input,username):
 
 
 def updateSelectedOnboard(obID,input):
+    """Updates an onboard.
+    
+    Args:
+    obID (str) : onboard ID
+    input (dict) : updated onboard details
+
+    """
 
     collection = db.Onboards
 
@@ -130,6 +144,12 @@ def updateSelectedOnboard(obID,input):
     return results
 
 def deleteSelectedOnboard(obID):
+    """Deletes an onboard.
+    
+    Args:
+    obID (str) : onboard ID
+
+    """
 
     collection = db.Onboards
 
@@ -143,6 +163,12 @@ def deleteSelectedOnboard(obID):
     return results
 
 def getSelectedOnboard(obID):
+    """Retrieves an onboard with the given obID.
+    
+    Args:
+    obID (str) : onboard ID
+
+    """
 
     obCollection = db.Onboards
     clCollection = db.Checklists
@@ -242,6 +268,13 @@ def getSelectedOnboard(obID):
 # ------------------------------------------------------------------- #
 
 def getAllCurrentOnboards(username,userType):
+    """Get all current onboards related to the given user.
+    
+    Args:
+    username (str) : username
+    userType (str) : user type
+
+    """
 
     name = getName(username)
     collection = db.Onboards
@@ -264,6 +297,12 @@ def getAllCurrentOnboards(username,userType):
 
 # returns onboarding progress for given onboard
 def checkProgress(input):
+    """Checks progress of given onboard.
+    
+    Args:
+    input (dict) : onboard details
+
+    """
 
     compDocs = input["complianceDocuments"]
     legalDocs = input["legalDocuments"]
@@ -306,8 +345,14 @@ def checkProgress(input):
 # ------------------------------------------------------------------- #
     
 def getSortedOnboards(sortBy,obList):
+    """Sorts onboards by given condition.
+    
+    Args:
+    sortBy (str) : sorting condition
+    obList (list) : list of onboard objects
 
-    collection = db.Onboards
+    """
+
     obList = sortListBy(obList,sortBy)
 
     results = {}
@@ -317,8 +362,13 @@ def getSortedOnboards(sortBy,obList):
     return results
 
 def getFilteredOnboards(filterBy,obList):
+    """Filters onboards by given condition.
     
-    collection = db.Onboards
+    Args:
+    filterBy (str) : filter condition
+    obList (list) : list of onboard objects
+
+    """
     
     obList = filterListBy(obList,filterBy)
 
@@ -329,6 +379,13 @@ def getFilteredOnboards(filterBy,obList):
     return results
 
 def filterSort(obList):
+    """Default sorting by name.
+    
+    Args:
+    obList (list) : list of onboard objects
+
+    """
+
     if not obList:
         return obList
 
@@ -356,6 +413,14 @@ def filterSort(obList):
     return newObList
 
 def sortListBy(obList,sortBy):
+    """Sorts onboards by given condition.
+    
+    Args:
+    sortBy (str) : sorting condition
+    obList (list) : list of onboard objects
+
+    """
+
     if not obList:
         return obList
 
@@ -429,6 +494,14 @@ def sortListBy(obList,sortBy):
         return obList
 
 def filterListBy(obList,filterBy):
+    """Filters onboards by given condition.
+    
+    Args:
+    filterBy (str) : filter condition
+    obList (list) : list of onboard objects
+
+    """
+    
     if not obList:
         return obList
     
