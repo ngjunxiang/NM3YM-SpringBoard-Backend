@@ -113,7 +113,6 @@ def updateCheckList(input,name,clID,version,createdDate,createdBy):
                 checkBool = createNotification(clID,str(version),str(latestDocID),2,input)
                 latestDocID += 1
             elif changedVal != 0:
-                print(changedVal)
                 docID = document.get("docID")
                 checkBool = createNotification(clID,str(version),docID,changedVal,input)
             index += 1

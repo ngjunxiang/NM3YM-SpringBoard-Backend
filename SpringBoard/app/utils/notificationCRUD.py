@@ -28,10 +28,7 @@ def createNotification(clID,version,docID,changed,input):
     notification = {}
     notification["noID"] = noID
     notification["clID"] = clID
-    if changed == 3:
-        notification["version"] = str(int(version)-1)
-    else:
-        notification["version"] = version
+    notification["version"] = version
     notification["docID"] = docID
     rms = []
     usernameList = []
@@ -557,8 +554,9 @@ def sortNotifications(notificationList):
                 elif itemDocID < docID:
                     sortedList.insert(j,notificationList[i])
                     break
-            else:
+            if j == len(sortedList)-1:
                 sortedList.append(notificationList[i])
+                break
 
     return sortedList
         
