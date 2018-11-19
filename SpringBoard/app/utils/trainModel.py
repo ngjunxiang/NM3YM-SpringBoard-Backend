@@ -16,6 +16,8 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
 def createTrainingFile():
+    """Creates files required to train the model."""
+
     collection = db.StoreIntents
 
     training_data = collection.find({},{"_id":0,"qnID":0})
@@ -33,6 +35,7 @@ def createTrainingFile():
 
 @background(schedule=5)
 def trainModel():
+    """Schedules training."""    
     try:
         # train model
         training_data = load_data('./app/data/training_data.json')
@@ -62,13 +65,22 @@ def trainModel():
 
 
 def trainKMSModel():
+    """Creates training file and schedules training."""
+
     createTrainingFile()
     trainModel()
 
     return ({"results":"model is currently training"})
 
 def updateSynonyms(synonymDict):
+    """Updates synonym mapping.
+    
+    Args:
+    synonymDict (dict) : updated synonym map
 
+    """
+
+    # value -> synonyms to synonym -> value
     reversedDict={}
     for k,v in synonymDict.items(): 
         for value in v:
@@ -86,6 +98,8 @@ def updateSynonyms(synonymDict):
     return ({"results":"true"})
 
 def retrieveSynonyms():
+    """Retrieves synonym mapping."""
+
     # get entity synonyms
     with open('./app/data/master_entity_synonyms.json') as f:
         master_entity_synonyms = json.load(f)
@@ -98,6 +112,8 @@ def retrieveSynonyms():
     return (OrderedDict(sorted(reversedDict.items(), key=lambda t: t[0])))
 
 def retrieveEntities():
+    """Retrieves all existing entities."""
+
     collection = db.KnowledgeBase
 
     table = collection.find({},{"_id":0})
@@ -123,6 +139,7 @@ def retrieveEntities():
     return ({"results": OrderedDict(sorted(entityDict.items(), key=lambda t: t[0]))})
 
 def retrieveIntents():
+    """Retrieves all existing intents."""
     collection = db.KnowledgeBase
 
     table = collection.find({},{"_id":0})
@@ -142,6 +159,13 @@ def retrieveIntents():
 
 # retrieve questions by intent
 def retrieveByIntent(intent):
+    """Retrieves questions with given intent.
+    
+    Args:
+    intent (str) : intent
+
+    """
+
     collection = db.KnowledgeBase
 
     table = collection.find({"intent" : intent},{"_id":0})
@@ -150,8 +174,10 @@ def retrieveByIntent(intent):
     client.close()
     return ({"results": qnaList})
 
-# retrieve uncleaned qna (e.g. no intent) 5 at a time
+# retrieve uncleaned qna (e.g. no intent) one at a time
 def retrieveAllUnclean():
+    """Retrieves one unclean QNA."""
+
     collection = db.KnowledgeBase
 
     table = collection.find({"intent": { "$exists": False }},{"_id":0}).limit(1)
@@ -166,6 +192,8 @@ def retrieveAllUnclean():
 
 # retrieve all cleaned qna
 def retrieveAllClean():
+    """Retrieves all cleaned QNA."""
+
     collection = db.KnowledgeBase
 
     table = collection.find({"intent": { "$exists": True }},{"_id":0})
@@ -178,6 +206,13 @@ def retrieveAllClean():
     return results
 
 def storeCleanedQNA(cleanedQNA):
+    """Stores clean QNA.
+    
+    Args:
+    cleanedQNA (list) : cleaned QNAs
+
+    """
+
     collection = db.StoreIntents
     kbCollection = db.KnowledgeBase
 
@@ -185,6 +220,8 @@ def storeCleanedQNA(cleanedQNA):
     failedQnNums = []
     success = False
     toStore = {}
+
+    # manipulate QNA object
     for item in cleanedQNA:
         intent = item["intent"]
         question = item["question"]
@@ -195,6 +232,7 @@ def storeCleanedQNA(cleanedQNA):
         toStore["entities"] = []
         entities = item["entities"]
         storedEntities = {}
+        
         for entity in entities:
             word = entity["word"]
             index = question.find(word)
@@ -209,6 +247,7 @@ def storeCleanedQNA(cleanedQNA):
             entitiesList = toStore["entities"]
             entitiesList.append(entityObj)
             toStore["entities"] = entitiesList
+            
             if ent in storedEntities:
                 entList = storedEntities[ent]
                 entList.append(val)
@@ -217,12 +256,14 @@ def storeCleanedQNA(cleanedQNA):
                 newList = []
                 newList.append(val)
                 storedEntities[ent] = newList
+        
         try:
             collection.insert_one(toStore)
             storeCounter += 1
             success = True
         except:
             failedQnNums.append(question)
+        
         if success:
             kbCollection.update_one({'qnID':qnID},{"$set" : {'intent':intent,'entities':storedEntities}})
             success = False
@@ -231,4 +272,5 @@ def storeCleanedQNA(cleanedQNA):
     results = {}
     results["StoredCount"] = storeCounter
     results["failedQnNums"] = failedQnNums
+    
     return results

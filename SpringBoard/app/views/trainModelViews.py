@@ -19,6 +19,7 @@ class TrainKMSModel(CreateAPIView):
     queryset = db.KnowledgeBase.find()
 
     def post(self,request):
+        """Schedules model to be trained."""
 
         # request parameters
         username = request.data['username']
@@ -44,6 +45,7 @@ class UpdateSynonyms(CreateAPIView):
     queryset = db.KnowledgeBase.find()
 
     def post(self,request):
+        """Updates synonym mapping."""
 
         # request parameters
         username = request.data['username']
@@ -70,6 +72,7 @@ class RetrieveSynonyms(CreateAPIView):
     queryset = db.KnowledgeBase.find()
 
     def post(self,request):
+        """Retrieves synonym mapping."""
 
         # request parameters
         username = request.data['username']
@@ -95,6 +98,7 @@ class RetrieveEntities(CreateAPIView):
     queryset = db.KnowledgeBase.find()
 
     def post(self,request):
+        """Retrieve existing entities."""
 
         # request parameters
         username = request.data['username']
@@ -120,6 +124,7 @@ class RetrieveIntents(CreateAPIView):
     queryset = db.KnowledgeBase.find()
 
     def post(self,request):
+        """Retrieve existing intents."""
 
         # request parameters
         username = request.data['username']
@@ -145,6 +150,7 @@ class RetrieveByIntent(CreateAPIView):
     queryset = db.KnowledgeBase.find()
 
     def post(self,request):
+        """Retrieve questions by intent."""
 
         # request parameters
         username = request.data['username']
@@ -172,6 +178,7 @@ class RetrieveAllUncleanQNA(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Retrieve all unclean QNA."""
 
         # request parameters
         username = request.data['username']
@@ -198,6 +205,7 @@ class RetrieveAllCleanQNA(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Retrieve all clean QNA."""
 
         # request parameters
         username = request.data['username']
@@ -224,6 +232,7 @@ class StoreCleanedQNA(CreateAPIView):
     queryset = db.knowledgeBase.find()
 
     def post(self,request):
+        """Store cleaned QNA."""
 
         # request parameters
         username = request.data['username']
