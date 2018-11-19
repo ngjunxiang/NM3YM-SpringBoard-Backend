@@ -20,6 +20,7 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
 
     #create user
     def post(self,request):
+        """Creates a new user."""
 
         # request parameters
         username = request.data['username']
@@ -57,6 +58,7 @@ class ManageUsers(CreateAPIView,DestroyAPIView):
 
     #delete user
     def delete(self,request):
+        """Deletes a user."""
 
         # request parameters
         username = request.data['username']
@@ -85,6 +87,7 @@ class UpdateUsers(CreateAPIView):
 
     #update user
     def post(self,request):
+        """Updates a user password."""
 
         # request parameters
         username = request.data['username']
@@ -117,6 +120,7 @@ class FORetrieveRMNames(CreateAPIView):
     queryset = db.Users.find()
 
     def post(self,request):
+        """Retrieve all RM names."""
 
         # request parameters
         username = request.data['username']
@@ -141,6 +145,7 @@ class RetrieveDetails(CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self, request):
+        """Retrieves user details."""
 
         # request parameters
         username = request.data['username']
@@ -162,6 +167,7 @@ class RetrieveUsers(CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self, request):
+        """Retrieves all users."""
 
         # request parameters
         username = request.data['username']
