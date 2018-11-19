@@ -264,12 +264,12 @@ def logCheckList(clID,toDelete = False):
     toDelete (bool) : True if deletion, False(default) if update
     
     """
-
+    currCollection = db.Checklists
     collection = db.ChecklistLogs
     onboardCollection = db.Onboards
 
     # retrieve checklist with given ID
-    prevChecklist = collection.find_one({'clID':clID},{"_id":0})
+    prevChecklist = currCollection.find_one({'clID':clID},{"_id":0})
     if prevChecklist == None:
         return {'error' : 'Invalid Checklist ID' }
     
