@@ -268,8 +268,12 @@ def logCheckList(clID,toDelete = False):
     collection = db.ChecklistLogs
     onboardCollection = db.Onboards
 
+    # retrieve checklist with given ID
+    prevChecklist = collection.find_one({'clID':clID},{"_id":0})
+    if prevChecklist == None:
+        return {'error' : 'Invalid Checklist ID' }
+    
     # check if this checklist exists
-    prevChecklist = retrieveCheckList(clID)
     if('error' in prevChecklist):
         client.close()
         return prevChecklist
