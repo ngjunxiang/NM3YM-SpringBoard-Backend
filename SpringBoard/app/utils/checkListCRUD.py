@@ -244,6 +244,7 @@ def retrieveCheckList(clID):
         docArray = []
         for document in value:
             if document.get("changed") != "3":
+                document["changed"] = "0"
                 docArray.append(document)
         results["complianceDocuments"][section] = docArray
 
@@ -251,6 +252,7 @@ def retrieveCheckList(clID):
         docArray = []
         for document in value:
             if document.get("changed") != "3":
+                document["changed"] = "0"
                 docArray.append(document)
         results["legalDocuments"][section] = docArray
 
