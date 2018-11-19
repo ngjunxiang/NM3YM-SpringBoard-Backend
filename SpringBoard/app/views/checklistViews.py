@@ -213,6 +213,36 @@ class CMRetrieveLoggedLists(CreateAPIView):
         client.close()
         return Response(results)
 
+# Restores a logged checklist
+class CMRestoreChecklist(CreateAPIView):
+    serializer_class = CLSerializer
+    queryset = db.ChecklistLogs.find()
+
+    def post(self,request):
+        """Restore checklist from log with the specific clID and version."""
+
+        # request parameters
+        username = request.data['username']
+        token = request.data['token']
+        userType = request.data['userType']
+        clID = request.data['clID']
+        version = request.data['version']
+
+        # authentication
+        tokenResults = tokenAuthenticate(username,token)
+        if(len(tokenResults) != 0):
+            client.close()
+            return Response(tokenResults)
+        if(not isCM(userType)):
+            client.close()
+            return Response({'error' : 'invalid userType'})
+
+        results = {}
+        results["results"] = restoreCheckList(clID,version)
+
+        client.close()
+        return Response(results)
+
 # Returns all checklist names for CMs
 class CMRetrieveCLNames(CreateAPIView):
      serializer_class = CLSerializer

@@ -376,6 +376,7 @@ def retrieveLoggedCheckLists(clID,version):
     Args: 
     clID (str) : checklist ID
     version (str) : version
+
     """
     
     collection = db.Checklists
@@ -387,6 +388,47 @@ def retrieveLoggedCheckLists(clID,version):
     # if doesnt exist, check logs
     if results == None:
         results = logCollection.find_one({"clID":clID,"version":version},{"_id":0})
+
+    client.close()
+    return results
+
+
+def restoreCheckList(clID,version):
+    """Restores specific checklist.
+
+    Args: 
+    clID (str) : checklist ID
+    version (str) : version
+
+    """
+    
+    collection = db.Checklists
+    logCollection = db.ChecklistLogs
+
+    # retrieves the specific checklist
+    checklist = logCollection.find_one({"clID":clID,"version":version},{"_id":0})
+    
+    # if it is a deleted checklist
+    if checklist["status"] == "deleted":
+        checklist["status"] = "valid"
+        logCollection.update({"clID":clID, "version":version}, {"status": "valid"})
+        latestVer = checklist["version"]
+    else:
+        latestVer = collection.find_one({"clID":clID},{"version":1})
+        logCheckList(clID)
+        deleteCheckList(clID)
+    
+    # initialise as latest version
+    checklist["version"] = int(latestVer) + 1
+
+    results = {}
+    
+    # insert checklist 
+    try:
+        collection.insert_one(checklist)
+        results['results'] = 'true' 
+    except Exception as e:
+        results['error'] = str(e)
 
     client.close()
     return results
