@@ -13,6 +13,18 @@ db = client.SpringBoard
 tz = pytz.timezone('Asia/Singapore')
 
 def createNotification(clID,version,docID,changed,input):
+
+    """Inserts a new checklist update notification into the DB.
+
+    Args:
+    clID (str) : ID of the checklist used to identify checklist that was changed
+    version (str) : version of the checklist to which change was made
+    docID (str) : ID of the document that was changed within the checklist
+    changed (int) : the type of changed that was implemented 1: new, 2: edited, 3: deleted
+    input (Dict) : updated checklist as a json object
+
+    """  
+
     if changed!=3 and not getSelectedNotification(clID,docID,input):
         return False
 
@@ -52,6 +64,15 @@ def createNotification(clID,version,docID,changed,input):
     return True
 
 def createQuestionNotifications(question,username,qnID):
+    """Inserts a new question notification to notify CMs of questions asked by the FO into the DB.
+
+    Args:
+    question (str) : the question that was asked by FO
+    username (str) : username of the FO that asked the question
+    qnID (int) : ID of the question that was asked
+
+    """  
+
     collection = db.QuestionNotifications
     counter = db.QuestionNotificationCounter
 
@@ -86,6 +107,14 @@ def createQuestionNotifications(question,username,qnID):
     return True
 
 def createAnswerNotifications(qna):
+
+    """Inserts a new answered question notification to notify FO that the question asked was answered by the CM into the DB.
+
+    Args:
+    qna (Dict) : answered question as a json object
+
+    """  
+
     collection = db.AnswerNotifications
     counter = db.AnswerNotificationCounter
     questionCollection = db.QuestionNotifications
@@ -114,6 +143,11 @@ def createAnswerNotifications(qna):
     return True
 
 def createReq51UploadNotification():
+
+    """Inserts an alert that the Req51 has been updated into the DB.
+
+    """ 
+
     collection = db.Req51Notifications
 
     date = datetime.datetime.now(pytz.utc).astimezone(tz).strftime('%Y-%m-%d')
@@ -136,6 +170,14 @@ def createReq51UploadNotification():
 
 
 def createQnAUpdateNotification(qnID):
+
+    """Inserts a notification to notify FOs of any qna updates by the CMs into the DB.
+
+    Args:
+    qnID (int) : ID of the question that has its answer updated
+
+    """ 
+
     collection = db.QnANotifications
     counter = db.QnANotificationCounter
     viewTracker = db.ViewTracker
@@ -186,6 +228,12 @@ def createQnAUpdateNotification(qnID):
     return True
 
 def getAllNotifications(username):
+    """Get all notifications for FOs.
+
+    Args:
+    username (str) : username of FO using the system
+
+    """ 
     collection = db.Notifications
 
     table = collection.find({"RMs.username":username},{"_id":0,"clID":1,"version":1,"docID":1,"RMs.changed":1})
@@ -216,6 +264,12 @@ def getAllNotifications(username):
     return results
 
 def getFONotifications(username):
+    """Get all notifications for FOs.
+
+    Args:
+    username (str) : username of FO using the system
+
+    """ 
     collection = db.Notifications
     ansCollection = db.AnswerNotifications
     qnaCollection = db.QnANotifications
@@ -290,6 +344,12 @@ def getFONotifications(username):
     return results
 
 def getCMNotifications(username):
+    """Get all notifications for CMs.
+
+    Args:
+    username (str) : username of CM using the system
+
+    """ 
     collection = db.QuestionNotifications
 
     allNoti = collection.find({"CMs.username":username},{"_id":0,"noID":1,"qnID":1,"question":1,"CMs":1,"isAnswered":1,"usernameList":1}).sort("noID",pymongo.DESCENDING)
@@ -336,6 +396,9 @@ def getCMNotifications(username):
     return results
 
 def getReg51Notification():
+    """Get Reg51 update notifications.
+
+    """ 
     collection = db.Req51Notifications
 
     reg51Notification = collection.find_one({},{"_id":0})
@@ -378,6 +441,12 @@ def getReg51Notification():
 #     return results
 
 def updateChecklistNotification(username):
+    """Update DB that user has checked all checklist notifications.
+
+    Args:
+    username (str) : username of FO using the system
+
+    """ 
     collection = db.Notifications
 
     try:
@@ -387,6 +456,12 @@ def updateChecklistNotification(username):
     return True
 
 def updateReq51Notification(triggerNoti):
+    """Update DB to no longer show Req51 notification to all users.
+
+    Args:
+    triggerNoti (bool) : True to show notification, False to not show notification
+
+    """
     collection = db.Req51Notifications
     dateCheck = collection.find_one({},{"_id":0,"date":1})
     if dateCheck:
@@ -401,6 +476,12 @@ def updateReq51Notification(triggerNoti):
     return True
 
 def updateAnswerNotification(username):
+    """Update DB that user has checked all checklist notifications.
+
+    Args:
+    username (str) : username of FO using the system
+
+    """ 
     collection = db.AnswerNotifications
 
     try:
@@ -410,6 +491,12 @@ def updateAnswerNotification(username):
     return True
 
 def updateCMNotification(username):
+    """Update DB that user has checked all checklist notifications.
+
+    Args:
+    username (str) : username of CM using the system
+
+    """ 
     collection = db.QuestionNotifications
 
     try:
@@ -419,6 +506,12 @@ def updateCMNotification(username):
     return True
 
 def updateQnANotification(username):
+    """Update DB that user has checked all checklist notifications.
+
+    Args:
+    username (str) : username of FO using the system
+
+    """ 
     collection = db.QnANotifications
     try:
         results = collection.update({"FOs.username":username},{'$set':{"FOs.$.checked":True}},multi=True)
@@ -426,7 +519,19 @@ def updateQnANotification(username):
         return False
     return True
 
+# ------------------------------------------------------------------- #
+#                          Helper Methods                             #
+# ------------------------------------------------------------------- #
+
 def getChecklistForNotification(clID,version,docID):
+    """Retrieves the checklist to return to frontend to notify FO.
+
+    Args:
+    clID (str) : ID of the checklist used to identify checklist that was changed
+    version (str) : version of the checklist to which change was made
+    docID (str) : ID of the document that was changed within the checklist
+
+    """ 
     collection = db.Checklists
     results = {}
 
@@ -455,6 +560,15 @@ def getChecklistForNotification(clID,version,docID):
     return results
 
 def getLoggedChecklistForNotification(clID,version,docID,changed):
+    """Retrieves the checklist from logged checklist should checklist not be able to be found in the latest checklist version.
+
+    Args:
+    clID (str) : ID of the checklist used to identify checklist that was changed
+    version (str) : version of the checklist to which change was made
+    docID (str) : ID of the document that was changed within the checklist
+    changed (int) : the type of changed that was implemented 1: new, 2: edited, 3: deleted
+
+    """ 
     collection = db.ChecklistLogs
     results = {}
 
@@ -487,6 +601,16 @@ def getLoggedChecklistForNotification(clID,version,docID,changed):
     return results
 
 def getSelectedNotification(clID,docID,input):
+
+    """Verifies that updated changes are not already found in previous logged checklists for new and edited documents.
+
+    Args:
+    clID (str) : ID of the checklist used to identify checklist that was changed
+    docID (str) : ID of the document that was changed within the checklist
+    input (Dict) : updated checklist as a json object
+
+    """  
+
     logCollection = db.ChecklistLogs
     clCollection = db.Checklists
 
@@ -525,9 +649,17 @@ def getSelectedNotification(clID,docID,input):
     return True
 
 
-#sorting methods
+# ------------------------------------------------------------------- #
+#                          Sorting Methods                            #
+# ------------------------------------------------------------------- #
 
 def sortNotifications(notificationList):
+    """Sorts checklist notifications by date then docID.
+
+    Args:
+    notificationList (list) : list of notifications that are unsorted
+
+    """  
     if not notificationList:
         return notificationList
     sortedList = []
