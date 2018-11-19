@@ -22,6 +22,7 @@ class UploadAgmtCodes(CreateAPIView):
     queryset = db.AgmtCodes.find()
 
     def post(self,request):
+        """Extract Agmt Codes into DB."""
 
         # request parameters
         username = request.data['username']
@@ -56,7 +57,7 @@ class UploadAgmtCodes(CreateAPIView):
             return Response({'error':'file may be corrupted, check file format and try again.'})
 
         results = {}
-        agmtResults = bootstrapAgmt(file,filename)
+        agmtResults = bootstrapAgmt(filename)
 
         if "error" in agmtResults.keys():
             client.close()
@@ -72,6 +73,8 @@ class UploadReg51(CreateAPIView):
     queryset = db.AgmtCodes.find()
 
     def post(self,request):
+        """Stores latest reg 51 in the server."""
+
          # request parameters
         username = request.data['username']
         token = request.data['token']
@@ -111,6 +114,7 @@ class RetrieveAgmtCodes(CreateAPIView):
     queryset = db.AgmtCodes.find()
 
     def post(self,request):
+        """Retrieves Agmt Codes."""
         
         # request parameters
         username = request.data['username']
@@ -138,6 +142,7 @@ class RetrieveReg51PageCount(CreateAPIView):
     queryset = db.AgmtCodes.find()
 
     def post(self,request):
+        """Retrieve number of pages in reg 51."""
         
         # request parameters
         username = request.data['username']

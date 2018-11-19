@@ -7,7 +7,13 @@ import json
 client = MongoClient('mongodb://localhost:27017/')
 db = client.SpringBoard
 
-def bootstrapAgmt(file,filename):
+def bootstrapAgmt(filename):
+    """Stores Agmt codes into the DB.
+    
+    Args:
+    filename (str) : filename
+
+    """
 
     # clear prev bootstrap
     collection = db.AgmtCodes
@@ -90,6 +96,7 @@ def bootstrapAgmt(file,filename):
     return results
 
 def retrieveAgmt():
+    """Retrieves Agmt codes from the DB."""
 
     collection = db.AgmtCodes
 
