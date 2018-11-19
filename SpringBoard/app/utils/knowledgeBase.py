@@ -74,8 +74,10 @@ def editQNA(qna,username):
         "CMusername": prevQNA["CMusername"],
         "dateAnswered": prevQNA["dateAnswered"],
         "refPages": prevQNA["refPages"],
-        "qnIDRef": prevQNA["qnIDRef"],
     }
+
+    if prevQNA.get("qnIDRef") != None:
+        prevAnswer["qnIDRef"] = prevQNA["qnIDRef"]
 
     if "prevAnswer" in prevQNA:
         prevQNAs = prevQNA["prevAnswer"]

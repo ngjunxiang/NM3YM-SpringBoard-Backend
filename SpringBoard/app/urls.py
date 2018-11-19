@@ -45,6 +45,7 @@ urlpatterns = [
     url(r'^cm/retrieve-checklistNames', checklistViews.CMRetrieveCLNames.as_view()),
     url(r'^cm/retrieve-loggedLists', checklistViews.CMRetrieveLoggedLists.as_view()),
     url(r'^cm/retrieve-clIDWithVersion', checklistViews.CMRetrieveNamesAndVersions.as_view()),
+    url(r'^cm/revert-checklist', checklistViews.CMRestoreChecklist.as_view()),
     url(r'^cm/upload-AgmtCodes', uploadViews.UploadAgmtCodes.as_view()),
     url(r'^cm/upload-reg51', uploadViews.UploadReg51.as_view()),
     url(r'^cm/retrieve-AgmtCodes', uploadViews.RetrieveAgmtCodes.as_view()),
