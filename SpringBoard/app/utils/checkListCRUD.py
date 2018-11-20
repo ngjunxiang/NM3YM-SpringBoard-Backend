@@ -393,7 +393,7 @@ def retrieveLoggedCheckLists(clID,version):
     return results
 
 
-def restoreCheckList(clID,version):
+def restoreCheckList(clID,version,name):
     """Restores specific checklist.
 
     Args: 
@@ -409,26 +409,85 @@ def restoreCheckList(clID,version):
     checklist = logCollection.find_one({"clID":clID,"version":version},{"_id":0})
     
     # if it is a deleted checklist
-    if checklist["status"] == "deleted":
+    if checklist.get("status") == "deleted":
+        #change status back to valid and reinsert before deleting
         checklist["status"] = "valid"
-        logCollection.update({"clID":clID, "version":version}, {"status": "valid"})
-        latestVer = checklist["version"]
-    else:
-        latestVer = collection.find_one({"clID":clID},{"version":1})
+        results = {}
+        try:
+            collection.insert_one(checklist)
+            logCollection.delete_one({"clID":clID,"version":version})
+            results['results'] = 'true' 
+        except Exception as e:
+            results['error'] = str(e)
+        
+    
+    else: # match to previous versions
+
+        latestVer = collection.find_one({"clID":clID},{"_id":0})
+        if not latestVer:
+            return {"error":"Restore failed"}
+        latestVer = int(latestVer["version"])
+        newVer = latestVer + 1
         logCheckList(clID)
         deleteCheckList(clID)
-    
-    # initialise as latest version
-    checklist["version"] = int(latestVer) + 1
 
-    results = {}
-    
-    # insert checklist 
-    try:
-        collection.insert_one(checklist)
-        results['results'] = 'true' 
-    except Exception as e:
-        results['error'] = str(e)
+        latestCL = logCollection.find_one({"clID":clID, "version":str(latestVer)},{"_id":0})
+        prevCL = logCollection.find_one({"clID":clID, "version":str(version)},{"_id":0})
 
+        # check if every item in old checklist is in latest checlist
+        for section,value in prevCL["complianceDocuments"].items():
+            index = 0
+            for document in value:
+                exists = False
+                for item in latestCL["complianceDocuments"][section]:
+                    if item["docID"] == document["docID"]:
+                        exists = True
+                        # check if remarks the same
+                        if item["remarks"] != document["remarks"]:
+                            prevCL["complianceDocuments"][section][index]["changed"] = "1"
+
+                if not exists: # means it is a deleted item, add it back
+                    prevCL["complianceDocuments"][section][index]["changed"] = "2"
+                index += 1
+        
+        for section,value in prevCL["legalDocuments"].items():
+            index = 0
+            for document in value:
+                exists = False
+                for item in latestCL["legalDocuments"][section]:
+                    if item["docID"] == document["docID"]:
+                        exists = True
+                        # check if remarks the same
+                        if item["remarks"] != document["remarks"]:
+                            prevCL["legalDocuments"][section][index]["changed"] = "1"
+                if not exists: 
+                    prevCL["legalDocuments"][section][index]["changed"] = "2"
+                index += 1
+        
+        # check if every item in latest checklist is in old checlist
+        for section,value in latestCL["complianceDocuments"].items():
+            for document in value:
+                exists = False
+                for item in prevCL["complianceDocuments"][section]:
+                    if item["docID"] == document["docID"]:
+                        exists = True
+                if not exists: 
+                    document["changed"] = "3"
+                    prevCL["complianceDocuments"][section].append(document)
+        
+        for section,value in latestCL["legalDocuments"].items():
+            for document in value:
+                exists = False
+                for item in prevCL["legalDocuments"][section]:
+                    if item["docID"] == document["docID"]:
+                        exists = True
+                if not exists: 
+                    document["changed"] = "3"
+                    prevCL["legalDocuments"][section].append(document)
+                
+        
+        return updateCheckList(json.dumps(prevCL),name,clID,newVer,prevCL["dateCreated"],prevCL["createdBy"])
+
+           
     client.close()
     return results
