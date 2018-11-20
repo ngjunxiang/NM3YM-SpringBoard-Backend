@@ -282,7 +282,7 @@ def mostRecentAnswerQuestions(username):
 
     collection = db.KnowledgeBase
 
-    table = collection.find({"username":username},{"_id":0,"qnID":1,"question":1,"dateAnswered":1,"qnIDRef":1})
+    table = collection.find({"username":username},{"_id":0,"qnID":1,"question":1,"dateAnswered":1,"qnIDRef":1,"answer":1})
     qnList = [item for item in table]
     sortedQnList = []
     if not qnList:
