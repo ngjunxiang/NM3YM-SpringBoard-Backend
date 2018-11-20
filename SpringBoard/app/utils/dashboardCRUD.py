@@ -278,6 +278,32 @@ def mostPopularQuestions():
 
     return viewTrackerList[:5]
 
+def mostRecentAnswerQuestions(username):
+
+    collection = db.KnowledgeBase
+
+    table = collection.find({"username":username},{"_id":0,"qnID":1,"question":1,"dateAnswered":1})
+    qnList = [item for item in table]
+    sortedQnList = []
+    sortedQnList.append(qnList[0])
+
+    for i in range(1,len(qnList)):
+        date = qnList[i]["dateAnswered"]
+        dateInDateTime = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M')
+        for j, item in enumerate(sortedQnList):
+            sortedDate = item["dateAnswered"]
+            sortedDateInDateTime = datetime.datetime.strptime(sortedDate, '%Y-%m-%d %H:%M')
+            if sortedDateInDateTime >=  dateInDateTime:
+                sortedQnList.insert(j,qnList[i])
+                break
+            if j == len(sortedQnList)-1:
+                sortedQnList.append(qnList[i])
+                break
+
+    return sortedQnList[:5]
+
+
+
 def sortQNAListByViews(qnaList):
     """Retrieves the most viewed questions.
 

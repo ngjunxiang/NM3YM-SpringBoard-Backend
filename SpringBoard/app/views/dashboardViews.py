@@ -45,6 +45,7 @@ class FODashboard(CreateAPIView):
         results["docChanges"] = changesInChecklists(username)
         results["clientsAffected"] = clientsAffectedByChanges(username, userType)
         results["pendingClients"] = getAllPendingClients(username, userType)
+        results["recentlyAnswerQuestions"] = mostRecentAnswerQuestions(username)
 
         client.close()
         return Response(results)
