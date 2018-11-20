@@ -238,7 +238,7 @@ class CMRestoreChecklist(CreateAPIView):
             return Response({'error' : 'invalid userType'})
 
         results = {}
-        results["results"] = restoreCheckList(clID,version)
+        results["results"] = restoreCheckList(clID,version,username)
 
         client.close()
         return Response(results)
