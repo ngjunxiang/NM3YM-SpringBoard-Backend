@@ -245,7 +245,7 @@ def mostRecentQuestions():
     if unansweredCount < 10:
         qnaCollection = db.KnowledgeBase
         limit = 10 - unansweredCount
-        qnaTable = qnaCollection.find({},{"_id":0,"qnID":1,"question":1,"answer":1}).sort("qnID",pymongo.DESCENDING).limit(limit)
+        qnaTable = qnaCollection.find({},{"_id":0,"qnID":1,"question":1,"answer":1,"qnIDRef":1}).sort("qnID",pymongo.DESCENDING).limit(limit)
 
         for item in qnaTable:
             questionList.append(item)
@@ -268,7 +268,7 @@ def mostPopularQuestions():
         newQNA["viewCount"] = viewsCount
         qnID = item["qnID"]
         newQNA["qnID"] = qnID
-        kBObj = kBCollection.find_one({"qnID":qnID},{"_id":0,"question":1,"answer":1})
+        kBObj = kBCollection.find_one({"qnID":qnID},{"_id":0,"question":1,"answer":1,"qnIDRef":1})
         newQNA["question"] = kBObj["question"]
         newQNA["answer"] = kBObj["answer"]
         viewTrackerList.append(newQNA)
@@ -282,9 +282,11 @@ def mostRecentAnswerQuestions(username):
 
     collection = db.KnowledgeBase
 
-    table = collection.find({"username":username},{"_id":0,"qnID":1,"question":1,"dateAnswered":1})
+    table = collection.find({"username":username},{"_id":0,"qnID":1,"question":1,"dateAnswered":1,"qnIDRef":1})
     qnList = [item for item in table]
     sortedQnList = []
+    if not qnList:
+        return qnList
     sortedQnList.append(qnList[0])
 
     for i in range(1,len(qnList)):
